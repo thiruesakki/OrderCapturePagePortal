@@ -1,0 +1,280 @@
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin #accordion .adminOptions{color:#ffc000 !important; font-size:14px;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin #accordion .adminOptions .fa-trophy {color:#ffc000 !important;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin #accordion .allUsersAccordian  .fa-user-o{color:#ffc000 !important;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin #accordion .allUsersAccordian:hover {background: #ed1b24;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin #accordion .adminHeading .fa-home{color:#ffc000 !important;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin #accordion .adminHeading{border-top: 1px solid #ed1b24; margin-top: 16px;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin #accordion .adminHeading a{margin-top: 16px;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin .technicialLeftAccordianPane .allUsersAccordian {color: white; text-transform: none; padding: 10px 0 10px 10px !important;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin .technicialLeftAccordianPane .allUsersAccordian .fa-angle-left{padding-left: 50px;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin .technicialLeftAccordianPane .allUsersAccordian.awardAccordian .fa-angle-left{padding-left: 60px;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin .technicialLeftAccordianPane .allUserOptions  li span i{float:left !important; padding: 10px 0px 0px 25px !important;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin .technicialLeftAccordianPane .allUserOptions li a{padding: 10px 0 10px 35px !important; font-size:12px;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin  .awards .awardList{ color: white; text-transform: none; padding: 10px 0 10px 10px !important;} 
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin  .awards .awardList .fa-angle-left{padding-left: 50px;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin  .awards .awardList .fa-trophy{color:#ffc000;}
+.technicialMiddleWrapper .leftMenuPane.techinicianlogin  .awards .awardList span{color:#ffc000; font-size:14px;}
+
+
+
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane ul li{list-style:none;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead table{border: 1px solid #d3d7e0;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead thead{height:55px;padding: 0px; border-bottom: none;font-size: 10px;display: block;background: linear-gradient(#fff, #dadee8);}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead ul li{float:left; font-size:12px; margin:0px !important;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead ul{margin: 0px;padding: 0px; float:left;}
+
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead thead th{font-size:12px;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead thead  tr th{height:55px;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(1){width:175px; float: left; padding: 17px  0px 13px 13px; position: relative; border-right: 1px solid #ccc; border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(2){width:124px; float: left; padding: 17px  0px 13px 13px; position: relative; border-right: 1px solid #ccc; border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(3){width:115px; float: left; padding: 17px  0px 13px 13px; position: relative; border-right: 1px solid #ccc; border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(4){width:157px; float: left; padding: 17px  0px 13px 13px; position: relative; border-right: 1px solid #ccc; border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(5){width:79px; float: left; padding:  12px  0px 13px 13px; position: relative; border-right: 1px solid #ccc;  border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(6){width:76px; float: left; padding:  12px  0px 13px 13px; position: relative; border-right: 1px solid #ccc;  border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(7){width:93px; float: left; padding:  12px  0px 13px 13px; position: relative; border-right: 1px solid #ccc;  border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(8){width:92px; float: left; padding:  12px  0px 13px 13px; position: relative; }
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead .fa-sort-desc{position: absolute;top: 14px;right: 6px;}
+
+
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable tbody ul{float:left; margin: 0px;padding: 0px;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable tbody ul li{float:left; border-bottom: 1px solid #ccc;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable tbody ul li span{padding: 10px 0px 10px 10px;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody tr td{font-size: 12px;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td a{color: #03488e;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(1){width:175px; float: left;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(2){width:124px; float: left;text-decoration: underline; color: #03488e;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(3){width:115px; float: left;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(4){width:157px; float: left;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(5){width:79px; float: left;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(6){width:77px; float: left;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(7){width:87px; float: left;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(8){width:85px; float: left;text-align:center;text-decoration: underline #a5a5a5;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(7) {position:relative;}
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(7) .fa-caret-left{font-size: 20px;  padding: 0px 0px 0px 18px;    float: right;    color: #999999;}
+
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(5) .fa-times{padding-left:18px }
+.technicianRightPane .rightContent.activeUsersDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(5) .fa-check{padding-left:18px;}
+ th #sorttable_sortfwdind, .sortable th #sorttable_sortrevind{position: absolute;right: 4px;top: 14px;font-size: 13px; }
+ .sorttable_sorted .sortdown{display:none !important;}
+ .sorttable_sorted_reverse .sortdown{display:none !important;}
+
+ 
+ 
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(1){width:175px; float: left; padding: 17px  0px 13px 13px; position: relative; border-right: 1px solid #ccc; border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(2){width:124px; float: left; padding: 17px  0px 13px 13px; position: relative; border-right: 1px solid #ccc; border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(3){width:115px; float: left; padding: 17px  0px 13px 13px; position: relative; border-right: 1px solid #ccc; border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(4){width:157px; float: left; padding: 17px  0px 13px 13px; position: relative; border-right: 1px solid #ccc; border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(5){width:79px; float: left; padding:  12px  0px 13px 13px; position: relative; border-right: 1px solid #ccc;  border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(6){width:76px; float: left; padding:  12px  0px 13px 13px; position: relative; border-right: 1px solid #ccc;  border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(7){width:93px; float: left; padding:  12px  0px 13px 13px; position: relative; border-right: 1px solid #ccc;  border-bottom:none;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead thead th:nth-child(8){width:92px; float: left; padding:  12px  0px 13px 13px; position: relative; }
+																																		  
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(1 {width:92px; float: left; padding:  12px  0px 13px 13px; position: relative; } ){width:177px; float: left;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(2){width:128px; float: left;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(3){width:124px; float: left;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(4){width:134px; float: left;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(5){width:89px; float: left;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(6){width:80px; float: left; position:relative;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(7){width:87px; float: left;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(8){width:85px; float: left;text-align:center;text-decoration: underline #a5a5a5;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(6) .fa-caret-left{font-size: 20px;    padding: 0px 0px 0px 18px;    float: right;
+    color: #999999;}
+
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(6) .pendingStat1{padding-right: 2px; text-decoration: underline;}
+.technicianRightPane .rightContent.activeUsersDetails.pendingUserDetails .overViewPane .userDetailsTable .activeUserHead  tbody td:nth-child(6) .pendingStat2{padding-left: 2px; text-decoration: underline;}
+
+.technicianRightPane .rightContent.activeUsersDetails.adminDashboard .overViewPane.adminDashboardBlock1 {padding:0px; margin-bottom: 15px !important;}
+.technicianRightPane .rightContent.activeUsersDetails.adminDashboard .overViewPane.adminDashboardBlock1 h1{background: #363437;color: #fff;text-transform: uppercase;font-size: 15px;margin: 0;padding: 18px 15px;border-radius: 5px 5px 0 0;margin-bottom: 20px;height: 48px;}
+
+
+ .technicianRightPane .rightContent.activeUsersDetails.adminDashboard .overViewPane.adminDashboardBlock1 .userDetailsTable{margin:15px;}
+
+ .technicianRightPane .rightContent.activeUsersDetails.adminDashboard .overViewPane.adminDashboardBlock2 .userDetailsTable .techUserTableList tbody tr td a i{font-size: 20px;
+    padding: 0px 0px 0px 18px;    float: right;    color: #999999;}
+ 
+.technicianRightPane .nav-tabs.firstDashboardtab{position: absolute; top: 45px; z-index: 100; right: 35px;}
+.technicianRightPane .nav-tabs .pendingTabBlock a{width: 90px;}
+.technicianRightPane .nav-tabs li a{line-height: 0; padding: 9px; width: 80px; height:18px; background: transparent; color: #696769; border: none; font-weight:bold;}
+.technicianRightPane .nav-tabs li{margin-right: 18px; border: 1px solid #737173;}
+.technicianRightPane .nav-tabs li .tabA{border-right: 1px solid #737173; padding: 3px 5px 1px 0px; font-size: 12px;}
+.technicianRightPane .nav-tabs li .activeTab{padding-left: 4px;font-size: 12px;}
+
+.technicianRightPane .nav-tabs li .tabP{border-right: 1px solid #737173; padding: 3px 5px 1px 0px; font-size: 12px;}
+.technicianRightPane .nav-tabs li .pendingTab{padding-left: 4px;font-size: 12px;}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{background: transparent; color: #fff; border:none;}
+.technicianRightPane .fisrtDashboardBlock{float:left;position:relative;}
+.technicianRightPane .secondDashboardBlock{float:left;position:relative;}
+.technicianRightPane .thirdDashboardBlock{float:left;position:relative;}
+.technicianRightPane .nav-tabs.secondDashboardtab{position: absolute; top: 45px; z-index: 100; right: 35px;}
+.technicianRightPane .nav-tabs.secondDashboardtab .allIdeaTabBlock a{width:100px;} 
+.technicianRightPane .nav-tabs.thirdDashboardtab{position: absolute; top: 45px; z-index: 100; right: 35px;}
+.technicianRightPane .nav-tabs.thirdDashboardtab .allIdeaTabBlock a{width:100px;} 
+.technicianRightPane .nav-tabs.thirdDashboardtab .newSubmissions a{width:152px;}
+.technicianRightPane .rightContent.activeUsersDetails.adminDashboard .overViewPane.adminDashboardBlock3{margin-bottom:30px !important;}
+.technicianRightPane .rightContent.activeUsersDetails.adminDashboard .overViewPane .viewAll a{float: right; padding: 0px 2px 4px 0px; color: #363437; font-weight: bold; font-size: 12px; text-decoration:none !important;}
+
+
+
+/* sush changes*/
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .tipstriks thead th:nth-child(1){width: 320px !important}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .tipstriks thead th:nth-child(2){width:168px !important;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .tipstriks thead th:nth-child(3){width:130px !important;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .tipstriks thead th:nth-child(4){width:135px !important;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .tipstriks thead th:nth-child(5){width:158px !important;}
+
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .tipstriks tbody td:nth-child(1){width: 334px !important;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .tipstriks tbody td:nth-child(2){width:168px !important;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .tipstriks tbody td:nth-child(3){width:130px !important;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .tipstriks tbody td:nth-child(4){width:135px !important;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .tipstriks tbody td:nth-child(5){width:144px !important;padding-left:0px;}
+
+
+
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .activeUserHead.tipstriks tbody tr:nth-child(1) td:nth-child(5) i{font-size:20px;padding: 0px 0px 0px 18px; float: right;color:#999999;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .activeUserHead.tipstriks tbody tr:nth-child(2) td:nth-child(5) i{font-size:20px;padding: 0px 0px 0px 18px;color:#999999;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .activeUserHead.tipstriks tbody tr:nth-child(3) td:nth-child(5) i{font-size:20px;padding: 0px 0px 0px 18px;color:#999999;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .activeUserHead.tipstriks tbody tr:nth-child(4) td:nth-child(5) i{font-size:20px;padding: 0px 0px 0px 18px;color:#999999;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .activeUserHead.tipstriks tbody tr:nth-child(5) td:nth-child(5) i{font-size:20px;padding: 0px 0px 0px 36px;color:#999999;}
+
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .activeUserHead.tipstriks tbody tr:nth-child(1) td:nth-child(5) #green{width: 110px; height: 20px;padding:0px;margin-left:0px; font-size: 11px;    background: #34bc34;    color: black;    border-radius: 0;    text-shadow: none;    border: 1px solid #d3d7e0;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .activeUserHead.tipstriks tbody tr:nth-child(2) td:nth-child(5) #green{width: 110px; height: 20px;padding:0px;margin-left:0px; font-size: 11px;    background: #34bc34;    color: black;    border-radius: 0;    text-shadow: none;    border: 1px solid #d3d7e0;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .activeUserHead.tipstriks tbody tr:nth-child(3) td:nth-child(5) #green{width: 110px; height: 20px;padding:0px;margin-left:0px; font-size: 11px;    background: #34bc34;    color: black;    border-radius: 0;    text-shadow: none;    border: 1px solid #d3d7e0;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .activeUserHead.tipstriks tbody tr:nth-child(4) td:nth-child(5) #orange{width: 110px; height:20px;padding:0px;margin-left:0px; font-size: 11px;    background: #f0801d;    color: black;    border-radius: 0;    text-shadow: none;    border: 1px solid #d3d7e0;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .activeUserHead.tipstriks tbody tr:nth-child(5) td:nth-child(5) #green{width: 110px; height: 20px;padding:0px;margin-left:0px; font-size: 11px;    background: #34bc34;    color: black;    border-radius: 0;    text-shadow: none;    border: 1px solid #d3d7e0;}
+
+
+.technicialMiddleWrapper .technicianRightPane .overViewPane #green{width: 110px; height: 20px;padding:0px;margin-left:0px; font-size: 11px;    background: #34bc34;    color: black;    border-radius: 0;    text-shadow: none;    border: 1px solid #d3d7e0;}
+.technicialMiddleWrapper .technicianRightPane .overViewPane #orange{width: 110px; height: 20px;padding:0px;margin-left:0px; font-size: 11px;    background: #f0801d;    color: black;    border-radius: 0;    text-shadow: none;    border: 1px solid #d3d7e0;}
+
+.desc{float: left;border: 1px solid #99ceff;background:white; width: 100%;min-height: 150px;}
+.desc p:nth-child(1){margin-top:15px;}
+.desc p{font-size: 14px;padding:0px 10px 0px 10px;margin-bottom:0px; text-align: left;font-family: Ebrima;}
+.desc .bottompane {margin-top: 50px; height: 40px;border-top: 1px solid #99ceff;}
+.desc .bottompane .select{float: right;border-left: 1px solid #99ceff;padding-left: 10px;}
+.desc .bottompane .select label{padding-top: 13px;}
+.desc .bottompane .select select{float: right;    height: 25px; width: 160px;
+margin: 10px 10px 10px 5px;}
+.activeTr {background: linear-gradient(#c5e3ff, #75bcff);}
+
+.user {float: left;border: 1px solid #99ceff;background:white;width: 100%;min-height:85px;background-color:#dcedfd;}
+.user img{float:left;padding:5px 0px 0px 5px;}
+.user .profile{width:230px;float:left;}
+.user .profile ul{padding-left:25px !important;float:left;border:none !important;width:100%;}
+.user .profile ul li{width:100%;float:left;border:none !important;}
+.user .profile ul li .fa.fa-envelope-o{width:9%;float:left;padding-top:5px;}
+.user .contact{width:140px;float:left;}
+.user .contact ul{width:100%;float:left;}
+.user .contact ul li{width:100%;float:left;border:none !important;min-height:25px;}
+.user .contact ul li .fa.fa-phone{width:9%;float:left;padding-top:5px;font-size:14px;}
+.user .contact ul li p{font-size:12px;float: left;    padding-top: 2px;}
+.user .points{width:130px;float:left;}
+.user .points ul{width:100%;float:left;padding-top: 12px !important;
+    font-weight: bold;}
+.user .points ul li{width:100%;float:left;border:none !important;font-size:13px !important;}
+.user .scores{width:120px;float:left;}
+.user .scores ul{width:100%;float:left;padding-top: 12px !important;}
+.user .scores ul li{width:100%;float:left;border:none !important;font-size:13px !important;}
+
+/* sush changes ends*/
+
+.newSubmissionPopUp .desc .headerRow{float: left; width: 100%; height: 32px; background: linear-gradient(#c3e2ff , #79beff);}
+.desc .tipsdetails{min-height: 100px;  padding: 0px 0px 5px 5px;  float: left;}
+.desc .bottompane {float: left; width: 100%;}
+.technicianRightPane .modal-content{padding-bottom: 8px; width:930px;}
+.desc .bottompane .select {height: 40px;}
+.technicianRightPane  .modal-content button span{background: black !important; color: white; opacity: 1; padding: 0px 2px 0px 2px;}
+.technicianRightPane .modal-content button{opacity: 1; font-size: 18px;}
+.modal-header{color: #333 !important; font-weight: bold; font-size: 14px;}
+.technicianRightPane .rightContent.awardstipstriks .overViewPane .userDetailsTable .tipstriks tbody tr td .newSubmissionBtn{ background: transparent; width: 110px; height: 20px; padding: 0px; margin-left: 0px; font-size: 12px; outline: none !important;text-decoration: underline;color: #03488e;}
+
+.rejectedPopUp .desc .headerRow{margin-bottom: 25px;float: left; width: 100%; height: 32px; background: linear-gradient(#fc2626 , #ff6565);}
+.rejectedPopUp .desc {border: 1px solid #fc2626;}
+.rejectedPopUp .desc .bottompane{border-top: 1px solid #fc2626;}
+.rejectedPopUp .desc .bottompane .select{border-left: 1px solid #fc2626;}
+.rejectedPopUp .desc  .noteForRejection{float: left;  color: #fc2626; margin-bottom: 10px; text-decoration:none;}
+.rejectedPopUp .desc .tipsdetails li{display:inline; text-decoration:none; margin-right:140px; margin-top:10px; float:left; margin-bottom:25px;}
+.rejectedPopUp .desc .tipsdetails li:nth-child(1){margin-left:10px;}
+.desc p{float:left;}
+.rejectedPopUp .desc .tipsdetails{margin-bottom: 30px;} 
+
+/*
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content{width:685px;min-height:500px;border-bottom:none;background: #aaaaaa;PADDING: 10PX;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body {border:none;padding:0px;background:white;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails{PADDING: 18PX;background:white;min-height: 477px}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails h4{width:50%;float:left;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .member{width:50%;float:left;text-align:right;padding-top: 8px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .year {padding-left: 6px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails{float:left;width:625px; min-height:340px;    border: 1px solid #666666;    margin-top: 25px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails .details i{float:left;padding: 9px;    font-size: 25px;color:#333333;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .details h5{float:left;padding-top: 2px;    margin-left: 0px;    font-style: normal;    font-size: 15px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails .details{width: 100%;    float: left;border-bottom: 1px solid #666666;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission{width:100%;float:left;min-height:333px;display:none;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .subPoints{float:left;border-bottom: 1px solid #666666;width:100%;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .subPoints i{font-size: 25px;    float: left;    padding-left: 6px;    padding-top: 10px;color: #333333;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .subPoints h5{float: left;    font-size: 15px;    font-style: normal;margin-left: 8px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .points{float: left;    width: 100%;padding: 20px; background:#efefef;    min-height: 297px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .points .current{width:34%;float:left;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .points .pending{width:34%;float:left;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .points .lifetime{width:32%;float:left;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .points .current span:first-child{color:#2424f2;font-weight: bold;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .points .current span:last-child{padding-left: 25px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .points .pending span:first-child{color:#ed1c24;font-weight: bold;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .points .pending span:last-child{padding-left: 25px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .points .lifetime span:first-child{color:#000000;font-weight: bold;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission .points .lifetime span:last-child{padding-left: 25px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission  .submissions{float:left;width:584px;min-height:200px;padding:10px 0px 10px 0px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission  .submissions .submissionlist{margin-top:15px;margin-bottom:5px;    border: 1px solid #d3d7e0;float:left;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission  .submissions .submissionlist thead {background: linear-gradient(#fff, #dadee8);height:30px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission  .submissions .submissionlist thead tr th{font-weight:normal;font-size:12px;    padding-top: 2px;padding-left:7px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission  .submissions .submissionlist thead tr th span{float:right;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission  .submissions .submissionlist thead tr th:nth-child(1){width:245px;height:30px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission  .submissions .submissionlist thead tr th:nth-child(2){width:140px;height:30px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission  .submissions .submissionlist thead tr th:nth-child(3){width:130px;height:30px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission  .submissions .submissionlist thead tr th:nth-child(4){width:85px;height:30px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission  .submissions .submissionlist  tbody {background:white;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .personalDetails  .submission  .submissions .submissionlist  tbody tr td{padding:6px;font-size:12px;}
+*/
+
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content{width:685px;min-height:544px;border-bottom:none;background: #aaaaaa;PADDING: 10PX;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body {border:none;padding:0px;background:white;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails{PADDING: 18PX;background:white;min-height:517px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails h4{width:50%;float:left;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .member{width:50%;float:left;text-align:right;padding-top: 8px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails .year {padding-left: 6px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group{visibility:visible !important;float: left;    width: 100%;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default{border-top:none;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-heading{width: 628px;    height: 46px;    background: white;border:2px solid #666666;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-heading .submissionSummaryPoint {border-top:1px solid grey;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .personalDetail{border-bottom:1px solid #666666;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-heading i{float:left;   font-size: 25px;color:#333333; background:white;height: 40px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-heading  h5{float:left;    margin: 4px;  font-style: normal;    font-size: 15px;color:black;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body  .points{float: left;    width: 100%;padding: 20px; background:#efefef;    min-height: 297px;}
+
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body {padding:0px;}
+
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body  .points{float: left;    width: 100%; min-height: 297px; border: 1px solid #666666; border-top:none;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .current{width:34%;float:left;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .pending{width:34%;float:left;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .lifetime{width:32%;float:left;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .current span:first-child{color:#2424f2;font-weight: bold;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .current span:last-child{padding-left: 25px;color:black;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .pending span:first-child{color:#ed1c24;font-weight: bold;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .pending span:last-child{padding-left: 25px;color:black;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .lifetime span:first-child{color:#000000;font-weight: bold;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .lifetime span:last-child{padding-left: 25px;color:black;}
+
+
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .submissions{float:left;width:584px;min-height:200px;padding:10px 0px 10px 0px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .submissions .submissionlist{margin-top:15px;margin-bottom:5px;    border: 1px solid #d3d7e0;float:left;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .submissions .submissionlist thead {background: linear-gradient(#fff, #dadee8);height:30px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .submissions .submissionlist thead tr th{font-weight:normal;font-size:12px;    padding-top: 2px;padding-left:7px;text-transform: capitalize;color:black;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .submissions .submissionlist thead tr th span{float:right;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .submissions .submissionlist thead tr th:nth-child(1){width:245px;height:30px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .submissions .submissionlist thead tr th:nth-child(2){width:140px;height:30px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .submissions .submissionlist thead tr th:nth-child(3){width:130px;height:30px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .submissions .submissionlist thead tr th:nth-child(4){width:85px;height:30px;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .submissions .submissionlist  tbody {background:white;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .submissions .submissionlist  tbody tr td{padding:6px;font-size:12px;color:black;text-transform: capitalize;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-collapse .panel-body   .points .submissions thead tr th{position:relative;}
+.technicianRightPane  .rightContent.activeUsersDetails .profile .modal-dialog .modal-content .modal-body  .profileDetails  .panel-group  .panel-default .panel-heading .fa-caret-down{display:none;}

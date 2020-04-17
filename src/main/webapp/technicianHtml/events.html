@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+  <head>
+       <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Raybestos</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,300italic,600,600italic,700,800,700italic,800italic' rel='stylesheet' type='text/css'>
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/accordion-menu.css" rel="stylesheet">
+	<link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
+	<link href="css/jquery.jscrollpane.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/jquery.yacal.css">
+		<link href="css/technician-login.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <!--- Top Panel -->
+  <div class="topPane">
+    <div class="container">
+        <div class="col-md-5 col-sm-4 hidden-xs"><a href="#"><img src="images/bpi-logo.jpg" alt="Brake Parts Inc" /></a></div>
+        <div class="col-md-2 col-sm-2 hidden-xs">
+          <select class="form-control country" id="country">
+            <option value="">United States</option>
+            <option value="">Canada</option>
+            <option value="">Mexico</option>
+            <option value="">Australia</option>
+            <option value="">China</option>
+            <option value="">Latin America</option>
+            <option value="">Asia Pacific</option>
+            <option value="">Europe</option>
+            <option value="">Middle East</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-sm-2  hidden-xs">
+          <select class="form-control country" id="country">
+            <option value="">English</option>
+            <option value="">Spanish</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-sm-2 search  hidden-xs">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-2 login  hidden-xs"> <a href="#" class="btn btn-default" >Login <span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></div>
+    </div>
+  </div>
+  <!--- End top Panel -->
+  <!--Header-->
+  <section class="menupane">
+    <header>
+      <div class="container">
+        <div class="row headerBlock">
+          <div class="col-md-4 col-xs-12 logo">
+            <a href="#"><img src="images/raybestos-logo.jpg" alt="Raybestos" /></a>
+          </div>
+          <div class="col-md-8 col-xs-12 menuPane">
+          <!--Mobile Menu-->
+            <div class="mobileMenu visible-xs">
+                <div class="mobilemenu1">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mobileMenu2"><a href="#"><span class="glyphicon glyphicon-search form-control-feedback"></span></a></div>
+                <div class="mobileMenu3"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></div>
+                <div class="mobileMenu4 country">
+                    <select id="countryMobile" class="form-control country">
+                        <option value="">United States</option>
+                        <option value="">Canada</option>
+                        <option value="">Mexico</option>
+                        <option value="">Australia</option>
+                        <option value="">China</option>
+                        <option value="">Latin America</option>
+                        <option value="">Asia Pacific</option>
+                        <option value="">Europe</option>
+                        <option value="">Middle East</option>
+                    </select>
+                </div>
+                <div class="mobileMenu5 location1">
+                    <select id="location1Mobile" value="GO" onchange="top.location.href=this.options[this.selectedIndex].value;" class="form-control">
+                      <option value="" selected="selected">English</option>
+                      <option value="">Spanish</option>
+                    </select>                                
+                </div>                           
+            </div>
+            <!--End Mobile Menu-->
+            <div class="row mobilesearchBlock">
+              <div class="col-md-12 visible-xs">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                </span>
+              </div>
+            </div>
+            </div>
+            <nav class="navbar navbar-inverse" role="banner">                
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">OVERVIEW</a></li>
+                                <li><a href="#">BRAKE PADS</a></li>
+                                <li><a href="#">BRAKE SHOES</a></li>
+                                <li><a href="#">ROTORS</a></li>
+                                <li><a href="#">DRUMS</a></li>
+                                <li><a href="#">CALIPERS</a></li>
+                                <li><a href="#">HUB ASSEMBLIES</a></li>
+                                <li><a href="#">WHEEL CYLINDERS</a></li>
+                                <li><a href="#">MASTER CYLINDERS</a></li>
+                                <li><a href="#">HOSES AND CABLES</a></li>
+                                <li><a href="#">HARDWARE</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                          <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
+                          <ul class="dropdown-menu">
+                              <li><a href="#">NEW NUMBER ANNOUNCEMENTS</a></li>
+                              <li><a href="#">Interchange</a></li>
+                              <li><a href="#">Catalog Part Search</a></li>                                
+                          </ul>
+                        </li>
+                        <li class="dropdown"><a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Promotions</a></li>
+                        <li class="dropdown">
+                          <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Resources</a>
+                          <ul class="dropdown-menu">
+                              <li><a href="#">Technician Login</a></li>
+                              <li><a href="#">How-to Videos</a></li>
+                              <li><a href="#">Tech Bulletins</a></li>
+                              <li><a href="#">Marketing</a></li>
+                              <li><a href="#">Media Center</a></li>
+                              <li><a href="#">FAQ’s</a></li>
+                              <li><a href="#">Find a Shop</a></li>                              
+                          </ul>
+                          </li>
+                        <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About Us</a>
+                          <ul class="dropdown-menu">
+                              <li><a href="#">Profile</a></li>
+                              <li><a href="#">Contact us</a></li>                              
+                          </ul>
+                        </li>
+                    </ul>
+                </div>
+              </nav><!--/nav-->
+			  <div class="technicianCenter visible-xs">
+			  <h4> TECHNICIAN CENTER</h4>
+			 <div class="techmobilemenu">
+                    <div class="navbar-technicianheader">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".leftMenuPane">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                </div>
+			  </div>
+		
+          </div>
+        </div>
+      </div>
+    </header>
+  </section>
+  <!-- End Header-->
+  <!-- Content Panel-->
+  <section>
+    <div class="container">
+      <div class="row productPageLayout technicialMiddleWrapper">
+        <div class="col-md-2 col-sm-2 col-xs-12 leftMenuPane techinicianlogin hidden-xs hidden-sm">
+		<div class="technicialLoginHeading">TECHNICIAN CENTER</div>
+		<div class="userProfile">
+			<span class="userImage"><img id="Top-car" src="images/car.png"/></span> 
+			<span class="userName ellipsis">John Doe</span>
+		</div>
+		        <div class="technicialLeftAccordianPane"> 
+		         <div id="accordion">
+                    <ul>
+                  <li><a href="#" class="activeTabLink"><span><i class="fa fa-home" aria-hidden="true"></i></span><span>Dashboard</span></a></li>
+                  <li>
+                    <div class="learningCenterAccordion"><span><i class="fa fa-graduation-cap" aria-hidden="true"></i></span><span>Learning Center</span><span><i class="fa fa-angle-left" aria-hidden="true"></i></span></div>
+                    <ul class="learnCenterOptions">
+                        <li><a href="#">How to Videos</a></li>
+                        <li><a href="#">Tips and Tricks</a></li>
+                        <li><a href="#">Technical Bulletins</a></li>
+                        <li><a href="#">Attend a class</a></li>
+                        <li><a href="#">Training Modules</a></li>
+						<li><a href="#">ASE Prep</a></li>
+				        <li><a href="#">Partner Resources</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#"><span><i class="fa fa-search" aria-hidden="true"></i></span><span>Distribution Search</span></a></li>
+				  <li><a href="#"><span><i class="fa fa-calendar" aria-hidden="true"></i></span><span>Events</span></a></li>
+				  <li><a href="#"><span><i class="fa fa-user-o" aria-hidden="true"></i></span><span>My Profile</span></a></li>
+                  </ul>
+				  </div>
+				  </div>
+			</div>
+			<div class="LiveChatBlock">
+				<button><span><i class="fa fa-comments-o" aria-hidden="true"></i></span><span id="LiveChat">Live Chat</span></button>
+				   <ul id="contact">
+                  <li>info@raybestos.co</li>
+				  <li>800-832-7867</li>
+				  <li>MON-FRI</li>
+				  <li>7am to 5pm (CST)</li>
+                </ul>
+				<div class="SocialMedia">
+				<ul id="socialicons">
+				<li class="facebook"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+				<li class="twitter"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li class="linkedin"><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                <li class="youtube"><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+				</ul>
+				</div>
+			</div>
+        <div class="col-md-10 technicianRightPane">
+		                        
+			 <div class="row technicianPageHead">
+		   <div class="col-md-12 col-sm-12 col-xs-12 PageHeader">
+			  	<div class="col-md-9 col-sm-12 col-xs-12  pageHeaderleft ">
+					  <div class ="title">
+						  <h4> <i>EVENTS</i> </h4>
+						  <h6><i> Technician Center/Events</i></h6>
+					  </div>
+				</div>
+				
+          </div>
+		</div> 
+								 
+			<div class="rightContent">
+					  <div class="overViewPane eventCalender">
+					  
+						    <div class="row calendarPane">
+						        <div class="col-md-12 col-sm-12 eventCalendarBlock">
+									
+									<div class="yacal" 
+										 data-date="2015/06/15" 
+										 data-near-months="1" 
+										 data-min-date="2014/6/15" 
+										 data-max-date="2016/6/15">
+										 <a href="http://www.jqueryscript.net/time-clock/"></a>
+									</div>
+
+								</div>
+
+								
+							</div>
+					  <div class="eventspane">
+					    <h5>EVENT DETAIL(S)</h5>
+						<div class="date">
+						<span> 07/14/2016</span>
+						</div>
+						<div class="eventtext">
+						<span class="eventname">Brake Systems Diagnosis and Repair</span>
+											<span class="map"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+											<span class="eventtext2">4400 Prime Parkway McHenry, IL 60050</span>
+											</div>
+					  </div>
+					  
+					 
+            </div>
+        </div>
+      </div>
+  </section>
+  <!-- End Content Panel-->
+  <!-- Footer Links Panel-->
+  <section>
+    <div class="container footerLinks">
+      <div class="row">
+        <div class="col-md-3 col-xs-6 col-sm-3 ">
+          <h3>Products</h3>
+          <ul>
+            <li><a href="#">Brake Pads</a></li>
+            <li><a href="#">Brake Shoes</a></li>
+            <li><a href="#">Rotors</a></li>
+            <li><a href="#">Drums</a></li>
+            <li><a href="#">Calipers</a></li>
+            <li><a href="#">Hub Assemblies</a></li>
+            <li><a href="#">Wheel Cylinders</a></li>
+            <li><a href="#">Master Cylinders</a></li>
+            <li><a href="#">Hoses and Cables</a></li>
+            <li><a href="#">Hardware</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-xs-6 col-sm-3 "><h3>Catelog</h3></div>
+        <div class="col-md-3 col-xs-6 col-sm-3 "><h3>Promotions</h3></div>
+        <div class="col-md-3 col-xs-6 col-sm-3 ">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Technician Login</a></li>
+            <li><a href="#">How-To Videos</a></li>
+            <li><a href="#">Tech Bulletins</a></li>
+            <li><a href="#">Marketing</a></li>
+            <li><a href="#">Media Center</a></li>
+            <li><a href="#">FAQ's</a></li>
+            <li><a href="#">Find a shop</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-xs-6 col-sm-3 ">
+          <h3>About us</h3>
+          <ul>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Content Panel-->
+  <!-- Footer Panel-->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 left">&copy; 2016 <a href="#">Brake Parts Inc</a>. All Rights Reserved.</div>
+        <div class="col-sm-6 right">
+            <ul class="pull-right">
+                <li><a href="#">Copyright</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer Panel-->
+  <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/accordion-menu.js"></script>
+	<script src="js/moment-with-locales.js"></script>
+	<script src="js/bootstrap-datetimepicker.js"></script>
+	<script src="js/jquery.jscrollpane.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+	  <script src="js/jquery.yacal.min.js"></script>
+	  <script src="js/jquery.easyPaginate.js"></script>
+	<script src="js/jquery.star-rating-svg.js"></script>
+	<script src="js/technician-login.js"></script>
+	<script>
+	
+	</script>
+
+
+  </body>
+</html>

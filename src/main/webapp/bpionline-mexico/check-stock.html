@@ -1,0 +1,2301 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BPI-ONLINE</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700" media="all" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="css/slick.css" media="all" />    
+<link rel="stylesheet" type="text/css" href="css/slick-theme.css" media="all" />   
+<link rel="stylesheet" type="text/css" href="css/travels-magnolia.css" media="all" />
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+
+<link href="css/jquery.jscrollpane.css" rel="stylesheet">
+<link href="css/bpi-online.css" rel="stylesheet">
+<link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
+
+<link href="css/font-awesome.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,300italic,600,600italic,700,800,700italic,800italic' rel='stylesheet' type='text/css'>
+
+<script src="js/jquery-1.12.4.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/moment-with-locales.js"></script>
+<script src="js/jquery.jscrollpane.js"></script>
+<script src="js/jquery.tablesorter.js"></script>
+
+<script src="js/respimage.min.js"></script>
+<script src="js/lazysizes.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.object-fit-cover-simple.js"></script>
+<script src="js/slick.min.js"></script>
+
+<script src="https://static.addtoany.com/menu/page.js"></script>
+<script src="js/main.js"></script>
+<script src="js/jquery.flip.js"></script>
+<script src="js/bpi-online.js"></script>
+
+<script src="js/bpicc_common_mexico.js"></script>
+<script src="js/bpicc_place_order_mexico.js"></script>
+<script src="excel_reader/shim.js"></script>
+<script src="excel_reader/jszip.js"></script>
+<script src="excel_reader/xlsx.js"></script>
+<script src="excel_reader/ods.js"></script>
+<script src="excel_reader/xls_reader.js"></script>
+			
+
+</head>
+<body>
+<div class="loader">
+	<div class="mask"></div>
+	<div class="loaderGif"><img src="images/search-ajax-loader.gif"/></div>
+	</div>
+<header id="header">   
+        <div class="top-bar hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-md-9">
+
+<div id="user-links">
+            
+            
+</div>
+
+                
+                        <div id="language-link">
+                        <ul>
+                                <li class="active"><span>English</span></li>
+                                <li><a href="/us/es/" title="Spanish">Spanish</a></li>
+                        </ul>
+                      
+                          </div>
+
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-2" style="display:none">
+                        <select class="form-control country" id="country">
+                            <option value="/us/">United States – English</option>
+                            <option value="/us/es/">United States – Spanish</option>
+                            <option value="/can/">Canada – English</option>
+                            <option value="/can/fr/">Canada – French</option>
+                            <option value="/mex/es/">Mexico – Spanish</option>
+                            <option value="/mex/">Mexico – English</option>
+                            <option value="/aus/">Australia – English</option>
+                            <option value="/ch/zh/">China – Chinese</option>
+                            <option value="/ch/">China – English</option>
+                            <option value="/latam/es/">Latin America – Spanish</option>
+                            <option value="/latam/">Latin America – English</option>
+                            <option value="/aspac/">Asia Pacific – English</option>
+                            <option value="/eur/">Europe – English</option>
+                            <option value="/eur/ru/">Europe – Russian</option>
+                            <option value="/eur/de/">Europe – German</option>
+                            <option value="/eur/fr/">Europe – French</option>
+                            <option value="/meast/">Middle East – English</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3 dropdown countryList">
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="usaEnglishList">U.S.A. - English<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="usaSpanishList">USA - Español<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="mexicoSpanishList">Mexico - Español<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="mexicoEnglishList">Mexico - English<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="canadaEnglishList">Canada - English<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="canedaFrenchList">Canada – Français<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="latinamericaSpanishList">Latin America – Español<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="latinamericaEnglishList">Latin America – English<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="europeEnglishList">Europe – English<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="europeFrenchList">Europe – Français<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="europeRussianList">Europe – ???????<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="europeGermanList">Europe – Deutsch<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="middleEastEnglishList">Middle East – English<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="asiaPacificEnglishList">Asia Pacific – English<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="chainaChaineaseList">China – ????<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="chainaEnglishList">China – English<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="australiaEnglishList">Australia – English<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <!--With Properlink-->
+                            <!--<li><span class="countryName">U.S.A.</span><span class="languageOne"><a href="/us/">English</a></span><span class="languageSecond"><a href="/us/es/">Español</a></span></li>
+                            <li><span class="countryName">Mexico</span><span class="languageOne"><a href="/mex/es/">Español</a></span><span class="languageSecond"><a href="/mex/">English</a></span></li>
+                            <li><span class="countryName">Canada</span><span class="languageOne"><a href="/can/fr/">Français</a></span><span class="languageSecond"><a href="/can/">English</a></span></li>
+                            <li><span class="countryName">Latin America</span><span class="languageOne"><a href="/latam/es/">Español</a></span><span class="languageSecond"><a href="/latam/">English</a></span></li>
+                            <li><span class="countryName companyMinHeight">Europe</span><span class="languageOne languageOneMarB"><a href="/eur/">English</a></span><span class="languageSecond languageOneMarB"><a href="/eur/fr/">Français</a></span><span class="languageOne"><a href="/eur/ru/">???????</a></span><span class="languageSecond"><a href="/eur/de/">Deutsch</a></span></li>
+                            <li><span class="countryName">Middle East</span><span class="languageOne"><a href="/meast/">English</a></span></li>
+                            <li><span class="countryName">Asia Pacific</span><span class="languageOne"><a href="/aspac/">English</a></span></li>
+                            <li><span class="countryName">China</span><span class="languageOne"><a href="/ch/zh/">????</a></span><span class="languageSecond"><a href="/ch/">English</a></span></li>
+                            <li><span class="countryName">Australia</span><span class="languageOne"><a href="/aus/">English</a></span></li>-->
+                            <!-- End Proper link-->
+                            <!--With Disabled link-->
+                            <li><span class="countryName">U.S.A.</span><span class="languageOne"><a href="/us/">English</a></span><span class="languageSecond"><a href="/us/es/">Español</a></span></li>
+                            <li><span class="countryName">Mexico</span><span class="languageOne"><a href="/mex/es/">Español</a></span><span class="languageSecond"><a href="/mex/">English</a></span></li>
+                            <li><span class="countryName">Canada</span><span class="languageOne"><a href="/can/fr/">Français</a></span><span class="languageSecond"><a href="/can/">English</a></span></li>
+                            <li class="disableLIRow"><span class="countryName">Latin America</span><span class="languageOne"><a href="#">Español</a></span><span class="languageSecond"><a href="#">English</a></span></li>
+                            <li class="disableLIRow"><span class="countryName companyMinHeight">Europe</span><span class="languageOne languageOneMarB"><a href="#">English</a></span><span class="languageSecond languageOneMarB"><a href="#">Français</a></span><span class="languageOne"><a href="#">???????</a></span><span class="languageSecond"><a href="#">Deutsch</a></span></li>
+                            <li><span class="countryName">Middle East</span><span class="languageOne"><a href="/meast/">English</a></span></li>
+                            <li><span class="countryName">Asia Pacific</span><span class="languageOne"><a href="/aspac/">English</a></span></li>
+                            <li><span class="countryName">China</span><span class="languageOne"><a href="/ch/zh/">????</a></span><span class="languageSecond"><a href="/ch/">English</a></span></li>
+                            <li><span class="countryName">Australia</span><span class="languageOne"><a href="/aus/">English</a></span></li>
+                            <!-- End With Disabled link-->
+                        </ul>
+                    </div>
+
+                    
+                 <!--<div class="col-xs-6 col-sm-3 col-md-2">
+                        <div>
+                        <select onChange="top.location.href=this.options[this.selectedIndex].value;" value="GO" id="location1"  class="form-control">
+                                <option  value="/us/">English</option>
+                                <option  value="/us/es/">Spanish</option>
+                        </select>
+                      
+                          </div>
+                   
+
+                          </div>-->
+             
+                     <script type="text/javascript">
+
+                         $(document).ready(function () {
+
+                             var selectedItem = sessionStorage.getItem("SelectedItem");
+                             var SelectedText = sessionStorage.getItem("SelectedText");
+                             var classVal = sessionStorage.getItem("SelectedClass");
+                             var locClassVal = sessionStorage.getItem("SelectedLocClass");
+
+                             var SelectedLocationItem = sessionStorage.getItem("SelectedLocationItem");
+                             var SelectedLocationText = sessionStorage.getItem("SelectedLocationText");
+
+                             if (classVal == null) {
+                                 if (window.location.href.indexOf("/us/es/") > -1) {
+                                     $("body").addClass("countryUS");
+                                     $("body").addClass("languageSpanish");
+                                     SelectedLocationText = "Spanish";
+                                     SelectedText = "United States";
+                                 }
+                                     //Canada
+                                 else if (window.location.href.indexOf("/can") > -1) {
+
+                                     if (window.location.href.indexOf("/can/fr/") > -1) {
+
+                                         $("body").addClass("countryCanada");
+                                         $("body").addClass("languageFrench");
+                                         SelectedLocationText = "French";
+                                         SelectedText = "Canada";
+
+                                     }
+                                     else {
+                                         $("body").addClass("countryCanada");
+                                         $("body").addClass("languageEnglish");
+                                         SelectedLocationText = "English";
+                                         SelectedText = "Canada";
+                                     }
+                                 }
+                                     //Mexico
+                                 else if (window.location.href.indexOf("/mex") > -1) {
+
+                                     if (window.location.href.indexOf("/mex/es/") > -1) {
+
+                                         $("body").addClass("countryMexico");
+                                         $("body").addClass("languageSpanish");
+                                         SelectedLocationText = "Spanish";
+                                         SelectedText = "Mexico";
+                                     }
+                                     else {
+                                         $("body").addClass("countryMexico");
+                                         $("body").addClass("languageEnglish");
+                                         SelectedLocationText = "English";
+                                         SelectedText = "Mexico";
+                                     }
+                                 }
+                                     //Australia
+                                 else if (window.location.href.indexOf("/aus") > -1) {
+
+                                     $("body").addClass("countryAustralia");
+                                     $("body").addClass("languageEnglish");
+                                     SelectedLocationText = "English";
+                                     SelectedText = "Australia";
+                                 }
+                                     //China
+                                 else if (window.location.href.indexOf("/ch") > -1) {
+
+                                     if (window.location.href.indexOf("/ch/zh/") > -1) {
+
+                                         $("body").addClass("countryChina");
+                                         $("body").addClass("languageSChinese");
+                                         SelectedLocationText = "Chinese";
+                                         SelectedText = "China";
+                                     }
+                                     else if (window.location.href.indexOf("/ch/zh_TW/") > -1) {
+
+                                         $("body").addClass("countryChina");
+                                         $("body").addClass("languageTChinese");
+                                         SelectedLocationText = "Chinese (Taiwan)";
+                                         SelectedText = "China";
+                                     }
+                                     else {
+                                         $("body").addClass("countryChina");
+                                         $("body").addClass("languageEnglish");
+                                         SelectedLocationText = "English";
+                                         SelectedText = "China";
+                                     }
+
+                                 }
+                                     //latam
+                                 else if (window.location.href.indexOf("/latam") > -1) {
+
+                                     if (window.location.href.indexOf("/latam/es/") > -1) {
+
+                                         $("body").addClass("countryLatinAmerica");
+                                         $("body").addClass("languageSpanish");
+                                         SelectedLocationText = "Spanish";
+                                         SelectedText = "Latin America";
+                                     }
+                                     else {
+                                         $("body").addClass("countryLatinAmerica");
+                                         $("body").addClass("languageEnglish");
+                                         SelectedLocationText = "English";
+                                         SelectedText = "Latin America";
+                                     }
+                                 }
+
+                                     //Asia Pacific
+                                 else if (window.location.href.indexOf("/aspac") > -1) {
+
+                                     $("body").addClass("countryAsiaPacific");
+                                     $("body").addClass("languageEnglish");
+                                     SelectedLocationText = "English";
+                                     SelectedText = "Asia Pacific";
+                                 }
+
+                                     //Europe
+                                 else if (window.location.href.indexOf("/eur") > -1) {
+
+                                     if (window.location.href.indexOf("/eur/es/") > -1) {
+
+                                         $("body").addClass("countryEurope");
+                                         $("body").addClass("languageSpanish");
+                                         SelectedLocationText = "Spanish";
+                                         SelectedText = "Europe";
+                                     }
+                                     else if (window.location.href.indexOf("/eur/fr/") > -1) {
+
+                                         $("body").addClass("countryEurope");
+                                         $("body").addClass("languageFrench");
+                                         SelectedLocationText = "French";
+                                         SelectedText = "Europe";
+                                     }
+                                     else if (window.location.href.indexOf("/eur/ru/") > -1) {
+
+                                         $("body").addClass("countryEurope");
+                                         $("body").addClass("languageRusia");
+                                         SelectedLocationText = "Rusia";
+                                         SelectedText = "Europe";
+                                     }
+                                     else if (window.location.href.indexOf("/eur/de/") > -1) {
+
+                                         $("body").addClass("countryEurope");
+                                         $("body").addClass("languageGerman");
+                                         SelectedLocationText = "German";
+                                         SelectedText = "Europe";
+                                     }
+                                     else {
+                                         $("body").addClass("countryEurope");
+                                         $("body").addClass("languageEnglish");
+                                         SelectedLocationText = "English";
+                                         SelectedText = "Europe";
+                                     }
+
+
+                                 }
+
+                                     //Middle East
+
+                                 else if (window.location.href.indexOf("/meast") > -1) {
+
+                                     $("body").addClass("countryMiddleEast");
+                                     $("body").addClass("languageEnglish");
+                                     SelectedLocationText = "English";
+                                     SelectedText = "Middle East";
+                                 }
+
+                                 else {
+
+                                     $("body").addClass("countryUS");
+                                     $("body").addClass("languageEnglish");
+                                     SelectedLocationText = "English";
+                                 }
+
+                             }
+
+                             if (SelectedLocationText != null) {
+                                 $("body").addClass(locClassVal);
+                                 $("body").addClass(classVal);
+
+                                 $("#location1 option:contains(" + SelectedLocationText + ")").attr('selected', 'selected');
+
+                                 $("#location1Mobile option:contains(" + SelectedLocationText + ")").attr('selected', 'selected');
+
+                             }
+                             else {
+                                 $("body").addClass("countryUS");
+                             }
+                             if (SelectedText == null) {
+                                 document.getElementById('country').value = "/us/";
+
+
+                             }
+                             else if (SelectedText != "United States – English") {
+                                 document.getElementById('country').value = -1;
+                             }
+                             $("#country option:contains(" + SelectedText + ")").attr('selected', 'selected');
+
+                             $("#countryMobile option:contains(" + SelectedText + ")").attr('selected', 'selected');
+
+                             // Desktop change events
+                             $('#country').change(function () {
+
+                                 var dropVal = $(this).val();
+                                 var dropText = $('#country option:selected').text();
+
+                                 var classVal;
+                                 sessionStorage.setItem("SelectedItem", dropVal);
+                                 sessionStorage.setItem("SelectedText", dropText);
+
+
+                                 if ($('#country option:selected').text() == "United States – English") {
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryUS");
+                                     classVal = "countryUS";
+
+
+                                 }
+                                 else if ($('#country option:selected').text() == "United States – Spanish") {
+                                     sessionStorage.setItem("SelectedLocClass", "languageSpanish");
+                                     sessionStorage.setItem("SelectedLocationText", "Spanish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryUS");
+                                     classVal = "countryUS";
+                                 }
+                                 else if ($('#country option:selected').text() == "Canada – English") {
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryCanada");
+                                     classVal = "countryCanada";
+
+                                 }
+                                 else if ($('#country option:selected').text() == "Canada – French") {
+                                     sessionStorage.setItem("SelectedLocClass", "languageFrench");
+                                     sessionStorage.setItem("SelectedLocationText", "French");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryCanada");
+                                     classVal = "countryCanada";
+
+                                 }
+                                 else if ($('#country option:selected').text() == "Mexico – Spanish") {
+                                     sessionStorage.setItem("SelectedLocationText", "Spanish");
+                                     sessionStorage.setItem("SelectedLocClass", "languageSpanish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryMexico");
+                                     classVal = "countryMexico";
+
+                                 }
+                                 else if ($('#country option:selected').text() == "Mexico – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryMexico");
+                                     classVal = "countryMexico";
+
+                                 }
+                                 else if ($('#country option:selected').text() == "Australia – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     classVal = "countryAustralia";
+
+                                 } else if ($('#country option:selected').text() == "China – Chinese") {
+                                     sessionStorage.setItem("SelectedLocationText", "Chinese");
+                                     sessionStorage.setItem("SelectedLocClass", "languageSChinese");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryChina");
+
+                                     classVal = "countryChina";
+
+                                 }
+                                 else if ($('#country option:selected').text() == "China – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryChina");
+
+                                     classVal = "countryChina";
+
+                                 }
+                                 else if ($('#country option:selected').text() == "Latin America – Spanish") {
+                                     sessionStorage.setItem("SelectedLocationText", "Spanish");
+                                     sessionStorage.setItem("SelectedLocClass", "languageSpanish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryLatinAmerica");
+                                     classVal = "countryLatinAmerica";
+
+                                 }
+                                 else if ($('#country option:selected').text() == "Latin America – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryLatinAmerica");
+                                     classVal = "countryLatinAmerica";
+
+                                 }
+                                 else if ($('#country option:selected').text() == "Europe – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryEurope");
+                                     classVal = "countryEurope";
+                                 }
+                                 else if ($('#country option:selected').text() == "Europe – Russian") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageRussian");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryEurope");
+                                     classVal = "countryEurope";
+                                 }
+                                 else if ($('#country option:selected').text() == "Europe – German") {
+                                     sessionStorage.setItem("SelectedLocationText", "German");
+                                     sessionStorage.setItem("SelectedLocClass", "languageGerman");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryEurope");
+                                     classVal = "countryEurope";
+                                 }
+                                 else if ($('#country option:selected').text() == "Europe – French") {
+                                     sessionStorage.setItem("SelectedLocationText", "French");
+                                     sessionStorage.setItem("SelectedLocClass", "languageFrench");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryEurope");
+                                     classVal = "countryEurope";
+                                 }
+                                 else if ($('#country option:selected').text() == "Middle East – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryMiddleEast");
+                                     classVal = "countryMiddleEast";
+                                 }
+
+                                 else if ($('#country option:selected').text() == "Asia Pacific – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryAsiaPacific");
+                                     classVal = "countryAsiaPacific";
+                                 }
+                                 sessionStorage.setItem("SelectedClass", classVal);
+                                 window.location = $(this).val();
+                             });
+                             $('#location1').change(function () {
+                                 var locVal = $(this).val();
+                                 var locText = $('#location1 option:selected').text();
+                                 sessionStorage.setItem("SelectedLocationItem", locVal);
+                                 sessionStorage.setItem("SelectedLocationText", locText);
+                                 if ($('#location1 option:selected').text() == "English") {
+
+                                     $("#location1 option:selected").removeAttr("selected");
+                                     $('#location1 option:nth(0)').prop("selected", "selected");
+                                     $("body").removeClass("languageEnglish");
+                                     $("body").removeClass("languageSpanish");
+                                     $("body").removeClass("languageSChinese");
+                                     $("body").removeClass("languageTChinese");
+                                     $("body").removeClass("languageFrench");
+                                     $("body").addClass("languageEnglish");
+                                     locClass = "languageEnglish"
+                                 }
+                                 else if ($('#location1 option:selected').text() == "Spanish") {
+                                     $("#location1 option:selected").removeAttr("selected");
+                                     $('#location1 option:nth(1)').prop("selected", "selected");
+                                     $("body").removeClass("languageEnglish");
+                                     $("body").removeClass("languageSpanish");
+                                     $("body").removeClass("languageSChinese");
+                                     $("body").removeClass("languageTChinese");
+                                     $("body").removeClass("languageFrench");
+                                     $("body").addClass("languageSpanish");
+                                     locClass = "languageSpanish";
+                                 }
+                                 else if ($('#location1 option:selected').text() == "French") {
+                                     $("#location1 option:selected").removeAttr("selected");
+                                     $('#location1 option:nth(2)').prop("selected", "selected");
+                                     $("body").removeClass("languageEnglish");
+                                     $("body").removeClass("languageSpanish");
+                                     $("body").removeClass("languageSChinese");
+                                     $("body").removeClass("languageTChinese");
+                                     $("body").removeClass("languageFrench");
+                                     $("body").addClass("languageFrench");
+                                     locClass = "languageFrench";
+                                 }
+                                 else if ($('#location1 option:selected').text() == "Chinese") {
+
+                                     $("#location1 option:selected").removeAttr("selected");
+                                     $('#location1 option:nth(3)').prop("selected", "selected");
+                                     $("body").removeClass("languageEnglish");
+                                     $("body").removeClass("languageSpanish");
+                                     $("body").removeClass("languageSChinese");
+                                     $("body").removeClass("languageTChinese");
+                                     $("body").removeClass("languageFrench");
+                                     $("body").addClass("languageSChinese");
+                                     locClass = "languageSChinese";
+                                 }
+                                 else if ($('#location1 option:selected').text() == "Chinese (Taiwan)") {
+
+                                     $("#location1 option:selected").removeAttr("selected");
+                                     $('#location1 option:nth(4)').prop("selected", "selected");
+                                     $("body").removeClass("languageEnglish");
+                                     $("body").removeClass("languageSpanish");
+                                     $("body").removeClass("languageSChinese");
+                                     $("body").removeClass("languageTChinese");
+                                     $("body").removeClass("languageFrench");
+                                     $("body").addClass("languageTChinese");
+                                     locClass = "languageTChinese";
+                                 }
+                                 sessionStorage.setItem("SelectedLocClass", locClass);
+
+                             });
+
+                             //Mobile Change Events
+
+                             $('#countryMobile').change(function () {
+                                 $("#location1Mobile").empty();
+
+                                 var dropVal = $(this).val();
+                                 var dropText = $('#countryMobile option:selected').text();
+
+                                 var classVal;
+                                 sessionStorage.setItem("SelectedItem", dropVal);
+                                 sessionStorage.setItem("SelectedText", dropText);
+
+
+                                 if ($('#countryMobile option:selected').text() == "United States – English") {
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryUS");
+                                     classVal = "countryUS";
+
+
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "United States – Spanish") {
+                                     sessionStorage.setItem("SelectedLocClass", "languageSpanish");
+                                     sessionStorage.setItem("SelectedLocationText", "Spanish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryUS");
+                                     classVal = "countryUS";
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "Canada – English") {
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryCanada");
+                                     classVal = "countryCanada";
+
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "Canada – French") {
+                                     sessionStorage.setItem("SelectedLocClass", "languageFrench");
+                                     sessionStorage.setItem("SelectedLocationText", "French");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryCanada");
+                                     classVal = "countryCanada";
+
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "Mexico – Spanish") {
+                                     sessionStorage.setItem("SelectedLocationText", "Spanish");
+                                     sessionStorage.setItem("SelectedLocClass", "languageSpanish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryMexico");
+                                     classVal = "countryMexico";
+
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "Mexico – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryMexico");
+                                     classVal = "countryMexico";
+
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "Australia – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     classVal = "countryAustralia";
+
+                                 } else if ($('#countryMobile option:selected').text() == "China – Chinese") {
+                                     sessionStorage.setItem("SelectedLocationText", "Chinese");
+                                     sessionStorage.setItem("SelectedLocClass", "languageSChinese");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryChina");
+
+                                     classVal = "countryChina";
+
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "China – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryChina");
+
+                                     classVal = "countryChina";
+
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "Latin America – Spanish") {
+                                     sessionStorage.setItem("SelectedLocationText", "Spanish");
+                                     sessionStorage.setItem("SelectedLocClass", "languageSpanish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryLatinAmerica");
+                                     classVal = "countryLatinAmerica";
+
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "Latin America – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryLatinAmerica");
+                                     classVal = "countryLatinAmerica";
+
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "Europe – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryEurope");
+                                     classVal = "countryEurope";
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "Europe – Russian") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageRussian");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryEurope");
+                                     classVal = "countryEurope";
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "Europe – German") {
+                                     sessionStorage.setItem("SelectedLocationText", "German");
+                                     sessionStorage.setItem("SelectedLocClass", "languageGerman");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryEurope");
+                                     classVal = "countryEurope";
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "Europe – French") {
+                                     sessionStorage.setItem("SelectedLocationText", "French");
+                                     sessionStorage.setItem("SelectedLocClass", "languageFrench");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryEurope");
+                                     classVal = "countryEurope";
+                                 }
+                                 else if ($('#countryMobile option:selected').text() == "Middle East – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryMiddleEast");
+                                     classVal = "countryMiddleEast";
+                                 }
+
+                                 else if ($('#countryMobile option:selected').text() == "Asia Pacific – English") {
+                                     sessionStorage.setItem("SelectedLocationText", "English");
+                                     sessionStorage.setItem("SelectedLocClass", "languageEnglish");
+                                     $("body").removeClass("countryUS");
+                                     $("body").removeClass("countryCanada");
+                                     $("body").removeClass("countryMexico");
+                                     $("body").removeClass("countryChina");
+                                     $("body").removeClass("countryLatinAmerica");
+                                     $("body").removeClass("countryEurope");
+                                     $("body").removeClass("countryMiddleEast");
+                                     $("body").removeClass("countryAsiaPacific");
+                                     $("body").addClass("countryAsiaPacific");
+                                     classVal = "countryAsiaPacific";
+                                 }
+
+
+                                 sessionStorage.setItem("SelectedClass", classVal);
+
+                                 window.location = $(this).val();
+                             });
+                             $('#location1Mobile').change(function () {
+                                 var locVal = $(this).val();
+                                 var locText = $('#location1Mobile option:selected').text();
+                                 sessionStorage.setItem("SelectedLocationItem", locVal);
+                                 sessionStorage.setItem("SelectedLocationText", locText);
+
+                                 if ($('#location1Mobile option:selected').text() == "English") {
+
+                                     $("#location1 option:selected").removeAttr("selected");
+                                     $('#location1Mobile option:nth(0)').prop("selected", "selected");
+                                     $("body").removeClass("languageSpanish");
+                                     $("body").removeClass("languageFrench");
+                                     $("body").removeClass("languageSChinese");
+                                     $("body").removeClass("languageTChinese");
+                                     $("body").addClass("languageEnglish");
+                                     locClass = "languageEnglish"
+                                 }
+                                 else if ($('#location1Mobile option:selected').text() == "Spanish") {
+                                     $("#location1Mobile option:selected").removeAttr("selected");
+                                     $('#location1Mobile option:nth(1)').prop("selected", "selected");
+                                     $("body").removeClass("languageEnglish");
+                                     $("body").removeClass("languageFrench");
+                                     $("body").removeClass("languageSChinese");
+                                     $("body").removeClass("languageTChinese");
+                                     $("body").addClass("languageSpanish");
+                                     locClass = "languageSpanish";
+                                 }
+                                 else if ($('#location1Mobile option:selected').text() == "French") {
+                                     $("#location1Mobile option:selected").removeAttr("selected");
+                                     $('#location1Mobile option:nth(2)').prop("selected", "selected");
+                                     $("body").removeClass("languageEnglish");
+                                     $("body").removeClass("languageSpanish");
+                                     $("body").removeClass("languageSChinese");
+                                     $("body").removeClass("languageTChinese");
+                                     $("body").addClass("languageFrench");
+                                     locClass = "languageFrench";
+                                 }
+                                 else if ($('#location1Mobile option:selected').text() == "Chinese") {
+                                     $("#location1Mobile option:selected").removeAttr("selected");
+                                     $('#location1Mobile option:nth(3)').prop("selected", "selected");
+                                     $("body").removeClass("languageEnglish");
+                                     $("body").removeClass("languageSpanish");
+                                     $("body").removeClass("languageFrench");
+                                     $("body").removeClass("languageTChinese");
+                                     $("body").addClass("languageSChinese");
+                                     locClass = "languageSChinese";
+                                 }
+                                 else if ($('#location1Mobile option:selected').text() == "Chinese (Taiwan)") {
+                                     //$("#location1 option:selected").removeAttr("selected");
+                                     $('#location1Mobile option:nth(4)').prop("selected", "selected");
+                                     $("body").removeClass("languageEnglish");
+                                     $("body").removeClass("languageSpanish");
+                                     $("body").removeClass("languageFrench");
+                                     $("body").removeClass("languageSChinese");
+                                     $("body").addClass("languageTChinese");
+                                     locClass = "languageTChinese";
+                                 }
+                                 sessionStorage.setItem("SelectedLocClass", locClass);
+                             });
+
+                         });
+                    </script>
+
+                </div>
+            </div><!--/.container-->
+        </div><!--/.top-bar-->
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6"><a class="navbar-brand" href="/us/">
+                <img src="images/bpiLogo.jpg" alt="">
+            </a></div>
+                <div class="col-md-6 col-sm-6 tabSearch">
+                    <div class="row searchBlock hidden-xs">
+                        <div class="col-md-5 col-xs-8 col-xs-push-0 col-sm-push-4 col-md-push-7">
+                            <div class="social">
+                                <div class="search">
+                                     <!--<form role="form">-->
+                                       
+
+<form action="/us/meta/search-results.html" class="navbar-form" role="search">
+  <div class="form-group has-feedback">
+    <label for="nav-search" class="sr-only">Search</label>
+    <input id="nav-search" type="text" name="queryStr" class="form-control" placeholder="Search">
+     
+    <div class="searchIcon"><span class="glyphicon glyphicon-search form-control-feedback"></span></div>
+    <input type="submit" style="height: 33px; opacity: 0; position: absolute; width: 60px;">
+  </div>
+</form>
+
+                                    <!--</form>-->
+                               </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-xs-4 pull-right hidden-xs" style="display:none">
+                            <div><a href="#" class="btn btn-default redicon pull-right">Login <i class="glyphicon glyphicon-user"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container menuwrap">
+            <div class="row">
+            <div class="col-md-12">
+            <nav class="navbar navbar-inverse" role="banner">
+                <div class="container">
+                    <div>
+                       <div class="mobileMenu visible-xs">
+                            <div class="mobilemenu1">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                        <span class="MobileButtonMenuText">MENU</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mobileMenu2"><a href="#"><span class="glyphicon glyphicon-search form-control-feedback"></span></a></div>
+                            <!--<div class="mobileMenu3"><a href="#"><i class="fa fa-user"></i></a></div>-->
+                            <div class="mobileMenu4 country">
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="usaEnglishList">U.S.A. - English<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="usaSpanishList">USA - Español<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="mexicoSpanishList">Mexico - Español<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="mexicoEnglishList">Mexico - English<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="canadaEnglishList">Canada - English<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="canedaFrenchList">Canada – Français<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="latinamericaSpanishList">Latin America – Español<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="latinamericaEnglishList">Latin America – English<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="europeEnglishList">Europe – English<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="europeFrenchList">Europe – Français<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="europeRussianList">Europe – ???????<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="europeGermanList">Europe – Deutsch<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="middleEastEnglishList">Middle East – English<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="asiaPacificEnglishList">Asia Pacific – English<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="chainaChaineaseList">China – ????<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="chainaEnglishList">China – English<b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="australiaEnglishList">Australia – English<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><span class="countryName">U.S.A.</span><span class="languageOne"><a href="/us/">English</a></span><span class="languageSecond"><a href="/us/es/">Español</a></span></li>
+                                    <li><span class="countryName">Mexico</span><span class="languageOne"><a href="/mex/es/">Español</a></span><span class="languageSecond"><a href="/mex/">English</a></span></li>
+                                    <li><span class="countryName">Canada</span><span class="languageOne"><a href="/can/fr/">Français</a></span><span class="languageSecond"><a href="/can/">English</a></span></li>
+                                    <li class="disableLIRow"><span class="countryName">Latin America</span><span class="languageOne"><a href="#">Español</a></span><span class="languageSecond"><a href="#">English</a></span></li>
+                                    <li class="disableLIRow"><span class="countryName companyMinHeight">Europe</span><span class="languageOne languageOneMarB"><a href="#">English</a></span><span class="languageSecond languageOneMarB"><a href="#">Français</a></span><span class="languageOne"><a href="#">???????</a></span><span class="languageSecond"><a href="#">Deutsch</a></span></li>
+                                    <li><span class="countryName">Middle East</span><span class="languageOne"><a href="/meast/">English</a></span></li>
+                                    <li><span class="countryName">Asia Pacific</span><span class="languageOne"><a href="/aspac/">English</a></span></li>
+                                    <li><span class="countryName">China</span><span class="languageOne"><a href="/ch/zh/">????</a></span><span class="languageSecond"><a href="/ch/">English</a></span></li>
+                                    <li><span class="countryName">Australia</span><span class="languageOne"><a href="/aus/">English</a></span></li>       
+                                </ul>
+                            </div>
+                           <!--                     
+       
+                      
+                            <div class="mobileMenu5 location1" >
+                                 <select  class="form-control"  onChange="top.location.href=this.options[this.selectedIndex].value;" value="GO" id="location1Mobile">
+                                <option  value="/us/">English</option>
+                                <option  value="/us/es/">Spanish</option>
+                                </select>
+                                
+                            </div>
+                           
+-->
+                        </div>
+                         <div class="row mobilesearchBlock hidden-sm hidden-md hidden-lg">
+                        <div class="col-xs-12">
+                            <div class="social">
+                                <div class="search">
+                                     <!--<form role="form">-->
+                                       
+
+<form action="/us/meta/search-results.html" class="navbar-form" role="search">
+  <div class="form-group has-feedback">
+    <label for="nav-search" class="sr-only">Search</label>
+    <input id="nav-search" type="text" name="queryStr" class="form-control" placeholder="Search">
+     
+    <div class="searchIcon"><span class="glyphicon glyphicon-search form-control-feedback"></span></div>
+    <input type="submit" style="height: 33px; opacity: 0; position: absolute; width: 60px;">
+  </div>
+</form>
+
+                                    <!--</form>-->
+                               </div>
+                            </div>
+                         </div>
+                        </div>
+
+                        <div class="collapse navbar-collapse navbar-right usEnglish">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="/us/products/overview.html" data-toggle="dropdown">Products</a>
+                                      <ul class="dropdown-menu">
+                                          <li><a href="/us/products/overview.html">Product Overview</a></li>
+                                          <li><a href="/us/products/brake-pads.html">Brake Pads</a></li>
+                                          <li><a href="/us/products/rotors.html">Rotors</a></li>
+                                          <li><a href="/us/products/calipers.html">Calipers</a></li>
+                                          <li><a href="/us/products/drums.html">Drums</a></li>
+                                          <li><a href="/us/products/brake-shoes.html">Brake Shoes</a></li>
+                                          <li><a href="/us/products/hub-assemblies.html">Hub Assemblies</a></li>
+                                          <li><a href="/us/products/wheel-cylinders.html">Wheel Cylinders</a></li>
+                                          <li><a href="/us/products/master-cylinders.html">Master Cylinders</a></li>
+                                          <li><a href="/us/products/hoses-and-cables.html">Hoses and Cables</a></li>
+                                          <li><a href="/us/products/trailer-brakes.html">Trailer Brakes</a></li>
+                                          <li><a href="/us/products/hardware.html">Hardware</a></li>
+                                      </ul>
+                                </li>
+                                <li class="dropdown"><a href="/us/our-brands.html" data-toggle="dropdown">Our Brands</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/us/our-brands.html">Brand Overview</a></li>
+                                        <li><a href="/us/our-brands/raybestos.html">Raybestos</a></li>
+                                      <li><a href="/us/our-brands/AIMCO.html">AIMCO</a></li> 
+                                         
+                                        <li><a href="/us/our-brands/Lusac.html">Lusac</a></li> 
+                                        <li><a href="/us/our-brands/Vortex.html">Vortex</a></li> 
+                                        <li><a href="/us/our-brands/American-Brakeblok.html">American Brakeblok</a></li> 
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/us/support.html" data-toggle="dropdown">Support</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/us/support.html">Contact Us</a></li>
+
+                                       
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/us/careers.html" data-toggle="dropdown">Careers</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/us/careers.html">Corporate Careers</a></li>
+                                        <li><a href="/us/careers.html">Life @ BPI</a></li>
+                                        <li><a href="/us/careers.html">Students/Graduates</a></li>
+                                        <li><a href="/us/careers.html">Benefits</a></li>
+                                        <li><a href="/us/careers.html">Why BPI</a></li>
+                                        <li><a href="/us/careers.html">Search and Apply</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="#" data-toggle="dropdown">Customer Central</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Select Account</a></li>
+                                        <li><a href="#">Check Stock</a></li>
+                                        <li><a href="#">Place Order</a></li>
+                                        <li><a href="#">Order History</a></li> 
+                                        <li><a href="#">Price Lists</a></li>
+                                    </ul>
+                                </li> <li class="dropdown"><a href="/us/about/company-profile.html" data-toggle="dropdown">About</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/us/about/company-profile.html">Company Profile</a></li>
+                                        <li><a href="/us/about/our-mission.html">Our Mission</a></li>
+                                        <li><a href="/us/about/capabilities.html">Capabilities</a></li>
+                                        <li><a href="/us/about/media-center-videos.html">Media Center</a></li>
+                                        <li><a href="/us/about/locations.html">Locations</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse navbar-right canadaEnglish">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="/can/products/overview.html" data-toggle="dropdown">Products</a>
+                                      <ul class="dropdown-menu">
+                                          <li><a href="/can/products/overview.html">Product Overview</a></li>
+                                          <li><a href="/can/products/brake-pads.html">Brake Pads</a></li>
+                                          <li><a href="/can/products/rotors.html">Rotors</a></li>
+                                          <li><a href="/can/products/calipers.html">Calipers</a></li>
+                                          <li><a href="/can/products/drums.html">Drums</a></li>
+                                          <li><a href="/can/products/brake-shoes.html">Brake Shoes</a></li>
+                                          <li><a href="/can/products/hub-assemblies.html">Hub Assemblies</a></li>
+                                          <li><a href="/can/products/wheel-cylinders.html">Wheel Cylinders</a></li>
+                                          <li><a href="/can/products/master-cylinders.html">Master Cylinders</a></li>
+                                          <li><a href="/can/products/hoses-and-cables.html">Hoses and Cables</a></li>
+                                          <li><a href="/can/products/trailer-brakes.html">Trailer Brakes</a></li>
+                                          <li><a href="/can/products/hardware.html">Hardware</a></li>
+                                      </ul>
+                                </li>
+                                <li class="dropdown"><a href="/can/our-brands.html" data-toggle="dropdown">Our Brands</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/can/our-brands.html">Brand Overview</a></li>
+                                        <li><a href="/can/our-brands/raybestos.html">Raybestos</a></li>
+                                         
+                                      <li><a href="/can/our-brands/AIMCO.html">AIMCO</a></li> 
+                                         
+                                        <li><a href="/can/our-brands/Lusac.html">Lusac</a></li> 
+                                        <li><a href="/can/our-brands/Vortex.html">Vortex</a></li> 
+                                        <li><a href="/can/our-brands/American-Brakeblok.html">American Brakeblok</a></li> 
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/can/support.html" data-toggle="dropdown">Support</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/can/support.html">Contact Us</a></li>
+
+                                       
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/can/careers.html" data-toggle="dropdown">Careers</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/can/careers.html">Corporate Careers</a></li>
+                                        <li><a href="/can/careers.html">Life @ BPI</a></li>
+                                        <li><a href="/can/careers.html">Students/Graduates</a></li>
+                                        <li><a href="/can/careers.html">Benefits</a></li>
+                                        <li><a href="/can/careers.html">Why BPI</a></li>
+                                        <li><a href="/can/careers.html">Search and Apply</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="#" data-toggle="dropdown">Customer Central</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Select Account</a></li>
+                                        <li><a href="#">Check Stock</a></li>
+                                        <li><a href="#">Place Order</a></li>
+                                        <li><a href="#">Order History</a></li>    
+                                        <li><a href="#">Price Lists</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="/can/about/company-profile.html" data-toggle="dropdown">About</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/can/about/company-profile.html">Company Profile</a></li>
+                                        <li><a href="/can/about/our-mission.html">Our Mission</a></li>
+                                        <li><a href="/can/about/capabilities.html">Capabilities</a></li>
+                                        <li><a href="/can/about/media-center-videos.html">Media Center</a></li>
+                                        <li><a href="/can/about/locations.html">Locations</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse navbar-right latamEnglish">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="/latam/products/overview.html" data-toggle="dropdown">Products</a>
+                                      <ul class="dropdown-menu">
+                                          <li><a href="/latam/products/overview.html">Product Overview</a></li>
+                                          <li><a href="/latam/products/brake-pads.html">Brake Pads</a></li>
+                                          <li><a href="/latam/products/rotors.html">Rotors</a></li>
+                                          <li><a href="/latam/products/calipers.html">Calipers</a></li>
+                                          <li><a href="/latam/products/drums.html">Drums</a></li>
+                                          <li><a href="/latam/products/brake-shoes.html">Brake Shoes</a></li>
+                                          <li><a href="/latam/products/hub-assemblies.html">Hub Assemblies</a></li>
+                                          <li><a href="/latam/products/wheel-cylinders.html">Wheel Cylinders</a></li>
+                                          <li><a href="/latam/products/master-cylinders.html">Master Cylinders</a></li>
+                                          <li><a href="/latam/products/hoses-and-cables.html">Hoses and Cables</a></li>
+                                          <li><a href="/latam/products/trailer-brakes.html">Trailer Brakes</a></li>
+                                          <li><a href="/latam/products/hardware.html">Hardware</a></li>
+                                      </ul>
+                                </li>
+                                <li class="dropdown"><a href="/latam/our-brands.html" data-toggle="dropdown">Our Brands</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/latam/our-brands.html">Brand Overview</a></li>
+                                        <li><a href="/latam/our-brands/raybestos.html">Raybestos</a></li>
+                                        
+                                      <li><a href="/latam/our-brands/AIMCO.html">AIMCO</a></li> 
+                                         
+                                        <li><a href="/latam/our-brands/Lusac.html">Lusac</a></li> 
+                                        <li><a href="/latam/our-brands/Vortex.html">Vortex</a></li> 
+                                        <li><a href="/latam/our-brands/American-Brakeblok.html">American Brakeblok</a></li> 
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/latam/support.html" data-toggle="dropdown">Support</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/latam/support.html">Contact Us</a></li>
+
+                                       
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/latam/careers.html" data-toggle="dropdown">Careers</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/latam/careers.html">Corporate Careers</a></li>
+                                        <li><a href="/latam/careers.html">Life @ BPI</a></li>
+                                        <li><a href="/latam/careers.html">Students/Graduates</a></li>
+                                        <li><a href="/latam/careers.html">Benefits</a></li>
+                                        <li><a href="/latam/careers.html">Why BPI</a></li>
+                                        <li><a href="/latam/careers.html">Search and Apply</a></li>
+                                    </ul>
+                                </li>
+								<li class="dropdown"><a href="#" data-toggle="dropdown">Customer Central</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Select Account</a></li>
+                                        <li><a href="#">Check Stock</a></li>
+                                        <li><a href="#">Place Order</a></li>
+                                        <li><a href="#">Order History</a></li>
+                                        <li><a href="#">Price Lists</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/latam/about/company-profile.html" data-toggle="dropdown">About</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/latam/about/company-profile.html">Company Profile</a></li>
+                                        <li><a href="/latam/about/our-mission.html">Our Mission</a></li>
+                                        <li><a href="/latam/about/capabilities.html">Capabilities</a></li>
+                                        <li><a href="/latam/about/media-center-videos.html">Media Center</a></li>
+                                        <li><a href="/latam/about/locations.html">Locations</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse navbar-right meastEnglish">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="/meast/products/overview.html" data-toggle="dropdown">Products</a>
+                                      <ul class="dropdown-menu">
+                                          <li><a href="/meast/products/overview.html">Product Overview</a></li>
+                                          <li><a href="/meast/products/brake-pads.html">Brake Pads</a></li>
+                                          <li><a href="/meast/products/rotors.html">Rotors</a></li>
+                                          <li><a href="/meast/products/calipers.html">Calipers</a></li>
+                                          <li><a href="/meast/products/drums.html">Drums</a></li>
+                                          <li><a href="/meast/products/brake-shoes.html">Brake Shoes</a></li>
+                                          <li><a href="/meast/products/hub-assemblies.html">Hub Assemblies</a></li>
+                                          <li><a href="/meast/products/wheel-cylinders.html">Wheel Cylinders</a></li>
+                                          <li><a href="/meast/products/master-cylinders.html">Master Cylinders</a></li>
+                                          <li><a href="/meast/products/hoses-and-cables.html">Hoses and Cables</a></li>
+                                          <li><a href="/meast/products/trailer-brakes.html">Trailer Brakes</a></li>
+                                          <li><a href="/meast/products/hardware.html">Hardware</a></li>
+                                      </ul>
+                                </li>
+                                <li class="dropdown"><a href="/meast/our-brands.html" data-toggle="dropdown">Our Brands</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/meast/our-brands.html">Brand Overview</a></li>
+                                        <li><a href="/meast/our-brands/raybestos.html">Raybestos</a></li>
+                                        <li><a href="/meast/our-brands/AIMCO.html">AIMCO</a></li> 
+                                         
+                                        <li><a href="/meast/our-brands/Lusac.html">Lusac</a></li> 
+                                        <li><a href="/meast/our-brands/Vortex.html">Vortex</a></li> 
+                                        <li><a href="/meast/our-brands/American-Brakeblok.html">American Brakeblok</a></li> 
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/meast/support.html" data-toggle="dropdown">Support</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/meast/support.html">Contact Us</a></li>
+
+                                       
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/meast/careers.html" data-toggle="dropdown">Careers</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/meast/careers.html">Corporate Careers</a></li>
+                                        <li><a href="/meast/careers.html">Life @ BPI</a></li>
+                                        <li><a href="/meast/careers.html">Students/Graduates</a></li>
+                                        <li><a href="/meast/careers.html">Benefits</a></li>
+                                        <li><a href="/meast/careers.html">Why BPI</a></li>
+                                        <li><a href="/meast/careers.html">Search and Apply</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="#" data-toggle="dropdown">Customer Central</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Select Account</a></li>
+                                        <li><a href="#">Check Stock</a></li>
+                                        <li><a href="#">Place Order</a></li>
+                                        <li><a href="#">Order History</a></li>
+                                        <li><a href="#">Price Lists</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="/meast/about/company-profile.html" data-toggle="dropdown">About</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/meast/about/company-profile.html">Company Profile</a></li>
+                                        <li><a href="/meast/about/our-mission.html">Our Mission</a></li>
+                                        <li><a href="/meast/about/capabilities.html">Capabilities</a></li>
+                                        <li><a href="/meast/about/media-center-videos.html">Media Center</a></li>
+                                        <li><a href="/meast/about/locations.html">Locations</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse navbar-right chinaEnglish">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="/ch/products/overview.html" data-toggle="dropdown">Products</a>
+                                      <ul class="dropdown-menu">
+                                          <li><a href="/ch/products/overview.html">Product Overview</a></li>
+                                          <li><a href="/ch/products/brake-pads.html">Brake Pads</a></li>
+                                          <li><a href="/ch/products/rotors.html">Rotors</a></li>
+                                          <li><a href="/ch/products/calipers.html">Calipers</a></li>
+                                          <li><a href="/ch/products/drums.html">Drums</a></li>
+                                          <li><a href="/ch/products/brake-shoes.html">Brake Shoes</a></li>
+                                          <li><a href="/ch/products/hub-assemblies.html">Hub Assemblies</a></li>
+                                          <li><a href="/ch/products/wheel-cylinders.html">Wheel Cylinders</a></li>
+                                          <li><a href="/ch/products/master-cylinders.html">Master Cylinders</a></li>
+                                          <li><a href="/ch/products/hoses-and-cables.html">Hoses and Cables</a></li>
+                                          <li><a href="/ch/products/trailer-brakes.html">Trailer Brakes</a></li>
+                                          <li><a href="/ch/products/hardware.html">Hardware</a></li>
+                                      </ul>
+                                </li>
+                                <li class="dropdown"><a href="/ch/our-brands.html" data-toggle="dropdown">Our Brands</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/ch/our-brands.html">Brand Overview</a></li>
+                                        <li><a href="/ch/our-brands/raybestos.html">Raybestos</a></li>
+                                  <li><a href="/ch/our-brands/AIMCO.html">AIMCO</a></li> 
+                                         
+                                        <li><a href="/ch/our-brands/Lusac.html">Lusac</a></li> 
+                                        <li><a href="/ch/our-brands/Vortex.html">Vortex</a></li> 
+                                        <li><a href="/ch/our-brands/American-Brakeblok.html">American Brakeblok</a></li> 
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/ch/support.html" data-toggle="dropdown">Support</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/ch/support.html">Contact Us</a></li>
+
+                                       
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/ch/careers.html" data-toggle="dropdown">Careers</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/ch/careers.html">Corporate Careers</a></li>
+                                        <li><a href="/ch/careers.html">Life @ BPI</a></li>
+                                    <!--    <li><a href="/ch/careers.html">Students/Graduates</a></li>    -->
+                                        <li><a href="/ch/careers.html">Benefits</a></li>
+                                        <li><a href="/ch/careers.html">Why BPI</a></li>
+                                        <li><a href="/ch/careers.html">Search and Apply</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="#" data-toggle="dropdown">Customer Central</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Select Account</a></li>
+                                        <li><a href="#">Check Stock</a></li>
+                                        <li><a href="#">Place Order</a></li>
+                                        <li><a href="#">Order History</a></li>
+                                        <li><a href="#">Price Lists</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="/ch/about/company-profile.html" data-toggle="dropdown">About</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/ch/about/company-profile.html">Company Profile</a></li>
+                                        <li><a href="/ch/about/our-mission.html">Our Mission</a></li>
+                                        <li><a href="/ch/about/capabilities.html">Capabilities</a></li>
+                                        <li><a href="/ch/about/media-center-videos.html">Media Center</a></li>
+                                        <li><a href="/ch/about/locations.html">Locations</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse navbar-right aspacEnglish">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="/aspac/products/overview.html" data-toggle="dropdown">Products</a>
+                                      <ul class="dropdown-menu">
+                                          <li><a href="/aspac/products/overview.html">Product Overview</a></li>
+                                          <li><a href="/aspac/products/brake-pads.html">Brake Pads</a></li>
+                                          <li><a href="/aspac/products/rotors.html">Rotors</a></li>
+                                          <li><a href="/aspac/products/calipers.html">Calipers</a></li>
+                                          <li><a href="/aspac/products/drums.html">Drums</a></li>
+                                          <li><a href="/aspac/products/brake-shoes.html">Brake Shoes</a></li>
+                                          <li><a href="/aspac/products/hub-assemblies.html">Hub Assemblies</a></li>
+                                          <li><a href="/aspac/products/wheel-cylinders.html">Wheel Cylinders</a></li>
+                                          <li><a href="/aspac/products/master-cylinders.html">Master Cylinders</a></li>
+                                          <li><a href="/aspac/products/hoses-and-cables.html">Hoses and Cables</a></li>
+                                          <li><a href="/aspac/products/trailer-brakes.html">Trailer Brakes</a></li>
+                                          <li><a href="/aspac/products/hardware.html">Hardware</a></li>
+                                      </ul>
+                                </li>
+                                <li class="dropdown"><a href="/aspac/our-brands.html" data-toggle="dropdown">Our Brands</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/aspac/our-brands.html">Brand Overview</a></li>
+                                        <li><a href="/aspac/our-brands/raybestos.html">Raybestos</a></li>
+                                     <li><a href="/aspac/our-brands/AIMCO.html">AIMCO</a></li> 
+                                         
+                                        <li><a href="/aspac/our-brands/Lusac.html">Lusac</a></li> 
+                                        <li><a href="/aspac/our-brands/Vortex.html">Vortex</a></li> 
+                                        <li><a href="/aspac/our-brands/American-Brakeblok.html">American Brakeblok</a></li> 
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/aspac/support.html" data-toggle="dropdown">Support</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/aspac/support.html">Contact Us</a></li>
+
+                                       
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/aspac/careers.html" data-toggle="dropdown">Careers</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/aspac/careers.html">Corporate Careers</a></li>
+                                        <li><a href="/aspac/careers.html">Life @ BPI</a></li>
+                                        <li><a href="/aspac/careers.html">Students/Graduates</a></li>
+                                        <li><a href="/aspac/careers.html">Benefits</a></li>
+                                        <li><a href="/aspac/careers.html">Why BPI</a></li>
+                                        <li><a href="/aspac/careers.html">Search and Apply</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="#" data-toggle="dropdown">Customer Central</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Select Account</a></li>
+                                        <li><a href="#">Check Stock</a></li>
+                                        <li><a href="#">Place Order</a></li>
+                                        <li><a href="#">Order History</a></li>  
+                                        <li><a href="#">Price Lists</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="/aspac/about/company-profile.html" data-toggle="dropdown">About</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/aspac/about/company-profile.html">Company Profile</a></li>
+                                        <li><a href="/aspac/about/our-mission.html">Our Mission</a></li>
+                                        <li><a href="/aspac/about/capabilities.html">Capabilities</a></li>
+                                        <li><a href="/aspac/about/media-center-videos.html">Media Center</a></li>
+                                        <li><a href="/aspac/about/locations.html">Locations</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse navbar-right eurEnglish">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="/eur/products/overview.html" data-toggle="dropdown">Products</a>
+                                      <ul class="dropdown-menu">
+                                          <li><a href="/eur/products/overview.html">Product Overview</a></li>
+                                          <li><a href="/eur/products/brake-pads.html">Brake Pads</a></li>
+                                          <li><a href="/eur/products/rotors.html">Rotors</a></li>
+                                          <li><a href="/eur/products/calipers.html">Calipers</a></li>
+                                          <li><a href="/eur/products/drums.html">Drums</a></li>
+                                          <li><a href="/eur/products/brake-shoes.html">Brake Shoes</a></li>
+                                          <li><a href="/eur/products/hub-assemblies.html">Hub Assemblies</a></li>
+                                          <li><a href="/eur/products/wheel-cylinders.html">Wheel Cylinders</a></li>
+                                          <li><a href="/eur/products/master-cylinders.html">Master Cylinders</a></li>
+                                          <li><a href="/eur/products/hoses-and-cables.html">Hoses and Cables</a></li>
+                                          <li><a href="/eur/products/trailer-brakes.html">Trailer Brakes</a></li>
+                                          <li><a href="/eur/products/hardware.html">Hardware</a></li>
+                                      </ul>
+                                </li>
+                                <li class="dropdown"><a href="/eur/our-brands.html" data-toggle="dropdown">Our Brands</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/eur/our-brands.html">Brand Overview</a></li>
+                                        <li><a href="/eur/our-brands/raybestos.html">Raybestos</a></li>
+                                    <li><a href="/eur/our-brands/AIMCO.html">AIMCO</a></li> 
+                                         
+                                        <li><a href="/eur/our-brands/Lusac.html">Lusac</a></li> 
+                                        <li><a href="/eur/our-brands/Vortex.html">Vortex</a></li> 
+                                        <li><a href="/eur/our-brands/American-Brakeblok.html">American Brakeblok</a></li> 
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/eur/support.html" data-toggle="dropdown">Support</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/eur/support.html">Contact Us</a></li>
+
+                                       
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/eur/careers.html" data-toggle="dropdown">Careers</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/eur/careers.html">Corporate Careers</a></li>
+                                        <li><a href="/eur/careers.html">Life @ BPI</a></li>
+                                        <li><a href="/eur/careers.html">Students/Graduates</a></li>
+                                        <li><a href="/eur/careers.html">Benefits</a></li>
+                                        <li><a href="/eur/careers.html">Why BPI</a></li>
+                                        <li><a href="/eur/careers.html">Search and Apply</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="#" data-toggle="dropdown">Customer Central</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Select Account</a></li>
+                                        <li><a href="#">Check Stock</a></li>
+                                        <li><a href="#">Place Order</a></li>
+                                        <li><a href="#">Order History</a></li>
+                                        <li><a href="#">Price Lists</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="/eur/about/company-profile.html" data-toggle="dropdown">About</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/eur/about/company-profile.html">Company Profile</a></li>
+                                        <li><a href="/eur/about/our-mission.html">Our Mission</a></li>
+                                        <li><a href="/eur/about/capabilities.html">Capabilities</a></li>
+                                        <li><a href="/eur/about/media-center-videos.html">Media Center</a></li>
+                                        <li><a href="/eur/about/locations.html">Locations</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse navbar-right mexEnglish">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="/mex/products/overview.html" data-toggle="dropdown">Products</a>
+                                      <ul class="dropdown-menu">
+                                          <li><a href="/mex/products/overview.html">Product Overview</a></li>
+                                          <li><a href="/mex/products/heavy-duty-block.html">Heavy Duty Block</a></li>
+                                          <li><a href="/mex/products/brake-pads.html">Brake Pads</a></li>
+                                          <li><a href="/mex/products/rotors.html">Rotors</a></li>
+                                          <li><a href="/mex/products/calipers.html">Calipers</a></li>
+                                          <li><a href="/mex/products/drums.html">Drums</a></li>
+                                          <li><a href="/mex/products/brake-shoes.html">Brake Shoes</a></li>
+                                          <li><a href="/mex/products/hub-assemblies.html">Hub Assemblies</a></li>
+                                          <li><a href="/mex/products/wheel-cylinders.html">Wheel Cylinders</a></li>
+                                          <li><a href="/mex/products/master-cylinders.html">Master Cylinders</a></li>
+                                          <li><a href="/mex/products/hoses-and-cables.html">Hoses, Pistons and<br>Disc Brake Caliper<br> Seal Kits     </a></li>
+                                          <li><a href="/mex/products/trailer-brakes.html">Trailer Brakes</a></li>
+                                          <li><a href="/mex/products/hardware.html">Hardware</a></li>
+                                           <li><a href="/mex/products/brake-lining.html">Brake Lining</a></li>
+                                      </ul>
+                                </li>
+                                <li class="dropdown"><a href="/mex/our-brands.html" data-toggle="dropdown">Our Brands</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/mex/our-brands.html">Brand Overview</a></li>
+                                        <li><a href="/mex/our-brands/raybestos.html">Raybestos</a></li>
+                                            <li><a href="/mex/our-brands/American-Brakeblok.html">American Brakeblok</a></li> 
+                                        <li><a href="/mex/our-brands/Lusac.html">Lusac</a></li> 
+                                    <li><a href="/mex/our-brands/AIMCO.html">AIMCO</a></li> 
+                                         
+                                        
+                                        <li><a href="/mex/our-brands/Vortex.html">Vortex</a></li> 
+                                    
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/mex/support.html" data-toggle="dropdown">Support</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/mex/support.html">Contact Us</a></li>
+
+                                       
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/mex/careers.html" data-toggle="dropdown">Careers</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/mex/careers.html">Corporate Careers</a></li>
+                                        <li><a href="/mex/careers.html">Life @ BPI</a></li>
+                                    <!--    <li><a href="/mex/careers.html">Students/Graduates</a></li>
+                                        <li><a href="/mex/careers.html">Benefits</a></li>-->
+                                        <li><a href="/mex/careers.html">Why BPI</a></li>
+                                        <li><a href="/mex/careers.html">Search and Apply</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="#" data-toggle="dropdown">Customer Central</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Select Account</a></li>
+                                        <li><a href="#">Check Stock</a></li>
+                                        <li><a href="#">Place Order</a></li>
+                                        <li><a href="#">Order History</a></li>
+                                        <li><a href="#">Price Lists</a></li>
+                                    </ul>
+                                </li><li class="dropdown"><a href="/mex/about/company-profile.html" data-toggle="dropdown">About</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/mex/about/company-profile.html">Company Profile</a></li>
+                                        <li><a href="/mex/about/our-mission.html">Our Mission</a></li>
+                                        <li><a href="/mex/about/capabilities.html">Capabilities</a></li>
+                                        <li><a href="/mex/about/media-center-videos.html">Media Center</a></li>
+                                        <li><a href="/mex/about/locations.html">Locations</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                     
+                    </div>
+                </div><!--/.container-->
+            </nav><!--/nav-->
+            </div>
+            </div>
+        </div>
+    </header>
+	
+	     <div class="container">
+		<div class="container">
+		<div class="row">
+			<div class="col-sm-3 bpiOnlineLeftPanel">
+		 <div class="">
+				<h4>CUSTOMER CENTRAL</h4>
+
+		<ul>
+				<li>
+			<span class="page "><a href="selectAccount.html">
+					Select Account
+			</a></span>
+
+		</li>
+				<li>
+			<span class="page "><a href="check-stock.html">
+					Check Stock
+			</a></span>
+
+		</li>
+				<li>
+			<span class="page "><a href="index.html">
+					Place Order
+			</a></span>
+
+		</li>
+				<li>
+			<span class="page "><a href="orderList.html">
+					Order History
+			</a></span>
+
+		</li>
+				<li>
+			<span class="page "><a href="priceList.html">
+					Price Lists
+			</a></span>
+
+		</li>
+		</ul>
+		</div><!-- end  -->
+			</div>
+			<!-->Added checkStockMexico class for mexico language<!-->
+			<div class="col-sm-9 bpiOnlineRightPanel checkStockMexico">
+			<div class="placeOrderHeader">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-3 placeOrderPane"> 
+							<h2> CHECK STOCK</h2>
+						</div>
+						 
+				<div class="row secondRow">
+					<div class="col-md-12">
+						<div class="col-md-10 locationPane">
+						<p><span class="numberField">
+						</div>
+						<div class="col-md-2 uploadOrderPane">
+					<button class="btn btn-default" type="button" data-toggle="modal" id='btn_excel_upload' disabled onclick="BpiccPlaceOrder.OpenExcelModel();" ><span><img src="images/excel.jpg"></span>UPLOAD ORDER</button>
+						
+						</div>
+					</div>
+				</div>
+				<div id="place_order_error_info" class="errorInfo">  </div>
+				 </div>
+			</div>
+				 
+				<div class="placeorder">
+                <div id="place_order_part_error_info" class="errorInfo"> 
+                    <p id='e_invalid_part' style='display:none'><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">Invalid Part Number</span></p>
+                    <p id='e_dup_part'  style='display:none'><span><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span><span class="errorMessage">Duplicate Part Number-availability may not be accurate</span></p>
+                    <p id='e_zero_qty'  style='display:none'><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">Requested quantity is zero</span></p>
+                    <p id='e_min_qty'  style='display:none'><span><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span><span class="errorMessage">Minimum Quantity not met-quantity increased to meet the minimum</span></p>
+                </div>
+				<div class="row">
+				<div class="col-md-12">
+				<div class="tableContents ">
+				<input type='hidden' value='check_stock' id='page_type'/>
+				 <table id="bpicc_tableDetails" class="table">
+				<thead>
+                    <tr>
+                        <th rowspan=2>PART NUMBER</th>
+                        <th rowspan=2>BRAND</th>
+                        <th rowspan=2>DESCRIPTION</th>
+                        <th rowspan=2>UNIT WEIGHT<br/>(kg)</th>
+                        <th rowspan=2>REQUESTED QUANTITY</th>    
+                        <th colspan=3>AVAILABLE QUANTITY</th>
+                        <th class="archiveIcon" rowspan=2><span class="glyphicon glyphicon-trash" aria-hidden="true"  onclick="BpiccPlaceOrder.DeleteAllRows();"></span></th>
+                    </tr>
+					<!-->Removed EDC,WDC,MDC and added IZT for mexico language<!-->
+                    <tr id="insideDiv">
+                      <th><p>IZT</p></th>
+                       </tr>
+                </thead>
+						<tbody>
+						<!-->Removed WDC,MDC available DC fileds for mexico language<!-->
+					<tr id='1'>
+						<td><div class="availableDC"><input type="text" id="partNum_1" onblur="BpiccPlaceOrder.ValidateEnteredPartNo(1);"; class="partNum"></div></td>
+						<td><input type="text" id="brand_1"  class="inputBrand" value="" disabled></td>
+						<td><input type="text" id="desc_1"  class="inputDesc" value="" disabled></td>
+						<td><input type="text" id="weight_1"  class="inputUnitWgt" value="" disabled></td>
+						<td><div class="availableDC"><input type="text" id="reqQnty_1"  disabled onkeydown="return acceptNumbersOnlyForModule(event);" onblur="BpiccPlaceOrder.ValidateQty(1);BpiccPlaceOrder.CalculateTotQtyWt();"   class="inputReqQnty"></div></td>
+						<td><div class="availableDC"><input type="text" id="edc_1"  class="inputEdc" value="" disabled><span><input type="radio"   id='EDC_RADIO_1' name="inputAvail_1" value="EDC" class="radioDC" disabled  onclick="BpiccPlaceOrder.EnableProperCheckBoxColor(1);" ><i id='EDC_i_1' class="fa fa-check-circle" aria-hidden="true"></i></span></input></div></td>
+						<td><div class="availableDC"><span class="glyphicon glyphicon-trash" onclick="BpiccPlaceOrder.deleteTableRow(1);"  aria-hidden="true"></span></td>
+					</tr>
+					 
+					
+							
+				</tbody>
+				<tfoot>
+				    <tr id="addRowPane">
+						<td colspan="10" class="addRow"><p><a href="#" disabled id='tbl_add_rows'>Add Rows</a></p><img src="images/arrowUp.jpg"></span></td>
+					</tr>
+					<!-->Removed dynamic Value fields for total weight and quantity for EDC,WDC,MDC and added dynamic value field for IZT for mexico language<!-->
+					<tr class="totalPane">
+                        <td><p class="NumOfRows">TOTAL NUMBER OF ROWS:</p> <p id="Tot_No_Of_Lines">0</p></td>
+						<!--start:Issue#267 Added one blank td -->
+						<td></td>
+						<!--End: Issue#267 Added one blank td -->
+					    <td>TOTAL WEIGHT</td>
+                        <td><p id="totalWeightIZT">0</p><!-- Dynamic Value of Total Weight WDC --></td>
+                        <td></td>
+					</tr>
+                    <tr class="totalPane">
+                        <td></td>
+                        <td></td>                        
+                        <td>TOTAL QUANTITY</td>
+                        <td><p id="totalQtyIZT">0</p><!-- Dynamic Value of Total Quantity WDC --></td>
+                        <td></td>
+                    </tr>
+				</tfoot>
+				</table>
+                  </div>
+                </div>
+				</div>
+				<div class="row errorIconPane">
+
+
+
+					<div class="col-md-12 errorPane">
+					<ul>
+						 <li><span class="circleIcon"><i class="fa fa-check-circle greenIcon" aria-hidden="true"></i></span><span class="availability">Available</span></li>
+						 <li><span class="circleIcon"><i class="fa fa-check-circle redIcon" aria-hidden="true"></i></span><span class="availability">No Quantity Available</span></li>
+						 <li><span class="circleIcon"><i class="fa fa-check-circle yellowIcon" aria-hidden="true"></i></span><span class="availability">Partially Available</span></li>
+						 </ul>
+					</div>
+				</div>
+				  <div class="row bottomRow">
+					  <div class="col-md-8 ">						 
+						<!-- <div class="errorDetails">
+						<p><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">Invalid Part Number</span></p>
+						<p><span><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span><span class="errorMessage">Duplicate Part Number-availability may not be accurate</span></p>
+						<p><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">Requested quantity is zero</span></p>
+						<p><span><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span><span class="errorMessage">Minimum Quantity not met-quantity increased to meet the minimum</span></p>
+						</div> -->
+					  </div>
+					 <div class="col-md-4 buttonPane stockPane">
+					<div class="validateOnEntry">
+					 <label><input type="checkbox" value="" id='validate_on_entry' checked>Validate on Entry</label>
+					</div>
+					<div class="firstButtonPane">
+						 <button type="button" class="btn btn-default resetFormBtn" id='reset_form'  >Reset Form</button>
+						 <button type="button" class="btn btn-default checkStock" id='validate_order' >Check stock</button>
+					</div>
+					<div class="secondButtonPane">
+					 <button type="button" class="btn btn-default convertToOrder"  id='continue_order' >Convert to Order</button>
+					 </div>
+					</div>
+				  </div>
+				  
+		        <div class="modal fade" id="upload" role="dialog">
+				<div class="modal-dialog">
+						
+						  <!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+							<h4>PLEASE UPLOAD THE SPREAD SHEET(EXCEL)</h4>
+						</div>
+					 
+						
+						<div class="modal-body">
+							<div class="uploadOrder">
+								<div class="instructions">
+									<i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>INSTRUCTIONS TO UPLOAD A FILE</span> 
+								</div>
+								<div class="instructionStepOne">
+									<span>Step1:</span>
+									<ul>
+										<li>Create An Excel Spread Sheet with Two Columns:</li>
+										<li>-First column should contain valid part number </li>
+										<li>-Second column should contain the quantity requested(numeric Only) </li>
+									</ul>
+								</div>
+								<div class="instructionStepTwo">
+								<div class="errorFileFormat"  style='display:none;'>
+									
+								</div>
+									<div class="selectFile">
+										<span class="step">Step2:</span>
+										<span class="text">Select the file from your computer then click on Upload Order Button</span>
+										<input id="uploadOrderFile" type="file">
+									</div>
+									<!-- <button type="button" class="btn btn-default validateOrder">Choose File</button> -->
+								</div>
+								</div>
+								<div class="uploadOrderButton">
+									<button type="button" class="btn btn-default validateOrder"  onclick="UploadExcelOrder();";   >Upload Order</button>
+								</div>
+							
+	  
+						</div>
+						
+						
+						
+								  
+					</div>
+								  
+				</div>
+				</div>
+			</div>	
+			 
+			
+			
+		 
+			</div>
+			
+			
+			
+		</div>
+		</div>
+</div>
+</div>
+</div>
+
+	
+<footer>
+    <div class="footer-1">
+        <div class="container">
+            <div class="row">
+<div class="col-md-3">
+<div class=" inline">
+<ul>
+        <li>
+
+      <span class="page "><a href="/us/products/overview.html">
+            Products
+    </a></span>
+
+</li>
+        <li>
+
+
+    <span class="page "><a href="/us/products/brake-pads.html">
+            Brake Pads
+    </a></span>
+
+</li>
+        <li>
+    <span class="page "><a href="/us/products/rotors.html">
+            Rotors
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/products/orderList.html">
+            Calipers
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/products/drums.html">
+            Drums
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/products/brake-shoes.html">
+            Brake Shoes
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/products/hub-assemblies.html">
+            Hub Assemblies
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/products/wheel-cylinders.html">
+            Wheel Cylinders
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/products/master-cylinders.html">
+            Master Cylinders
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/products/hoses-and-cables.html">
+            Hoses and Cables
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/products/trailer-brakes.html">
+            Trailer Brakes
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/products/hardware.html">
+            Hardware
+    </a></span>
+
+</li>
+</ul>
+</div><!-- end  inline -->
+</div>
+<div class="col-md-3">
+
+<div class="">
+
+<ul>
+        <li>
+
+    <span class="page "><a href="/us/our-brands.html">
+            OUR BRANDS
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/our-brands.html">
+            Brand Overview
+    </a></span>
+
+</li>
+        <li>
+    <span class="page "><a href="/us/our-brands/raybestos.html">
+            Raybestos
+    </a></span>
+
+</li>
+        <li>
+    <span class="page "><a href="/us/our-brands/AIMCO.html">
+            AIMCO
+    </a></span>
+
+</li>
+        <li>
+    <span class="page "><a href="/us/our-brands/Lusac.html">
+            Lusac
+    </a></span>
+
+</li>
+        <li>
+    <span class="page "><a href="/us/our-brands/Vortex.html">
+            Vortex
+    </a></span>
+
+</li>
+        <li>
+    <span class="page "><a href="/us/our-brands/American-Brakeblok.html">
+            American Brakeblok
+    </a></span>
+</li>
+</ul>
+</div><!-- end  -->
+</div>
+<div class="col-md-3">
+<div class="">
+
+<ul>
+        <li>
+   <span class="page "><a href="/us/about/company-profile.html">
+            ABOUT
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/about/company-profile.html">
+            Company Profile
+    </a></span>
+
+</li>
+        <li>
+ <span class="page "><a href="/us/about/our-mission.html">
+            Our Mission
+    </a></span>
+
+</li>
+        <li>
+    <span class="page "><a href="/us/about/capabilities.html">
+            Capabilities
+    </a></span>
+
+</li>
+        <li>
+    <span class="page "><a href="/us/about/media-center-videos.html">
+            Media Center
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/about/locations.html">
+            Locations
+    </a></span>
+
+</li>
+</ul>
+</div><!-- end  -->
+</div>
+<div class="col-md-3">
+<div class="">
+
+<ul>
+        <li>
+    <span class="page "><a href="/us/careers.html">
+            CAREERS
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/careers.html">
+            Corporate Careers
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/careers.html">
+            Life @ BPI
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/careers.html">
+            Students / Graduates
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/careers.html">
+            Benefits
+    </a></span>
+
+</li>
+        <li>
+    <span class="page "><a href="/us/careers.html">
+            Search and Apply
+    </a></span>
+
+</li>
+        <li>
+    <span class="page "><a href="/us/careers.html">
+            Why BPI
+    </a></span>
+
+</li>
+</ul>
+</div><!-- end  -->
+
+<div class="">
+
+<ul>
+        <li>
+
+    <span class="page "><a href="/us/support.html">
+            HELP &amp; SUPPORT
+    </a></span>
+
+</li>
+        <li>
+
+    <span class="page "><a href="/us/support.html">
+            Contact Us
+    </a></span>
+
+</li>
+</ul>
+</div><!-- end  -->
+</div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-last-links">
+                        © 2015 Magnolia Travels, Inc. 
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer-2" id="footer">
+     <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                     <p>    © 2017 Brake Parts Inc. All Rights Reserved.</p>
+                      
+               
+                </div>
+                
+                <div class="col-sm-6">
+                    <ul class="social-share">
+                        <li class="facebook"><a href="https://www.facebook.com/BrakePartsBPI"><i class="fa fa-facebook"></i></a></li>
+                        <li class="twitter"><a href="https://www.twitter.com/BrakePartsBPI"><i class="fa fa-twitter"></i></a></li>
+                        <li class="linkedin"><a href="https://www.linkedin.com/company/brake-parts-inc"><i class="fa fa-linkedin"></i></a></li> 
+                        <li class="youtube"><a href="https://www.youtube.com/watch?v=uZnRQHoVbzA "><i class="fa fa-youtube"></i></a></li>
+                    </ul>
+
+                    <!--Mexico Aimco social links-->
+
+                     <ul class="social-share mexAimco">
+                        <li class="facebook"><a href="https://www.facebook.com/aimco.mx/"><i class="fa fa-facebook"></i></a></li>
+                        <li class="twitter"><a href="https://twitter.com/AIMCO_MX"><i class="fa fa-twitter"></i></a></li>
+                        <li class="linkedin"><a href="https://www.linkedin.com/company/brake-parts-inc"><i class="fa fa-linkedin"></i></a></li> 
+                        <li class="youtube"><a href="https://www.youtube.com/channel/UCIbFqrzHPNDVycuulo0vFYg"><i class="fa fa-youtube"></i></a></li>
+                    </ul>
+
+
+                     <!--Mexico Lusac social links-->
+
+                     <ul class="social-share mexLusac">
+                        <li class="facebook"><a href="https://www.facebook.com/Frenos-Lusac-174819069244901/"><i class="fa fa-facebook"></i></a></li>
+                        <li class="twitter"><a href="https://twitter.com/frenos_lusac"><i class="fa fa-twitter"></i></a></li>
+                        <li class="linkedin"><a href="https://www.linkedin.com/company/brake-parts-inc"><i class="fa fa-linkedin"></i></a></li> 
+                        <li class="youtube"><a href="https://www.youtube.com/watch?v=uZnRQHoVbzA "><i class="fa fa-youtube"></i></a></li>
+                    </ul>
+
+                     <!--Mexico ABB social links-->
+
+                     <ul class="social-share mexABB">
+                        <li class="facebook"><a href="https://www.facebook.com/American-Brakeblok-118305021590385/?fref=ts"><i class="fa fa-facebook"></i></a></li>
+                        <li class="twitter"><a href="https://twitter.com/american_bb"><i class="fa fa-twitter"></i></a></li>
+                        <li class="linkedin"><a href="https://www.linkedin.com/company/brake-parts-inc"><i class="fa fa-linkedin"></i></a></li> 
+                        <li class="youtube"><a href="https://www.youtube.com/watch?v=uZnRQHoVbzA "><i class="fa fa-youtube"></i></a></li>
+                    </ul>
+
+                     <!--Mexico Raybestos social links-->
+
+                     <ul class="social-share mexRaybestos">
+                        <li class="facebook"><a href="https://www.facebook.com/Raybestos-Mexico-121886661223041/"><i class="fa fa-facebook"></i></a></li>
+                        <li class="twitter"><a href="https://twitter.com/RaybestosMex"><i class="fa fa-twitter"></i></a></li>
+                        <li class="linkedin"><a href="https://www.linkedin.com/company/brake-parts-inc"><i class="fa fa-linkedin"></i></a></li> 
+                        <li class="youtube"><a href="https://www.youtube.com/watch?v=uZnRQHoVbzA "><i class="fa fa-youtube"></i></a></li>
+                    </ul>
+
+                     <!--Canada French social links-->
+
+                      <ul class="social-share canFrenchRabeystos">
+                        <li class="facebook"><a href="https://www.facebook.com/RaybestosCanada"><i class="fa fa-facebook"></i></a></li>
+                        <li class="twitter"><a href="https://www.twitter.com/BrakePartsBPI"><i class="fa fa-twitter"></i></a></li>
+                        <li class="linkedin"><a href="https://www.linkedin.com/company/brake-parts-inc"><i class="fa fa-linkedin"></i></a></li> 
+                        <li class="youtube"><a href="https://www.youtube.com/watch?v=uZnRQHoVbzA "><i class="fa fa-youtube"></i></a></li>
+                    </ul>
+
+                    <ul class="pull-right usEnglish">
+                        <li><a href="/us/meta/legal-notice.html" target="_blank">Legal Notice</a></li>
+                        <li><a href="/us/meta/privacy.html" target="_blank">Privacy Policy</a></li>
+                    </ul>
+                    <ul class="pull-right aspacEnglish">
+                        <li><a href="/aspac/meta/legal-notice.html" target="_blank">Legal Notice</a></li>
+                        <li><a href="/aspac/meta/privacy.html" target="_blank">Privacy Policy</a></li>
+                    </ul>
+                     <ul class="pull-right canadaEnglish">
+                        <li><a href="/can/meta/legal-notice.html" target="_blank">Legal Notice</a></li>
+                        <li><a href="/can/meta/privacy.html" target="_blank">Privacy Policy</a></li>
+                    </ul>
+                     <ul class="pull-right latamEnglish">
+                        <li><a href="/latam/meta/legal-notice.html" target="_blank">Legal Notice</a></li>
+                        <li><a href="/latam/meta/privacy.html" target="_blank">Privacy Policy</a></li>
+                    </ul>
+                     <ul class="pull-right meastEnglish">
+                        <li><a href="/meast/meta/legal-notice.html" target="_blank">Legal Notice</a></li>
+                        <li><a href="/meast/meta/privacy.html" target="_blank">Privacy Policy</a></li>
+                    </ul>
+                     <ul class="pull-right chinaEnglish">
+                        <li><a href="/ch/meta/legal-notice.html" target="_blank">Legal Notice</a></li>
+                        <li><a href="/ch/meta/privacy.html" target="_blank">Privacy Policy</a></li>
+                    </ul>
+                    <ul class="pull-right eurEnglish">
+                        <li><a href="/eur/meta/legal-notice.html" target="_blank">Legal Notice</a></li>
+                        <li><a href="/eur/meta/privacy.html" target="_blank">Privacy Policy</a></li>
+                    </ul>
+                    <ul class="pull-right mexEnglish">
+                        <li><a href="/mex/meta/legal-notice.html" target="_blank">Legal Notice</a></li>
+                        <li><a href="/mex/meta/privacy.html" target="_blank">Privacy Policy</a></li>
+                    </ul>      
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+<script src="js/jquery.jscrollpane.js"></script>
+<script src="js/bootstrap-datetimepicker.js"></script>
+
+
+<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+        </script>
+
+	</body>
+	</html>

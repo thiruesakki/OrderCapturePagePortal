@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BPI-ONLINE</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css"
+	href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700"
+	media="all" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"
+	media="all" />
+<link rel="stylesheet" type="text/css" href="css/slick.css" media="all" />
+<link rel="stylesheet" type="text/css" href="css/slick-theme.css"
+	media="all" />
+<link rel="stylesheet" type="text/css" href="css/travels-magnolia.css"
+	media="all" />
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="css/jquery.jscrollpane.css" rel="stylesheet">
+<link href="css/bpi-online.css" rel="stylesheet">
+<link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
+<link href="css/font-awesome.css" rel="stylesheet">
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,300italic,600,600italic,700,800,700italic,800italic'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/jquery-ui.css" />
+
+<script src="js/jquery-1.12.4.js"></script>
+<script src="js/moment-with-locales.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/respimage.min.js"></script>
+<script src="js/lazysizes.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.object-fit-cover-simple.js"></script>
+<script src="js/slick.min.js"></script>
+<script src="https://static.addtoany.com/menu/page.js"></script>
+<script src="js/main.js"></script>
+<script src="js/jquery.flip.js"></script>
+
+
+<script src="js/jquery.jscrollpane.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/bpicc_common_mexico.js"></script>
+<!-- <script src="js/bpicc_order_history_mexico.js"></script> -->
+<script src="js/jquery-ui.js"></script>
+<script src="js/bootstrap-datetimepicker.js"></script>
+<!-- <script type="text/javascript" src="js/ui.mask.js"></script>
+<script type="text/javascript" src="js/ui.core.js"></script> -->
+<script src="js/sorttable.js"></script>
+<script src="js/bpi-online.js"></script>
+</head>
+<body>
+<header id="header"> </header>
+
+<div class="container">
+		<div class="row">
+			<div class="col-sm-9 bpiOnlineRightPanel">
+				<div class="orderListtBlock" id='div_order_block'>
+					<div class="orderListtBlock orderlistDetailPage"
+						id='div_order_detail'>
+						<h4>
+							Sales Order <span id='dtl_sales_order_no'>#</span>
+						</h4>
+						<h5>ORDER DETAILS</h5>
+
+						<div class="row orderDetails">
+							<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-5">
+										<ul>
+											<li><span class="topics">Order Date:</span><span
+												class="answer" id='dtl_order_date'></span></li>
+											<li><span class="topics">Purchase Order #:</span><span
+												class="answer" id='dtl_po_no'></span></li>
+											<li><span class="topics">Sales Order #:</span><span
+												class="answer" id='dtl_sales_order_no1'></span></li>
+										</ul>
+									</div>
+									<div class="col-md-7 shipDetail">
+										<ul>
+											<li><span class="topics">Shipping Address:</span><span
+												class="answer" id='dtl_ship_addr'> </br>
+												</br></span></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<input id="shipping-details" class="shippingDetails"
+							value="Shipping Details" type="Submit" /> <input
+							id="invoice-details" onclick="location.href='invoice.html'" class="shippingDetails"
+							value="Invoice Details" type="Submit" />
+						<!--<h5>Items Ordered</h5> -->
+						<div class="orderListContent">
+							<div class="tableContentsorderListtBlock">
+								<table id="dtl_order_list_tbl" class="table sortable">
+									<thead>
+										<tr>
+											<th>LINE<br>ITEM #<span class="sortdown"><i
+													class="fa fa-sort-desc" aria-hidden="true"></i></span>
+											</th>
+											<th>PART NUMBER<span class="sortdown"><i
+													class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+											<th>DESCRIPTION<span class="sortdown"><i
+													class="fa fa-sort-desc" aria-hidden="true"></i></span>
+											</th>
+											<th>ORDERED<br>PIECES<span class="sortdown"><i
+													class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+											<th>CANCELLED<br>PIECES<span class="sortdown"><i
+													class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+											<th>SHIPPED<br>PIECES<span class="sortdown"><i
+													class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+											<th>SHIPPED<br>FROM<span class="sortdown"><i
+													class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+											<th>OPENED<br>PIECES<span class="sortdown"><i
+													class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+								</table>
+							</div>
+							<div class="backtoMyOrders">
+								<a href="#" onclick='OrderHistory.HandleBackToOrders();'><i
+									class="fa fa-angle-double-left" aria-hidden="true"></i> Back to
+									Order History</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+
+	<footer> </footer>
+
+</body>
+
+<script type="text/javascript"></script>
+
+
+</html>
