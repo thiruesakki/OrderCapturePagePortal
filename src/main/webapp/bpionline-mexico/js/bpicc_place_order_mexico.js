@@ -1,4 +1,5 @@
- //http://uswodapd01.brakepartsinc.com:8024/webservices/SOAProvider/plsql/xxagmx_customer_online/?wsdl
+//http://uswodapp013.brakepartsinc.com:8010/webservices/SOAProvider/plsql/xxbpi_customer_online/
+//http://bpiebsuat.brakepartsinc.com/webservices/SOAProvider/plsql/xxbpi_customer_online/
 po_ajax="";
   jQuery(function($) {'use strict',
   
@@ -96,7 +97,7 @@ $("#bpicc_tableDetails tbody tr#1").remove();
 				 
 					BpiccPlaceOrder.EnableDisableSumbitOrderButton();
 				});
-				$("#shipping_address").removeAttr('disabled');
+				
 			}
 			else
 			{
@@ -114,7 +115,7 @@ $("#bpicc_tableDetails tbody tr#1").remove();
 	   {
 		   $('input[name=inlineRadioOptions]').on('click', function(e){
 				 
-				if($("#shipping_error_info p:contains('"+msgAlertPlaceOrderSelectShippingMethod+"')").length>0)
+				if($("#shipping_error_info p:contains('Please Select Shipping Method Option')").length>0)
 				{
 					$("#shipping_error_info").html("");
 						$("#shipping_error_info").hide();
@@ -128,12 +129,28 @@ $("#bpicc_tableDetails tbody tr#1").remove();
 		   });
 
 		   $("#select_order_type").removeAttr('disabled');
+		  // var cookie_part_obj_str= getCookie("cookie_part_obj");
+		  var cookie_part_obj_str=localStorage.getItem("cookie_part_obj");
+		   
 		 
+		  if(!empty(cookie_part_obj_str))
+		  {
+			 
+			   	
+			  // var cookie_part_obj=JSON.parse(getCookie("cookie_part_obj"));
+			 
+			  var cookie_part_obj=JSON.parse(localStorage.getItem("cookie_part_obj"));
+			  	BpiccPlaceOrder.AddItemsFromCheckStockPage(cookie_part_obj);
+				   setCookie("cookie_part_obj","");
+				localStorage.setItem("cookie_part_obj","");   
+				 $('#reset_form').prop("disabled",true);
+				 setTimeout(function(){ $("#reqQnty_2").prop("disabled",true);}, 500); 
+				
+		  }
 		  $('input[name="shippingmodel"][value="SHIPPING ADDRESS"]')[0].checked = true;
 			$('input[name="inlineRadioOptions"][value="option1"]')[0].checked = true;
 			BpiccPlaceOrder.DisableShippingInputValues();
 			 $('[id^=reqQnty_]').attr('disabled',true);
-			 
 			 // $('[id^=partNum_]').attr('disabled',true);
 			 
 			   $("#select_order_type").attr('disabled',true);
@@ -148,8 +165,11 @@ $("#bpicc_tableDetails tbody tr#1").remove();
 		   $('input[name="AllDCinputAvail"]').attr('disabled',true);
 		   	$("#bpicc_tableDetails tbody tr#1 #partNum_1").focus();
 	   }
-	   	
-		bpi_com_obj.default_dc="EDC";
+	   if(!empty(getCookie("selected_ship_to_wc")))
+	   {
+		   bpi_com_obj.default_dc=getCookie("selected_ship_to_wc");
+	   }
+ 
 	   // $("#inputPo").focus();
 		
 		 
@@ -261,7 +281,7 @@ BpiccPlaceOrder=
 		var add_rows=1;
 		 if($("#page_type").val()=='place_order' && empty($("#inputPo").val()))
 		 {
-			 BpiccPlaceOrder.ShowShppingErrorSuccessMessages(msgAlertPlaceOrderEnterPONumber,"Error"); 
+			 BpiccPlaceOrder.ShowShppingErrorSuccessMessages("Please Enter PO Number","Error"); 
 			 add_rows=0;
 				return false;
 		 }
@@ -318,7 +338,6 @@ BpiccPlaceOrder=
 		 $("#WDC_i_"+row_id).removeClass("yellowIcon");
 		 $("#WDC_i_"+row_id).removeClass("redIcon");
 		 	 var part_no=$.trim($("#partNum_"+row_id).val());
-	 
 		if($("#validate_on_entry").attr("validate")=="1")
 		{		
 			if(bpi_obj.prod_stock.hasOwnProperty(part_no))
@@ -522,14 +541,18 @@ BpiccPlaceOrder=
 				ERROR_MSG=	$.trim(bpi_obj.prod_stock[part_no]['ERROR_MSG']);
 				if(empty(ERROR_MSG))
 				{
-					EDC=	bpi_obj.prod_stock[part_no]['M15'];
-				 
+					EDC=	bpi_obj.prod_stock[part_no]['EDC'];
+					MDC=	bpi_obj.prod_stock[part_no]['MDC'];
+					WDC=	bpi_obj.prod_stock[part_no]['WDC'];
 				}
 				var reqQnty=$.trim($("#reqQnty_"+row_id).val());
 				reqQnty= parseInt((empty(reqQnty))?0:reqQnty);
 				 if(reqQnty<EDC)
 						EDC=reqQnty;
-				 
+					if(reqQnty<MDC)
+						MDC=reqQnty;
+					if(reqQnty<WDC)
+						WDC=reqQnty;
 				
 						if(EDC==0)
 						{
@@ -545,7 +568,35 @@ BpiccPlaceOrder=
 							
 						}
 					
-					  
+					 
+						if(MDC==0)
+						{
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"MDC","redIcon")
+						}
+						else if(reqQnty<=MDC)
+						{
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"MDC","greenIcon")
+						}
+						else
+						{
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"MDC","yellowIcon")
+							
+						}
+					 
+					 
+						if(WDC==0)
+						{
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"WDC","redIcon")
+						}
+						else if(reqQnty<=WDC)
+						{
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"WDC","greenIcon")
+						}
+						else
+						{
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"WDC","yellowIcon")
+							
+						}
 					 
 			}
 		}
@@ -577,7 +628,14 @@ BpiccPlaceOrder=
 		 $("#EDC_i_"+row_id).removeClass("yellowIcon");
 		 $("#EDC_i_"+row_id).removeClass("redIcon");
 		 
-	 
+		 $("#MDC_i_"+row_id).removeClass("greenIcon");
+		 $("#MDC_i_"+row_id).removeClass("yellowIcon");
+		 $("#MDC_i_"+row_id).removeClass("redIcon");
+		 
+		 
+		 $("#WDC_i_"+row_id).removeClass("greenIcon");
+		 $("#WDC_i_"+row_id).removeClass("yellowIcon");
+		 $("#WDC_i_"+row_id).removeClass("redIcon");
 
 		$("#"+checked_val+"_i_"+row_id).addClass(ClassName);	
 		if(is_tot_cal_required==1)
@@ -597,7 +655,14 @@ BpiccPlaceOrder=
 		 $("#bpicc_tableDetails").find("#EDC_i_"+row_id).removeClass("yellowIcon");
 		 $("#bpicc_tableDetails").find("#EDC_i_"+row_id).removeClass("redIcon");
 		 
+		 $("#bpicc_tableDetails").find("#MDC_i_"+row_id).removeClass("greenIcon");
+		 $("#bpicc_tableDetails").find("#MDC_i_"+row_id).removeClass("yellowIcon");
+		 $("#bpicc_tableDetails").find("#MDC_i_"+row_id).removeClass("redIcon");
 		 
+		 
+		 $("#bpicc_tableDetails").find("#WDC_i_"+row_id).removeClass("greenIcon");
+		 $("#bpicc_tableDetails").find("#WDC_i_"+row_id).removeClass("yellowIcon");
+		$("#bpicc_tableDetails").find("#WDC_i_"+row_id).removeClass("redIcon");
 
 		 $("#bpicc_tableDetails").find("#"+checked_val+"_i_"+row_id).addClass(ClassName);	
 	 		
@@ -622,7 +687,9 @@ BpiccPlaceOrder=
 			html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'" maxlength=5 disabled  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccPlaceOrder.ValidateQty('+new_tr_id+');BpiccPlaceOrder.CalculateTotQtyWt();" class="inputReqQnty" type="text"></div></td>';
 			
 			html+='<td><div class="availableDC"><input id="edc_'+new_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"   id="EDC_RADIO_'+new_tr_id+'" name="inputAvail_'+new_tr_id+'" value="EDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="EDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></div></td>';
-			  			
+			html+='<td><div class="availableDC"><input id="mdc_'+new_tr_id+'" class="inputMdc" value="" disabled><span><input type="radio" id="MDC_RADIO_'+new_tr_id+'"   name="inputAvail_'+new_tr_id+'" value="MDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle"   id="MDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></div></td>';
+			html+='<td><div class="availableDC"><input id="wdc_'+new_tr_id+'" class="inputWdc" value="" disabled><span><input type="radio"  id="WDC_RADIO_'+new_tr_id+'"  name="inputAvail_'+new_tr_id+'" value="WDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="WDC_i_'+new_tr_id+'"  aria-hidden="true"></i></span></input></div></td>';
+			 			
 			html+='<td><div class="availableDC"><span onclick="BpiccPlaceOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></div></td>';
 			html+='	</tr>';
 			$("#bpicc_tableDetails tbody").append(html);
@@ -635,7 +702,6 @@ BpiccPlaceOrder=
 			bpi_obj.is_bulk_validate=1;
 		// var inputPo= $("#inputPo").val();
 		var tr_id=$("#bpicc_tableDetails tbody").find("tr").last().attr('id');
-
 		if(empty(tr_id))
 			tr_id=1;
 		new_tr_id=parseInt(tr_id)+1;
@@ -652,11 +718,12 @@ BpiccPlaceOrder=
 			html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'"  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccPlaceOrder.ValidateQty('+new_tr_id+');BpiccPlaceOrder.CalculateTotQtyWt();" class="inputReqQnty" '+dis+' type="text" value='+qty+'></td></div>';
 			
 			html+='<td><div class="availableDC"><input id="edc_'+new_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"  id="EDC_RADIO_'+new_tr_id+'" name="inputAvail_'+new_tr_id+'" value="EDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="EDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
-		 	
+			html+='<td><div class="availableDC"><input id="mdc_'+new_tr_id+'" class="inputMdc" value="" disabled><span><input type="radio" id="MDC_RADIO_'+new_tr_id+'"   name="inputAvail_'+new_tr_id+'" value="MDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle"   id="MDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
+			html+='<td><div class="availableDC"><input id="wdc_'+new_tr_id+'" class="inputWdc" value="" disabled><span><input type="radio"  id="WDC_RADIO_'+new_tr_id+'"  name="inputAvail_'+new_tr_id+'" value="WDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="WDC_i_'+new_tr_id+'"  aria-hidden="true"></i></span></input></td></div>';
+			
 			html+='<td><div class="availableDC"><span onclick="BpiccPlaceOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td></div>';
 			html+='	</tr>';
 			$("#bpicc_tableDetails tbody").append(html);
-			
 			if(!empty(dc))
 			{
 			 
@@ -664,7 +731,6 @@ BpiccPlaceOrder=
 				$("#"+checkd_val_f).prop("checked", true);
 				BpiccPlaceOrder.EnableProperCheckBoxColor(new_tr_id);
 			}
-
 			// MDC_RADIO_2
 			/* $("#bpicc_tableDetails tbody tr#"+new_tr_id+" #partNum_"+new_tr_id).focus()  */
 			
@@ -681,7 +747,7 @@ BpiccPlaceOrder=
 		 
 				if(row_disabled!="disabled")
 				{
-					var confirm_flag=confirm(msgConfirmPlaceOrderDeleteRecord);
+					var confirm_flag=confirm("Do you want to delete this record?");
 					if(confirm_flag)
 					{
 						var del_part_no=$("#partNum_"+del_id).val();;
@@ -710,36 +776,19 @@ BpiccPlaceOrder=
 	},
 	HandleGlobalDeleteForCheckDuplicatePartNo:function()
 	{
-		if(bpi_obj.is_bulk_validate==0 && $("#validate_on_entry").attr("validate")=="1")
+		if( bpi_obj.is_bulk_validate==0)
 		{
-		  var is_num="false";
 			  $("#bpicc_tableDetails tbody input[id*='partNum_']").each(function() {
 			   if(!empty($(this).val()))
 				  {
-					  is_num=isInt(($(this).val()));
-					if(is_num)
-					{
-						if ($("#bpicc_tableDetails tbody input[id*='partNum_'][value='"+$(this).val().toLowerCase()+"']").size()>1)
-						{
-							 $(this).addClass('errorWarning');
-						}
-						else
-						{
-							 $(this).removeClass('errorWarning');
-						}
-							
-					}
-					else
-					{
-						if ( $("#bpicc_tableDetails tbody input[id*='partNum_'][value='"+$(this).val().toLowerCase()+"']").size() 
-								+ $("#bpicc_tableDetails tbody input[id*='partNum_'][value='"+$(this).val().toUpperCase()+"']").size() > 1) {
-						  // highlight this
-						  $(this).addClass('errorWarning');
-						} else {
-						  // otherwise remove
-						  $(this).removeClass('errorWarning');
-						}
-					}
+			  // check if there is another one with the same value
+				if ( $("#bpicc_tableDetails tbody input[id*='partNum_'][value='"+$(this).val()+"']").size() > 1) {
+				  // highlight this
+				  $(this).addClass('errorWarning');
+				} else {
+				  // otherwise remove
+				  $(this).removeClass('errorWarning');
+				}
 			  }
 			});
 		}
@@ -766,7 +815,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		});
 		if(enterted_cnt>0)
 		{
-			var confirm_flag=confirm(msgConfirmPlaceOrderUploadErasesData);
+			var confirm_flag=confirm("If you upload a spreadsheet, all information will be lost.  Do you want to continue?");
 					if(confirm_flag)
 					{
 						bpi_obj.is_bulk_validate=0;
@@ -809,7 +858,13 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		$("#edc_"+tr_id).parent().find("span i").removeClass("redIcon");
 		$("#edc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 
-	 
+		$("#mdc_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#mdc_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#mdc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
+
+		$("#wdc_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#wdc_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#wdc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 
 	/* 	$("#edc_"+tr_id).val("");
 		$("#mdc_"+tr_id).val("");
@@ -817,7 +872,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	},
 	ValidateErrorsForSelectedPartNo:function(tr_id,part_no,is_qty_check)
 	{	
-	 
 		BpiccPlaceOrder.EnableValidateOrderDiv();
 		
 		// BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO(;
@@ -853,8 +907,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				if(empty(ERROR_MSG))
 				{
 					  
-					EDC=	bpi_obj.prod_stock[part_no]['M15'];
-					 
+					EDC=	bpi_obj.prod_stock[part_no]['EDC'];
+					MDC=	bpi_obj.prod_stock[part_no]['MDC'];
+					WDC=	bpi_obj.prod_stock[part_no]['WDC'];
 					 
 					$("#brand_"+tr_id).val(BRAND_NAME);
 					$("#desc_"+tr_id).val(ITEM_DESCRIPTION);
@@ -887,7 +942,8 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						$("#weight_"+tr_id).val("");
 						
 						$("#edc_"+tr_id).val("");
-						 
+						$("#mdc_"+tr_id).val("");
+						$("#wdc_"+tr_id).val("");
 						 
 					
 						// $("#reqQnty_"+tr_id).removeAttr("disabled");
@@ -903,7 +959,8 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						$("#desc_"+tr_id).val("");
 						$("#weight_"+tr_id).val("");
 						$("#edc_"+tr_id).val("");
-						 
+						$("#mdc_"+tr_id).val("");
+						$("#wdc_"+tr_id).val("");
 			}
 		}
 		else
@@ -924,24 +981,21 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		  	BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
 		if($("#validate_on_entry").attr("validate")=="1")
 		{
-			
+			if(reqQnty==0)
+			{
+				BpiccPlaceOrder.AddError("#reqQnty_"+tr_id,'Error');
+					BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
+				 
+				return;
+			}
+			else
+			{
+					BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
+			}
 			  
 				 
 			 if(bpi_obj.prod_stock.hasOwnProperty(part_no))
 			 {
-				 ERROR_MSG=	$.trim(bpi_obj.prod_stock[part_no]['ERROR_MSG']);
-				 if(reqQnty==0 && empty(ERROR_MSG))
-				{
-					BpiccPlaceOrder.AddError("#reqQnty_"+tr_id,'Error');
-						BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-					 
-					return;
-				}
-				else
-				{
-						BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-				}
-			
 				var MIN_ORDER_QTY=	parseInt(bpi_obj.prod_stock[part_no]['MIN_ORDER_QTY']);
 				 var IS_CALIPER=	bpi_obj.prod_stock[part_no]['IS_CALIPER'];
 				 
@@ -976,50 +1030,80 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					}
 						
 				 }
-					
-				 
+					ERROR_MSG=	$.trim(bpi_obj.prod_stock[part_no]['ERROR_MSG']);
 					if(empty(ERROR_MSG))
 					{
 						 
-						var EDC=parseInt(bpi_obj.prod_stock[part_no]['M15']);
-						 
+						var EDC=parseInt(bpi_obj.prod_stock[part_no]['EDC']);
+						var MDC=parseInt(bpi_obj.prod_stock[part_no]['MDC']);
+						var WDC=parseInt(bpi_obj.prod_stock[part_no]['WDC']);
 						if(reqQnty<EDC)
 							EDC=reqQnty;
-						 
+						if(reqQnty<MDC)
+							MDC=reqQnty;
+						if(reqQnty<WDC)
+							WDC=reqQnty;
 						BpiccPlaceOrder.EmptyWareHouseData(tr_id);
 					
 						if($("#page_type").val()=='check_stock')
 						{						
 							$("#edc_"+tr_id).val(EDC);
-						 
+							$("#mdc_"+tr_id).val(MDC);
+							$("#wdc_"+tr_id).val(WDC); 
 							BpiccPlaceOrder.HandleCheckStockPage(tr_id);
 						}
 						  
 						var default_dc=bpi_com_obj.default_dc;
 						default_dc=empty(default_dc)?"EDC":default_dc;
-						  
+						 
+						  if(IS_CALIPER=="1")
+						  {
+							default_dc="WDC";  
+						  }
 
 						var default_dc_lower=default_dc.toLowerCase();
 						var assign_val=0;
 						if(default_dc=="EDC")
 							assign_val=EDC;
-						 
+						if(default_dc=="MDC")
+							assign_val=MDC;
+						if(default_dc=="WDC")
+							assign_val=WDC;
 						
 						existing_edc_val=$("#edc_"+tr_id).val();
-						 
-						 
+						existing_mdc_val=$("#mdc_"+tr_id).val();
+						existing_wdc_val=$("#wdc_"+tr_id).val();
+						
+						// console.log("existing_edc_val--"+existing_edc_val+"---------existing_mdc_val"+existing_mdc_val+"-----------existing_wdc_val"+existing_wdc_val);
+						// if(empty($("#"+default_dc_lower+"_"+tr_id).val()))
+							// alert($("#"+default_dc_lower+"_"+tr_id).val());
+						// if(IS_CALIPER!="1")
 							$("#"+default_dc_lower+"_"+tr_id).val(assign_val);
 					 
 						
 						var already_check_val=$("input[name='inputAvail_"+tr_id+"']:checked").val();
 
-						 if(already_check_val=="EDC")
+
+						 if(already_check_val=="WDC")
+						 {
+							 $("#wdc_"+tr_id).val(WDC);
+						 }if(already_check_val=="EDC")
 						 {
 							 $("#edc_"+tr_id).val(EDC);
-						 } 
+						 }if(already_check_val=="MDC")
+						 {
+							 $("#mdc_"+tr_id).val(MDC);
+						 }
+						  if(IS_CALIPER=="1")
+						  {
+							  already_check_val="WDC";
+						  }
 						if(!empty(already_check_val))
 							default_dc=already_check_val;
-						   
+						  if(IS_CALIPER=="1")
+						  {
+							  default_dc="WDC";
+						  }
 						 
 						if(default_dc=="EDC")
 						{
@@ -1038,7 +1122,41 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 								
 							}
 						}
-						 
+						else if(default_dc=="MDC")
+						{
+							if(MDC==0)
+							{
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"MDC","redIcon",1);
+								 // BpiccPlaceOrder.EnableValidateOrderDiv();
+							}
+							else if(reqQnty<=MDC)
+							{
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"MDC","greenIcon",1);
+							}
+							else
+							{
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"MDC","yellowIcon",1);
+								
+							}
+						}
+						else if(default_dc=="WDC")
+						{
+							if(WDC==0)
+							{
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"WDC","redIcon",1);
+								 // BpiccPlaceOrder.EnableValidateOrderDiv();
+							}
+							else if(reqQnty<=WDC)
+							{
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"WDC","greenIcon",1);
+							}
+							else
+							{
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"WDC","yellowIcon",1);
+								
+							}
+							
+						}
 						  
 						 
 						if($("#page_type").val()=='check_stock')
@@ -1086,7 +1204,8 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			var w_tot_wt=0;
 			var data=$("#bpicc_tableDetails tbody tr");
 			var s_edc_qty=0;
-			 
+			var s_mdc_qty=0;
+			var s_wdc_qty=0;
 			var tot_wc_qty=0;
 			var tot_lines=0;
 				var partNum="";
@@ -1115,7 +1234,8 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				if(reqQnty>0)
 				{
 					  s_edc_qty=0;
-					 
+					  s_mdc_qty=0;
+					  s_wdc_qty=0;
 					
 					if(checked_val=="EDC")
 					{
@@ -1126,35 +1246,59 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						e_tot_wt=parseFloat(e_tot_wt+(weight*reqQnty))  ;
 						
 					}
-					 
+					if(checked_val=="MDC")
+					{
+						s_mdc_qty=parseInt($(this).find("#mdc_"+tr_id).val());
+						 
+						m_tot_qty=parseFloat(m_tot_qty+reqQnty);
+						  weight=$(this).find("#weight_"+tr_id).val();
+						weight=parseFloat((empty(weight))?0:weight);
+						m_tot_wt=parseFloat(m_tot_wt+(weight*reqQnty))  ;
+						
+					}
+					if(checked_val=="WDC")
+					{
+						s_wdc_qty=parseInt($(this).find("#wdc_"+tr_id).val());
+						w_tot_qty=parseFloat(w_tot_qty+reqQnty);
+						  weight=$(this).find("#weight_"+tr_id).val();
+						weight=parseFloat((empty(weight))?0:weight);
+						w_tot_wt=parseFloat(w_tot_wt+(weight*reqQnty))  ;
+						
+					}
 					tot_wc_qty=empty(tot_wc_qty)?0:tot_wc_qty;
 					s_edc_qty=empty(s_edc_qty)?0:s_edc_qty;
-				 
-					tot_wc_qty=parseFloat(tot_wc_qty)+parseFloat(s_edc_qty);
+					s_mdc_qty=empty(s_mdc_qty)?0:s_mdc_qty;
+					s_wdc_qty=empty(s_wdc_qty)?0:s_wdc_qty;
+					tot_wc_qty=parseFloat(tot_wc_qty)+parseFloat(s_edc_qty)+parseFloat(s_mdc_qty)+parseFloat(s_wdc_qty);
 				}
+
 				
 			});
 			
 			$("#Tot_No_Of_Lines").html(tot_lines);
 			$("#totalWeightEDC").html(0);
-			 
+			$("#totalWeightMDC").html(0);
+			$("#totalWeightWDC").html(0);
 			
 			$("#totalQtyEDC").html(0);
-		 
+			$("#totalQtyMDC").html(0);
+			$("#totalQtyWDC").html(0);
 			
 			$("#totalWeightEDC").html(tarkaRound(e_tot_wt,3));
-			 
+			$("#totalWeightMDC").html(tarkaRound(m_tot_wt,3));
+			$("#totalWeightWDC").html(tarkaRound(w_tot_wt,3));
 			
 			$("#totalQtyEDC").html(e_tot_qty);
-			 
+			$("#totalQtyMDC").html(m_tot_qty);
+			$("#totalQtyWDC").html(w_tot_qty);
 			var e_tot_qty=parseFloat(e_tot_qty)+parseFloat(m_tot_qty)+parseFloat(w_tot_qty);
 			var perc=tarkaRound((tot_wc_qty/e_tot_qty)*100,1);
 				 $("#percentValue").html("0%");
 			if(!isNaN(perc))
 			 $("#percentValue").html(perc+"%");
 
-		 }
 		 
+		 }
 
 	},
 	ResetForm:function()
@@ -1172,7 +1316,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		});
 		if(enterted_cnt>0)
 		{
-			var confirm_flag=confirm(msgConfirmPlaceOrderClearDataInForm);
+			var confirm_flag=confirm("Do you want to clear all items in the form?");
 					if(confirm_flag)
 					{
 						BpiccPlaceOrder.CallResetData();
@@ -1193,11 +1337,13 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			$("#validate_po_erro_msg_div").remove();
 			$("#percentValue").html("0%");
 			$("#totalWeightEDC").html(0);
-		 
+			$("#totalWeightMDC").html(0);
+			$("#totalWeightWDC").html(0);
 			$("#Tot_No_Of_Lines").html(0);
 
 			$("#totalQtyEDC").html(0);
-		 
+			$("#totalQtyMDC").html(0);
+			$("#totalQtyWDC").html(0);
 			$("#bpicc_tableDetails tbody tr").remove();
 			BpiccPlaceOrder.AddDefaultRowsOnLoad();
 
@@ -1211,13 +1357,13 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	{
 		 if($("#page_type").val()=='place_order' && empty($("#inputPo").val()))
 		 {
-			 BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages(msgAlertPlaceOrderEnterPONumber,"Error"); 
+			 BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages("Please Enter PO Number","Error"); 
 			 
 			 return false;
 		 }
 		 
 		var data=$("#bpicc_tableDetails tbody tr");
-		 	var confirm_flag=confirm(msgConfirmPlaceOrderDeleteAllRecords);
+		 	var confirm_flag=confirm("Do you want to delete all records?");
 			
 				if(confirm_flag)
 				{
@@ -1256,9 +1402,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		 // BpiccPlaceOrder.EnableValidateOrderDiv();
 		if(!empty(part_no))
 		{ 
-			BpiccPlaceOrder.RemoveError("#partNum_"+tr_id);
+		BpiccPlaceOrder.RemoveError("#partNum_"+tr_id);
 			$('#reset_form').removeAttr("disabled");
-			 if($("#place_order_error_info p:contains('"+msgAlertPlaceOrderSubmitEnterOneItem+"')").length>0)
+			 if($("#place_order_error_info p:contains('Please enter at least one item')").length>0)
 			{
 					$("#place_order_error_info").hide();
 			}  
@@ -1267,7 +1413,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			{ 
 				if(bpi_obj.prod_stock.hasOwnProperty(part_no))//if its exists no need to call apI
 				{
-				 
 						 BpiccPlaceOrder.ValidateErrorsForSelectedPartNo(tr_id,part_no);
 				}
 				else
@@ -1305,12 +1450,20 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		$("#reqQnty_"+tr_id).val("");
 	
 		$("#edc_"+tr_id).val("");
-	 
+		$("#mdc_"+tr_id).val("");
+		$("#wdc_"+tr_id).val("");
 		
 		$("#edc_"+tr_id).parent().find("span i").removeClass("greenIcon");
 		$("#edc_"+tr_id).parent().find("span i").removeClass("redIcon");
 		$("#edc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
- 
+
+		$("#mdc_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#mdc_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#mdc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
+
+		$("#wdc_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#wdc_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#wdc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 	 
 		
 	},
@@ -1333,7 +1486,13 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		$("#edc_"+tr_id).parent().find("span i").removeClass("redIcon");
 		$("#edc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 
-	 
+		$("#mdc_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#mdc_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#mdc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
+
+		$("#wdc_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#wdc_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#wdc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 	 
 		
 	},
@@ -1344,65 +1503,79 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	{
 		split_arr=prod_ids_list.split(",");
 		prod_list="";
+		var part_no_arr="";
 		for(i=0;i<split_arr.length;i++)
 		{
-			var part_no=$.trim(split_arr[i]);
-			if(!empty(part_no))
-			{
-				prod_list+='<ns2:P_PRODUCT_ITEM>';
-				prod_list+='<ns2:PRODUCT_NUM>'+part_no+'</ns2:PRODUCT_NUM>';
-				prod_list+='</ns2:P_PRODUCT_ITEM>';
+			if(i==0){
+				part_no_arr=$.trim(split_arr[i]);
+			}else{
+				part_no_arr=part_no_arr+","+$.trim(split_arr[i]);
 			}
-			
+//			var part_no=$.trim(split_arr[i]);
+//			if(!empty(part_no))
+//			{
+//				prod_list+='<chec:P_PRODUCT_ITEM>';
+//				prod_list+='<chec:PRODUCT_NUM>'+part_no+'</chec:PRODUCT_NUM>';
+//				prod_list+='</chec:P_PRODUCT_ITEM>';
+//			}
+//			
 		}
-		 
+		console.log("Part_no_arr:"+part_no_arr);
 		if(split_arr.length>1)
 		{
 				$(".loader").show();
 		}
-		if(empty(prod_list)) return;
+		var shipTO=getCookie("selected_ship_to");
+		var billTO=getCookie("selected_bill_to");
+		var userID=getCookie("userID");
+		var orgID=getCookie("selected_org_id");
+		if(empty(part_no_arr)) return;
 		xml_request_data='';
+		xml_request_data+='<soapenv:Envelope xmlns:chec="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/check_stock/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xxb="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/">';
+		xml_request_data+='<soapenv:Header><wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"><wsse:UsernameToken wsu:Id="UsernameToken-E739E7BD4A96DC5D3A148740685027013"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password><wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">Q0bJKr12IBZPbXDrCOFkKw==</wsse:Nonce><wsu:Created>2017-02-18T08:34:10.270Z</wsu:Created></wsse:UsernameToken></wsse:Security>';
+		xml_request_data+='<xxb:SOAHeader>';
+		xml_request_data+='<xxb:Responsibility>BPI_WEB_SERVICE_USER</xxb:Responsibility>';
+		xml_request_data+='<xxb:RespApplication>XXBPI</xxb:RespApplication>';
+		xml_request_data+='<xxb:SecurityGroup>STANDARD</xxb:SecurityGroup>';
+		xml_request_data+='<xxb:NLSLanguage>AMERICAN</xxb:NLSLanguage>';
+		xml_request_data+='<xxb:Org_Id>82</xxb:Org_Id>';
+		xml_request_data+='</xxb:SOAHeader>';
+		xml_request_data+='</soapenv:Header>';
+		xml_request_data+='<soapenv:Body>';
+		xml_request_data+='<chec:InputParameters>';
 		
-		xml_request_data+='<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">';
-		xml_request_data+='<soap:Header xmlns:ns1="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxagmx_customer_online/">';
-		xml_request_data+='<ns1:SOAHeader>';
-		xml_request_data+='<ns1:Responsibility>BPI_WEB_SERVICE_USER</ns1:Responsibility>';
-		xml_request_data+='<ns1:RespApplication>XXAG</ns1:RespApplication>';
-		xml_request_data+='<ns1:SecurityGroup>STANDARD</ns1:SecurityGroup>';
-		xml_request_data+='<ns1:NLSLanguage>AMERICAN</ns1:NLSLanguage>';
-		xml_request_data+='<ns1:Org_Id>181</ns1:Org_Id>';
-		xml_request_data+='</ns1:SOAHeader>';
-		xml_request_data+='<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" soap:mustUnderstand="1"><wsse:UsernameToken xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password></wsse:UsernameToken></wsse:Security></soap:Header>';
-		xml_request_data+='<soap:Body xmlns:ns2="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxagmx_customer_online/check_stock/">';
-		xml_request_data+='<ns2:InputParameters>';
-		xml_request_data+='<ns2:P_OPERATING_UNIT_ID>181</ns2:P_OPERATING_UNIT_ID>';
-		 
-		 
-		xml_request_data+='<ns2:P_SHIP_TO>'+bpi_com_obj.ship_to_location+'</ns2:P_SHIP_TO>';
-		xml_request_data+='<ns2:P_BILL_TO>'+bpi_com_obj.bill_to_location+'</ns2:P_BILL_TO>';
-		xml_request_data+='<ns2:P_PRODUCT>';
-		xml_request_data+=prod_list;		
-		xml_request_data+='</ns2:P_PRODUCT>';
-		xml_request_data+='</ns2:InputParameters>';
-		xml_request_data+='</soap:Body>';
-		xml_request_data+='</soap:Envelope>';
-
-
+		
+		xml_request_data+='<chec:P_SHIP_TO>'+bpi_com_obj.ship_to_location+'</chec:P_SHIP_TO>';
+         xml_request_data+='<chec:P_BILL_TO>'+bpi_com_obj.bill_to_location+'</chec:P_BILL_TO>';
 	 
-		 var url = bpi_com_obj.web_api_url;	
-				jQuery.ajax({
-					type: "POST",
+			
+		xml_request_data+='<chec:P_PRODUCT>';
+		xml_request_data+=prod_list;		
+		xml_request_data+='</chec:P_PRODUCT>';
+		xml_request_data+='</chec:InputParameters>';
+		xml_request_data+='</soapenv:Body>';
+		xml_request_data+='</soapenv:Envelope>';
+		var url = bpi_com_obj.web_oracle_api_url+"GetCheckStock?org_id="+orgID+"&ship_to="+shipTO+"&product_no="+part_no_arr; 
+		  // var url = "http://uswodapp013.brakepartsinc.com:8010/webservices/SOAProvider/plsql/xxbpi_customer_online/";
+//		 var url = bpi_com_obj.web_api_url;
+			 jQuery.ajax({
+					type: "GET",
 					url: url,
-					 data: "xml_data="+xml_request_data+"&call_type=MEXICO",
-					dataType: "xml",
+	//				 data: "xml_data="+xml_request_data+"&call_type=MEXICO",
+					dataType: "json",
 					async:false,
 					crossDomain: true,
 					processData: false,
 					// contentType: "text/xml; charset=\"utf-8\"",
 					 
 					success: function (data) {
-					 $(".loader").hide();
-						 BpiccPlaceOrder.ProcessCheckStockXml(data,callback);
+						$(".loader").hide();
+						 var obj=JSON.parse(data.object);
+							var productObj=obj.x_product_avail;
+							console.log("data:"+JSON.stringify(productObj));
+							if(productObj!=null){
+							 BpiccPlaceOrder.ProcessCheckStockXml(productObj,callback);
+							}
 					},
 					error: function (msg) {
 						$(".loader").hide();
@@ -1443,18 +1616,18 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		});
 		 if($("#page_type").val()=='place_order' && empty($("#inputPo").val())) 
 		 {
-			  BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages(msgAlertBpiCcOrderHistoryEnterPoNumber,"Error");
+			  BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages("Please Enter PO Number","Error");
 			 return false;
 		 }
 		 if(part_no_cnt==0)
 		 {
-			 BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages(msgAlertPlaceOrderSubmitEnterOneItem,"Error");
+			 BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages("Please enter at least one item","Error");
 			 $("#partNum_1").focus();
 			 return false;
 		 }
 		 if($("#page_type").val()=='place_order' && $("#select_order_type").val()=="orderType")
 		 {
-			  BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages(msgAlertPlaceOrderSubmitSelectOrderType,"Error");
+			  BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages("Please Select Order Type","Error");
 			 return false;
 		 }
 		 
@@ -1479,8 +1652,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			}
 			
 		  
-				
-				
 	},
 	HandleEmergencyCheck:function()
 	{
@@ -1504,7 +1675,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					{
 						 flag=false;
 						 setTimeout(function(){
-					BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages(partNum+" "+msgAlertPlaceOrderSubmitNoEmergencyBackorderForOrders,"Error");
+					BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages(partNum+" -- Emergency Orders Cannot be Backordered","Error");
 				}, 500); 
 						
 						return flag;
@@ -1518,7 +1689,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	EnableContinueOrderDiv:function()
 	{
 		 
-		 BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
+		 
 			$("#validate_order").attr("disabled",true);
 			if($("#page_type").val()=='place_order')
 			{
@@ -1551,7 +1722,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	HandleOnchangeOrderType:function()
 	{
 		$("#validate_po_erro_msg_div").remove();
-		 if($("#place_order_error_info p:contains('"+msgAlertPlaceOrderSubmitSelectOrderType+"')").length>0)
+		 if($("#place_order_error_info p:contains('Please Select Order Type')").length>0)
 				{
 						$("#place_order_error_info").hide();
 				}  
@@ -1565,7 +1736,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			inputPo=$("#inputPo").val();
 				if(empty(inputPo))
 				{
-						BpiccPlaceOrder.ShowShppingErrorSuccessMessages(msgAlertPlaceOrderSubmitEnterPONumber,"Error"); 
+						BpiccPlaceOrder.ShowShppingErrorSuccessMessages("Please Enter PO Number","Error"); 
 						return false;
 				}
 		
@@ -1637,9 +1808,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						 
 						 bpi_obj.is_bulk_validate=0;
 						 
-							BpiccPlaceOrder.HandleGlobalDeleteForCheckDuplicatePartNo();
+					
 							 BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-							
+								BpiccPlaceOrder.HandleGlobalDeleteForCheckDuplicatePartNo();
 								BpiccPlaceOrder.CalculateTotQtyWt();
 									$(".loader").hide();
 						 
@@ -1682,11 +1853,10 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						 bpi_obj.is_bulk_validate=0;
 						 
 						$(".loader").hide();
-							
+							 BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
 								BpiccPlaceOrder.HandleGlobalDeleteForCheckDuplicatePartNo();
-								 BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
 								BpiccPlaceOrder.CalculateTotQtyWt()
-							setTimeout(function(){
+						 setTimeout(function(){
 									if(bpi_com_obj.error_cnt==0 && BpiccPlaceOrder.HandleEmergencyCheck() )
 									{
 										 
@@ -1740,40 +1910,66 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	ProcessCheckStockXml:function(xml,callback)
 	{
 		  try {
-			 $(xml).find('X_PRODUCT_AVAIL').each(function(){
-                     $(this).find("X_PRODUCT_AVAIL_ITEM").each(function(){
-						var  prod_obj=new Object();
-                        var PRODUCT_NUM= $(this).find("PRODUCT_NUM").text();
-                        prod_obj['PRODUCT_NUM']= $(this).find("PRODUCT_NUM").text();;
-                        prod_obj['INVENTORY_ITEM_ID']= $(this).find("INVENTORY_ITEM_ID").text();;
-                        prod_obj['ITEM_STATUS'] = $(this).find("ITEM_STATUS").text();;
-                        prod_obj['BRAND_NAME'] = $(this).find("BRAND_NAME").text();;
-                        prod_obj['ITEM_DESCRIPTION'] = $(this).find("ITEM_DESCRIPTION").text();;
-						var ITEM_DESCRIPTION=$(this).find("ITEM_DESCRIPTION").text();
-						prod_obj['IS_CALIPER']='0';
-						if(ITEM_DESCRIPTION.indexOf("CALIPER")>=0)
-							prod_obj['IS_CALIPER']='1';
-					 
-					 
-                        prod_obj['UNIT_WEIGHT']= $(this).find("UNIT_WEIGHT").text();;
-						prod_obj['MIN_ORDER_QTY']= $(this).find("MIN_ORDER_QTY").text();;
-                        prod_obj['ERROR_MSG'] = $(this).find("ERROR_MSG").text(); 
-                       $.each($(this).find("AVAIL_PRODUCT").find("AVAIL_PRODUCT_ITEM"),function()//looping through edc/mdc/wdc
-					   {
-						   var ORGANIZATION_CODE=$(this).find("ORGANIZATION_CODE").text();
-						   var AVAILABLE_QTY=$(this).find("AVAILABLE_QTY").text();
-						   AVAILABLE_QTY=parseInt(AVAILABLE_QTY);
-						   if(AVAILABLE_QTY<0)
-							   AVAILABLE_QTY=0;
-						   prod_obj[ORGANIZATION_CODE]=AVAILABLE_QTY;
-					   }) 
-					   bpi_obj.prod_stock[PRODUCT_NUM]=new Object();
-					   bpi_obj.prod_stock[PRODUCT_NUM]=prod_obj;
-					});
-			 });
-			 if (callback && typeof(callback) === "function") {
-						callback();
-					}
+			  console.log("inside");
+//				 $(xml).find('X_PRODUCT_AVAIL').each(function(){
+//	                     $(this).find("X_PRODUCT_AVAIL_ITEM").each(function(){
+				  for (var i = 0; i < xml.length; i++) {
+					  var object = xml[i];
+							var  prod_obj=new Object();
+//	                        var PRODUCT_NUM= $(this).find("PRODUCT_NUM").text();
+//	                        prod_obj['PRODUCT_NUM']= $(this).find("PRODUCT_NUM").text();;
+//	                        prod_obj['INVENTORY_ITEM_ID']= $(this).find("INVENTORY_ITEM_ID").text();;
+//	                        prod_obj['ITEM_STATUS'] = $(this).find("ITEM_STATUS").text();;
+//	                        prod_obj['BRAND_NAME'] = $(this).find("BRAND_NAME").text();;
+//	                        prod_obj['ITEM_DESCRIPTION'] = $(this).find("ITEM_DESCRIPTION").text();;
+//							var ITEM_DESCRIPTION=$(this).find("ITEM_DESCRIPTION").text();
+//							prod_obj['IS_CALIPER']='0';
+//							if(ITEM_DESCRIPTION.indexOf("CALIPER")>=0)
+//								prod_obj['IS_CALIPER']='1';
+//						 
+//						 
+//	                        prod_obj['UNIT_WEIGHT']= $(this).find("UNIT_WEIGHT").text();;
+//							prod_obj['MIN_ORDER_QTY']= $(this).find("MIN_ORDER_QTY").text();;
+//	                        prod_obj['ERROR_MSG'] = $(this).find("ERROR_MSG").text(); 
+	                        
+	                        var PRODUCT_NUM= object.PRODUCT_NUM;
+	                        prod_obj['PRODUCT_NUM']= object.PRODUCT_NUM;
+	                        prod_obj['INVENTORY_ITEM_ID']= object.INV_ITEM_ID;
+	                        prod_obj['ITEM_STATUS'] = object.ITEM_STATUS;
+	                        prod_obj['BRAND_NAME'] = object.BRAND_NAME;
+	                        prod_obj['ITEM_DESCRIPTION'] = object.ITEM_DESCRIPTION;
+							var ITEM_DESCRIPTION = object.ITEM_DESCRIPTION;
+							prod_obj['IS_CALIPER']='0';
+							if(ITEM_DESCRIPTION.indexOf("CALIPER")>=0)
+								prod_obj['IS_CALIPER']='1';
+						 
+						 
+	                        prod_obj['UNIT_WEIGHT']= object.UNIT_WEIGHT;
+							prod_obj['MIN_ORDER_QTY']= object.MIN_ORDER_QTY;
+	                        prod_obj['ERROR_MSG'] = object.ERROR_MSG; 
+//	                       $.each($(this).find("AVAIL_PRODUCT").find("AVAIL_PRODUCT_ITEM"),function()//looping through edc/mdc/wdc
+//						   {
+//							   var ORGANIZATION_CODE=$(this).find("ORGANIZATION_CODE").text();
+//							   var AVAILABLE_QTY=$(this).find("AVAILABLE_QTY").text();
+//							   AVAILABLE_QTY=parseInt(AVAILABLE_QTY);
+//							   if(AVAILABLE_QTY<0)
+//								   AVAILABLE_QTY=0;
+//							   prod_obj[ORGANIZATION_CODE]=AVAILABLE_QTY;
+							   var ORGANIZATION_CODE= object.ORGANIZATION_CODE;
+							   var AVAILABLE_QTY= object.AVAILABLE_QTY;
+							   AVAILABLE_QTY=parseInt(AVAILABLE_QTY);
+							   if(AVAILABLE_QTY<0)
+								   AVAILABLE_QTY=0;
+							   prod_obj[ORGANIZATION_CODE]=AVAILABLE_QTY;
+//						   }) 
+						   bpi_obj.prod_stock[PRODUCT_NUM]=new Object();
+						   bpi_obj.prod_stock[PRODUCT_NUM]=prod_obj;
+//						});
+//				 });
+	                     }
+				 if (callback && typeof(callback) === "function") {
+							callback();
+						}
 		    }
 		  catch(err) {
 			
@@ -1785,15 +1981,14 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	
 	APIExcelCheckStock:function(prod_ids_list,part_qty_arr,part_no_dc_arr,callback)
 	{
-		$('#reset_form').removeAttr("disabled");
 	//	prod_ids_list="9478,947PG,947SG,9480,9480R,9481,9481R,9482,9482R,9483,9483R,9484,9484R,9485,9485B,9485R,9486,9486R,9487,9487R,948PG,948SG,9494,9494R,9495B,9497,EHT1000H,EHT1001,EHT1002,EHT1003,EHT1004H,EHT1005H,EHT1012AH,EHT1012H,EHT1015H,EHT1017H,EHT1018H,EHT1019AH,EHT1019H,EHT1020AH,EHT1020H,EHT1021H,EHT1022H,EHT1024,EHT1028H,H1105,H154162,BH383838,EHT436H,MK1,ehT436H,MGD1169CH,H1105,H5025,10012N,H171372,H72702,H1198,WCC966,S22067,6184B,H28622,H5114,10117N,H2100,FRC7700N,FRC11963,FRC12031,FRC12032,FRC12169,FRC12170,FRC4123,FRC4124,FRC4126,FRC4139,FRC4140,FRC4178,FRC4213,FRC4413,FRC4417,FRC4418,FRC7017,FRC7023,FRC7024,FRC7700,FRC7800,FRC10003,FRC10004,FRC10185,FRC10186,FRC10277,FRC10509,FRC10523,FRC10629,FRC10674,FRC10763,FRC10764,FRC10839,FRC10840,FRC10905,FRC10909,FRC10911,FRC10912,FRC10917,FRC10918,FRC10959,FRC10962,FRC10963,FRC10993,FRC10994,FRC11005,FRC11006,FRC11010,FRC11011,FRC11012,FRC11029,FRC11035,FRC11036,FRC11085,FRC11086,FRC11173,FRC11203,FRC11204,FRC11237A,FRC11267,FRC11268,FRC11287,FRC11309,FRC11331,FRC11332,FRC11359,FRC11360,FRC11379,FRC11380,FRC11435,FRC11508,FRC11510,FRC11527,FRC11528,FRC11530,FRC11557,FRC11573,FRC11574,FRC11576,FRC11588,FRC11589,FRC11590,FRC11684,FRC11713,FRC11797,FRC11798,FRC11825,FRC11826,FRC11903,FRC11904,SGD52M,SGD914C,BH36765,SGD1719C,242PG,280PG,314PG,452PG,583PG,647PG,675PG,747PG,781PG,855PG,919PG,960PG,228PG,574PG,854PG,SGD815M,SGD632C,SGD1363C,SGD1367C,SGD1508C,SGD340AC,SGD1083C,SGD1100C,SGD1172C,SGD1194C,SGD1258AC,SGD1258C,SGD1264C,SGD1273M,SGD1274M,SGD1336C,SGD1375M,SGD1377C,SGD1414C,SGD1578C,SGD52C,SGD52M,SGD91M,SGD120M,SGD149M,SGD154M,SGD369C,SGD369M,SGD376M,SGD389C,SGD436AC,SGD459M,SGD465AC,SGD473C,SGD562C,SGD598C,SGD606C,SGD652M,SGD655M,SGD667M,SGD674M,SGD679C,SGD679M,SGD698";
-		 if($("#place_order_error_info p:contains('"+msgAlertPlaceOrderSubmitEnterOneItem+"')").length>0)
+		 if($("#place_order_error_info p:contains('Please enter at least one item')").length>0)
 			{
 					$("#place_order_error_info").hide();
 			} 
 		 bpi_obj.is_bulk_validate=1;
 			$(".errorFileFormat").show();
-			$(".errorFileFormat").html(msgAlertExcelUploadValidatingData);  	  
+			$(".errorFileFormat").html("Please Wait, Validating Data..");  	  
 		split_arr=prod_ids_list.split(",");
 		prod_list="";
 		for(i=0;i<split_arr.length;i++)
@@ -1801,9 +1996,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			var part_no=$.trim(split_arr[i]);
 			if(!empty(part_no))
 			{
-				prod_list+='<ns2:P_PRODUCT_ITEM>';
-				prod_list+='<ns2:PRODUCT_NUM>'+part_no+'</ns2:PRODUCT_NUM>';
-				prod_list+='</ns2:P_PRODUCT_ITEM>';
+				prod_list+='<chec:P_PRODUCT_ITEM>';
+				prod_list+='<chec:PRODUCT_NUM>'+part_no+'</chec:PRODUCT_NUM>';
+				prod_list+='</chec:P_PRODUCT_ITEM>';
 			}
 			
 		}
@@ -1814,47 +2009,34 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				 // setTimeout(function(){$(".loader").show();}, 100);
 		}
 		if(empty(prod_list)) return;
-		
-		var ship_to_location=bpi_com_obj.ship_to_location;
-		var bill_to_location=bpi_com_obj.bill_to_location;
-		
-		if(empty(ship_to_location))
-		ship_to_location=getCookie("selected_ship_to_account_no")
-		if(empty(bill_to_location))
-		 bill_to_location=getCookie("selected_bill_to_location");
-		
 		xml_request_data='';
+		xml_request_data+='<soapenv:Envelope xmlns:chec="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/check_stock/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xxb="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/">';
+		xml_request_data+='<soapenv:Header><wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"><wsse:UsernameToken wsu:Id="UsernameToken-E739E7BD4A96DC5D3A148740685027013"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password><wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">Q0bJKr12IBZPbXDrCOFkKw==</wsse:Nonce><wsu:Created>2017-02-18T08:34:10.270Z</wsu:Created></wsse:UsernameToken></wsse:Security>';
+		xml_request_data+='<xxb:SOAHeader>';
+		xml_request_data+='<xxb:Responsibility>BPI_WEB_SERVICE_USER</xxb:Responsibility>';
+		xml_request_data+='<xxb:RespApplication>XXBPI</xxb:RespApplication>';
+		xml_request_data+='<xxb:SecurityGroup>STANDARD</xxb:SecurityGroup>';
+		xml_request_data+='<xxb:NLSLanguage>AMERICAN</xxb:NLSLanguage>';
+		xml_request_data+='<xxb:Org_Id>82</xxb:Org_Id>';
+		xml_request_data+='</xxb:SOAHeader>';
+		xml_request_data+='</soapenv:Header>';
+		xml_request_data+='<soapenv:Body>';
+		xml_request_data+='<chec:InputParameters>';
+			xml_request_data+='<chec:P_SHIP_TO>'+bpi_com_obj.ship_to_location+'</chec:P_SHIP_TO>';
+         xml_request_data+='<chec:P_BILL_TO>'+bpi_com_obj.bill_to_location+'</chec:P_BILL_TO>';
 	 
-		  	xml_request_data+='<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">';
-		xml_request_data+='<soap:Header xmlns:ns1="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxagmx_customer_online/">';
-		xml_request_data+='<ns1:SOAHeader>';
-		xml_request_data+='<ns1:Responsibility>BPI_WEB_SERVICE_USER</ns1:Responsibility>';
-		xml_request_data+='<ns1:RespApplication>XXAG</ns1:RespApplication>';
-		xml_request_data+='<ns1:SecurityGroup>STANDARD</ns1:SecurityGroup>';
-		xml_request_data+='<ns1:NLSLanguage>AMERICAN</ns1:NLSLanguage>';
-		xml_request_data+='<ns1:Org_Id>181</ns1:Org_Id>';
-		xml_request_data+='</ns1:SOAHeader>';
-		xml_request_data+='<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" soap:mustUnderstand="1"><wsse:UsernameToken xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password></wsse:UsernameToken></wsse:Security></soap:Header>';
-		xml_request_data+='<soap:Body xmlns:ns2="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxagmx_customer_online/check_stock/">';
-		xml_request_data+='<ns2:InputParameters>';
-		xml_request_data+='<ns2:P_OPERATING_UNIT_ID>181</ns2:P_OPERATING_UNIT_ID>';
-		 
-		 
-		xml_request_data+='<ns2:P_SHIP_TO>'+bpi_com_obj.ship_to_location+'</ns2:P_SHIP_TO>';
-		xml_request_data+='<ns2:P_BILL_TO>'+bpi_com_obj.bill_to_location+'</ns2:P_BILL_TO>';
-		xml_request_data+='<ns2:P_PRODUCT>';
+		xml_request_data+='<chec:P_PRODUCT>';
 		xml_request_data+=prod_list;		
-		xml_request_data+='</ns2:P_PRODUCT>';
-		xml_request_data+='</ns2:InputParameters>';
-		xml_request_data+='</soap:Body>';
-		xml_request_data+='</soap:Envelope>';
-		
-		
+		xml_request_data+='</chec:P_PRODUCT>';
+		xml_request_data+='</chec:InputParameters>';
+		xml_request_data+='</soapenv:Body>';
+		xml_request_data+='</soapenv:Envelope>';
+		  // var url = "http://uswodapp013.brakepartsinc.com:8010/webservices/SOAProvider/plsql/xxbpi_customer_online/";
 		 var url = bpi_com_obj.web_api_url;	
 				jQuery.ajax({
 					type: "POST",
 					url: url,
-						data: "xml_data="+xml_request_data+"&call_type=MEXICO",
+					 data: "xml_data="+xml_request_data,
 					dataType: "xml",
 					async:false,
 					crossDomain: true,
@@ -1919,7 +2101,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					   bpi_obj.prod_stock[PRODUCT_NUM]=prod_obj;
 					   $(".errorFileFormat").show();
 					    bpi_obj.is_bulk_validate=1;
-						$(".errorFileFormat").html(msgAlertExcelUploadValidatingData);
+						$(".errorFileFormat").html("Please Wait, Validating Data..");
 						dc="";						
 						 var dc=part_no_dc_arr[PRODUCT_NUM];
 						if(empty(dc))
@@ -1938,8 +2120,10 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
 			html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'"  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccPlaceOrder.ValidateQty('+new_tr_id+');BpiccPlaceOrder.CalculateTotQtyWt();" class="inputReqQnty" '+dis+' type="text" value='+qty+'></td></div>';
 			
-			html+='<td><div class="availableDC"><input id="edc_'+new_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"  id="EDC_RADIO_'+new_tr_id+'" name="inputAvail_'+new_tr_id+'" value="EDC" class="radioDC" disabled    ><i class="fa fa-check-circle" id="EDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
-			 		
+			html+='<td><div class="availableDC"><input id="edc_'+new_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"  id="EDC_RADIO_'+new_tr_id+'" name="inputAvail_'+new_tr_id+'" value="EDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="EDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
+			html+='<td><div class="availableDC"><input id="mdc_'+new_tr_id+'" class="inputMdc" value="" disabled><span><input type="radio" id="MDC_RADIO_'+new_tr_id+'"   name="inputAvail_'+new_tr_id+'" value="MDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle"   id="MDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
+			html+='<td><div class="availableDC"><input id="wdc_'+new_tr_id+'" class="inputWdc" value="" disabled><span><input type="radio"  id="WDC_RADIO_'+new_tr_id+'"  name="inputAvail_'+new_tr_id+'" value="WDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="WDC_i_'+new_tr_id+'"  aria-hidden="true"></i></span></input></td></div>';
+			
 			html+='<td><div class="availableDC"><span onclick="BpiccPlaceOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td></div>';
 			html+='	</tr>';
 			
@@ -2034,37 +2218,33 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				}
 				
 			}
+			xml_request_data='';
+			xml_request_data+='<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">';
+			xml_request_data+='<soap:Header xmlns:ns1="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/">';
+			xml_request_data+='<ns1:SOAHeader>';
+			xml_request_data+='<ns1:Responsibility>BPI_WEB_SERVICE_USER</ns1:Responsibility>';
+			xml_request_data+='<ns1:RespApplication>XXBPI</ns1:RespApplication>';
+			xml_request_data+='<ns1:SecurityGroup>STANDARD</ns1:SecurityGroup>';
+			xml_request_data+='<ns1:NLSLanguage>AMERICAN</ns1:NLSLanguage>';
+			xml_request_data+='<ns1:Org_Id>82</ns1:Org_Id>';
+			xml_request_data+=' </ns1:SOAHeader>';
+			xml_request_data+='<wsrm:Request xmlns:wsrm="http://www.oasis-open.org/committees/wsrm/schema/1.1/SOAP1.1" xmlns:SOAP="http://schemas/xmlsoap.org/soap/envelope/" SOAP:mustUnderstand="1"><wsrm:MessageId groupId="20170321-224426-176.1@uswodapp013.brakepartsinc.com"/><wsrm:ExpiryTime>2017-03-21T22:44:36</wsrm:ExpiryTime><wsrm:ReplyPattern><wsrm:Value>Poll</wsrm:Value></wsrm:ReplyPattern><wsrm:AckRequested/><wsrm:DuplicateElimination/></wsrm:Request><wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" soap:mustUnderstand="1"><wsse:UsernameToken xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password></wsse:UsernameToken></wsse:Security></soap:Header>';
+			xml_request_data+='<soap:Body xmlns:ns2="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/get_ship_to_address/">';
+			xml_request_data+=' <ns2:InputParameters>';
+			xml_request_data+='<ns2:P_SHIP_TO_LOCTION>';
+			
+			xml_request_data+=ship_to_data;
+			
+			xml_request_data+=' </ns2:P_SHIP_TO_LOCTION>';
+			xml_request_data+=' </ns2:InputParameters>';
+			xml_request_data+=' </soap:Body>';
+			xml_request_data+='</soap:Envelope>';
 	 
-	 
-	 
-	 xml_request_data='';
-	xml_request_data+='<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"> ';
-	xml_request_data+=' <soap:Header xmlns:ns1="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxagmx_customer_online/"> ';
-	xml_request_data+='<ns1:SOAHeader> ';
-	xml_request_data+='<ns1:Responsibility>BPI_WEB_SERVICE_USER</ns1:Responsibility> ';
-	xml_request_data+='<ns1:RespApplication>XXAG</ns1:RespApplication> ';
-	xml_request_data+='<ns1:SecurityGroup>STANDARD</ns1:SecurityGroup> ';
-	xml_request_data+='<ns1:NLSLanguage>AMERICAN</ns1:NLSLanguage> ';
-	xml_request_data+='<ns1:Org_Id>181</ns1:Org_Id> ';
-	xml_request_data+='</ns1:SOAHeader> ';
-	xml_request_data+='<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" soap:mustUnderstand="1"><wsse:UsernameToken xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password></wsse:UsernameToken></wsse:Security></soap:Header> ';
-	xml_request_data+='<soap:Body xmlns:ns2="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxagmx_customer_online/get_ship_to_address/"> ';
-	xml_request_data+='<ns2:InputParameters> ';
-	xml_request_data+=' <ns2:P_OPERATING_UNIT_ID>181</ns2:P_OPERATING_UNIT_ID> ';
-	xml_request_data+='<ns2:P_SHIP_TO_LOCTION> ';
-	xml_request_data+= ship_to_data;
-	xml_request_data+=' </ns2:P_SHIP_TO_LOCTION> ';
-	xml_request_data+=' </ns2:InputParameters> ';
-	xml_request_data+='</soap:Body> ';
-	xml_request_data+='</soap:Envelope> ';
-
-
-
 			var url = bpi_com_obj.web_api_url;	 
 					jQuery.ajax({
 						type: "POST",
 						url: url,
-						data: "xml_data="+xml_request_data+"&call_type=MEXICO",
+						data: "xml_data="+xml_request_data,
 						dataType: "xml",
 						crossDomain: true,
 						processData: false,
@@ -2076,7 +2256,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						},
 						error: function (msg) {
 								 
-							//alert("Failed: " + msg.status + ": " + msg.statusText);
+							alert("Failed: " + msg.status + ": " + msg.statusText);
 						}
 					}); 
 	}  ,
@@ -2146,6 +2326,15 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			 
 				 
 			 
+			 if(!empty($("#shipping_address").val()))
+					{
+						$("#shipping_address").attr('disabled',true);
+						
+					}
+					else
+					{
+						$("#shipping_address").removeAttr('disabled');
+					}
 					 BpiccPlaceOrder.PopulateShippingAddressValues();
 					
 		    }
@@ -2313,7 +2502,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		 var selected_shipping_addres_type=BpiccPlaceOrder.GetSelectedShippingAddressVal();
 		BpiccPlaceOrder.ClearAllShippingAddressInputBox();
 		var shipping_address=$("#shipping_address").val();
-		if(!empty(shipping_address) && $("#shipping_error_info p:contains('"+msgAlertPlaceOrderSelectShipToAddress+"')"))
+		if(!empty(shipping_address) && $("#shipping_error_info p:contains('Please Select Ship to Addres')"))
 				{
 					$("#shipping_error_info").html("");
 						$("#shipping_error_info").hide();
@@ -2375,29 +2564,25 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			 BpiccPlaceOrder.ApiProcessValidatePoNumber(data);
 			});
 		 return; */
-	 
-
-	var  xml_request_data='';
- xml_request_data+='<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"> ';
-    xml_request_data+='<soap:Header xmlns:ns1="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxagmx_customer_online/"> ';
-        xml_request_data+='<ns1:SOAHeader> ';
-            xml_request_data+='<ns1:Responsibility>BPI_WEB_SERVICE_USER</ns1:Responsibility> ';
-            xml_request_data+='<ns1:RespApplication>XXAG</ns1:RespApplication> ';
-            xml_request_data+='<ns1:SecurityGroup>STANDARD</ns1:SecurityGroup> ';
-            xml_request_data+='<ns1:NLSLanguage>AMERICAN</ns1:NLSLanguage> ';
-            xml_request_data+='<ns1:Org_Id>181</ns1:Org_Id> ';
-        xml_request_data+='</ns1:SOAHeader> ';
-    xml_request_data+='<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" soap:mustUnderstand="1"><wsse:UsernameToken xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><wsse:Username>CAP</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">oracle123</wsse:Password></wsse:UsernameToken></wsse:Security></soap:Header> ';
-    xml_request_data+='<soap:Body xmlns:ns2="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxagmx_customer_online/validate_po_number/"> ';
-       xml_request_data+=' <ns2:InputParameters> ';
-           xml_request_data+=' <ns2:P_OPERATING_UNIT_ID>181</ns2:P_OPERATING_UNIT_ID> ';
-            xml_request_data+='<ns2:P_PO_NUM>1</ns2:P_PO_NUM> ';
-            xml_request_data+='<ns2:P_BILL_NUM>0000</ns2:P_BILL_NUM> ';
-           xml_request_data+=' <ns2:P_SHIP_NUM>0000</ns2:P_SHIP_NUM> ';
-        xml_request_data+='</ns2:InputParameters> ';
-    xml_request_data+='</soap:Body> ';
-xml_request_data+='</soap:Envelope> ';
- 
+		var  xml_request_data='';
+		xml_request_data+='<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">';
+		xml_request_data+='<soap:Header xmlns:ns1="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/">';
+		xml_request_data+='<ns1:SOAHeader>';
+		xml_request_data+=' <ns1:Responsibility>BPI_WEB_SERVICE_USER</ns1:Responsibility>';
+		xml_request_data+='<ns1:RespApplication>XXBPI</ns1:RespApplication>';
+		xml_request_data+='<ns1:SecurityGroup>STANDARD</ns1:SecurityGroup>';
+		xml_request_data+='<ns1:NLSLanguage>AMERICAN</ns1:NLSLanguage>';
+		xml_request_data+='<ns1:Org_Id>82</ns1:Org_Id>';
+		xml_request_data+='</ns1:SOAHeader>';
+		xml_request_data+='<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" soap:mustUnderstand="1"><wsse:UsernameToken xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password></wsse:UsernameToken></wsse:Security></soap:Header>';
+		xml_request_data+='<soap:Body xmlns:ns2="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/validate_po_number/">';
+		xml_request_data+='<ns2:InputParameters>';
+		xml_request_data+='<ns2:P_PO_NUM>'+inputPo+'</ns2:P_PO_NUM>';
+		xml_request_data+='<ns2:P_BILL_NUM>'+bpi_com_obj.bill_to_location+'</ns2:P_BILL_NUM>';
+		xml_request_data+='<ns2:P_SHIP_NUM>'+bpi_com_obj.ship_to_location+'</ns2:P_SHIP_NUM>';
+		xml_request_data+='</ns2:InputParameters>';
+		xml_request_data+='</soap:Body>';
+		xml_request_data+='</soap:Envelope>';
 
 	if(po_ajax){ 
 	 po_ajax.abort();
@@ -2408,12 +2593,12 @@ xml_request_data+='</soap:Envelope> ';
 					po_ajax=jQuery.ajax({
 						type: "POST",
 						url: url,
-						 data: "xml_data="+xml_request_data+"&call_type=MEXICO",
+						 data: "xml_data="+xml_request_data,
 						dataType: "xml",
 						crossDomain: true,
 						processData: false,
 						success: function (data) {
-							 if($("#place_order_error_info p:contains('"+msgAlertPlaceOrderEnterPONumber+"')").length>0)
+							 if($("#place_order_error_info p:contains('Please Enter PO Number')").length>0)
 								{
 									$("#place_order_error_info").html("");
 										$("#place_order_error_info").hide();
@@ -2437,7 +2622,7 @@ xml_request_data+='</soap:Envelope> ';
 			 if(X_RESPONSE_STATUS=="S")
 			 {
 				BpiccPlaceOrder.EnableAddRowsAndButtonPoValidation();
-				 if($("#place_order_error_info p:contains('"+msgAlertPlaceOrderEnterPONumber+"')").length>0)
+				 if($("#place_order_error_info p:contains('Please Enter Valid PO')").length>0)
 					{
 							$("#place_order_error_info").hide();
 					} 
@@ -2449,7 +2634,7 @@ xml_request_data+='</soap:Envelope> ';
 				$("#place_order_error_info").after(' <div id="validate_po_erro_msg_div" class="errorInfo"> <p><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">'+X_RESPONSE_MESSAGE+'</span></p></div> ');
 				  $("#validate_po_erro_msg_div").show();
 				  BpiccPlaceOrder.EnableAddRowsAndButtonPoValidation();
-				   if($("#place_order_error_info p:contains('"+msgAlertPlaceOrderEnterPONumber+"')").length>0)
+				   if($("#place_order_error_info p:contains('Please Enter Valid PO')").length>0)
 					{
 							$("#place_order_error_info").hide();
 					} 
@@ -2461,7 +2646,7 @@ xml_request_data+='</soap:Envelope> ';
 			$("#place_order_error_info").after(' <div id="validate_po_erro_msg_div" class="errorInfo"> <p><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">'+X_RESPONSE_MESSAGE+'</span></p></div> ');
 				$("#validate_po_erro_msg_div").show();			
 			setTimeout(function(){$("#select_order_type").focus();}, 100); 
-			  if($("#place_order_error_info p:contains('"+msgAlertPlaceOrderEnterPONumber+"')").length>0)
+			  if($("#place_order_error_info p:contains('Please Enter Valid PO')").length>0)
 					{
 							$("#place_order_error_info").hide();
 					} 
@@ -2477,9 +2662,6 @@ xml_request_data+='</soap:Envelope> ';
 	},
 	HandleConvertToOrderFromCheckStock:function()
 	{
-	
-			 $(".loader").show();
-		 setTimeout(function(){
 		var data=$("#bpicc_tableDetails tbody tr");
 		var cookie_part_obj=new Object();
 		i=0;
@@ -2509,16 +2691,13 @@ xml_request_data+='</soap:Envelope> ';
 		 localStorage.setItem('cookie_part_obj', JSON.stringify(cookie_part_obj));
 		}
 		window.location.href= selectAccountPrefix + "place-order.html";
-		 },300);
 	},
 	AddItemsFromCheckStockPage:function(cookie_part_obj)
 	{
-		
-	/*  if(!empty(getCookie("selected_ship_to_wc")))
+	 if(!empty(getCookie("selected_ship_to_wc")))
 		   {
 			   bpi_com_obj.default_dc=getCookie("selected_ship_to_wc");
-		   } */
-		   	bpi_com_obj.default_dc="EDC";
+		   }
 		$("#validate_on_entry").removeAttr('checked');
 		$("#validate_on_entry").attr("validate","0");
 			 $("#bpicc_tableDetails tbody tr").remove();
@@ -2647,13 +2826,13 @@ xml_request_data+='</soap:Envelope> ';
 		 var selected_shipping_addres_type=BpiccPlaceOrder.GetSelectedShippingAddressVal();
 		if(empty(shipping_address) && selected_shipping_addres_type!="DROP SHIP")
 		{
-			BpiccPlaceOrder.ShowShppingErrorSuccessMessages(msgAlertPlaceOrderSelectShipToAddress,"Error"); 
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("Please Select Ship to Address","Error"); 
 			return false;
 		}	
 		inputPo=$("#inputPo").val();
 		if(empty(inputPo))
 		{
-				BpiccPlaceOrder.ShowShppingErrorSuccessMessages(msgAlertBpiCcOrderHistoryEnterPoNumber,"Error"); 
+				BpiccPlaceOrder.ShowShppingErrorSuccessMessages("Please Enter PO Number","Error"); 
 				return false;
 		}
 		var base_shipping_method= $('input[name=inlineRadioOptions]:checked').val();
@@ -2664,16 +2843,16 @@ xml_request_data+='</soap:Envelope> ';
 		if(selected_shipping_addres_type=="DROP SHIP")
 		DROP_SHIP_FLAG="1";
 		var SHIPPING_METHOD= bpi_obj.standard_ship_method_code;
-		/* if($("#select_order_type").val()=="ER")
+		if($("#select_order_type").val()=="ER")
 		{
 			if(base_shipping_method=="option1")
 			SHIPPING_METHOD=$('input[name=inlineRadioOptionsData]:checked').val();
 		 if(base_shipping_method=="option2")
 			SHIPPING_METHOD= bpi_obj.emergency_cust_pick_up_ship_method_code;;
-		} */
+		}
 		if($("#select_order_type").val()=="ER" && base_shipping_method=="option1" && (empty(SHIPPING_METHOD) || SHIPPING_METHOD=="undefined"))
 		{
-			BpiccPlaceOrder.ShowShppingErrorSuccessMessages(msgAlertPlaceOrderSelectShippingMethod,"Error"); 
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("Please Select Shipping Method Option","Error"); 
 				return false;
 		}/* 
 		if($("#select_order_type").val()=="ER" && base_shipping_method=="option1" && (SHIPPING_METHOD=="UP2" || SHIPPING_METHOD=="UP3" || SHIPPING_METHOD=="FGR"))
@@ -2712,23 +2891,32 @@ xml_request_data+='</soap:Envelope> ';
 		
 		if(empty(SHIP_TO_ADDRESS1))
 		{
-			BpiccPlaceOrder.ShowShppingErrorSuccessMessages(msgAlertPlaceOrderSubmitShipToAddress1Empty,"Error");
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("Shipping Address1 is Empty","Error");
 			return false;
 		}
 		else if(empty(SHIP_TO_CITY))
 		{
-			BpiccPlaceOrder.ShowShppingErrorSuccessMessages(msgAlertPlaceOrderSubmitShipToCityEmpty,"Error");
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("SHIP CITY is Empty","Error");
 			return false;
 		}
-		 
+		else if(empty(SHIP_TO_STATE))
+		{
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("SHIP TO STATE is Empty","Error");
+			return false;
+		}
+		else if(empty(SHIP_TO_COUNTRY))
+		{
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("SHIP TO COUNTRY is Empty","Error");
+			return false;
+		}
 		else if(empty(SHIP_TO_POSTAL_CODE))
 		{
-			BpiccPlaceOrder.ShowShppingErrorSuccessMessages(msgAlertPlaceOrderSubmitShipToZipCodeEmpty,"Error");
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("SHIP TO  POSTAL_CODE is Empty","Error");
 			return false;
 		}
 		if(!$("#inlineValidate").is(':checked'))
 		{
-			BpiccPlaceOrder.ShowShppingErrorSuccessMessages(msgAlertPlaceOrderSubmitAcceptTermsAndConditions,"Error");
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages(" Please Accept terms and conditions","Error");
 			return false;
 		}
 		var partNum="";
@@ -2750,7 +2938,7 @@ xml_request_data+='</soap:Envelope> ';
 				item_data+='<ns2:P_ORDER_LINES_TBL_ITEM>';
 				item_data+='<ns2:ORDERED_ITEM>'+partNum+'</ns2:ORDERED_ITEM>';
 				item_data+='<ns2:ORDERED_QUANTITY>'+reqQnty+'</ns2:ORDERED_QUANTITY>';
-				item_data+='<ns2:WARE_HOUSE>M15</ns2:WARE_HOUSE>';
+				item_data+='<ns2:WARE_HOUSE>'+warehouse+'</ns2:WARE_HOUSE>';
 				item_data+='</ns2:P_ORDER_LINES_TBL_ITEM>';
 			}
 			 
@@ -2758,7 +2946,7 @@ xml_request_data+='</soap:Envelope> ';
 	 
 		if(empty(item_data))
 		{
-			BpiccPlaceOrder.ShowShppingErrorSuccessMessages(msgAlertPlaceOrderSubmitItemsEmpty,"Error");
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("Items are empty","Error");
 			return;
 		}
 		
@@ -2766,39 +2954,43 @@ xml_request_data+='</soap:Envelope> ';
 			var xml_email="";
 			if(typeof(dbEmail)!="undefined")
 				xml_email=dbEmail;
-			  
-				
-xml_request_data ='<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">';
-    xml_request_data+='<soap:Header xmlns:ns1="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxagmx_customer_online/">';
-        xml_request_data+='<ns1:SOAHeader>';
-            xml_request_data+='<ns1:Responsibility>BPI_WEB_SERVICE_USER</ns1:Responsibility>';
-            xml_request_data+='<ns1:RespApplication>XXAG</ns1:RespApplication>';
-            xml_request_data+='<ns1:SecurityGroup>STANDARD</ns1:SecurityGroup>';
-            xml_request_data+='<ns1:NLSLanguage>AMERICAN</ns1:NLSLanguage>';
-            xml_request_data+='<ns1:Org_Id>181</ns1:Org_Id>';
-        xml_request_data+='</ns1:SOAHeader>';
-    xml_request_data+='<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" soap:mustUnderstand="1"><wsse:UsernameToken xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password></wsse:UsernameToken></wsse:Security></soap:Header>';
-    xml_request_data+='<soap:Body xmlns:ns2="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxagmx_customer_online/place_sales_order/">';
-        xml_request_data+='<ns2:InputParameters>';
-            xml_request_data+='<ns2:P_OPERATING_UNIT_ID>181</ns2:P_OPERATING_UNIT_ID>';
-            xml_request_data+='<ns2:P_ORDER_HEADER_REC>';
-                xml_request_data+='<ns2:CUST_PO_NUMBER>'+CUST_PO_NUMBER+'</ns2:CUST_PO_NUMBER>';
-                xml_request_data+='<ns2:ORDER_TYPE>'+ORDER_TYPE+'</ns2:ORDER_TYPE>';
-                xml_request_data+='<ns2:USER_NAME>'+xml_email+'</ns2:USER_NAME>';
-                xml_request_data+='<ns2:SHIPPING_METHOD>PICKUP</ns2:SHIPPING_METHOD>';
-                xml_request_data+='<ns2:SHIP_TO_ORG>'+SHIP_TO_ORG+'</ns2:SHIP_TO_ORG>';
-                xml_request_data+='<ns2:BILL_TO_ORG>'+BILL_TO_ORG+'</ns2:BILL_TO_ORG>';
-                xml_request_data+='<ns2:STORE_ID/>';
-            xml_request_data+='</ns2:P_ORDER_HEADER_REC>';
-           xml_request_data+='<ns2:P_ORDER_LINES_TBL>';
-              	xml_request_data+=item_data;
-            xml_request_data+='</ns2:P_ORDER_LINES_TBL>';
-        xml_request_data+='</ns2:InputParameters>';
-    xml_request_data+='</soap:Body>';
-xml_request_data+='</soap:Envelope>';
-
-
-		
+				xml_request_data+='<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">';
+				xml_request_data+='<soap:Header xmlns:ns1="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/">';
+				xml_request_data+='<ns1:SOAHeader>';
+				xml_request_data+='<ns1:Responsibility>BPI_WEB_SERVICE_USER</ns1:Responsibility>';
+				xml_request_data+='<ns1:RespApplication>XXBPI</ns1:RespApplication>';
+				xml_request_data+='<ns1:SecurityGroup>STANDARD</ns1:SecurityGroup>';
+				xml_request_data+='<ns1:NLSLanguage>AMERICAN</ns1:NLSLanguage>';
+				xml_request_data+='<ns1:Org_Id>82</ns1:Org_Id>';
+				xml_request_data+='</ns1:SOAHeader>';
+				xml_request_data+='<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" soap:mustUnderstand="1"><wsse:UsernameToken xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password></wsse:UsernameToken></wsse:Security></soap:Header>';
+				xml_request_data+='<soap:Body xmlns:ns2="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/place_sales_order/">';
+				xml_request_data+='<ns2:InputParameters>';
+				xml_request_data+='<ns2:P_ORDER_HEADER_REC>';
+				xml_request_data+='<ns2:CUST_PO_NUMBER>'+CUST_PO_NUMBER+'</ns2:CUST_PO_NUMBER>';
+				xml_request_data+='<ns2:DROP_SHIP_FLAG>'+DROP_SHIP_FLAG+'</ns2:DROP_SHIP_FLAG>';
+				xml_request_data+='<ns2:ORDER_TYPE>'+ORDER_TYPE+'</ns2:ORDER_TYPE>';
+				xml_request_data+='<ns2:USER_NAME>'+xml_email+'</ns2:USER_NAME>';
+				xml_request_data+='<ns2:SHIPPING_METHOD>'+SHIPPING_METHOD+'</ns2:SHIPPING_METHOD>';
+				xml_request_data+='<ns2:SHIP_TO_ORG>'+SHIP_TO_ORG+'</ns2:SHIP_TO_ORG>';
+				xml_request_data+='<ns2:BILL_TO_ORG>'+BILL_TO_ORG+'</ns2:BILL_TO_ORG>';
+				xml_request_data+='<ns2:SHIP_TO_NAME>'+RemoveSpecialChars(SHIP_TO_NAME)+'</ns2:SHIP_TO_NAME>';
+				xml_request_data+='<ns2:SHIP_TO_ADDRESS1>'+RemoveSpecialChars(SHIP_TO_ADDRESS1)+'</ns2:SHIP_TO_ADDRESS1>';
+				xml_request_data+='<ns2:SHIP_TO_ADDRESS2>'+RemoveSpecialChars(SHIP_TO_ADDRESS2)+'</ns2:SHIP_TO_ADDRESS2>';
+				xml_request_data+='<ns2:SHIP_TO_ADDRESS3>'+RemoveSpecialChars(SHIP_TO_ADDRESS3)+'</ns2:SHIP_TO_ADDRESS3>';
+				xml_request_data+='<ns2:SHIP_TO_ADDRESS4>'+RemoveSpecialChars(SHIP_TO_ADDRESS4)+'</ns2:SHIP_TO_ADDRESS4>';
+				xml_request_data+='<ns2:SHIP_TO_CITY>'+RemoveSpecialChars(SHIP_TO_CITY)+'</ns2:SHIP_TO_CITY>';
+				xml_request_data+='<ns2:SHIP_TO_STATE>'+SHIP_TO_STATE+'</ns2:SHIP_TO_STATE>';
+				xml_request_data+='<ns2:SHIP_TO_COUNTRY>'+SHIP_TO_COUNTRY+'</ns2:SHIP_TO_COUNTRY>';
+				xml_request_data+='<ns2:SHIP_TO_POSTAL_CODE>'+SHIP_TO_POSTAL_CODE+'</ns2:SHIP_TO_POSTAL_CODE>';
+				xml_request_data+='<ns2:STORE_ID>'+STORE_ID+'</ns2:STORE_ID>';
+				xml_request_data+='</ns2:P_ORDER_HEADER_REC>';
+				xml_request_data+='<ns2:P_ORDER_LINES_TBL>';
+				xml_request_data+=item_data;
+				xml_request_data+='</ns2:P_ORDER_LINES_TBL>';
+				xml_request_data+='</ns2:InputParameters>';
+				xml_request_data+='</soap:Body>';
+				xml_request_data+='</soap:Envelope>';
 	$(".loader").show();
  
 		var url = bpi_com_obj.web_api_url;
@@ -2806,7 +2998,7 @@ xml_request_data+='</soap:Envelope>';
 					jQuery.ajax({
 						type: "POST",
 						url: url,
-						 data: "xml_data="+xml_request_data+"&call_type=MEXICO",
+						 data: "xml_data="+xml_request_data,
 						dataType: "xml",
 						crossDomain: true,
 						processData: false,
@@ -2922,7 +3114,7 @@ xml_request_data+='</soap:Envelope>';
 			 {
 				 
 				// BpiccPlaceOrder.EnableAddRowsAndButtonPoValidation();
-				alert(X_RESPONSE_MESSAGE+" "+msgAlertPlaceOrderSubmitConfirmSalesOrderNumber+" "+X_SALES_ORDER_NUMBER);
+				alert(X_RESPONSE_MESSAGE+" - Sales Order No is "+X_SALES_ORDER_NUMBER);
 				window.location.href= selectAccountPrefix + "order-history.html";
 				// location.reload(); ;
 			 }
@@ -2991,7 +3183,7 @@ xml_request_data+='</soap:Envelope>';
 		$("#emergency_ship_methods").html(html);
 		
 		$('input[name=inlineRadioOptionsData]').on('click', function(e){
-				if($("#shipping_error_info p:contains('"+msgAlertPlaceOrderSelectShippingMethod+"')"))
+				if($("#shipping_error_info p:contains('Please Select Shipping Method Option')"))
 				{
 					$("#shipping_error_info").html("");
 					$("#shipping_error_info").hide();
@@ -3002,11 +3194,6 @@ xml_request_data+='</soap:Envelope>';
 	} 
  
 	
-}
-function isInt(value) {
-  return !isNaN(value) && 
-         parseInt(Number(value)) == value && 
-         !isNaN(parseInt(value, 10));
 }
 function RemoveSpecialChars(str)
 {
