@@ -3,14 +3,14 @@ $(window).on('load', function () {
  
 	 BpiccCommon.GetUserRoleDetails();
    // BpiccCommon.ProcessGetUserRoleDetails("S");
-	
-	 if(getSearchParams('q')!=null && getSearchParams('q')!=''){	 
-		 var requestID=Decoding(decodeURIComponent(getSearchParams('q')));
-		 userRequestID=requestID;
-		 console.log("userId"+requestID);
-		 setCookie("userID",requestID);
-//		 getDonorDetails(requtid);
-	 }
+	 userRequestID=getCookie("userID");
+//	 if(getSearchParams('q')!=null && getSearchParams('q')!=''){	 
+//		 var requestID=Decoding(decodeURIComponent(getSearchParams('q')));
+//		 userRequestID=requestID;
+//		 console.log("userId"+requestID);
+////		 setCookie("userID",requestID);
+////		 getDonorDetails(requtid);
+//	 }
 	 BpiccCommon.LoadProperPageAfterLogin();//added new source code
 	$('.logoutBlock .login').on('click', function () {
 		window.location.reload(true)

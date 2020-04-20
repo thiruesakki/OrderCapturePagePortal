@@ -7,19 +7,21 @@ var orgID="";
   
 	   $('#search_order_history').on('click', function(e){
 	  e.preventDefault();
-	  if(getSearchParams('s')!=null && getSearchParams('s')!=''){	 
-			 var requestID=Decoding(decodeURIComponent(getSearchParams('s')));
-			 orderShipTO=requestID;
-			 
-//			 getDonorDetails(requtid);
-		 }
-	  
-	  if(getSearchParams('b')!=null && getSearchParams('b')!=''){	 
-			 var requestID=Decoding(decodeURIComponent(getSearchParams('b')));
-			 orderBillTO=requestID;
-			 console.log(orderBillTO);
-//			 getDonorDetails(requtid);
-		 }
+//	  if(getSearchParams('s')!=null && getSearchParams('s')!=''){	 
+//			 var requestID=Decoding(decodeURIComponent(getSearchParams('s')));
+//			 orderShipTO=requestID;
+//			 
+////			 getDonorDetails(requtid);
+//		 }
+//	  
+//	  if(getSearchParams('b')!=null && getSearchParams('b')!=''){	 
+//			 var requestID=Decoding(decodeURIComponent(getSearchParams('b')));
+//			 orderBillTO=requestID;
+//			 console.log(orderBillTO);
+////			 getDonorDetails(requtid);
+//		 }
+	  orderShipTO=getCookie("selected_ship_to");
+	  orderBillTO=getCookie("selected_bill_to");
 	  userID=getCookie("userID");
 	  orgID=getCookie("selected_org_id");
 		OrderHistory.ApiDisplayOrderHistoryData();

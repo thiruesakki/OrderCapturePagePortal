@@ -76,8 +76,10 @@ $(document)
 															if (json.status == 0) {
 																alert("Login Successfully");
 																var userID = obj.id;
-																url = 'bpionline-mexico/selectAccount.html?q='
-																		+ encodeURIComponent(Encoding(userID));
+																setCookie("userID",obj.id);
+//																url = 'bpionline-mexico/selectAccount.html?q='
+//																		+ encodeURIComponent(Encoding(userID));
+																url = 'bpionline-mexico/selectAccount.html';
 																location.href = url;
 															} else if (json.status > 0) {
 																alert(json.errorMessage);
