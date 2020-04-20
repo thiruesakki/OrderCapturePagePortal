@@ -28,6 +28,7 @@ import com.brakepartsinc.project.techportal.dao.OracleDataHandler;
 import com.brakepartsinc.project.techportal.dto.CAPAddEditUserObject;
 import com.brakepartsinc.project.techportal.dto.CAPUserObject;
 import com.brakepartsinc.project.techportal.dto.CategoryObject;
+import com.brakepartsinc.project.techportal.dto.CheckStockObject;
 import com.brakepartsinc.project.techportal.dto.ChevyTruckPromoDetailsObject;
 import com.brakepartsinc.project.techportal.dto.CountryObject;
 import com.brakepartsinc.project.techportal.dto.CustomerObject;
@@ -53,6 +54,7 @@ import com.brakepartsinc.project.techportal.dto.ShipToObject;
 import com.brakepartsinc.project.techportal.dto.ShippingMethodObject;
 import com.brakepartsinc.project.techportal.dto.SingleUserOrganization;
 import com.brakepartsinc.project.techportal.dto.StateObject;
+import com.brakepartsinc.project.techportal.dto.StockProductObject;
 import com.brakepartsinc.project.techportal.dto.TCUserProfileObject;
 import com.brakepartsinc.project.techportal.dto.TipsAndTricksObject;
 import com.brakepartsinc.project.techportal.dto.UserFavoritePlaceObject;
@@ -231,9 +233,9 @@ public class OracleTPService {
 			jsonResult.addProperty("status", status);
 			jsonResult.addProperty("errorMessage", e.getMessage());
 			jsonResult.add("object", null);
-//			System.out
-//					.println("getOrderDetails - ERROR Result to be returned:"
-//							+ jsonResult);
+			System.out
+					.println("getOrderDetails - ERROR Result to be returned:"
+							+ jsonResult);
 		}
 		return jsonResult.toString();
 	}
@@ -274,9 +276,51 @@ public class OracleTPService {
 			jsonResult.addProperty("status", status);
 			jsonResult.addProperty("errorMessage", e.getMessage());
 			jsonResult.add("object", null);
-//			System.out
-//					.println("getOrderShippingDetails - ERROR Result to be returned:"
-//							+ jsonResult);
+			System.out
+					.println("getOrderShippingDetails - ERROR Result to be returned:"
+							+ jsonResult);
+		}
+		return jsonResult.toString();
+	}
+	
+	@GET
+	@Path("/GetCheckStock")
+	
+	public String getMuleCheckStock(@QueryParam("org_id") String orgID,
+			@QueryParam("ship_to") String ship_To ,@QueryParam("product_no") String product_No) {
+		JsonObject jsonResult = new JsonObject();
+		String checkStockArrayJson = null;
+		int status = -1;
+		String errorMessage = "";
+		try {
+			OracleDataHandler dataHandler = new OracleDataHandler();
+			System.out.println("webservice org_Id :" + orgID + "ship_to:" + ship_To +"product_No:"
+					+ product_No);
+			CheckStockObject checkStock = dataHandler.getMuleCheckStock(orgID, ship_To,product_No);
+			
+			if (checkStock != null) {
+				status = 0;
+				Gson gson = new Gson();
+				checkStockArrayJson = gson.toJson(checkStock);
+			} else {
+				status = 1;
+				errorMessage = "Check Stock not found";
+			}
+
+			jsonResult.addProperty("status", status);
+			jsonResult.addProperty("errorMessage", errorMessage);
+			jsonResult.addProperty("object", checkStockArrayJson);
+			System.out.println("checkStockArrayJson - Result to be returned:"
+					+ jsonResult);
+
+		} catch (Exception e) {
+			status = 6;
+			jsonResult.addProperty("status", status);
+			jsonResult.addProperty("errorMessage", e.getMessage());
+			jsonResult.add("object", null);
+			System.out
+					.println("checkStockArrayJson - ERROR Result to be returned:"
+							+ jsonResult);
 		}
 		return jsonResult.toString();
 	}
