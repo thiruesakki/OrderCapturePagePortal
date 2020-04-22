@@ -342,6 +342,8 @@
 			 $("#ship_to_ul li").removeClass("active");
 			 $("#ship_acc_"+getCookie("selected_ship_to_account_no")).addClass("active");
 			 // window.location.href="place-order.html";
+			 console.log(bpi_com_obj.orgID);
+			 setCookie("selected_org_id",bpi_com_obj.orgID);
 			 setCookie("selected_ship_to",ACCT_NUM);
 			 setCookie("selected_bill_to",BILL_TO_FOR_SHIP_TO);
 //			 window.location.href = selectAccountPrefix + "order-history.html?s="+ encodeURIComponent(Encoding(ACCT_NUM))+"&b="+encodeURIComponent(Encoding(BILL_TO_FOR_SHIP_TO));
