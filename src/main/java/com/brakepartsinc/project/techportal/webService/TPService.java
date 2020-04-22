@@ -338,7 +338,8 @@ public class TPService {
 		} catch (Exception e) {
 			status = 6;
 			jsonResult.addProperty("status", status);
-			jsonResult.addProperty("errorMessage", e.getMessage());
+//			jsonResult.addProperty("errorMessage", e.getMessage());
+			jsonResult.addProperty("errorMessage","Invalid Username or Password"); 
 			jsonResult.addProperty("object", userJson);
 			System.out.println("Result to be returned:" + jsonResult);
 		}

@@ -9,6 +9,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
@@ -18,6 +19,10 @@ import java.util.List;
 //import oracle.jdbc.OracleCallableStatement;
 //import oracle.jdbc.internal.OracleTypes;
 
+
+
+
+import oracle.jdbc.driver.OracleTypes;
 
 import com.brakepartsinc.project.techportal.dto.CheckStockObject;
 import com.brakepartsinc.project.techportal.dto.OrderHistoryListObject;
@@ -311,5 +316,37 @@ public class OracleDataHandler {
 //			System.out.println("GET NOT WORKED");
 		}
 		return checkStockObject;
+	}
+	public int getOrgID(
+			String ship_to_location) throws Exception {
+		Connection connection = null;
+		StatusObject status=null;
+		int orgID=0;
+		String query = "select org_id from apps.hz_cust_site_uses_all where location='Pittsburgh'";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			connection = DriverManager.getConnection(
+					"jdbc:oracle:thin:@150.136.207.205:1528:ebsdemo2", "apps",
+					"apps");
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			 while (rs.next()) {
+			 System.out.print( "OrgID"+ rs.getString("ORG_ID"));
+			 orgID=Integer.parseInt(rs.getString("ORG_ID"));
+			 }
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("DB ERROR: Method GetUser() : " + e);
+			throw e;
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (Exception e) {
+
+				}
+			}
+		}
+		return orgID;
 	}
 }

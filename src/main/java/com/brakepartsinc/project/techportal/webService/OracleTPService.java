@@ -285,7 +285,6 @@ public class OracleTPService {
 	
 	@GET
 	@Path("/GetCheckStock")
-	
 	public String getMuleCheckStock(@QueryParam("org_id") String orgID,
 			@QueryParam("ship_to") String ship_To ,@QueryParam("product_no") String product_No) {
 		JsonObject jsonResult = new JsonObject();
@@ -324,5 +323,37 @@ public class OracleTPService {
 		}
 		return jsonResult.toString();
 	}
-	
+	@GET
+	@Path("/GetOrgID")
+	public String getOrgID(@QueryParam("ship_to") String ship_To) {
+		JsonObject jsonResult = new JsonObject();
+		int status = -1;
+		String errorMessage = "";
+		int orgID=0;
+		try {
+			OracleDataHandler dataHandler = new OracleDataHandler();
+			orgID = dataHandler.getOrgID(ship_To);
+			
+			if(orgID>0){
+				status=0;
+			}else{
+				status=1;
+			}
+			jsonResult.addProperty("status", status);
+			jsonResult.addProperty("errorMessage", errorMessage);
+			jsonResult.addProperty("object", orgID);
+			System.out.println("Get orgID - Result to be returned:"
+					+ jsonResult);
+
+		} catch (Exception e) {
+			status = 6;
+			jsonResult.addProperty("status", status);
+			jsonResult.addProperty("errorMessage", e.getMessage());
+			jsonResult.add("object", null);
+			System.out
+					.println("Get orgID - ERROR Result to be returned:"
+							+ jsonResult);
+		}
+		return jsonResult.toString();
+	}
 }
