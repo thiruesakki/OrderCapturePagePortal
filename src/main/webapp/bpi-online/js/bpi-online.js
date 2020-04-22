@@ -117,7 +117,7 @@ $(function() {
 				email: true
 			},
 	  password: {
-//        required: true,
+        required: true,
         minlength: 7,
 		maxlength:10
       },
