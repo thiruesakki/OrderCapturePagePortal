@@ -1,3 +1,4 @@
+var orgID="";
 $(window).on(
 		'load',
 		function() {
@@ -112,7 +113,7 @@ $(window).on(
 //				console.log("Add Page - Submit button clicked");
 //				BpiccAdmin.addNewUser();
 //			});
-
+		    orgID=getCookie("selected_org_id");
 		})
 
 shipToFocusLost = function(rowID) {
@@ -693,33 +694,88 @@ BpiccAdmin = {
 
 //		var url = bpi_com_obj.web_api_url;
 //		var url="http://uswodsvr702v:9080/OracleApiServlet";
-		url = "http://localhost:8080/BPITechnicianPortal/OracleApiServlet";
-		console.log("URL: "+url);
+//		url = "http://localhost:8080/BPITechnicianPortal/OracleApiServlet";
+//		console.log("URL: "+url);
+//		jQuery.ajax({
+//			type : "POST",
+//			url : url,
+//			data : "xml_data=" + xml_request_data,
+//			dataType : "xml",
+//			crossDomain : true,
+//			processData : false,
+//
+//			success : function(data) {
+//				console.log("Data received from Oracle api:", data);
+//				BpiccAdmin.setBillToAccNoInView(data, rowNo, isAdd, isEditInitialLoad);
+//			},
+//			error : function(msg) {
+//				console.log('Error from Oracle Api:', msg.statusText);
+//				alert("Failedss: " + msg.status + ": " + msg.statusText);
+//			}
+//		});
+		
+		
+	    
+	
+		var url = bpi_com_obj.web_oracle_api_url + "GetShipToAddress?org_id="
+		+ orgID + "&ship_to_location=" + shipTo;
+//        console.log("GetShipToAddress url:"+url);
 		jQuery.ajax({
-			type : "POST",
-			url : url,
-			data : "xml_data=" + xml_request_data,
-			dataType : "xml",
-			crossDomain : true,
-			processData : false,
-
-			success : function(data) {
-				console.log("Data received from Oracle api:", data);
-				BpiccAdmin.setBillToAccNoInView(data, rowNo, isAdd, isEditInitialLoad);
+			type: "POST",
+			url: url,
+//			data: 
+	    	dataType: "json",
+			crossDomain: true,
+			processData: false,
+			// contentType: "text/xml; charset=\"utf-8\"",
+			 
+			success: function (data) {
+//				 console.log("Result Success:"+JSON.stringify(data));
+//				 SelectAccount.ProcessGetMultipleShiptoAddressForShipTo(data);
+				 var obj=JSON.parse(data.object);
+//				 var billTo=obj.x_bill_to;
+	
+//					console.log(JSON.stringify(obj));
+//					var listObj=obj.x_ship_to_address;
+//					for (var i = 0; i < listObj.length; i++) {
+//						  var xmlobject = listObj [i];
+//						  console.log(xmlobject.BILL_TO);
+//						  console.log	("object"+JSON.stringify(xmlobject));
+//						  
+//					}
+//				 var shipToAdressList=obj.x_ship_to_address;
+				 if(obj!=null){
+					 BpiccAdmin.setBillToAccNoInView(obj, rowNo, isAdd, isEditInitialLoad);
+					
+				 }else{
+					
+					 alert('ShipTo address is not found');
+				 }
+				 
+				 
 			},
-			error : function(msg) {
-				console.log('Error from Oracle Api:', msg.statusText);
+			error: function (msg) {
+					 
 				alert("Failed: " + msg.status + ": " + msg.statusText);
 			}
 		});
+
 	},
 
-	setBillToAccNoInView : function(data, rowNo, isAdd, isEditInitialLoad){
-		X_RESPONSE_STATUS = $(data).find('X_RESPONSE_STATUS').text();
+	setBillToAccNoInView : function(obj, rowNo, isAdd, isEditInitialLoad){
+		X_RESPONSE_STATUS = obj.x_response_status;
 		if(X_RESPONSE_STATUS == 'S'){
-			X_BILLTO = $(data).find('X_BILL_TO').text();
-			ACCT_NUM = $(data).find('ACCT_NUM').text();
-			ACCT_NAME = $(data).find('ACCT_NAME').text();
+
+//			console.log("x_response_message"+obj.x_response_message);
+			var listObj=obj.x_ship_to_address;
+			for (var i = 0; i < listObj.length; i++) {
+				  var xmlobject = listObj [i];
+//				  console.log(xmlobject.BILL_TO);
+//				  console.log	("object"+JSON.stringify(xmlobject));
+//				  
+			X_BILLTO = xmlobject.BILL_TO;
+			ACCT_NUM =  xmlobject.ACCOUNT_NUMBER;
+			ACCT_NAME = xmlobject.ACCOUNT_NAME;
 			console.log(rowNo, " Response Status:", X_RESPONSE_STATUS, "BillTo:",
 					X_BILLTO, "Account No:", ACCT_NUM);
 			
@@ -753,8 +809,11 @@ BpiccAdmin = {
 			$(id2).val(ACCT_NUM);
 			console.log(id2, "Value set:", $(id2).val());
 			
-		} else {
-			X_RESPONSE_MESSAGE = $(data).find('X_RESPONSE_MESSAGE').text();
+		} 
+			
+		}
+			else {
+			X_RESPONSE_MESSAGE = obj.x_response_message;
 			if(isEditInitialLoad == false){
 				alert(X_RESPONSE_MESSAGE);
 			}

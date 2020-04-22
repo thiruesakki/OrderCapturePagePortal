@@ -308,9 +308,9 @@ public class TPService {
 
 			if (userObject != null) {
 				String encryptedPassword = userObject.getPassword();
-//				String decryptedPassword = TPUtility
-//						.decodePassword(encryptedPassword);//old source code
-				String decryptedPassword = encryptedPassword;//changed source code
+				String decryptedPassword = TPUtility
+						.decodePassword(encryptedPassword);//old source code
+//				String decryptedPassword = encryptedPassword;//changed source code
 				int active = Integer.parseInt(userObject.getActiveStatus());
 				if (decryptedPassword.equals(password)) {
 					if (active == TPServerConstants.Register_STATUS_ACTIVE) {
