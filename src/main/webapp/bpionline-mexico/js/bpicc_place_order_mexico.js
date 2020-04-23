@@ -27,9 +27,9 @@ $("#bpicc_tableDetails tbody tr#1").remove();
 		   $("#desc_1").val("");
 		   $("#weight_1").val("");
 		   $("#reqQnty_1").val("");
-		   $("#edc_1").val("");
-		   $("#mdc_1").val("");
-		   $("#wdc_1").val("");
+		   $("#v1_1").val("");
+		   $("#m1_1").val("");
+		   $("#m2_1").val("");
 			$("#inputPo").val("");
 		   $("#reqQnty_1").attr("disabled",true);
     $('#reset_form').on('click', function(e){
@@ -325,18 +325,18 @@ BpiccPlaceOrder=
 		 BpiccPlaceOrder.EnableValidateOrderDiv();
 
 		 checked_val=$("input[name='inputAvail_"+row_id+"']:checked").val();
-		 $("#EDC_i_"+row_id).removeClass("greenIcon");
-		 $("#EDC_i_"+row_id).removeClass("yellowIcon");
-		 $("#EDC_i_"+row_id).removeClass("redIcon");
+		 $("#V1_i_"+row_id).removeClass("greenIcon");
+		 $("#V1_i_"+row_id).removeClass("yellowIcon");
+		 $("#V1_i_"+row_id).removeClass("redIcon");
 		 
-		 $("#MDC_i_"+row_id).removeClass("greenIcon");
-		 $("#MDC_i_"+row_id).removeClass("yellowIcon");
-		 $("#MDC_i_"+row_id).removeClass("redIcon");
+		 $("#M1_i_"+row_id).removeClass("greenIcon");
+		 $("#M1_i_"+row_id).removeClass("yellowIcon");
+		 $("#M1_i_"+row_id).removeClass("redIcon");
 		 
 		 
-		 $("#WDC_i_"+row_id).removeClass("greenIcon");
-		 $("#WDC_i_"+row_id).removeClass("yellowIcon");
-		 $("#WDC_i_"+row_id).removeClass("redIcon");
+		 $("#M2_i_"+row_id).removeClass("greenIcon");
+		 $("#M2_i_"+row_id).removeClass("yellowIcon");
+		 $("#M2_i_"+row_id).removeClass("redIcon");
 		 	 var part_no=$.trim($("#partNum_"+row_id).val());
 		if($("#validate_on_entry").attr("validate")=="1")
 		{		
@@ -465,7 +465,7 @@ BpiccPlaceOrder=
 								if(u_checked_val=="EDC")
 								{
 									 
-									$("#edc_"+row_id).val(EDC);
+									$("#v1_"+row_id).val(EDC);
 									if(EDC==0)
 									{
 										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"EDC","redIcon");
@@ -483,7 +483,7 @@ BpiccPlaceOrder=
 								else if(u_checked_val=="MDC")
 								{
 										 
-									$("#mdc_"+row_id).val(MDC);
+									$("#m1_"+row_id).val(MDC);
 									if(MDC==0)
 									{
 										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"MDC","redIcon");
@@ -501,7 +501,7 @@ BpiccPlaceOrder=
 								else if(u_checked_val=="WDC")
 								{
 								 
-									$("#wdc_"+row_id).val(WDC);
+									$("#m2_"+row_id).val(WDC);
 									if(WDC==0)
 									{
 										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"WDC","redIcon");
@@ -541,9 +541,9 @@ BpiccPlaceOrder=
 				ERROR_MSG=	$.trim(bpi_obj.prod_stock[part_no]['ERROR_MSG']);
 				if(empty(ERROR_MSG))
 				{
-					EDC=	bpi_obj.prod_stock[part_no]['EDC'];
-					MDC=	bpi_obj.prod_stock[part_no]['MDC'];
-					WDC=	bpi_obj.prod_stock[part_no]['WDC'];
+					EDC=	bpi_obj.prod_stock[part_no]['V1'];
+					MDC=	bpi_obj.prod_stock[part_no]['M1'];
+					WDC=	bpi_obj.prod_stock[part_no]['M2'];
 				}
 				var reqQnty=$.trim($("#reqQnty_"+row_id).val());
 				reqQnty= parseInt((empty(reqQnty))?0:reqQnty);
@@ -556,45 +556,45 @@ BpiccPlaceOrder=
 				
 						if(EDC==0)
 						{
-							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"EDC","redIcon")
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"V1","redIcon")
 						}
 						else if(reqQnty<=EDC)
 						{
-							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"EDC","greenIcon")
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"V1","greenIcon")
 						}
 						else
 						{
-							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"EDC","yellowIcon")
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"V1","yellowIcon")
 							
 						}
 					
 					 
 						if(MDC==0)
 						{
-							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"MDC","redIcon")
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"M1","redIcon")
 						}
 						else if(reqQnty<=MDC)
 						{
-							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"MDC","greenIcon")
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"M1","greenIcon")
 						}
 						else
 						{
-							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"MDC","yellowIcon")
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"M1","yellowIcon")
 							
 						}
 					 
 					 
 						if(WDC==0)
 						{
-							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"WDC","redIcon")
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"M2","redIcon")
 						}
 						else if(reqQnty<=WDC)
 						{
-							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"WDC","greenIcon")
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"M2","greenIcon")
 						}
 						else
 						{
-							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"WDC","yellowIcon")
+							 BpiccPlaceOrder.CheckStockDCEnableProperCheckBox(row_id,"M2","yellowIcon")
 							
 						}
 					 
@@ -624,18 +624,18 @@ BpiccPlaceOrder=
 		 
 		 
 		  checked_val=$("input[name='inputAvail_"+row_id+"']:checked").val();
-		  $("#EDC_i_"+row_id).removeClass("greenIcon");
-		 $("#EDC_i_"+row_id).removeClass("yellowIcon");
-		 $("#EDC_i_"+row_id).removeClass("redIcon");
+		  $("#V1_i_"+row_id).removeClass("greenIcon");
+		 $("#V1_i_"+row_id).removeClass("yellowIcon");
+		 $("#V1_i_"+row_id).removeClass("redIcon");
 		 
-		 $("#MDC_i_"+row_id).removeClass("greenIcon");
-		 $("#MDC_i_"+row_id).removeClass("yellowIcon");
-		 $("#MDC_i_"+row_id).removeClass("redIcon");
+		 $("#M1_i_"+row_id).removeClass("greenIcon");
+		 $("#M1_i_"+row_id).removeClass("yellowIcon");
+		 $("#M1_i_"+row_id).removeClass("redIcon");
 		 
 		 
-		 $("#WDC_i_"+row_id).removeClass("greenIcon");
-		 $("#WDC_i_"+row_id).removeClass("yellowIcon");
-		 $("#WDC_i_"+row_id).removeClass("redIcon");
+		 $("#M2_i_"+row_id).removeClass("greenIcon");
+		 $("#M2_i_"+row_id).removeClass("yellowIcon");
+		 $("#M2_i_"+row_id).removeClass("redIcon");
 
 		$("#"+checked_val+"_i_"+row_id).addClass(ClassName);	
 		if(is_tot_cal_required==1)
@@ -651,18 +651,18 @@ BpiccPlaceOrder=
 		 
 		checked_val= $("#bpicc_tableDetails").find("input[name='inputAvail_"+row_id+"']:checked").val();
 		  $("#bpicc_tableDetails").find("input[name='inputAvail_"+row_id+"']:checked").val();
-		$("#bpicc_tableDetails").find("#EDC_i_"+row_id).removeClass("greenIcon");
-		 $("#bpicc_tableDetails").find("#EDC_i_"+row_id).removeClass("yellowIcon");
-		 $("#bpicc_tableDetails").find("#EDC_i_"+row_id).removeClass("redIcon");
+		$("#bpicc_tableDetails").find("#V1_i_"+row_id).removeClass("greenIcon");
+		 $("#bpicc_tableDetails").find("#V1_i_"+row_id).removeClass("yellowIcon");
+		 $("#bpicc_tableDetails").find("#V1_i_"+row_id).removeClass("redIcon");
 		 
-		 $("#bpicc_tableDetails").find("#MDC_i_"+row_id).removeClass("greenIcon");
-		 $("#bpicc_tableDetails").find("#MDC_i_"+row_id).removeClass("yellowIcon");
-		 $("#bpicc_tableDetails").find("#MDC_i_"+row_id).removeClass("redIcon");
+		 $("#bpicc_tableDetails").find("#M1_i_"+row_id).removeClass("greenIcon");
+		 $("#bpicc_tableDetails").find("#M1_i_"+row_id).removeClass("yellowIcon");
+		 $("#bpicc_tableDetails").find("#M1_i_"+row_id).removeClass("redIcon");
 		 
 		 
-		 $("#bpicc_tableDetails").find("#WDC_i_"+row_id).removeClass("greenIcon");
-		 $("#bpicc_tableDetails").find("#WDC_i_"+row_id).removeClass("yellowIcon");
-		$("#bpicc_tableDetails").find("#WDC_i_"+row_id).removeClass("redIcon");
+		 $("#bpicc_tableDetails").find("#M2_i_"+row_id).removeClass("greenIcon");
+		 $("#bpicc_tableDetails").find("#M2_i_"+row_id).removeClass("yellowIcon");
+		$("#bpicc_tableDetails").find("#M2_i_"+row_id).removeClass("redIcon");
 
 		 $("#bpicc_tableDetails").find("#"+checked_val+"_i_"+row_id).addClass(ClassName);	
 	 		
@@ -686,9 +686,9 @@ BpiccPlaceOrder=
 			html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
 			html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'" maxlength=5 disabled  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccPlaceOrder.ValidateQty('+new_tr_id+');BpiccPlaceOrder.CalculateTotQtyWt();" class="inputReqQnty" type="text"></div></td>';
 			
-			html+='<td><div class="availableDC"><input id="edc_'+new_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"   id="EDC_RADIO_'+new_tr_id+'" name="inputAvail_'+new_tr_id+'" value="EDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="EDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></div></td>';
-			html+='<td><div class="availableDC"><input id="mdc_'+new_tr_id+'" class="inputMdc" value="" disabled><span><input type="radio" id="MDC_RADIO_'+new_tr_id+'"   name="inputAvail_'+new_tr_id+'" value="MDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle"   id="MDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></div></td>';
-			html+='<td><div class="availableDC"><input id="wdc_'+new_tr_id+'" class="inputWdc" value="" disabled><span><input type="radio"  id="WDC_RADIO_'+new_tr_id+'"  name="inputAvail_'+new_tr_id+'" value="WDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="WDC_i_'+new_tr_id+'"  aria-hidden="true"></i></span></input></div></td>';
+			html+='<td><div class="availableDC"><input id="v1_'+new_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"   id="V1_RADIO_'+new_tr_id+'" name="inputAvail_'+new_tr_id+'" value="V1" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="V1_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></div></td>';
+			html+='<td><div class="availableDC"><input id="m1_'+new_tr_id+'" class="inputMdc" value="" disabled><span><input type="radio" id="M1_RADIO_'+new_tr_id+'"   name="inputAvail_'+new_tr_id+'" value="M1" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle"   id="M1_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></div></td>';
+			html+='<td><div class="availableDC"><input id="m2_'+new_tr_id+'" class="inputWdc" value="" disabled><span><input type="radio"  id="M2_RADIO_'+new_tr_id+'"  name="inputAvail_'+new_tr_id+'" value="M2" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="M2_i_'+new_tr_id+'"  aria-hidden="true"></i></span></input></div></td>';
 			 			
 			html+='<td><div class="availableDC"><span onclick="BpiccPlaceOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></div></td>';
 			html+='	</tr>';
@@ -717,9 +717,9 @@ BpiccPlaceOrder=
 			html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
 			html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'"  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccPlaceOrder.ValidateQty('+new_tr_id+');BpiccPlaceOrder.CalculateTotQtyWt();" class="inputReqQnty" '+dis+' type="text" value='+qty+'></td></div>';
 			
-			html+='<td><div class="availableDC"><input id="edc_'+new_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"  id="EDC_RADIO_'+new_tr_id+'" name="inputAvail_'+new_tr_id+'" value="EDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="EDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
-			html+='<td><div class="availableDC"><input id="mdc_'+new_tr_id+'" class="inputMdc" value="" disabled><span><input type="radio" id="MDC_RADIO_'+new_tr_id+'"   name="inputAvail_'+new_tr_id+'" value="MDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle"   id="MDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
-			html+='<td><div class="availableDC"><input id="wdc_'+new_tr_id+'" class="inputWdc" value="" disabled><span><input type="radio"  id="WDC_RADIO_'+new_tr_id+'"  name="inputAvail_'+new_tr_id+'" value="WDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="WDC_i_'+new_tr_id+'"  aria-hidden="true"></i></span></input></td></div>';
+			html+='<td><div class="availableDC"><input id="v1_'+new_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"  id="V1_RADIO_'+new_tr_id+'" name="inputAvail_'+new_tr_id+'" value="EDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="V1_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
+			html+='<td><div class="availableDC"><input id="m1_'+new_tr_id+'" class="inputMdc" value="" disabled><span><input type="radio" id="M1_RADIO_'+new_tr_id+'"   name="inputAvail_'+new_tr_id+'" value="MDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle"   id="M1_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
+			html+='<td><div class="availableDC"><input id="m2_'+new_tr_id+'" class="inputWdc" value="" disabled><span><input type="radio"  id="M2_RADIO_'+new_tr_id+'"  name="inputAvail_'+new_tr_id+'" value="WDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="M2_i_'+new_tr_id+'"  aria-hidden="true"></i></span></input></td></div>';
 			
 			html+='<td><div class="availableDC"><span onclick="BpiccPlaceOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td></div>';
 			html+='	</tr>';
@@ -731,7 +731,7 @@ BpiccPlaceOrder=
 				$("#"+checkd_val_f).prop("checked", true);
 				BpiccPlaceOrder.EnableProperCheckBoxColor(new_tr_id);
 			}
-			// MDC_RADIO_2
+			// M1_RADIO_2
 			/* $("#bpicc_tableDetails tbody tr#"+new_tr_id+" #partNum_"+new_tr_id).focus()  */
 			
 		}
@@ -854,21 +854,21 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	},
 	EmptyWareHouseData:function(tr_id)
 	{
-		$("#edc_"+tr_id).parent().find("span i").removeClass("greenIcon");
-		$("#edc_"+tr_id).parent().find("span i").removeClass("redIcon");
-		$("#edc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
+		$("#v1_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#v1_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#v1_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 
-		$("#mdc_"+tr_id).parent().find("span i").removeClass("greenIcon");
-		$("#mdc_"+tr_id).parent().find("span i").removeClass("redIcon");
-		$("#mdc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
+		$("#m1_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#m1_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#m1_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 
-		$("#wdc_"+tr_id).parent().find("span i").removeClass("greenIcon");
-		$("#wdc_"+tr_id).parent().find("span i").removeClass("redIcon");
-		$("#wdc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
+		$("#m2_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#m2_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#m2_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 
-	/* 	$("#edc_"+tr_id).val("");
-		$("#mdc_"+tr_id).val("");
-		$("#wdc_"+tr_id).val(""); */
+	/* 	$("#v1_"+tr_id).val("");
+		$("#m1_"+tr_id).val("");
+		$("#m2_"+tr_id).val(""); */
 	},
 	ValidateErrorsForSelectedPartNo:function(tr_id,part_no,is_qty_check)
 	{	
@@ -941,9 +941,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						$("#desc_"+tr_id).val("");
 						$("#weight_"+tr_id).val("");
 						
-						$("#edc_"+tr_id).val("");
-						$("#mdc_"+tr_id).val("");
-						$("#wdc_"+tr_id).val("");
+						$("#v1_"+tr_id).val("");
+						$("#m1_"+tr_id).val("");
+						$("#m2_"+tr_id).val("");
 						 
 					
 						// $("#reqQnty_"+tr_id).removeAttr("disabled");
@@ -958,9 +958,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					$("#brand_"+tr_id).val("");
 						$("#desc_"+tr_id).val("");
 						$("#weight_"+tr_id).val("");
-						$("#edc_"+tr_id).val("");
-						$("#mdc_"+tr_id).val("");
-						$("#wdc_"+tr_id).val("");
+						$("#v1_"+tr_id).val("");
+						$("#m1_"+tr_id).val("");
+						$("#m2_"+tr_id).val("");
 			}
 		}
 		else
@@ -992,13 +992,12 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			{
 					BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
 			}
-			  
-				 
 			 if(bpi_obj.prod_stock.hasOwnProperty(part_no))
 			 {
+				
 				var MIN_ORDER_QTY=	parseInt(bpi_obj.prod_stock[part_no]['MIN_ORDER_QTY']);
 				 var IS_CALIPER=	bpi_obj.prod_stock[part_no]['IS_CALIPER'];
-				 
+				 MIN_ORDER_QTY= 1;
 				 /*  if(reqQnty<MIN_ORDER_QTY)
 				 {
 					BpiccPlaceOrder.AddError("#reqQnty_"+tr_id,'Warning');
@@ -1008,10 +1007,11 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					
 				 } */
 				  if(MIN_ORDER_QTY>0)
-				 {
+				 { 
 					 var o_reqQnty=reqQnty;
 					 reqQnty=MIN_ORDER_QTY*Math.ceil(o_reqQnty/MIN_ORDER_QTY);
-					 var attr_orignal_qty=parseFloat($("#reqQnty_"+tr_id).attr("orignal_qty"));
+//					 var attr_orignal_qty=parseFloat($("#reqQnty_"+tr_id).attr("orignal_qty"));//Old source code
+					 var attr_orignal_qty=parseFloat(reqQnty);//new code
 					if(o_reqQnty!=reqQnty)
 					{
 						BpiccPlaceOrder.AddError("#reqQnty_"+tr_id,'Warning');
@@ -1028,53 +1028,52 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						bpi_obj.is_last_excel_min_row_updated++;
 					 
 					}
-						
 				 }
 					ERROR_MSG=	$.trim(bpi_obj.prod_stock[part_no]['ERROR_MSG']);
 					if(empty(ERROR_MSG))
 					{
 						 
-						var EDC=parseInt(bpi_obj.prod_stock[part_no]['EDC']);
-						var MDC=parseInt(bpi_obj.prod_stock[part_no]['MDC']);
-						var WDC=parseInt(bpi_obj.prod_stock[part_no]['WDC']);
-						if(reqQnty<EDC)
-							EDC=reqQnty;
-						if(reqQnty<MDC)
-							MDC=reqQnty;
-						if(reqQnty<WDC)
-							WDC=reqQnty;
+						var V1=parseInt(bpi_obj.prod_stock[part_no]['V1']);
+						var M1=parseInt(bpi_obj.prod_stock[part_no]['M1']);
+						var M2=parseInt(bpi_obj.prod_stock[part_no]['M2']);
+						if(reqQnty<V1)
+							V1=reqQnty;
+						if(reqQnty<M1)
+							M1=reqQnty;
+						if(reqQnty<M2)
+							M2=reqQnty;
 						BpiccPlaceOrder.EmptyWareHouseData(tr_id);
 					
 						if($("#page_type").val()=='check_stock')
 						{						
-							$("#edc_"+tr_id).val(EDC);
-							$("#mdc_"+tr_id).val(MDC);
-							$("#wdc_"+tr_id).val(WDC); 
+							$("#v1_"+tr_id).val(V1);
+							$("#m1_"+tr_id).val(M1);
+							$("#m2_"+tr_id).val(M2); 
 							BpiccPlaceOrder.HandleCheckStockPage(tr_id);
 						}
 						  
 						var default_dc=bpi_com_obj.default_dc;
-						default_dc=empty(default_dc)?"EDC":default_dc;
+						default_dc=empty(default_dc)?"V1":default_dc;
 						 
 						  if(IS_CALIPER=="1")
 						  {
-							default_dc="WDC";  
+							default_dc="M2";  
 						  }
 
 						var default_dc_lower=default_dc.toLowerCase();
 						var assign_val=0;
-						if(default_dc=="EDC")
-							assign_val=EDC;
-						if(default_dc=="MDC")
-							assign_val=MDC;
-						if(default_dc=="WDC")
-							assign_val=WDC;
+						if(default_dc=="V1")
+							assign_val=V1;
+						if(default_dc=="M1")
+							assign_val=M1;
+						if(default_dc=="M2")
+							assign_val=M2;
 						
-						existing_edc_val=$("#edc_"+tr_id).val();
-						existing_mdc_val=$("#mdc_"+tr_id).val();
-						existing_wdc_val=$("#wdc_"+tr_id).val();
+						existing_V1_val=$("#v1_"+tr_id).val();
+						existing_M1_val=$("#m1_"+tr_id).val();
+						existing_M2_val=$("#m2_"+tr_id).val();
 						
-						// console.log("existing_edc_val--"+existing_edc_val+"---------existing_mdc_val"+existing_mdc_val+"-----------existing_wdc_val"+existing_wdc_val);
+						// console.log("existing_V1_val--"+existing_V1_val+"---------existing_M1_val"+existing_M1_val+"-----------existing_M2_val"+existing_M2_val);
 						// if(empty($("#"+default_dc_lower+"_"+tr_id).val()))
 							// alert($("#"+default_dc_lower+"_"+tr_id).val());
 						// if(IS_CALIPER!="1")
@@ -1084,75 +1083,75 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						var already_check_val=$("input[name='inputAvail_"+tr_id+"']:checked").val();
 
 
-						 if(already_check_val=="WDC")
+						 if(already_check_val=="M2")
 						 {
-							 $("#wdc_"+tr_id).val(WDC);
-						 }if(already_check_val=="EDC")
+							 $("#m2_"+tr_id).val(M2);
+						 }if(already_check_val=="V1")
 						 {
-							 $("#edc_"+tr_id).val(EDC);
-						 }if(already_check_val=="MDC")
+							 $("#v1_"+tr_id).val(V1);
+						 }if(already_check_val=="M1")
 						 {
-							 $("#mdc_"+tr_id).val(MDC);
+							 $("#m1_"+tr_id).val(M1);
 						 }
 						  if(IS_CALIPER=="1")
 						  {
-							  already_check_val="WDC";
+							  already_check_val="M2";
 						  }
 						if(!empty(already_check_val))
 							default_dc=already_check_val;
 						  if(IS_CALIPER=="1")
 						  {
-							  default_dc="WDC";
+							  default_dc="M2";
 						  }
 						 
-						if(default_dc=="EDC")
+						if(default_dc=="V1")
 						{
-							if(EDC==0)
+							if(V1==0)
 							{
-								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"EDC","redIcon",1);
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"V1","redIcon",1);
 								 // BpiccPlaceOrder.EnableValidateOrderDiv();
 							}
-							else if(reqQnty<=EDC)
+							else if(reqQnty<=V1)
 							{
-								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"EDC","greenIcon",1);
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"V1","greenIcon",1);
 							}
 							else
 							{
-								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"EDC","yellowIcon",1);
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"V1","yellowIcon",1);
 								
 							}
 						}
-						else if(default_dc=="MDC")
+						else if(default_dc=="M1")
 						{
-							if(MDC==0)
+							if(M1==0)
 							{
-								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"MDC","redIcon",1);
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"M1","redIcon",1);
 								 // BpiccPlaceOrder.EnableValidateOrderDiv();
 							}
-							else if(reqQnty<=MDC)
+							else if(reqQnty<=M1)
 							{
-								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"MDC","greenIcon",1);
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"M1","greenIcon",1);
 							}
 							else
 							{
-								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"MDC","yellowIcon",1);
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"M1","yellowIcon",1);
 								
 							}
 						}
-						else if(default_dc=="WDC")
+						else if(default_dc=="M2")
 						{
-							if(WDC==0)
+							if(M2==0)
 							{
-								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"WDC","redIcon",1);
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"M2","redIcon",1);
 								 // BpiccPlaceOrder.EnableValidateOrderDiv();
 							}
-							else if(reqQnty<=WDC)
+							else if(reqQnty<=M2)
 							{
-								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"WDC","greenIcon",1);
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"M2","greenIcon",1);
 							}
 							else
 							{
-								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"WDC","yellowIcon",1);
+								 BpiccPlaceOrder.DCEnableProperCheckBox(tr_id,"M2","yellowIcon",1);
 								
 							}
 							
@@ -1181,14 +1180,14 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	},
 	DisableAllINputFieldsForCaliber:function(tr_id)
 	{
-		$("#MDC_RADIO_"+tr_id).attr('disabled',true);
-		$("#MDC_i_"+tr_id).attr('disabled',true);
+		$("#M1_RADIO_"+tr_id).attr('disabled',true);
+		$("#M1_i_"+tr_id).attr('disabled',true);
 		
-		$("#EDC_RADIO_"+tr_id).attr('disabled',true);
-		$("#EDC_i_"+tr_id).attr('disabled',true);
+		$("#V1_RADIO_"+tr_id).attr('disabled',true);
+		$("#V1_i_"+tr_id).attr('disabled',true);
 		
-		$("#WDC_RADIO_"+tr_id).attr('disabled',true);
-		$("#WDC_i_"+tr_id).attr('disabled',true);
+		$("#M2_RADIO_"+tr_id).attr('disabled',true);
+		$("#M2_i_"+tr_id).attr('disabled',true);
 	},
 	CalculateTotQtyWt:function ()
 	{
@@ -1203,9 +1202,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			var w_tot_qty=0;
 			var w_tot_wt=0;
 			var data=$("#bpicc_tableDetails tbody tr");
-			var s_edc_qty=0;
-			var s_mdc_qty=0;
-			var s_wdc_qty=0;
+			var s_v1_qty=0;
+			var s_m1_qty=0;
+			var s_m2_qty=0;
 			var tot_wc_qty=0;
 			var tot_lines=0;
 				var partNum="";
@@ -1233,13 +1232,13 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				}
 				if(reqQnty>0)
 				{
-					  s_edc_qty=0;
-					  s_mdc_qty=0;
-					  s_wdc_qty=0;
+					  s_v1_qty=0;
+					  s_m1_qty=0;
+					  s_m2_qty=0;
 					
 					if(checked_val=="EDC")
 					{
-						s_edc_qty=parseInt($(this).find("#edc_"+tr_id).val());
+						s_v1_qty=parseInt($(this).find("#v1_"+tr_id).val());
 						e_tot_qty=parseFloat(e_tot_qty+reqQnty);
 						 weight=$(this).find("#weight_"+tr_id).val();
 						weight=parseFloat((empty(weight))?0:weight);
@@ -1248,7 +1247,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					}
 					if(checked_val=="MDC")
 					{
-						s_mdc_qty=parseInt($(this).find("#mdc_"+tr_id).val());
+						s_m1_qty=parseInt($(this).find("#m1_"+tr_id).val());
 						 
 						m_tot_qty=parseFloat(m_tot_qty+reqQnty);
 						  weight=$(this).find("#weight_"+tr_id).val();
@@ -1258,7 +1257,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					}
 					if(checked_val=="WDC")
 					{
-						s_wdc_qty=parseInt($(this).find("#wdc_"+tr_id).val());
+						s_m2_qty=parseInt($(this).find("#m2_"+tr_id).val());
 						w_tot_qty=parseFloat(w_tot_qty+reqQnty);
 						  weight=$(this).find("#weight_"+tr_id).val();
 						weight=parseFloat((empty(weight))?0:weight);
@@ -1266,10 +1265,10 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						
 					}
 					tot_wc_qty=empty(tot_wc_qty)?0:tot_wc_qty;
-					s_edc_qty=empty(s_edc_qty)?0:s_edc_qty;
-					s_mdc_qty=empty(s_mdc_qty)?0:s_mdc_qty;
-					s_wdc_qty=empty(s_wdc_qty)?0:s_wdc_qty;
-					tot_wc_qty=parseFloat(tot_wc_qty)+parseFloat(s_edc_qty)+parseFloat(s_mdc_qty)+parseFloat(s_wdc_qty);
+					s_v1_qty=empty(s_v1_qty)?0:s_v1_qty;
+					s_m1_qty=empty(s_m1_qty)?0:s_m1_qty;
+					s_m2_qty=empty(s_m2_qty)?0:s_m2_qty;
+					tot_wc_qty=parseFloat(tot_wc_qty)+parseFloat(s_v1_qty)+parseFloat(s_m1_qty)+parseFloat(s_m2_qty);
 				}
 
 				
@@ -1449,21 +1448,21 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		$("#weight_"+tr_id).val("");
 		$("#reqQnty_"+tr_id).val("");
 	
-		$("#edc_"+tr_id).val("");
-		$("#mdc_"+tr_id).val("");
-		$("#wdc_"+tr_id).val("");
+		$("#v1_"+tr_id).val("");
+		$("#m1_"+tr_id).val("");
+		$("#m2_"+tr_id).val("");
 		
-		$("#edc_"+tr_id).parent().find("span i").removeClass("greenIcon");
-		$("#edc_"+tr_id).parent().find("span i").removeClass("redIcon");
-		$("#edc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
+		$("#v1_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#v1_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#v1_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 
-		$("#mdc_"+tr_id).parent().find("span i").removeClass("greenIcon");
-		$("#mdc_"+tr_id).parent().find("span i").removeClass("redIcon");
-		$("#mdc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
+		$("#m1_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#m1_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#m1_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 
-		$("#wdc_"+tr_id).parent().find("span i").removeClass("greenIcon");
-		$("#wdc_"+tr_id).parent().find("span i").removeClass("redIcon");
-		$("#wdc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
+		$("#m2_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#m2_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#m2_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 	 
 		
 	},
@@ -1478,21 +1477,21 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		$("#weight_"+tr_id).val("");
 		 
 	
-		$("#edc_"+tr_id).val("");
-		$("#mdc_"+tr_id).val("");
-		$("#wdc_"+tr_id).val("");
+		$("#v1_"+tr_id).val("");
+		$("#m1_"+tr_id).val("");
+		$("#m2_"+tr_id).val("");
 		
-		$("#edc_"+tr_id).parent().find("span i").removeClass("greenIcon");
-		$("#edc_"+tr_id).parent().find("span i").removeClass("redIcon");
-		$("#edc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
+		$("#v1_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#v1_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#v1_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 
-		$("#mdc_"+tr_id).parent().find("span i").removeClass("greenIcon");
-		$("#mdc_"+tr_id).parent().find("span i").removeClass("redIcon");
-		$("#mdc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
+		$("#m1_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#m1_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#m1_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 
-		$("#wdc_"+tr_id).parent().find("span i").removeClass("greenIcon");
-		$("#wdc_"+tr_id).parent().find("span i").removeClass("redIcon");
-		$("#wdc_"+tr_id).parent().find("span i").removeClass("yellowIcon");
+		$("#m2_"+tr_id).parent().find("span i").removeClass("greenIcon");
+		$("#m2_"+tr_id).parent().find("span i").removeClass("redIcon");
+		$("#m2_"+tr_id).parent().find("span i").removeClass("yellowIcon");
 	 
 		
 	},
@@ -1520,7 +1519,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 //			}
 //			
 		}
-		console.log("Part_no_arr:"+part_no_arr);
 		if(split_arr.length>1)
 		{
 				$(".loader").show();
@@ -1571,11 +1569,12 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					success: function (data) {
 						$(".loader").hide();
 						 var obj=JSON.parse(data.object);
+						 if(obj!=null){
 							var productObj=obj.x_product_avail;
-							console.log("data:"+JSON.stringify(productObj));
-							if(productObj!=null){
+//							if(productObj!=null){
 							 BpiccPlaceOrder.ProcessCheckStockXml(productObj,callback);
-							}
+//							}
+						 }
 					},
 					error: function (msg) {
 						$(".loader").hide();
@@ -1689,7 +1688,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	EnableContinueOrderDiv:function()
 	{
 		 
-		 
 			$("#validate_order").attr("disabled",true);
 			if($("#page_type").val()=='place_order')
 			{
@@ -1707,9 +1705,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					 $("#continue_order").removeAttr("disabled");
 				}
 			}
-		
-		 
-		
 	},
 	EnableValidateOrderDiv:function()
 	{
@@ -1859,7 +1854,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						 setTimeout(function(){
 									if(bpi_com_obj.error_cnt==0 && BpiccPlaceOrder.HandleEmergencyCheck() )
 									{
-										 
 										BpiccPlaceOrder.EnableContinueOrderDiv();
 									}
 											 
@@ -1910,9 +1904,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	ProcessCheckStockXml:function(xml,callback)
 	{
 		  try {
-			  console.log("inside");
 //				 $(xml).find('X_PRODUCT_AVAIL').each(function(){
 //	                     $(this).find("X_PRODUCT_AVAIL_ITEM").each(function(){
+			  if(xml){
 				  for (var i = 0; i < xml.length; i++) {
 					  var object = xml[i];
 							var  prod_obj=new Object();
@@ -1940,13 +1934,27 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	                        prod_obj['ITEM_DESCRIPTION'] = object.ITEM_DESCRIPTION;
 							var ITEM_DESCRIPTION = object.ITEM_DESCRIPTION;
 							prod_obj['IS_CALIPER']='0';
-							if(ITEM_DESCRIPTION.indexOf("CALIPER")>=0)
-								prod_obj['IS_CALIPER']='1';
+//							if(ITEM_DESCRIPTION.indexOf("CALIPER")>=0)
+//								prod_obj['IS_CALIPER']='1';
 						 
 						 
 	                        prod_obj['UNIT_WEIGHT']= object.UNIT_WEIGHT;
 							prod_obj['MIN_ORDER_QTY']= object.MIN_ORDER_QTY;
-	                        prod_obj['ERROR_MSG'] = object.ERROR_MSG; 
+	                        prod_obj['ERROR_MSG'] = object.ERROR_MSG;
+	                        var availProductItem=object.AVAIL_PRODUCT_ITEM;
+	                        var split_arr=availProductItem.split(",");
+	        				for(i=0;i<split_arr.length;i++)
+	        				{
+	        					if($.trim(split_arr[i])=='V1'||$.trim(split_arr[i])=='M1'||$.trim(split_arr[i])=='M2'){
+	        						var ORGANIZATION_CODE= split_arr[i];
+	        						i++;
+	 							   var AVAILABLE_QTY= split_arr[i];
+	 							   AVAILABLE_QTY=parseInt(AVAILABLE_QTY);
+	 							   if(AVAILABLE_QTY<0)
+	 								   AVAILABLE_QTY=0;
+	 							   prod_obj[ORGANIZATION_CODE]=AVAILABLE_QTY;	
+	        					}
+	        				}
 //	                       $.each($(this).find("AVAIL_PRODUCT").find("AVAIL_PRODUCT_ITEM"),function()//looping through edc/mdc/wdc
 //						   {
 //							   var ORGANIZATION_CODE=$(this).find("ORGANIZATION_CODE").text();
@@ -1955,18 +1963,13 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 //							   if(AVAILABLE_QTY<0)
 //								   AVAILABLE_QTY=0;
 //							   prod_obj[ORGANIZATION_CODE]=AVAILABLE_QTY;
-							   var ORGANIZATION_CODE= object.ORGANIZATION_CODE;
-							   var AVAILABLE_QTY= object.AVAILABLE_QTY;
-							   AVAILABLE_QTY=parseInt(AVAILABLE_QTY);
-							   if(AVAILABLE_QTY<0)
-								   AVAILABLE_QTY=0;
-							   prod_obj[ORGANIZATION_CODE]=AVAILABLE_QTY;
+							   
 //						   }) 
 						   bpi_obj.prod_stock[PRODUCT_NUM]=new Object();
 						   bpi_obj.prod_stock[PRODUCT_NUM]=prod_obj;
 //						});
 //				 });
-	                     }
+	                     }}
 				 if (callback && typeof(callback) === "function") {
 							callback();
 						}
@@ -2120,9 +2123,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
 			html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'"  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccPlaceOrder.ValidateQty('+new_tr_id+');BpiccPlaceOrder.CalculateTotQtyWt();" class="inputReqQnty" '+dis+' type="text" value='+qty+'></td></div>';
 			
-			html+='<td><div class="availableDC"><input id="edc_'+new_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"  id="EDC_RADIO_'+new_tr_id+'" name="inputAvail_'+new_tr_id+'" value="EDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="EDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
-			html+='<td><div class="availableDC"><input id="mdc_'+new_tr_id+'" class="inputMdc" value="" disabled><span><input type="radio" id="MDC_RADIO_'+new_tr_id+'"   name="inputAvail_'+new_tr_id+'" value="MDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle"   id="MDC_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
-			html+='<td><div class="availableDC"><input id="wdc_'+new_tr_id+'" class="inputWdc" value="" disabled><span><input type="radio"  id="WDC_RADIO_'+new_tr_id+'"  name="inputAvail_'+new_tr_id+'" value="WDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="WDC_i_'+new_tr_id+'"  aria-hidden="true"></i></span></input></td></div>';
+			html+='<td><div class="availableDC"><input id="v1_'+new_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"  id="V1_RADIO_'+new_tr_id+'" name="inputAvail_'+new_tr_id+'" value="EDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="V1_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
+			html+='<td><div class="availableDC"><input id="m1_'+new_tr_id+'" class="inputMdc" value="" disabled><span><input type="radio" id="M1_RADIO_'+new_tr_id+'"   name="inputAvail_'+new_tr_id+'" value="MDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle"   id="M1_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
+			html+='<td><div class="availableDC"><input id="m2_'+new_tr_id+'" class="inputWdc" value="" disabled><span><input type="radio"  id="M2_RADIO_'+new_tr_id+'"  name="inputAvail_'+new_tr_id+'" value="WDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="M2_i_'+new_tr_id+'"  aria-hidden="true"></i></span></input></td></div>';
 			
 			html+='<td><div class="availableDC"><span onclick="BpiccPlaceOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td></div>';
 			html+='	</tr>';
@@ -2680,17 +2683,14 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				 cookie_part_obj[i]['dc']=$("input[name='inputAvail_"+tr_id+"']:checked").val();;
 				 i++;
 			 }
-		 
-
-			
 		});
 		if(!empty(cookie_part_obj))
 		{
-		
+//		alert(JSON.stringify(cookie_part_obj));
 		 setCookie("cookie_part_obj",JSON.stringify(cookie_part_obj));
 		 localStorage.setItem('cookie_part_obj', JSON.stringify(cookie_part_obj));
 		}
-		window.location.href= selectAccountPrefix + "place-order.html";
+		window.location.href= selectAccountPrefix + "index.html";
 	},
 	AddItemsFromCheckStockPage:function(cookie_part_obj)
 	{
