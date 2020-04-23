@@ -34,6 +34,9 @@ import com.brakepartsinc.project.techportal.dto.CountryObject;
 import com.brakepartsinc.project.techportal.dto.CustomerObject;
 import com.brakepartsinc.project.techportal.dto.DashboardObject;
 import com.brakepartsinc.project.techportal.dto.DistributorDetailObject;
+import com.brakepartsinc.project.techportal.dto.InvoiceDetailObject;
+import com.brakepartsinc.project.techportal.dto.InvoiceObject;
+import com.brakepartsinc.project.techportal.dto.InvoiceOrderCheckObject;
 import com.brakepartsinc.project.techportal.dto.JobTitleObject;
 import com.brakepartsinc.project.techportal.dto.OrderHistoryListObject;
 import com.brakepartsinc.project.techportal.dto.OrderHistoryObject;
@@ -356,4 +359,84 @@ public class OracleTPService {
 		}
 		return jsonResult.toString();
 	}
+	
+	@GET
+	@Path("/GetInvoiceDetails")
+	public String GetInvoiceDetails(@QueryParam("org_id") String orgID,
+			@QueryParam("purchase_order_number") String purchaseOrderNumber) {
+		JsonObject jsonResult = new JsonObject();
+		String invoiceJson = null;
+//		JsonArray shipToArrayJson = null;
+		int status = -1;
+		String errorMessage = "";
+		InvoiceObject invoiceObject=null;
+		try {
+			OracleDataHandler dataHandler = new OracleDataHandler();
+				invoiceObject = dataHandler.getMuleInvoiceDetails(orgID,
+						purchaseOrderNumber);
+				status = 0;
+				if (invoiceObject != null) {
+					status = 0;
+					Gson gson = new Gson();
+					invoiceJson = gson.toJson(invoiceObject);
+				} else {
+					status = 1;
+					errorMessage = "Invoice Details not found";
+				}
+			jsonResult.addProperty("status", status);
+			jsonResult.addProperty("errorMessage", errorMessage);
+			jsonResult.addProperty("object", invoiceJson);
+			System.out.println("getInvoiceDetails - Result to be returned:"
+					+ jsonResult);
+
+		} catch (Exception e) {
+			status = 6;
+			jsonResult.addProperty("status", status);
+			jsonResult.addProperty("errorMessage", e.getMessage());
+			jsonResult.add("object", null);
+			System.out
+					.println("getInvoiceDetails - ERROR Result to be returned:"
+							+ jsonResult);
+		}
+		return jsonResult.toString();
+}
+	@GET
+	@Path("/GetCheckInvoiceDetails")
+	public String GetCheckInvoiceDetails(@QueryParam("org_id") String orgID,
+			@QueryParam("purchase_order_number") String purchaseOrderNumber) {
+		JsonObject jsonResult = new JsonObject();
+		String invoiceJson = null;
+//		JsonArray shipToArrayJson = null;
+		int status = -1;
+		String errorMessage = "";
+		InvoiceOrderCheckObject checkInvoiceStatus=null;
+		try {
+			OracleDataHandler dataHandler = new OracleDataHandler();
+			checkInvoiceStatus=dataHandler.getMuleCheckInvoiceDetails(orgID, purchaseOrderNumber);
+				status = 0;
+				if (checkInvoiceStatus != null) {
+					status = 0;
+					Gson gson = new Gson();
+					invoiceJson = gson.toJson(checkInvoiceStatus);
+				} else {
+					status = 1;
+					errorMessage = "Invoice Details check not found";
+				}
+			jsonResult.addProperty("status", status);
+			jsonResult.addProperty("errorMessage", errorMessage);
+			jsonResult.addProperty("object", invoiceJson);
+			System.out.println("getCheckInvoiceDetails - Result to be returned:"
+					+ jsonResult);
+
+		} catch (Exception e) {
+			status = 6;
+			jsonResult.addProperty("status", status);
+			jsonResult.addProperty("errorMessage", e.getMessage());
+			jsonResult.add("object", null);
+			System.out
+					.println("getCheckInvoiceDetails - ERROR Result to be returned:"
+							+ jsonResult);
+		}
+		return jsonResult.toString();
+}
 }

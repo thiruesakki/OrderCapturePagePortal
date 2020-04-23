@@ -22,9 +22,13 @@ import java.util.List;
 
 
 
+
+
 import oracle.jdbc.driver.OracleTypes;
 
 import com.brakepartsinc.project.techportal.dto.CheckStockObject;
+import com.brakepartsinc.project.techportal.dto.InvoiceObject;
+import com.brakepartsinc.project.techportal.dto.InvoiceOrderCheckObject;
 import com.brakepartsinc.project.techportal.dto.OrderHistoryListObject;
 import com.brakepartsinc.project.techportal.dto.OrderShipToObject;
 import com.brakepartsinc.project.techportal.dto.OrderShippingObject;
@@ -286,8 +290,10 @@ public class OracleDataHandler {
 	
 	public CheckStockObject getMuleCheckStock(String org_Id,
 			String ship_To , String product_No) throws IOException {
-		String query = "http://xxenv-test-check-stock.us-e2.cloudhub.io/api/CheckStock?p_operating_unit_id="
-				+ org_Id + "&p_ship_to=" + ship_To+ "&p_prodcut=" + product_No;
+//		String query = "http://xxenv-test-check-stock.us-e2.cloudhub.io/api/CheckStock?p_operating_unit_id="
+//				+ org_Id + "&p_ship_to=" + ship_To+ "&p_prodcut=" + product_No;
+		String query = "http://xxenv-test-item-check-stock.us-e2.cloudhub.io/api/ItemCheckStock?p_ship_to="
+				+ ship_To+ "&p_product=" + product_No;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
 		String readLine = null;
@@ -348,5 +354,75 @@ public class OracleDataHandler {
 			}
 		}
 		return orgID;
+	}
+	
+	public InvoiceObject getMuleInvoiceDetails(String org_id,
+			String purchase_order_number) throws IOException {
+		String query = "http://xxenv-test-invoice-details1.us-e2.cloudhub.io/api/InvoiceDetails?p_operating_unit_id="
+				+ org_id + "&p_order_number=" + purchase_order_number;
+		System.out.println(query);
+		URL urlForGetRequest = new URL(query);
+		String readLine = null;
+		String outputString = "";
+		InvoiceObject invoiceObject = null;
+		HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+				.openConnection();
+		conection.setRequestMethod("GET");
+		// conection.setRequestProperty("p_operating_unit_id", org_id); // set
+		// userId its a sample here
+		// conection.setRequestProperty("p_ship_to_loction", ship_to_location);
+		int responseCode = conection.getResponseCode();
+		if (responseCode == HttpURLConnection.HTTP_OK) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					conection.getInputStream()));
+			StringBuffer response = new StringBuffer();
+
+			while ((readLine = in.readLine()) != null) {
+				response.append(readLine);
+			}
+			in.close();
+			outputString = response.toString();
+			Gson g = new Gson();
+			invoiceObject = g.fromJson(outputString, InvoiceObject.class);
+			// GetAndPost.POSTRequest(response.toString());
+		} else {
+			System.out.println("GET NOT WORKED");
+		}
+		return invoiceObject;
+	}
+	public InvoiceOrderCheckObject getMuleCheckInvoiceDetails(String org_id,
+			String purchase_order_number) throws IOException {
+		String query = "http://xxenv-test-invoice-check.us-e2.cloudhub.io/api/InvoiceCheck?p_operating_unit_id="
+				+ org_id + "&p_purchase_order=" + purchase_order_number;
+		System.out.println(query);
+		URL urlForGetRequest = new URL(query);
+		String readLine = null;
+		String outputString = "";
+		InvoiceOrderCheckObject checkObject = null;
+		HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+				.openConnection();
+		conection.setRequestMethod("GET");
+		// conection.setRequestProperty("p_operating_unit_id", org_id); // set
+		// userId its a sample here
+		// conection.setRequestProperty("p_ship_to_loction", ship_to_location);
+		int responseCode = conection.getResponseCode();
+		if (responseCode == HttpURLConnection.HTTP_OK) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					conection.getInputStream()));
+			StringBuffer response = new StringBuffer();
+
+			while ((readLine = in.readLine()) != null) {
+				response.append(readLine);
+			}
+			in.close();
+			outputString = response.toString();
+			Gson g = new Gson();
+			checkObject = g.fromJson(outputString, InvoiceOrderCheckObject.class);
+//			statusString=checkObject.getX_inv_exist();
+			// GetAndPost.POSTRequest(response.toString());
+		} else {
+			System.out.println("GET NOT WORKED");
+		}
+		return checkObject;
 	}
 }

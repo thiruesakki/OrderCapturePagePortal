@@ -4,6 +4,7 @@ public class StockProductObject {
 	
 	private String INV_ITEM_ID="";
 	private String ERROR_MESSAGE="";
+	private String AVAIL_PRODUCT_ITEM="";
 	private String AVAIL_INV_ITEM_ID="";
 	private String AVAILABLE_QTY="";
 	private String PRODUCT_NUM="";
@@ -17,8 +18,6 @@ public class StockProductObject {
 	private String ITEM_DESCRIPTION="";
 	private String UNIT_WEIGHT="";
 	private String ONHAND_QTY="";
-	
-	
 	public String getINV_ITEM_ID() {
 		return INV_ITEM_ID;
 	}
@@ -30,6 +29,12 @@ public class StockProductObject {
 	}
 	public void setERROR_MESSAGE(String eRROR_MESSAGE) {
 		ERROR_MESSAGE = eRROR_MESSAGE;
+	}
+	public String getAVAIL_PRODUCT_ITEM() {
+		return AVAIL_PRODUCT_ITEM;
+	}
+	public void setAVAIL_PRODUCT_ITEM(String aVAIL_PRODUCT_ITEM) {
+		AVAIL_PRODUCT_ITEM = aVAIL_PRODUCT_ITEM;
 	}
 	public String getAVAIL_INV_ITEM_ID() {
 		return AVAIL_INV_ITEM_ID;
@@ -109,12 +114,11 @@ public class StockProductObject {
 	public void setONHAND_QTY(String oNHAND_QTY) {
 		ONHAND_QTY = oNHAND_QTY;
 	}
-	
-	
 	@Override
 	public String toString() {
 		return "StockProductObject [INV_ITEM_ID=" + INV_ITEM_ID
-				+ ", ERROR_MESSAGE=" + ERROR_MESSAGE + ", AVAIL_INV_ITEM_ID="
+				+ ", ERROR_MESSAGE=" + ERROR_MESSAGE + ", AVAIL_PRODUCT_ITEM="
+				+ AVAIL_PRODUCT_ITEM + ", AVAIL_INV_ITEM_ID="
 				+ AVAIL_INV_ITEM_ID + ", AVAILABLE_QTY=" + AVAILABLE_QTY
 				+ ", PRODUCT_NUM=" + PRODUCT_NUM + ", BRAND_NAME=" + BRAND_NAME
 				+ ", ITEM_STATUS=" + ITEM_STATUS + ", ITEM_UOM_CODE="
@@ -126,6 +130,4 @@ public class StockProductObject {
 				+ UNIT_WEIGHT + ", ONHAND_QTY=" + ONHAND_QTY + "]";
 	}
 	
-	
-
 }
