@@ -872,6 +872,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	},
 	ValidateErrorsForSelectedPartNo:function(tr_id,part_no,is_qty_check)
 	{	
+		console.log("partno validate");
 		BpiccPlaceOrder.EnableValidateOrderDiv();
 		
 		// BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO(;
@@ -1391,6 +1392,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
  
 	ValidateEnteredPartNo:function (tr_id)
 	{
+		console.log("validate fn");
 		var part_no=$("#bpicc_tableDetails tbody  #partNum_"+tr_id).val();
 		$("#bpicc_tableDetails tbody  #partNum_"+tr_id).attr("value",part_no);
 		$("#validate_po_erro_msg_div").remove(); 
@@ -1410,12 +1412,15 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				
 			if($("#validate_on_entry").attr("validate")=="1")
 			{ 
+				
 				if(bpi_obj.prod_stock.hasOwnProperty(part_no))//if its exists no need to call apI
 				{
+					console.log("inside");
 						 BpiccPlaceOrder.ValidateErrorsForSelectedPartNo(tr_id,part_no);
 				}
 				else
 				{
+					console.log("cal  inside");
 					 BpiccPlaceOrder.APICheckStock(part_no, function() {//if its not exists exists no need to call apI
 					//BpiccPlaceOrder.ReadManualXml(part_no, function() {//if its not exists exists no need to call apI
 						  BpiccPlaceOrder.ValidateErrorsForSelectedPartNo(tr_id,part_no);
@@ -1556,6 +1561,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		var url = bpi_com_obj.web_oracle_api_url+"GetCheckStock?org_id="+orgID+"&ship_to="+shipTO+"&product_no="+part_no_arr; 
 		  // var url = "http://uswodapp013.brakepartsinc.com:8010/webservices/SOAProvider/plsql/xxbpi_customer_online/";
 //		 var url = bpi_com_obj.web_api_url;
+		console.log("url"+url);
 			 jQuery.ajax({
 					type: "GET",
 					url: url,
@@ -1568,10 +1574,12 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					 
 					success: function (data) {
 						$(".loader").hide();
+						console.log("success fn");
 						 var obj=JSON.parse(data.object);
 						 if(obj!=null){
 							var productObj=obj.x_product_avail;
 //							if(productObj!=null){
+							console.log("check stock fn");
 							 BpiccPlaceOrder.ProcessCheckStockXml(productObj,callback);
 //							}
 						 }

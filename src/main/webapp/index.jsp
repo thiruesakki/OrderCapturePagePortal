@@ -6,13 +6,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="bpionline-mexico/js/jquery-1.12.4.js"></script>
-<script src="bpionline-mexico/js/jquery.cookie.js"></script>
-<script src="bpionline-mexico/js/moment-with-locales.js"></script>
+<script src="ordercapture/js/jquery-1.12.4.js"></script>
+<script src="ordercapture/js/jquery.cookie.js"></script>
+<script src="ordercapture/js/moment-with-locales.js"></script>
 <!-- <script src="bpionline-mexico/plugins/jquery.validate.min.js"></script> -->
 <!-- <script src="bpionline-mexico/plugins/jquery.validate.js"></script> -->
-<script src="bpionline-mexico/js/bpicc_common_mexico.js"></script>
-<script src="bpionline-mexico/js/index.js"></script>
+<script src="ordercapture/js/bpicc_common_mexico.js"></script>
+<script src="ordercapture/js/index.js"></script>
 <script>
     
 </script>
