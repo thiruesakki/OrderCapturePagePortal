@@ -38,10 +38,10 @@ public class LoginServlet extends HttpServlet {
 	    	// BPI Online services
 	    	int loginStatus=TestService.testVerifyLoginService(request.getParameter("mgnlUserId"), request.getParameter("mgnlUserPSWD"));
 	    	if(loginStatus>0){
-		    	String htmlurl = "http://localhost:8080/BPITechnicianPortal/bpionline-mexico/selectAccount.html";
+		    	String htmlurl = "http://localhost:8080/OrderCapturePortal/bpionline-mexico/selectAccount.html";
 				resp.sendRedirect(htmlurl);
 	    	}else{
-	    		resp.sendRedirect("http://localhost:8080/BPITechnicianPortal/");
+	    		resp.sendRedirect("http://localhost:8080/OrderCapturePortal/");
 	    	}
 //			TestService.testChangePswdWithOldPswdService();
 //			TestService.testGetUserRolenCustomerDetailsService();

@@ -27,8 +27,8 @@ BpiccCommonClass=function()
   	this.web_api_url		= "/OracleApiServlet";
 //	this.web_mssql_api_url	= "/REST/WebService/";  
 //	this.web_mssql_api_url	= "/REST/WebService/"; //old source code   
-  	this.web_mssql_api_url	= "/BPITechnicianPortal/REST/WebService/";//changed source code
-  	this.web_oracle_api_url	= "/BPITechnicianPortal/REST/OracleWebService/";
+  	this.web_mssql_api_url	= "/OrderCapturePortal/REST/WebService/";//changed source code
+  	this.web_oracle_api_url	= "/OrderCapturePortal/REST/OracleWebService/";
 	  /*  this.web_api_url="http://uswodsvr702v:9080/OracleApiServlet";  
  	setCookie("CAPI_ALL_SHIP_TO_ACCOUNTS","20520,5239,Z0205,Z6664,Z6666");
 		bill_to_ship_to_obj=new Object();

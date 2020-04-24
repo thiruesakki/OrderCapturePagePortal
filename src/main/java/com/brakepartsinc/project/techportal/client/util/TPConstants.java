@@ -3,7 +3,7 @@ package com.brakepartsinc.project.techportal.client.util;
 
 public class TPConstants {
 
-	public static final String HOSTNAME = "http://localhost:8080/BPITechnicianPortal/REST";
+	public static final String HOSTNAME = "http://localhost:8080/OrderCapturePortal/REST";
 	
 	public static final String LOGIN_SERVICE = HOSTNAME + "/WebService/VerifyUser";
 	

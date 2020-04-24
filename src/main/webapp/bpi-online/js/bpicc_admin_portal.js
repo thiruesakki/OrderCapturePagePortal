@@ -163,7 +163,7 @@ bpi_admin_obj = new BpiccAdminClass();
 function getCAPUsers() {
 	$(".loader").show();
 	//	var url = bpi_com_obj.web_mssql_api_url+"GetAllCAPUsers";
-	var url = "http://localhost:8080/BPITechnicianPortal/REST/WebService/GetAllCAPUsers";
+	var url = "http://localhost:8080/OrderCapturePortal/REST/WebService/GetAllCAPUsers";
 	jQuery.ajax({
 		type : "GET",
 		url : url,
@@ -247,7 +247,7 @@ BpiccAdmin = {
 			$("#inactive_edit").prop("checked", true);
 		}
 //		var url = bpi_com_obj.web_mssql_api_url+"GetUserRoleDetails";
-		var url = "http://localhost:8080/BPITechnicianPortal/REST/WebService/GetUserRoleDetails";
+		var url = "http://localhost:8080/OrderCapturePortal/REST/WebService/GetUserRoleDetails";
 		jQuery.ajax({
 			type : "GET",
 			url : url,
@@ -374,7 +374,7 @@ BpiccAdmin = {
 			alert(errorString);
 		} else {
 			//		var url = bpi_com_obj.web_mssql_api_url+"AddCAPUser";
-			var url = "http://localhost:8080/BPITechnicianPortal/REST/WebService/AddCAPUser";
+			var url = "http://localhost:8080/OrderCapturePortal/REST/WebService/AddCAPUser";
 			jQuery.ajax({
 				headers : {
 					'Accept' : 'application/json',
@@ -502,7 +502,7 @@ BpiccAdmin = {
 			alert(errorString);
 		} else {
 			//		var url = bpi_com_obj.web_mssql_api_url+"EditCAPUser";
-			var url = "http://localhost:8080/BPITechnicianPortal/REST/WebService/EditCAPUser";
+			var url = "http://localhost:8080/OrderCapturePortal/REST/WebService/EditCAPUser";
 			jQuery.ajax({
 				headers : {
 					'Accept' : 'application/json',
@@ -542,7 +542,7 @@ BpiccAdmin = {
 	
 	getMatchingRecordsFromDB : function(searchType, searchKey) {
 		//		var url = bpi_com_obj.web_mssql_api_url+"GetCAPUserForEmailSearch";
-		var url = "http://localhost:8080/BPITechnicianPortal/REST/WebService/GetCAPUserForEmailSearch";
+		var url = "http://localhost:8080/OrderCapturePortal/REST/WebService/GetCAPUserForEmailSearch";
 		if (searchType == 'userid') {
 			jQuery.ajax({
 				type : "GET",
@@ -561,7 +561,7 @@ BpiccAdmin = {
 			});
 		} else {
 			//			url = bpi_com_obj.web_mssql_api_url+"GetCAPUserForBilltoShiptoSearch";
-			url = "http://localhost:8080/BPITechnicianPortal/REST/WebService/GetCAPUserForBilltoShiptoSearch";
+			url = "http://localhost:8080/OrderCapturePortal/REST/WebService/GetCAPUserForBilltoShiptoSearch";
 			var type = 'B';
 			if (searchType == 'shipto') {
 				type = 'S';
@@ -824,7 +824,7 @@ BpiccAdmin = {
 	
 	loadCAPRoles : function(isAddPage, userRoles) {
 		//		var url = bpi_com_obj.web_mssql_api_url+"GetAllCAPRoles";
-		var url = "http://localhost:8080/BPITechnicianPortal/REST/WebService/GetAllCAPRoles";
+		var url = "http://localhost:8080/OrderCapturePortal/REST/WebService/GetAllCAPRoles";
 		jQuery.ajax({
 			type : "GET",
 			url : url,

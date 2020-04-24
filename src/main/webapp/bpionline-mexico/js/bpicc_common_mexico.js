@@ -34,10 +34,10 @@ BpiccCommonClass=function()
 	this.default_dc="EDC";
  
 //  	this.web_api_url		= "/OracleApiServlet";//old source code
-  	this.web_api_url		= "/BPITechnicianPortal/OracleApiServlet";//changed source code
+  	this.web_api_url		= "/OrderCapturePortal/OracleApiServlet";//changed source code
 //	this.web_mssql_api_url	= "/REST/WebService/"; //old source code   
-  	this.web_mssql_api_url	= "/BPITechnicianPortal/REST/WebService/";//changed source code
-  	this.web_oracle_api_url	= "/BPITechnicianPortal/REST/OracleWebService/";
+  	this.web_mssql_api_url	= "/OrderCapturePortal/REST/WebService/";//changed source code
+  	this.web_oracle_api_url	= "/OrderCapturePortal/REST/OracleWebService/";
  
 
     /* includeJsFilesMannually("js/bpicc_error_msgs.js");

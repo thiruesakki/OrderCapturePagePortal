@@ -1906,7 +1906,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		  try {
 //				 $(xml).find('X_PRODUCT_AVAIL').each(function(){
 //	                     $(this).find("X_PRODUCT_AVAIL_ITEM").each(function(){
-			  if(xml){
+			  if(xml!=null){
 				  for (var i = 0; i < xml.length; i++) {
 					  var object = xml[i];
 							var  prod_obj=new Object();
@@ -1941,6 +1941,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	                        prod_obj['UNIT_WEIGHT']= object.UNIT_WEIGHT;
 							prod_obj['MIN_ORDER_QTY']= object.MIN_ORDER_QTY;
 	                        prod_obj['ERROR_MSG'] = object.ERROR_MSG;
+	                        if(object.UNIT_WEIGHT==null){
+	                        	break;
+	                        }
 	                        var availProductItem=object.AVAIL_PRODUCT_ITEM;
 	                        var split_arr=availProductItem.split(",");
 	        				for(i=0;i<split_arr.length;i++)

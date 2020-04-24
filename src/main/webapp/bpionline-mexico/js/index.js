@@ -49,7 +49,7 @@ $(document)
 
 										if (validationFlag == 1) {
 
-											var url = "/BPITechnicianPortal/REST/WebService/VerifyLogin";
+											var url = "/OrderCapturePortal/REST/WebService/VerifyLogin";
 											$
 													.ajax({
 														url : url,
