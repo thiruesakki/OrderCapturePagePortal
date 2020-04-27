@@ -2005,24 +2005,33 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			$(".errorFileFormat").html("Please Wait, Validating Data..");  	  
 		split_arr=prod_ids_list.split(",");
 		prod_list="";
-		for(i=0;i<split_arr.length;i++)
+		var part_no_list="";
+		var part_no_arr="";
+		for(i=0;i<split_arr.length-1;i++)
 		{
-			var part_no=$.trim(split_arr[i]);
-			if(!empty(part_no))
-			{
-				prod_list+='<chec:P_PRODUCT_ITEM>';
-				prod_list+='<chec:PRODUCT_NUM>'+part_no+'</chec:PRODUCT_NUM>';
-				prod_list+='</chec:P_PRODUCT_ITEM>';
+			if(i==0){
+				part_no_arr=$.trim(split_arr[i]);
+			}else{
+				part_no_arr=part_no_arr+","+$.trim(split_arr[i]);
 			}
-			
+//			if(!empty(part_no))
+//			{
+//				prod_list+='<chec:P_PRODUCT_ITEM>';
+//				prod_list+='<chec:PRODUCT_NUM>'+part_no+'</chec:PRODUCT_NUM>';
+//				prod_list+='</chec:P_PRODUCT_ITEM>';
+//			}
+//			
 		}
-		 
+		var shipTO=getCookie("selected_ship_to");
+		var billTO=getCookie("selected_bill_to");
+		var userID=getCookie("userID");
+		var orgID=getCookie("selected_org_id");
 		if(split_arr.length>1)
 		{
 				$(".loader").show();
 				 // setTimeout(function(){$(".loader").show();}, 100);
 		}
-		if(empty(prod_list)) return;
+//		if(empty(prod_list)) return;
 		xml_request_data='';
 		xml_request_data+='<soapenv:Envelope xmlns:chec="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/check_stock/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xxb="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/">';
 		xml_request_data+='<soapenv:Header><wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"><wsse:UsernameToken wsu:Id="UsernameToken-E739E7BD4A96DC5D3A148740685027013"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password><wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">Q0bJKr12IBZPbXDrCOFkKw==</wsse:Nonce><wsu:Created>2017-02-18T08:34:10.270Z</wsu:Created></wsse:UsernameToken></wsse:Security>';
@@ -2046,20 +2055,25 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		xml_request_data+='</soapenv:Body>';
 		xml_request_data+='</soapenv:Envelope>';
 		  // var url = "http://uswodapp013.brakepartsinc.com:8010/webservices/SOAProvider/plsql/xxbpi_customer_online/";
-		 var url = bpi_com_obj.web_api_url;	
+		 var url = bpi_com_obj.web_oracle_api_url+"GetCheckStock?org_id="+orgID+"&ship_to="+shipTO+"&product_no="+part_no_arr;
+//		 var url = bpi_com_obj.web_api_url;	
 				jQuery.ajax({
-					type: "POST",
+					type: "GET",
 					url: url,
-					 data: "xml_data="+xml_request_data,
-					dataType: "xml",
+//					 data: "xml_data="+xml_request_data,
+					dataType: "json",
 					async:false,
 					crossDomain: true,
 					processData: false,
 					// contentType: "text/xml; charset=\"utf-8\"",
 					 
 					success: function (data) {
-					 
-						 BpiccPlaceOrder.ProcessExcelCheckStockXml(data,part_qty_arr,part_no_dc_arr,callback);
+						$(".loader").hide();
+					 var obj=JSON.parse(data.object);
+					 if(obj!=null){
+						var productObj=obj.x_product_avail;
+						 BpiccPlaceOrder.ProcessExcelCheckStockXml(productObj,part_qty_arr,part_no_dc_arr,callback);
+					 }
 					},
 					error: function (msg) {
 						$(".loader").hide();
@@ -2688,7 +2702,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			 if(!empty(partNum) && reqQnty>0)
 			 {
 				 cookie_part_obj[i]=new Object();
-			 
 				 cookie_part_obj[i]['partNum']=partNum;
 				 cookie_part_obj[i]['reqQnty']=reqQnty;
 				 cookie_part_obj[i]['dc']=$("input[name='inputAvail_"+tr_id+"']:checked").val();;
@@ -2699,6 +2712,8 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		{
 //		alert(JSON.stringify(cookie_part_obj));
 		 setCookie("cookie_part_obj",JSON.stringify(cookie_part_obj));
+		 setCookie("cookie_check_part_obj",JSON.stringify(cookie_part_obj));
+		 localStorage.setItem('cookie_check_part_obj', JSON.stringify(cookie_part_obj));
 		 localStorage.setItem('cookie_part_obj', JSON.stringify(cookie_part_obj));
 		}
 		window.location.href= selectAccountPrefix + "index.html";
