@@ -1858,6 +1858,7 @@ information can also be viewed.</p>
                         </div>
                     </div>
 					<input id="shipping-details" class="shippingDetails" value="Shipping Details" type="Submit"/>
+					<input id="invoice-details" class="shippingDetails" value="Invoice Details" type="Submit"/>
                     <!--<h5>Items Ordered</h5> -->
 					<div class="orderListContent">
 					<div class="tableContentsorderListtBlock">
@@ -1923,6 +1924,37 @@ information can also be viewed.</p>
 		   
 				</div>
 				  
+				  
+				<div class="ShippingDetailsBlock" id='div_invoice_detail'>
+				<div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>	   
+				 <h5>ORDER DETAILS</h5>
+					
+                    <div class="row orderDetails">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-5 ">
+                                    <ul>
+                                        <li><span class="topics"  >Order Date:</span><span class="answer" id='dtl_order_date_invoice' ></span></li>
+                                        <li><span class="topics">Purchase Order #:</span><span class="answer"  id='dtl_po_no_invoice' ></span></li>
+                                        <li><span class="topics"  >Sales Order #:</span><span class="answer"  id='dtl_sales_order_no1_invoice'></span></li>
+                                    </ul>                                    
+                                </div>
+                                <div class="col-md-7 shipDetail">
+                                    <ul>
+                                        <li><span class="topics">Shipping Address:</span><span class="answer" id='dtl_ship_addr_invoice' > </br> </br></span></li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				   <h6>INVOICE DETAILS </h6>
+				   <div class="panel-group" id="invoice_accordion1"  >
+	
+				   </div>
+				   <div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>
+		   
+				</div>
 		        
 			</div>
 				

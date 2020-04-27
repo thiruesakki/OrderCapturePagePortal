@@ -3,6 +3,7 @@ var orderShipTO="";
 var orderBillTO="";
 var userID="";
 var orgID="";
+var orderDetailsObject;
   jQuery(function($) {'use strict',
   
 	   $('#search_order_history').on('click', function(e){
@@ -29,6 +30,7 @@ var orgID="";
 	
 	 $("#div_order_history").show();
 	 $("#div_shipping_detail").hide();
+	 $("#div_invoice_detail").hide();
 	 $("#div_order_detail").hide();
 	 $("#po_no").val();
 	 $("#sales_order_no").val();
@@ -40,6 +42,12 @@ var orgID="";
 	 
 		OrderHistory.CallShippingDetailsFromItemDetailedPage();
 		});
+	    
+	    $('#invoice-details').on('click', function(e){             
+		   	 
+			OrderHistory.CallInvoiceDetailsFromItemDetailedPage();
+			});
+	    
 		$('#from_date').keypress(function (e) {
 		 var key = e.which;
 		 if(key == 13)  // the enter key code
@@ -86,6 +94,11 @@ OrderHistory=
 			OrderHistory.CallShippingDetailAPI(order_no);
 	},
 
+	CallInvoiceDetailsFromItemDetailedPage:function()
+	{
+			var order_no=$.trim($("#dtl_sales_order_no").html().replace("#",""));
+			OrderHistory.CallInvoiceDetailAPI(order_no);
+	},
 
 	LoadProperDatesAndCallAPI:function()
 	{
@@ -522,6 +535,8 @@ OrderHistory=
 		 $("#div_order_history").show();
 		 $("#div_order_detail").hide();
 		 $("#div_shipping_detail").hide();
+		 $("#div_invoice_detail").hide();
+		 
 	},
 	CallOrderDetailAPI:function(P_SALES_ORDER_NUM,SHIPPED_PIECES)
 	{
@@ -535,6 +550,7 @@ OrderHistory=
 		 $("#div_order_history").hide();
 		 $("#div_order_detail").show();
 		 $("#div_shipping_detail").hide();
+		 $("#div_invoice_detail").hide();
 		$("#dtl_sales_order_no").html("");
 			   $("#dtl_order_date").html("");
 			   $("#dtl_po_no").html("");
@@ -590,6 +606,8 @@ OrderHistory=
 //							 var obj=data.object;
 //							 console.log("order details"+obj);
 							 if(obj!=null){
+								 orderDetailsObject=obj;
+//								 console.log(JSON.stringify(orderDetailsObject));
 								 OrderHistory.ApiProcessOrderDetailAPI(obj);
 							 }else{
 								 alert('Order Details is not found');
@@ -790,6 +808,7 @@ xml_request_data+=' </soap:Envelope> ';
 		 $("#div_order_history").hide();
 		 $("#div_order_detail").hide();
 		 $("#div_shipping_detail").show();
+		 $("#div_invoice_detail").hide();
 		   
 	try {
 			 html="";
@@ -875,18 +894,6 @@ xml_request_data+=' </soap:Envelope> ';
 					 
 					   	var SHIPPED_FROM= xmlShippingobject.SHIPPED_FROM;
 					    var CARRIER= xmlShippingobject.CARRIER;
-					    var MODE_OF_TRANSPORT= xmlShippingobject.MODE_OF_TRANSPORT== undefined? "":xmlShipAddressObject.MODE_OF_TRANSPORT;
-					    var WAY_BILL_NUMBER= xmlShipAddressObject.WAY_BILL_NUMBER== undefined? "":xmlShipAddressObject.WAY_BILL_NUMBER;
-					    var TRACKING_NUMBER= xmlShippingobject.TRACKING_NUMBER;
-						var trk_way_bill_txt="";
-						trk_way_bill_txt=" TRACKING # ";
-						var trk_found=1;
-						if(empty(TRACKING_NUMBER))
-						{
-							trk_found=0;
-							TRACKING_NUMBER=WAY_BILL_NUMBER;
-							trk_way_bill_txt=" Pro # ";
-						}
 				 
 				 
                         html+='<div class="panel-body">';
@@ -900,6 +907,25 @@ xml_request_data+=' </soap:Envelope> ';
 								html+='<span class="title">Carrier :</span><Span class="shipmethod">'+CARRIER+' </span>';
 							  html+=' </div>';
 							html+='</div>  ';
+							
+							var shippingListObj=xml.x_ship_detail;
+							for (var i = 0; i < shippingListObj.length; i++) {
+								var xmlShippingobject = shippingListObj [i];
+								if(SHIPMENT_NUM==xmlShippingobject.SHIPMENT_NUM){
+//									console.log("Looping shippingList:"+xmlShippingobject.SHIPMENT_NUM);
+									var MODE_OF_TRANSPORT= xmlShippingobject.MODE_OF_TRANSPORT== undefined? "":xmlShipAddressObject.MODE_OF_TRANSPORT;
+					    var WAY_BILL_NUMBER= xmlShipAddressObject.WAY_BILL_NUMBER== undefined? "":xmlShipAddressObject.WAY_BILL_NUMBER;
+					    var TRACKING_NUMBER= xmlShippingobject.TRACKING_NUMBER;
+					    
+						var trk_way_bill_txt="";
+						trk_way_bill_txt=" TRACKING # ";
+						var trk_found=1;
+						if(empty(TRACKING_NUMBER))
+						{
+							trk_found=0;
+							TRACKING_NUMBER=WAY_BILL_NUMBER;
+							trk_way_bill_txt=" Pro # ";
+						}
 						 
 							 html+=' <div class="ShippedDetails">';
                                 html+=' <table class="table">';
@@ -955,6 +981,8 @@ xml_request_data+=' </soap:Envelope> ';
 										html+=' </tfoot>'
 										html+='</table>';
 						 html+='</div>';//close of ShippedDetails
+								} 
+							}
 						 	html+='</div>';//close of panel-body
 							html+='</div>';//close ofcollapseOne1
                         	html+='</div>';//close div panel panel-default
@@ -980,8 +1008,234 @@ xml_request_data+=' </soap:Envelope> ';
 			  message = err.message+" in BpiccPlaceOrder.ApiProcessDisplayOrderHistoryData";
 			  alert(message);
 		  }  
-	}
+	},
 	
+	CallInvoiceDetailAPI:function(P_SALES_ORDER_NUM)
+	{
+	if(empty(P_SALES_ORDER_NUM)) return;
+		var  xml_request_data='';
+	 // P_SALES_ORDER_NUM="100617196";
+		
+			$("#div_order_detail #dtl_sales_order_no").html("");
+			   $("#div_order_detail #dtl_order_date").html("");
+			   $("#div_order_detail #dtl_po_no").html("");
+			   $("#div_order_detail #dtl_sales_date").html("");
+			   $("#div_order_detail #dtl_sales_order_no1").html("");
+			   $("#div_order_detail #dtl_ship_addr").html("");
+		$("#dtl_order_list_tbl tbody tr").remove();
+	 
+
+//P_SALES_ORDER_NUM=151266;
+//				var orgID= 204;
+//				var userID = userID;
+				var url = bpi_com_obj.web_oracle_api_url+"GetInvoiceDetails?org_id="+orgID+"&purchase_order_number="+P_SALES_ORDER_NUM;	
+				console.log("order invoice url"+url);
+				jQuery.ajax({
+					type: "GET",
+					url: url,
+				    dataType: "json",
+					data:"userID="+userID,
+					success: function (data) {
+						
+						console.log("Invoice Result Success:"+JSON.stringify(data));
+						var obj = JSON.parse(data.object);
+//						console.log(JSON.stringify(obj));
+//						console.log("x_response_message"+obj.x_response_message);
+						var invoiceListObj=obj.x_inv_details;
+						for (var i = 0; i < invoiceListObj.length; i++) {
+							  var xmlInvoiceobject = invoiceListObj [i];
+//							
+//						  console.log	("xmlInvoiceobject"+JSON.stringify(xmlInvoiceobject));
+				
+						}
+						
+				//		 var obj=data.object;
+				//		 console.log("Shipping Object "+obj);
+						 if(obj!=null){
+							 OrderHistory.APIProcessInvoiceDetailAPI(obj)
+						 }else{
+							 alert('Order Invoice Details is not found');
+						 }
+					
+					},
+					error: function (msg) {
+			 
+						  alert("Failed1: " + msg.status + ": " + msg.statusText);
+					}
+				}); 
+
+			 
+			 
+	},
+	APIProcessInvoiceDetailAPI:function(obj)
+	{
+//		console.log("OrderObject:"+JSON.stringify(orderDetailsObject));
+		 $("#div_order_history").hide();
+		 $("#div_order_detail").hide();
+		 $("#div_invoice_detail").show();
+//		 $("#div_shipping_detail").show();
+
+	try {
+			 html="";
+			 tr_id=1;
+//			 var X_RESPONSE_STATUS= obj.x_response_status;
+//			   var X_RESPONSE_MESSAGE= obj.x_response_message;
+//				if(X_RESPONSE_STATUS=="S")
+//				{
+////					alert(X_RESPONSE_MESSAGE);
+//					OrderHistory.HandleBackToOrders();
+//				}
+//				
+
+			 
+			   var X_SALES_ORDER_NUM= orderDetailsObject.x_sales_order_num
+			   var X_PO_NUM= orderDetailsObject.x_po_num
+			   var X_ORDER_DATE=orderDetailsObject.x_order_date
+			   var X_SHIP_TO_NUMBER= orderDetailsObject.x_ship_to_number
+			   var X_SHIP_TO_LINE1=orderDetailsObject.x_ship_to_line1
+			   var X_SHIP_TO_LINE2=orderDetailsObject.x_ship_to_line2
+			   var X_SHIP_TO_LINE3= orderDetailsObject.x_ship_to_line3
+			   var X_SHIP_TO_CITY= orderDetailsObject.x_ship_to_city
+			   var X_SHIP_TO_STATE= orderDetailsObject.x_ship_to_state
+			   var X_SHIP_TO_COUNTRY= orderDetailsObject.x_ship_to_country
+			   var X_SHIP_TO_POSTAL_CODE= orderDetailsObject.x_ship_to_postal_code
+			   
+//			   $("#div_shipping_detail #dtl_sales_order_no").html("# " +X_SALES_ORDER_NUM);
+			   $("#div_invoice_detail #dtl_order_date_invoice").html(X_ORDER_DATE);
+			   $("#div_invoice_detail #dtl_po_no_invoice").html(X_PO_NUM);
+//			   $("#div_shipping_detail #dtl_sales_date").html(X_PO_NUM);
+			   $("#div_invoice_detail #dtl_sales_order_no1_invoice").html(X_SALES_ORDER_NUM);
+			   
+			     var dtl_ship_addr_invoice= X_SHIP_TO_LINE1;
+			   if(!empty(X_SHIP_TO_LINE2))
+				   dtl_ship_addr_invoice+="</br>"+X_SHIP_TO_LINE2;
+			   if(!empty(X_SHIP_TO_LINE3))
+				   dtl_ship_addr_invoice+="</br>"+X_SHIP_TO_LINE3;
+			   dtl_ship_addr_invoice+="</br>"+X_SHIP_TO_CITY+", "+X_SHIP_TO_STATE+" "+X_SHIP_TO_POSTAL_CODE;
+		  
+			   $("#div_invoice_detail #dtl_ship_addr_invoice").html(dtl_ship_addr_invoice);
+		   
+					//invoice main div starts
+
+				
+				var html="";
+				ship_cnt=0;
+				var invoiceListObj=obj.x_inv_details;
+				for (var i = 0; i < invoiceListObj.length; i++) {
+					  var xmlInvoiceobject = invoiceListObj [i];
+//					  console.log("xmlInvoiceobject ORDER_NUMBER"+xmlInvoiceobject.ORDER_NUMBER);
+
+				 
+					var ship_act_class="";
+					if( $(this).find("X_SHIP_DETAIL_ITEM").length==1)
+					{
+						ship_act_class=" shipActiveBlock ";
+					}
+				 //run for each invoice
+
+						 ship_cnt++;
+						 var ORDER_NUMBER= xmlInvoiceobject.ORDER_NUMBER;
+					     var TRX_DATE= xmlInvoiceobject.TRX_DATE;
+					     var ORG_ID= xmlInvoiceobject.ORG_ID;
+						   html+=' <div class="panel panel-default"> ';
+						   
+							html+='<div class="panel-heading '+ship_act_class+'">';
+                        html+=' <h3 class="panel-title"> ';
+//                        html+=' <a class="accordion-toggle" data-toggle="collapse"  href="#collapseOne'+ship_cnt+'" aria-expanded="false">ORDER_NUMBER # '+ORDER_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRX DATE: '+TRX_DATE+' <i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
+                        html+=' <a class="accordion-toggle" data-toggle="collapse"  href="#collapseOne'+ship_cnt+'" aria-expanded="false">SALES ORDER NUMBER # '+ORDER_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
+                        html+=' </h3>';
+						html+='  </div> ';
+                       //invoice main div ends starts 
+					   	  html+='<div id="collapseOne'+ship_cnt+'" class="panel-collapse collapse" style="height: 0px;" aria-expanded="false">';
+					  
+					  
+					 
+					   	var INVOICE_CURRENCY_CODE= xmlInvoiceobject.INVOICE_CURRENCY_CODE;
+					    var CARRIER= 2;
+					    
+				 
+				 
+                        html+='<div class="panel-body">';
+                           html+=' <div class="row">';
+							  html+=' <div class="col-md-4 shippedDate">';
+							   html+=' <span class="title">ORG ID:</span><Span class="date">'+ORG_ID+' </span>';
+							 html+='  </div>';
+							   
+							   html+='<div class="col-md-8 shippedFrom">';
+							   html+=' <span class="title">INVOICE DATE :</span><Span class="dc">'+TRX_DATE+' </span>';
+								html+='<span class="title">INVOICE CURRENCY :</span><Span class="shipmethod">'+INVOICE_CURRENCY_CODE+' </span>';
+							  html+=' </div>';
+							html+='</div>  ';
+
+							 html+=' <div class="ShippedDetails">';
+                                html+=' <table class="table">';
+								 
+
+									  
+									    html+=' <table class="table " id="summaryTable'+ship_cnt+'">';
+								 
+									  html+='<thead>';
+									  
+										html+='<tr class="heading">';
+										 
+											  html+='<th class="partnumber">LINE NUMBER</th>';
+											  html+='<th class="partnumber">ORDERED ITEM</th>';
+											  html+='<th class="shippedpieces">UNIT SELLING PRICE</th>';
+											  html+='<th class="shippedpieces">ORDERED_QUANTITY</th>';
+											  html+='<th class="shippedpieces">INVOICE_AMOUNT</th>';
+										html+='</tr>';
+									  html+='</thead>';
+									  html+='<tbody>';
+									  for (var i = 0; i < invoiceListObj.length; i++) {
+										  var xmlInvoiceobject = invoiceListObj [i];
+										  if(ORDER_NUMBER==xmlInvoiceobject.ORDER_NUMBER){
+//											  console.log("Looping invoiceList:"+xmlInvoiceobject.ORDER_NUMBER)
+									
+								var tot_shipped=0;		
+//						  
+							  	html+='<tr>';
+							  	var LINE_NUMBER=xmlInvoiceobject.LINE_NUMBER;
+								  var ORDERED_ITEM=xmlInvoiceobject.ORDERED_ITEM;
+								  var UNIT_SELLING_PRICE=xmlInvoiceobject.UNIT_SELLING_PRICE;
+								  var ORDERED_QUANTITY=xmlInvoiceobject.ORDERED_QUANTITY;
+								  var INVOICE_AMOUNT=xmlInvoiceobject.INVOICE_AMOUNT;
+//							
+								  
+							    html+='<td>'+LINE_NUMBER+'</td>';
+										  html+='<td>'+ORDERED_ITEM+'</td>';
+										  html+='<td>'+UNIT_SELLING_PRICE+'</td>';
+										  html+='<td>'+ORDERED_QUANTITY+'</td>';
+										  html+='<td>'+INVOICE_AMOUNT+'</td>';
+								html+='</tr>'
+//							  
+								} 
+							}
+							  html+=' </tbody>'
+//							  
+										html+='</table>';
+						 html+='</div>';//close of InvoiceDetails
+						 	html+='</div>';//close of panel-body
+							html+='</div>';//close ofcollapseOne1
+                        	html+='</div>';//close div panel panel-default
+							
+
+                        	
+				}      
+            	
+
+				 $("#invoice_accordion1").html(html);
+				 if(ship_cnt==1)
+					setTimeout(function(){$("#ship_i_1").trigger("click");}, 500); 
+			
+		  
+	    }
+	  catch(err) {
+		
+		  var message = err.message;
+		  message = err.message+" in BpiccPlaceOrder.ApiProcessDisplayOrderHistoryData";
+		  alert(message);
+	  }  
+}
 }
 function getYearMonthUIValue(val,date_field)
 {
