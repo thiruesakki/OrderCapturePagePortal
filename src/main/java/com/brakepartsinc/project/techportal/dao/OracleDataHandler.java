@@ -425,4 +425,39 @@ public class OracleDataHandler {
 		}
 		return checkObject;
 	}
+	public InvoiceOrderCheckObject validatePoNumber(String org_id,
+			String po_number, String billTo_number, String shipTo_number) throws IOException {
+		String query = "http://xxenv-test-validate-po-number1.us-e2.cloudhub.io/api/ValidatePoNumber?p_operating_unit_id="
+				+ org_id + "&p_po_num=" + po_number+"&p_bill_num="+billTo_number+"&p_ship_num="+shipTo_number;
+		System.out.println(query);
+		URL urlForGetRequest = new URL(query);
+		String readLine = null;
+		String outputString = "";
+		InvoiceOrderCheckObject checkObject = null;
+		HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+				.openConnection();
+		conection.setRequestMethod("GET");
+		// conection.setRequestProperty("p_operating_unit_id", org_id); // set
+		// userId its a sample here
+		// conection.setRequestProperty("p_ship_to_loction", ship_to_location);
+		int responseCode = conection.getResponseCode();
+		if (responseCode == HttpURLConnection.HTTP_OK) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					conection.getInputStream()));
+			StringBuffer response = new StringBuffer();
+
+			while ((readLine = in.readLine()) != null) {
+				response.append(readLine);
+			}
+			in.close();
+			outputString = response.toString();
+			Gson g = new Gson();
+			checkObject = g.fromJson(outputString, InvoiceOrderCheckObject.class);
+//			statusString=checkObject.getX_inv_exist();
+			// GetAndPost.POSTRequest(response.toString());
+		} else {
+			System.out.println("GET NOT WORKED");
+		}
+		return checkObject;
+	}
 }

@@ -259,13 +259,13 @@
 		                var ACCT_NAME= object["ACCOUNT_NAME"];
 		                var ACCT_NUM= object["ACCOUNT_NUMBER"];
 		                var PARTY_SITE_ID= object["PARTY_SITE_ID"];
-		                var ADDRESS_LINE1= object["ADDRESS1"];
+		                var ADDRESS_LINE1= object["ADDRESS1"] == undefined? "":object["ADDRESS1"];
 		                var ADDRESS_LINE2= object["ADDRESS2"] == undefined? "":object["ADDRESS2"];
 		                var ADDRESS_LINE3= object["ADDRESS3"] == undefined? "":object["ADDRESS3"];
-		                var CITY= object["CITY"];
-		                var STATE=object["STATE"];
-		                var POSTAL_CODE= object["POSTAL_CODE"];
-		                var COUNTRY= object["COUNTRY"];
+		                var CITY= object["CITY"] == undefined? "":object["CITY"];
+		                var STATE=object["STATE"] == undefined? "":object["STATE"];
+		                var POSTAL_CODE= object["POSTAL_CODE"] == undefined? "":object["POSTAL_CODE"];
+		                var COUNTRY= object["COUNTRY"] == undefined? "":object["COUNTRY"];
 						  data_set=new Object();
 						  data_set['SHIP_TO']=SHIP_TO;
 						  data_set['DROP_SHIP_FLAG']=DROP_SHIP_FLAG;

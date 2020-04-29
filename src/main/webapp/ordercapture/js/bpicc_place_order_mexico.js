@@ -462,57 +462,57 @@ BpiccPlaceOrder=
 								if(reqQnty<WDC)
 									WDC=reqQnty;
 								 
-								if(u_checked_val=="EDC")
+								if(u_checked_val=="V1")
 								{
 									 
 									$("#v1_"+row_id).val(EDC);
 									if(EDC==0)
 									{
-										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"EDC","redIcon");
+										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"V1","redIcon");
 									}
 									else if(reqQnty<=EDC)
 									{
-										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"EDC","greenIcon");
+										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"V1","greenIcon");
 									}
 									else
 									{
-										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"EDC","yellowIcon");
+										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"V1","yellowIcon");
 										
 									}
 								}
-								else if(u_checked_val=="MDC")
+								else if(u_checked_val=="M1")
 								{
 										 
 									$("#m1_"+row_id).val(MDC);
 									if(MDC==0)
 									{
-										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"MDC","redIcon");
+										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"M1","redIcon");
 									}
 									else if(reqQnty<=MDC)
 									{
-										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"MDC","greenIcon");
+										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"M1","greenIcon");
 									}
 									else
 									{
-										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"MDC","yellowIcon");
+										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"M1","yellowIcon");
 										
 									}
 								}
-								else if(u_checked_val=="WDC")
+								else if(u_checked_val=="M2")
 								{
 								 
 									$("#m2_"+row_id).val(WDC);
 									if(WDC==0)
 									{
-										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"WDC","redIcon");
+										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"M2","redIcon");
 									}
 									else if(reqQnty<=WDC)
 									{
-										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"WDC","greenIcon");
+										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"M2","greenIcon");
 									}
 									else
 									{
-										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"WDC","yellowIcon");
+										 BpiccPlaceOrder.DCEnableProperCheckBoxGlobalDC(row_id,"M2","yellowIcon");
 										
 									}
 								}
@@ -1218,12 +1218,11 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				reqQnty=$("#bpicc_tableDetails tbody tr#"+tr_id+" #reqQnty_"+tr_id).val();
 				
 				checked_val=$("input[name='inputAvail_"+tr_id+"']:checked").val(); */
-				
 				  partNum=$(this).find("#partNum_"+tr_id).val();
 				reqQnty=$(this).find("#reqQnty_"+tr_id).val();
-				
-				checked_val= $(this).find("input[name*='inputAvail_']:checked").val();
-				
+//				checked_val= $(this).find("input[name*='inputAvail_']:checked").val();//Old source code
+				checked_val=$('input[name=AllDCinputAvail]:checked').val();//New Source code
+//				$('input[name=gender]:checked').val()
 				var weight=0;
 				
 				reqQnty= parseFloat((empty(reqQnty))?0:reqQnty);
@@ -1237,7 +1236,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					  s_m1_qty=0;
 					  s_m2_qty=0;
 					
-					if(checked_val=="EDC")
+					if(checked_val=="V1")
 					{
 						s_v1_qty=parseInt($(this).find("#v1_"+tr_id).val());
 						e_tot_qty=parseFloat(e_tot_qty+reqQnty);
@@ -1246,7 +1245,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						e_tot_wt=parseFloat(e_tot_wt+(weight*reqQnty))  ;
 						
 					}
-					if(checked_val=="MDC")
+					if(checked_val=="M1")
 					{
 						s_m1_qty=parseInt($(this).find("#m1_"+tr_id).val());
 						 
@@ -1256,7 +1255,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						m_tot_wt=parseFloat(m_tot_wt+(weight*reqQnty))  ;
 						
 					}
-					if(checked_val=="WDC")
+					if(checked_val=="M2")
 					{
 						s_m2_qty=parseInt($(this).find("#m2_"+tr_id).val());
 						w_tot_qty=parseFloat(w_tot_qty+reqQnty);
@@ -1911,6 +1910,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	},
 	ProcessCheckStockXml:function(xml,callback)
 	{
+		console.log("xml"+JSON.stringify(xml));
 		  try {
 //				 $(xml).find('X_PRODUCT_AVAIL').each(function(){
 //	                     $(this).find("X_PRODUCT_AVAIL_ITEM").each(function(){
@@ -2028,6 +2028,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		var orgID=getCookie("selected_org_id");
 		if(split_arr.length>1)
 		{
+			console.log(split_arr.length);
 				$(".loader").show();
 				 // setTimeout(function(){$(".loader").show();}, 100);
 		}
@@ -2072,6 +2073,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					 var obj=JSON.parse(data.object);
 					 if(obj!=null){
 						var productObj=obj.x_product_avail;
+						console.log("obj"+productObj);
 						 BpiccPlaceOrder.ProcessExcelCheckStockXml(productObj,part_qty_arr,part_no_dc_arr,callback);
 					 }
 					},
@@ -2085,6 +2087,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	
 	ProcessExcelCheckStockXml:function(xml,part_qty_arr,part_no_dc_arr,callback)
 	{
+		console.log("xml"+JSON.stringify(xml));
 		var inputPo=$("#inputPo").val();
 		var new_tr_id=2;
 		var html="";
@@ -2093,38 +2096,64 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				BpiccPlaceOrder.CalculateTotQtyWt();
 		
 			  var c_length=0;
-			 $(xml).find('X_PRODUCT_AVAIL').each(function(){
-				   var tot_xlx_length=$(xml).find('X_PRODUCT_AVAIL_ITEM').length;
-				   	  
-                     $(this).find("X_PRODUCT_AVAIL_ITEM").each(function(){
+				    var tot_xlx_length=xml.length;  
+				    console.log(tot_xlx_length);
+				    new_tr_id=2;
+				    var row_tr_id=2;
+						  for (var j = 0; j < tot_xlx_length; j++) {
+							  console.log("row"+row_tr_id);
+							  var object = xml[j];
+							  console.log("length"+j);
 						var  prod_obj=new Object();
-                        var PRODUCT_NUM= $(this).find("PRODUCT_NUM").text();
-                        prod_obj['PRODUCT_NUM']= $(this).find("PRODUCT_NUM").text();;
-                        prod_obj['INVENTORY_ITEM_ID']= $(this).find("INVENTORY_ITEM_ID").text();;
-                        prod_obj['ITEM_STATUS'] = $(this).find("ITEM_STATUS").text();;
-                        prod_obj['BRAND_NAME'] = $(this).find("BRAND_NAME").text();;
-                        prod_obj['ITEM_DESCRIPTION'] = $(this).find("ITEM_DESCRIPTION").text();;
-						var ITEM_DESCRIPTION=$(this).find("ITEM_DESCRIPTION").text();
-						prod_obj['IS_CALIPER']='0';
-						if(ITEM_DESCRIPTION.indexOf("CALIPER")>=0)
-							prod_obj['IS_CALIPER']='1';
-					 
-					 
-                        prod_obj['UNIT_WEIGHT']= $(this).find("UNIT_WEIGHT").text();;
-						prod_obj['MIN_ORDER_QTY']= $(this).find("MIN_ORDER_QTY").text();;
-                        prod_obj['ERROR_MSG'] = $(this).find("ERROR_MSG").text(); 
+//                        var PRODUCT_NUM= $(this).find("PRODUCT_NUM").text();
+//                        prod_obj['PRODUCT_NUM']= $(this).find("PRODUCT_NUM").text();;
+//                        prod_obj['INVENTORY_ITEM_ID']= $(this).find("INVENTORY_ITEM_ID").text();;
+//                        prod_obj['ITEM_STATUS'] = $(this).find("ITEM_STATUS").text();;
+//                        prod_obj['BRAND_NAME'] = $(this).find("BRAND_NAME").text();;
+//                        prod_obj['ITEM_DESCRIPTION'] = $(this).find("ITEM_DESCRIPTION").text();;
+//						var ITEM_DESCRIPTION=$(this).find("ITEM_DESCRIPTION").text();
+//						prod_obj['IS_CALIPER']='0';
+//						if(ITEM_DESCRIPTION.indexOf("CALIPER")>=0)
+//							prod_obj['IS_CALIPER']='1';
+//					 
+//					 
+//                        prod_obj['UNIT_WEIGHT']= $(this).find("UNIT_WEIGHT").text();;
+//						prod_obj['MIN_ORDER_QTY']= $(this).find("MIN_ORDER_QTY").text();;
+//                        prod_obj['ERROR_MSG'] = $(this).find("ERROR_MSG").text(); 
+                        
+							  var PRODUCT_NUM= object.PRODUCT_NUM;
+		                        prod_obj['PRODUCT_NUM']= object.PRODUCT_NUM;
+		                        prod_obj['INVENTORY_ITEM_ID']= object.INV_ITEM_ID;
+		                        prod_obj['ITEM_STATUS'] = object.ITEM_STATUS;
+		                        prod_obj['BRAND_NAME'] = object.BRAND_NAME;
+		                        prod_obj['ITEM_DESCRIPTION'] = object.ITEM_DESCRIPTION;
+								var ITEM_DESCRIPTION = object.ITEM_DESCRIPTION;
+								prod_obj['IS_CALIPER']='0';
+//								if(ITEM_DESCRIPTION.indexOf("CALIPER")>=0)
+//									prod_obj['IS_CALIPER']='1';
+							 
+							 
+		                        prod_obj['UNIT_WEIGHT']= object.UNIT_WEIGHT;
+								prod_obj['MIN_ORDER_QTY']= object.MIN_ORDER_QTY;
+		                        prod_obj['ERROR_MSG'] = object.ERROR_MSG;
+		                        if(object.UNIT_WEIGHT==null){
+		                        	break;
+		                        }
+		                        var availProductItem=object.AVAIL_PRODUCT_ITEM;
+		                        var split_arr=availProductItem.split(",");
 
-
-
-                       $.each($(this).find("AVAIL_PRODUCT").find("AVAIL_PRODUCT_ITEM"),function()//looping through edc/mdc/wdc
-					   {
-						   var ORGANIZATION_CODE=$(this).find("ORGANIZATION_CODE").text();
-						   var AVAILABLE_QTY=$(this).find("AVAILABLE_QTY").text();
-						   AVAILABLE_QTY=parseInt(AVAILABLE_QTY);
-						   if(AVAILABLE_QTY<0)
-							   AVAILABLE_QTY=0;
-						   prod_obj[ORGANIZATION_CODE]=AVAILABLE_QTY;
-					   }) 
+                        for(i=0;i<split_arr.length;i++)
+        				{
+        					if($.trim(split_arr[i])=='V1'||$.trim(split_arr[i])=='M1'||$.trim(split_arr[i])=='M2'){
+        						var ORGANIZATION_CODE= split_arr[i];
+        						i++;
+ 							   var AVAILABLE_QTY= split_arr[i];
+ 							   AVAILABLE_QTY=parseInt(AVAILABLE_QTY);
+ 							   if(AVAILABLE_QTY<0)
+ 								   AVAILABLE_QTY=0;
+ 							   prod_obj[ORGANIZATION_CODE]=AVAILABLE_QTY;	
+        					}
+        				}
 					   bpi_obj.prod_stock[PRODUCT_NUM]=new Object();
 					   bpi_obj.prod_stock[PRODUCT_NUM]=prod_obj;
 					   $(".errorFileFormat").show();
@@ -2140,24 +2169,25 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			 
 			 var dis="";
 			 if(empty(inputPo))
-				dis=" disabled ";  
-			  html+='<tr id="'+new_tr_id+'">';
-			html+='<td><div class="availableDC"><input id="partNum_'+new_tr_id+'"  onblur="BpiccPlaceOrder.ValidateEnteredPartNo('+new_tr_id+');"  value='+PRODUCT_NUM+' class="partNum" type="text"></td></div>';
-			html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
-			html+='<td><input id="desc_'+new_tr_id+'" class="inputDesc" value="" disabled="" type="text"></td>';
-			html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
-			html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'"  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccPlaceOrder.ValidateQty('+new_tr_id+');BpiccPlaceOrder.CalculateTotQtyWt();" class="inputReqQnty" '+dis+' type="text" value='+qty+'></td></div>';
+				dis=" disabled ";
+			  html+='<tr id="'+row_tr_id+'">';
+			html+='<td><div class="availableDC"><input id="partNum_'+row_tr_id+'"  onblur="BpiccPlaceOrder.ValidateEnteredPartNo('+row_tr_id+');"  value='+PRODUCT_NUM+' class="partNum" type="text"></td></div>';
+			console.log(PRODUCT_NUM+"inside po"+row_tr_id);
+			html+='<td><input id="brand_'+row_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
+			html+='<td><input id="desc_'+row_tr_id+'" class="inputDesc" value="" disabled="" type="text"></td>';
+			html+='<td><input id="weight_'+row_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
+			html+='<td><div class="availableDC"><input id="reqQnty_'+row_tr_id+'"  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccPlaceOrder.ValidateQty('+row_tr_id+');BpiccPlaceOrder.CalculateTotQtyWt();" class="inputReqQnty" '+dis+' type="text" value='+qty+'></td></div>';
 			
-			html+='<td><div class="availableDC"><input id="v1_'+new_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"  id="V1_RADIO_'+new_tr_id+'" name="inputAvail_'+new_tr_id+'" value="EDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="V1_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
-			html+='<td><div class="availableDC"><input id="m1_'+new_tr_id+'" class="inputMdc" value="" disabled><span><input type="radio" id="M1_RADIO_'+new_tr_id+'"   name="inputAvail_'+new_tr_id+'" value="MDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle"   id="M1_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
-			html+='<td><div class="availableDC"><input id="m2_'+new_tr_id+'" class="inputWdc" value="" disabled><span><input type="radio"  id="M2_RADIO_'+new_tr_id+'"  name="inputAvail_'+new_tr_id+'" value="WDC" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="M2_i_'+new_tr_id+'"  aria-hidden="true"></i></span></input></td></div>';
+			html+='<td><div class="availableDC"><input id="v1_'+row_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"  id="V1_RADIO_'+row_tr_id+'" name="inputAvail_'+row_tr_id+'" value="V1" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+row_tr_id+');"  ><i class="fa fa-check-circle" id="V1_i_'+row_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
+			html+='<td><div class="availableDC"><input id="m1_'+row_tr_id+'" class="inputMdc" value="" disabled><span><input type="radio" id="M1_RADIO_'+row_tr_id+'"   name="inputAvail_'+row_tr_id+'" value="M1" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+row_tr_id+');"  ><i class="fa fa-check-circle"   id="M1_i_'+row_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
+			html+='<td><div class="availableDC"><input id="m2_'+row_tr_id+'" class="inputWdc" value="" disabled><span><input type="radio"  id="M2_RADIO_'+row_tr_id+'"  name="inputAvail_'+row_tr_id+'" value="M2" class="radioDC" disabled onclick="BpiccPlaceOrder.EnableProperCheckBoxColor('+row_tr_id+');"  ><i class="fa fa-check-circle" id="M2_i_'+row_tr_id+'"  aria-hidden="true"></i></span></input></td></div>';
 			
-			html+='<td><div class="availableDC"><span onclick="BpiccPlaceOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td></div>';
+			html+='<td><div class="availableDC"><span onclick="BpiccPlaceOrder.deleteTableRow('+row_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td></div>';
 			html+='	</tr>';
 			
-			 
+			row_tr_id++;
 			new_tr_id++;
-			
+			console.log("row"+row_tr_id);
 					    // var new_tr_id=BpiccPlaceOrder.addNewTableRowFromExcel(PRODUCT_NUM,2,"");
 
 
@@ -2165,8 +2195,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					   
 
 						c_length++;
-					 if(c_length>=tot_xlx_length)
-					 {
+						console.log(c_length);
+//					 if(c_length>=tot_xlx_length)
+//					 {
 
 						 /* $('#reset_form').removeAttr("disabled");
 						    bpi_obj.is_bulk_validate=0;	
@@ -2182,41 +2213,28 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 							  var last_tr_id=$("#bpicc_tableDetails tbody").find("tr").last().attr('id');
 							   setTimeout(function(){$("#partNum_"+last_tr_id).focus();},500);
 							 }, 1000);   */
-					 }
-					});
-					
+//					 }
+//					});
+                     }
 					  	 
 
-			 });
-			  
+//			 });
+			  console.log("html"+html);
 			  $("#bpicc_tableDetails tbody").html(html)
-			  
 			  setTimeout(function(){
 			   bpi_obj.is_bulk_validate=0;
 							  BpiccPlaceOrder.addNewTableRow(); 
-							 
-							 
 								BpiccPlaceOrder.ValidateOrderRowByRowExcel();
-								
 							   setTimeout(function(){
 								   	// $(".loader").hide();
 								    $(".modal-dialog .close").trigger('click');
 								    var last_tr_id=$("#bpicc_tableDetails tbody").find("tr").last().attr('id');
 									 BpiccPlaceOrder.EnableValidateOrderDiv();
 								   $("#partNum_"+last_tr_id).focus();},500);
-							   
-						
 			 },500);
-			  			   
 			 if (callback && typeof(callback) === "function") {
 						callback();
-
 					}
-					
-				  
-				
-				 
-							
 		     /*}
 		  catch(err) {
 			

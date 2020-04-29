@@ -51,7 +51,7 @@ function process_wb(wb) {
 	if(!empty(output))
 	{
 		$(".errorFileFormat").show();
-				$(".errorFileFormat").html(msgAlertExcelUploadValidatingData);  	  
+				$(".errorFileFormat").html("Please wait, validating data...");  	  
 		$("#validate_on_entry").removeAttr('checked');
 			$("#validate_on_entry").attr("validate","0");
 		part_no_key="";
@@ -70,7 +70,7 @@ function process_wb(wb) {
 			
 			 setTimeout(function(){
 					$(".errorFileFormat").show();
-				$(".errorFileFormat").html(msgAlertExcelUploadOnly2Columns);     
+				$(".errorFileFormat").html("Excel file should contain only 2 columns");     
 			
 					    
 					}, 300);
@@ -80,7 +80,7 @@ function process_wb(wb) {
 		 {
 			 
 			 $(".errorFileFormat").show();
-			$(".errorFileFormat").html(msgAlertExcelUploadAtLeast2Columns);  
+			$(".errorFileFormat").html("Excel file should contain at least 2 columns");  
 			 return false;
 			 
 			 
@@ -89,17 +89,17 @@ function process_wb(wb) {
 		 {
 					
 				$(".errorFileFormat").show();
-			$(".errorFileFormat").html(msgAlertExcelUploadValidatingData);
+			$(".errorFileFormat").html("Please wait, validating data...");
 						
 				$(".errorFileFormat").show();
-			$(".errorFileFormat").html(msgAlertExcelUploadValidatingData);
+			$(".errorFileFormat").html("Please wait, validating data...");
 						
 				$(".errorFileFormat").show();
-			$(".errorFileFormat").html(msgAlertExcelUploadValidatingData);  	   
+			$(".errorFileFormat").html("Please wait, validating data...");  	   
 			
 					 setTimeout(function(){
 					$(".errorFileFormat").show();
-				$(".errorFileFormat").html(msgAlertExcelUploadValidatingData);  	   
+				$(".errorFileFormat").html("Please wait, validating data...");  	   
 			
 					    
 					}, 300);
@@ -138,16 +138,17 @@ function process_wb(wb) {
 				bpi_obj.is_last_excel_min_row_updated=0;
 				bpi_obj.is_bulk_validate=1;
 				   $("#excel_upload_msg_div").remove();
-				   	$("#place_order_error_info").after(' <div id="excel_upload_msg_div" class="errorInfo"> <p><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">'+tot_cnt+" "+msgAlertExcelUpload100RecordsImported+'</span></p></div> ');
+				   	$("#place_order_error_info").after(' <div id="excel_upload_msg_div" class="errorInfo"> <p><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">'+tot_cnt+" "+" records imported successfully"+'</span></p></div> ');
 				 	 $("#excel_upload_msg_div").show();
 		 
+				 	 console.log("validate function");
+				 	 console.log(xml_part_no+" "+JSON.stringify(part_no_qty_arr)+" "+JSON.stringify(part_no_dc_arr));
 		 	   BpiccPlaceOrder.APIExcelCheckStock(xml_part_no,part_no_qty_arr,part_no_dc_arr,function(){
-				   // alert(3);
 				  
 				  
 				  // alert(2);
 				   $("#excel_upload_msg_div").remove();
-				   	$("#place_order_error_info").after(' <div id="excel_upload_msg_div" class="errorInfo"> <p><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">'+tot_cnt+" "+msgAlertExcelUpload100RecordsImported+'</span></p></div> ');
+				   	$("#place_order_error_info").after(' <div id="excel_upload_msg_div" class="errorInfo"> <p><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">'+tot_cnt+" "+" records imported successfully"+'</span></p></div> ');
 				 	 $("#excel_upload_msg_div").show();
 				  
 					 
@@ -172,13 +173,13 @@ function UploadExcelOrder( ) {
 	 $(".errorFileFormat").hide();
 	 $(".errorFileFormat").html("");
 	 $(".errorFileFormat").show();
-		  $(".errorFileFormat").html(msgAlertExcelUploadValidatingData);
+		  $(".errorFileFormat").html("Please wait, validating data...");
 		 setTimeout(function(){ 
  var f =  document.getElementById('uploadOrderFile').files[0];
  if(empty(f))
  {
 		$(".errorFileFormat").show();
-		  $(".errorFileFormat").html(msgAlertExcelUploadFileInExcelFormat);
+		  $(".errorFileFormat").html("Please upload an MS Excel file");
 		  return false
  }
  file_name=f.name;
@@ -186,13 +187,13 @@ function UploadExcelOrder( ) {
 	if(ext!='xls' && ext!='xlsx')
 	{
 		$(".errorFileFormat").show();
-		  $(".errorFileFormat").html(msgAlertExcelUploadFileInExcelFormat);
+		  $(".errorFileFormat").html("Please upload an MS Excel file");
 		  return false
 	}
 	 $(".errorFileFormat").hide();
 	 $(".errorFileFormat").html("");
 	 $(".errorFileFormat").show();
-				$(".errorFileFormat").html(msgAlertExcelUploadValidatingData);  	  
+				$(".errorFileFormat").html("Please wait, validating data...");  	  
 			 	
 			var reader = new FileReader();
 			reader.readAsArrayBuffer(f);
@@ -203,7 +204,7 @@ function UploadExcelOrder( ) {
 				 wb = X.read(btoa(arr), {type: 'base64'});
 				process_wb(wb);
 			};
-			 setTimeout(function(){$(".errorFileFormat").html(msgAlertExcelUploadValidatingData).show();}, 100); 
+			 setTimeout(function(){$(".errorFileFormat").html("Please wait, validating data...").show();}, 100); 
 		 }, 200);		 
 }
 
