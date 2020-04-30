@@ -1180,8 +1180,8 @@ xml_request_data+=' </soap:Envelope> ';
 									  
 										html+='<tr class="heading">';
 										 
-											  html+='<th class="partnumber">LINE NUMBER</th>';
-											  html+='<th class="partnumber">ORDERED ITEM</th>';
+											  html+='<th class="shippedpieces">LINE NUMBER</th>';
+											  html+='<th class="shippedpieces">ORDERED ITEM</th>';
 											  html+='<th class="shippedpieces">UNIT SELLING PRICE</th>';
 											  html+='<th class="shippedpieces">ORDERED QUANTITY</th>';
 											  html+='<th class="shippedpieces">INVOICE AMOUNT</th>';
