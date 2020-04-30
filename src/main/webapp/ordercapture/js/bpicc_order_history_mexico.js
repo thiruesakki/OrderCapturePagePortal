@@ -1338,8 +1338,9 @@ function dateFormatChange(date){
 	var dd=d.getDate();
 	var mm=d.getMonth()+1;
 	var yy=d.getFullYear();
+	var d1=date.split("-");
 //	var newdate=mm+"-"+dd+"-"+yy;
-	var newdate=dd+"-"+mm+"-"+yy;
+	var newdate=dd+"-"+d1[1]+"-"+yy;
 	return newdate;
 }
 
