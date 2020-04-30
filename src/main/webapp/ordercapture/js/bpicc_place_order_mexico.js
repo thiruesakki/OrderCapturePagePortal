@@ -1,5 +1,9 @@
 //http://uswodapp013.brakepartsinc.com:8010/webservices/SOAProvider/plsql/xxbpi_customer_online/
 //http://bpiebsuat.brakepartsinc.com/webservices/SOAProvider/plsql/xxbpi_customer_online/
+var userID="";
+var orgID="";
+var bill_to_location="";
+var ship_to_location="";
 po_ajax="";
   jQuery(function($) {'use strict',
   
@@ -11,7 +15,11 @@ po_ajax="";
 
         return false;
     } */
-	 
+	  userID=getCookie("userID");
+	  orgID=getCookie("selected_org_id");
+      bill_to_location=getCookie("selected_bill_to_location");
+      ship_to_location=getCookie("selected_ship_to");
+
 	$('#inputPo').keypress(function (e) {
 		 var key = e.which;
 		 if(key == 13)  // the enter key code
@@ -2634,37 +2642,64 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	 po_ajax.abort();
 	 }
 		setTimeout(function(){$("#select_order_type").focus();}, 100); 
-		var url = bpi_com_obj.web_api_url;
-			 
-					po_ajax=jQuery.ajax({
-						type: "POST",
-						url: url,
-						 data: "xml_data="+xml_request_data,
-						dataType: "xml",
-						crossDomain: true,
-						processData: false,
-						success: function (data) {
-							 if($("#place_order_error_info p:contains('Please Enter PO Number')").length>0)
-								{
-									$("#place_order_error_info").html("");
-										$("#place_order_error_info").hide();
-								}
-							 BpiccPlaceOrder.ApiProcessValidatePoNumber(data);
-						},
-						error: function (msg) {
-							
-							setTimeout(function(){$("#select_order_type").focus();}, 100); 
-							// alert("Failed: " + msg.status + ": " + msg.statusText);
-						}
-					});  
+//		var url = bpi_com_obj.web_api_url;
+//			 
+//					po_ajax=jQuery.ajax({
+//						type: "POST",
+//						url: url,
+//						 data: "xml_data="+xml_request_data,
+//						dataType: "xml",
+//						crossDomain: true,
+//						processData: false,
+//						success: function (data) {
+//							 if($("#place_order_error_info p:contains('Please Enter PO Number')").length>0)
+//								{
+//									$("#place_order_error_info").html("");
+//										$("#place_order_error_info").hide();
+//								}
+//							 BpiccPlaceOrder.ApiProcessValidatePoNumber(data);
+//						},
+//						error: function (msg) {
+//							
+//							setTimeout(function(){$("#select_order_type").focus();}, 100); 
+//							// alert("Failed: " + msg.status + ": " + msg.statusText);
+//						}
+//					}); 
+//		var inputPo="6041";
+		var url = bpi_com_obj.web_oracle_api_url+"ValidatePONumber?org_id="+orgID+"&po_number="+inputPo+"&billTo_number="+bill_to_location+"&shipTo_number="+ship_to_location;	
+		console.log("ValidatePONumber url"+url);
+		jQuery.ajax({
+			type: "GET",
+			url: url,
+		    dataType: "json",
+			data:"userID="+userID,
+			success: function (data) {
+				
+				console.log("ValidatePONumber Result Success:"+JSON.stringify(data));
+				var obj = JSON.parse(data.object);
+//				console.log(JSON.stringify(obj));
+//				console.log("x_response_message"+obj.x_response_message);
+
+				 if(obj!=null){
+					 BpiccPlaceOrder.ApiProcessValidatePoNumber(obj)
+				 }else{
+					 alert('ValidatePONumber is not found');
+				 }
+			
+			},
+			error: function (msg) {
+	 
+				  alert("Failed1: " + msg.status + ": " + msg.statusText);
+			}
+		}); 
 	}  ,
 	ApiProcessValidatePoNumber:function(xml)
 	{
 		$("#validate_po_erro_msg_div").remove();
 		  try {
 			 
-			 X_RESPONSE_STATUS=$(xml).find('X_RESPONSE_STATUS').text() ;
-			 X_RESPONSE_MESSAGE=$(xml).find('X_RESPONSE_MESSAGE').text()
+			 X_RESPONSE_STATUS=xml.x_response_status;
+			 X_RESPONSE_MESSAGE=xml.x_response_message;
 			 if(X_RESPONSE_STATUS=="S")
 			 {
 				BpiccPlaceOrder.EnableAddRowsAndButtonPoValidation();
