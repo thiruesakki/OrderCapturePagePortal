@@ -1135,6 +1135,7 @@ xml_request_data+=' </soap:Envelope> ';
 
 						 ship_cnt++;
 						 var ORDER_NUMBER= xmlInvoiceobject.ORDER_NUMBER;
+						 var TRX_NUMBER= xmlInvoiceobject.TRX_NUMBER;
 					     var TRX_DATE= xmlInvoiceobject.TRX_DATE;
 					     var ORG_ID= xmlInvoiceobject.ORG_ID;
 						   html+=' <div class="panel panel-default"> ';
@@ -1142,7 +1143,7 @@ xml_request_data+=' </soap:Envelope> ';
 							html+='<div class="panel-heading '+ship_act_class+'">';
                         html+=' <h3 class="panel-title"> ';
 //                        html+=' <a class="accordion-toggle" data-toggle="collapse"  href="#collapseOne'+ship_cnt+'" aria-expanded="false">ORDER_NUMBER # '+ORDER_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRX DATE: '+TRX_DATE+' <i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
-                        html+=' <a class="accordion-toggle" data-toggle="collapse"  href="#collapseOne'+ship_cnt+'" aria-expanded="false">SALES ORDER NUMBER # '+ORDER_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
+                        html+=' <a class="accordion-toggle" data-toggle="collapse"  href="#collapseOne'+ship_cnt+'" aria-expanded="false">INVOICE NUMBER # '+TRX_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
                         html+=' </h3>';
 						html+='  </div> ';
                        //invoice main div ends starts 
@@ -1156,16 +1157,17 @@ xml_request_data+=' </soap:Envelope> ';
 				 
 				 
                         html+='<div class="panel-body">';
-                           html+=' <div class="row">';
-							  html+=' <div class="col-md-4 shippedDate">';
-							   html+=' <span class="title">ORG ID:</span><Span class="date">'+ORG_ID+' </span>';
-							 html+='  </div>';
-							   
-							   html+='<div class="col-md-8 shippedFrom">';
-							   html+=' <span class="title">INVOICE DATE :</span><Span class="dc">'+TRX_DATE+' </span>';
-								html+='<span class="title">INVOICE CURRENCY :</span><Span class="shipmethod">'+INVOICE_CURRENCY_CODE+' </span>';
-							  html+=' </div>';
-							html+='</div>  ';
+                        html+=' <div class="row">';
+						  html+=' <div class="col-md-6 shippedDate">';
+						   html+=' <span class="title">Invoice Date:</span><Span class="date">'+TRX_DATE+' </span>';
+						   html+=' <span class="title"></span>';
+
+						 html+='  </div>';
+						   
+						   html+='<div class="col-md-6 shippedFrom">';
+						   html+=' <span class="title">Invoice Currency:</span><Span class="shipmethod">'+INVOICE_CURRENCY_CODE+' </span>';
+						  html+=' </div>';
+						html+='</div>  ';
 
 							 html+=' <div class="ShippedDetails">';
                                 html+=' <table class="table">';
@@ -1181,8 +1183,8 @@ xml_request_data+=' </soap:Envelope> ';
 											  html+='<th class="partnumber">LINE NUMBER</th>';
 											  html+='<th class="partnumber">ORDERED ITEM</th>';
 											  html+='<th class="shippedpieces">UNIT SELLING PRICE</th>';
-											  html+='<th class="shippedpieces">ORDERED_QUANTITY</th>';
-											  html+='<th class="shippedpieces">INVOICE_AMOUNT</th>';
+											  html+='<th class="shippedpieces">ORDERED QUANTITY</th>';
+											  html+='<th class="shippedpieces">INVOICE AMOUNT</th>';
 										html+='</tr>';
 									  html+='</thead>';
 									  html+='<tbody>';
