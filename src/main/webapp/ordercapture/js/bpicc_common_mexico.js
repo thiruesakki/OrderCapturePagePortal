@@ -82,6 +82,9 @@ BpiccCommon=
 	GetUserRoleDetails:function()
 	{
 		var userID=BpiccCommon.GetUserIdInfo();
+		if(userID==""||userID==null){
+			userID=getCookie("userID");
+		}
 		  if(userID!="anonymous" && !empty(userID))
 		  {
 		  var url = bpi_com_obj.web_mssql_api_url+"GetUserRoleDetails";
@@ -134,15 +137,15 @@ BpiccCommon=
 		  else if($("#page_type").val()=='place_order')
 		  {
 			
-			if(empty(getCookie("selected_ship_to_account_no")))
+			if(empty(getCookie("selected_ship_to")))
 			{
 				alert("Account information is currently unavailable.  Please try again in a few minutes or contact customer service at 800-323-0354 for assistance.  We apologize for any inconvenience.");
 				window.location.href = selectAccountPrefix;
 				return false;
 			}
-			BpiccPlaceOrder.GetShippingMethodTypes();
-			BpiccPlaceOrder.ApiGetShippingInfo(getCookie("selected_ship_to_account_no"));
-			BpiccPlaceOrder.GetCountryStateList();
+//			BpiccPlaceOrder.GetShippingMethodTypes();
+//			BpiccPlaceOrder.ApiGetShippingInfo(getCookie("selected_ship_to_account_no"));
+//			BpiccPlaceOrder.GetCountryStateList();
 		//####### Added on 30-05-17 Handle Items Check from check Stock
 			var cookie_part_obj_str=localStorage.getItem("cookie_part_obj");		   
 	 
@@ -170,15 +173,15 @@ BpiccCommon=
 			 
 			 	
 			 	 setTimeout(function(){ $("#inputPo").focus();}, 1000); 
-			 if(!empty(getCookie("selected_ship_to_account_no")))
+			 if(!empty(getCookie("selected_ship_to")))
 			   {
-			   $(".locationPane").html('<p><span class="numberField">'+getCookie("selected_ship_to_account_no")+'</span><span>  '+getCookie("selected_ship_to_account_address")+'</span></p>');
+			   $(".locationPane").html('<p><span class="numberField">'+getCookie("selected_ship_to")+'</span><span>  '+getCookie("selected_ship_to_account_address")+'</span></p>');
 			   }	 
 				
 		  }
 		  else if($("#page_type").val()=='check_stock')
 		  {
-			 if(empty(getCookie("selected_ship_to_account_no")))
+			 if(empty(getCookie("selected_ship_to")))
 			{
 				alert("Account information is currently unavailable.  Please try again in a few minutes or contact customer service at 800-323-0354 for assistance.  We apologize for any inconvenience.");
 				window.location.href = selectAccountPrefix;
@@ -190,27 +193,27 @@ BpiccCommon=
 				   bpi_com_obj.default_dc=getCookie("selected_ship_to_wc");
 			   }
 			 
-			   if(!empty(getCookie("selected_ship_to_account_no")))
+			   if(!empty(getCookie("selected_ship_to")))
 			   {
-			   $(".locationPane").html('<p><span class="numberField">'+getCookie("selected_ship_to_account_no")+'</span><span>  '+getCookie("selected_ship_to_account_address")+'</span></p>');
+			   $(".locationPane").html('<p><span class="numberField">'+getCookie("selected_ship_to")+'</span><span>  '+getCookie("selected_ship_to_account_address")+'</span></p>');
 			   }
 			    setTimeout(function(){ $("#partNum_2").focus();}, 1000); 
 				 
 		  }
 		  else if($("#page_type").val()=='order_history')
 		  {
-			   if(empty(getCookie("selected_ship_to_account_no")))
+			   if(empty(getCookie("selected_ship_to")))
 			{
 				alert("Account information is currently unavailable.  Please try again in a few minutes or contact customer service at 800-323-0354 for assistance.  We apologize for any inconvenience.");
 				window.location.href = selectAccountPrefix;
 				return false;
 			}
 			
-			 OrderHistory.LoadProperDatesAndCallAPI();
+//			 OrderHistory.LoadProperDatesAndCallAPI();
 			 getCookie("selected_ship_to_account_address");
-			   if(!empty(getCookie("selected_ship_to_account_no")))
+			   if(!empty(getCookie("selected_ship_to")))
 			   {
-			   $(".locationPane").html('<p><span class="numberField">'+getCookie("selected_ship_to_account_no")+'</span><span>  '+getCookie("selected_ship_to_account_address")+'</span></p>');
+			   $(".locationPane").html('<p><span class="numberField">'+getCookie("selected_ship_to")+'</span><span>  '+getCookie("selected_ship_to_account_address")+'</span></p>');
 			   }	 
 		  }
 
@@ -284,7 +287,9 @@ BpiccCommon=
 											 setCookie("selected_bill_to_location",billToSiteID);
 											 setCookie("selected_org_id",orgID);
 											 console.log(orgID);
-											 BpiccCommon.GetSingleAccountAddress(CAPI_ALL_SHIP_TO_ACCOUNTS);
+											 if($("#page_type").val()=='select_account'){
+												 BpiccCommon.GetSingleAccountAddress(CAPI_ALL_SHIP_TO_ACCOUNTS);
+											 }
 											   
 										 }
 										else
@@ -293,7 +298,9 @@ BpiccCommon=
 											setCookie("selected_bill_to_location",billToSiteID);
 											 setCookie("selected_org_id",orgID);
 											console.log(orgID);
-											SelectAccount.GetMultipleShiptoAddressForShipTo(CAPI_ALL_SHIP_TO_ACCOUNTS);
+											if($("#page_type").val()=='select_account'){
+												SelectAccount.GetMultipleShiptoAddressForShipTo(CAPI_ALL_SHIP_TO_ACCOUNTS);
+											}
 //											BpiccCommon.GetSingleAccountAddress(CAPI_ALL_SHIP_TO_ACCOUNTS);
 //											  window.location.href = selectAccountPrefix;
 										}	

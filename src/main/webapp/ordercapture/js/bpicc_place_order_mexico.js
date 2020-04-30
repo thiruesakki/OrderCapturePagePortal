@@ -333,6 +333,7 @@ BpiccPlaceOrder=
 		 BpiccPlaceOrder.EnableValidateOrderDiv();
 
 		 checked_val=$("input[name='inputAvail_"+row_id+"']:checked").val();
+		 console.log("validate checked vaal"+checked_val);
 		 $("#V1_i_"+row_id).removeClass("greenIcon");
 		 $("#V1_i_"+row_id).removeClass("yellowIcon");
 		 $("#V1_i_"+row_id).removeClass("redIcon");
@@ -358,9 +359,9 @@ BpiccPlaceOrder=
 				ERROR_MSG=	$.trim(bpi_obj.prod_stock[part_no]['ERROR_MSG']);
 				if(empty(ERROR_MSG))
 				{
-					EDC=	bpi_obj.prod_stock[part_no]['EDC'];
-					MDC=	bpi_obj.prod_stock[part_no]['MDC'];
-					WDC=	bpi_obj.prod_stock[part_no]['WDC'];
+					EDC=	bpi_obj.prod_stock[part_no]['V1'];
+					MDC=	bpi_obj.prod_stock[part_no]['M1'];
+					WDC=	bpi_obj.prod_stock[part_no]['M2'];
 				}
 				var reqQnty=$.trim($("#reqQnty_"+row_id).val());
 				reqQnty= parseInt((empty(reqQnty))?0:reqQnty);
@@ -371,59 +372,59 @@ BpiccPlaceOrder=
 					if(reqQnty<WDC)
 						WDC=reqQnty;
 				checked_val_lower=checked_val.toLowerCase();
-				if(checked_val=="EDC")
+				if(checked_val=="V1")
 						assign_val=EDC;
-					if(checked_val=="MDC")
+					if(checked_val=="M1")
 						assign_val=MDC;
-					if(checked_val=="WDC")
+					if(checked_val=="M2")
 						assign_val=WDC;
 				 
 					$("#"+checked_val_lower+"_"+row_id).val(assign_val);
-				if(checked_val=="EDC")
+				if(checked_val=="V1")
 					{
 						if(EDC==0)
 						{
-							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"EDC","redIcon",1);
+							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"V1","redIcon",1);
 						}
 						else if(reqQnty<=EDC)
 						{
-							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"EDC","greenIcon",1);
+							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"V1","greenIcon",1);
 						}
 						else
 						{
-							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"EDC","yellowIcon",1);
+							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"V1","yellowIcon",1);
 							
 						}
 					}
-					else if(checked_val=="MDC")
+					else if(checked_val=="M1")
 					{
 						if(MDC==0)
 						{
-							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"MDC","redIcon",1);
+							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"M1","redIcon",1);
 						}
 						else if(reqQnty<=MDC)
 						{
-							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"MDC","greenIcon",1);
+							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"M1","greenIcon",1);
 						}
 						else
 						{
-							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"MDC","yellowIcon",1);
+							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"M1","yellowIcon",1);
 							
 						}
 					}
-					else if(checked_val=="WDC")
+					else if(checked_val=="M2")
 					{
 						if(WDC==0)
 						{
-							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"WDC","redIcon",1);
+							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"M2","redIcon",1);
 						}
 						else if(reqQnty<=WDC)
 						{
-							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"WDC","greenIcon",1);
+							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"M2","greenIcon",1);
 						}
 						else
 						{
-							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"WDC","yellowIcon",1);
+							 BpiccPlaceOrder.DCEnableProperCheckBox(row_id,"M2","yellowIcon",1);
 							
 						}
 					}
@@ -453,9 +454,9 @@ BpiccPlaceOrder=
 				 var EDC=0;
 				 var MDC=0;
 				 var WDC=0;
-					 EDC=	bpi_obj.prod_stock[part_no]['EDC'];
-					MDC=	bpi_obj.prod_stock[part_no]['MDC'];
-					WDC=	bpi_obj.prod_stock[part_no]['WDC'];
+					 EDC=	bpi_obj.prod_stock[part_no]['V1'];
+					MDC=	bpi_obj.prod_stock[part_no]['M1'];
+					WDC=	bpi_obj.prod_stock[part_no]['M2'];
 					var IS_CALIPER=	bpi_obj.prod_stock[part_no]['IS_CALIPER'];
 					if(IS_CALIPER=="0")
 					{
@@ -916,9 +917,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				if(empty(ERROR_MSG))
 				{
 					  
-					EDC=	bpi_obj.prod_stock[part_no]['EDC'];
-					MDC=	bpi_obj.prod_stock[part_no]['MDC'];
-					WDC=	bpi_obj.prod_stock[part_no]['WDC'];
+					EDC=	bpi_obj.prod_stock[part_no]['V1'];
+					MDC=	bpi_obj.prod_stock[part_no]['M1'];
+					WDC=	bpi_obj.prod_stock[part_no]['M2'];
 					 
 					$("#brand_"+tr_id).val(BRAND_NAME);
 					$("#desc_"+tr_id).val(ITEM_DESCRIPTION);
@@ -1061,13 +1062,15 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 							BpiccPlaceOrder.HandleCheckStockPage(tr_id);
 						}
 						  
-						var default_dc=bpi_com_obj.default_dc;
+//						var default_dc=bpi_com_obj.default_dc;
+						var default_dc="V1";
+						console.log('default:'+default_dc);
 						default_dc=empty(default_dc)?"V1":default_dc;
 						 
-						  if(IS_CALIPER=="1")
-						  {
-							default_dc="M2";  
-						  }
+//						  if(IS_CALIPER=="1")
+//						  {
+//							default_dc="M2";  
+//						  }
 
 						var default_dc_lower=default_dc.toLowerCase();
 						var assign_val=0;
@@ -1102,17 +1105,17 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						 {
 							 $("#m1_"+tr_id).val(M1);
 						 }
-						  if(IS_CALIPER=="1")
-						  {
-							  already_check_val="M2";
-						  }
+//						  if(IS_CALIPER=="1")
+//						  {
+//							  already_check_val="M2";
+//						  }
 						if(!empty(already_check_val))
 							default_dc=already_check_val;
-						  if(IS_CALIPER=="1")
-						  {
-							  default_dc="M2";
-						  }
-						 
+//						  if(IS_CALIPER=="1")
+//						  {
+//							  default_dc="M2";
+//						  }
+//						 
 						if(default_dc=="V1")
 						{
 							if(V1==0)
@@ -1228,8 +1231,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				checked_val=$("input[name='inputAvail_"+tr_id+"']:checked").val(); */
 				  partNum=$(this).find("#partNum_"+tr_id).val();
 				reqQnty=$(this).find("#reqQnty_"+tr_id).val();
-//				checked_val= $(this).find("input[name*='inputAvail_']:checked").val();//Old source code
-				checked_val=$('input[name=AllDCinputAvail]:checked').val();//New Source code
+				checked_val= $(this).find("input[name*='inputAvail_']:checked").val();//Old source code
+				console.log("checked_val"+checked_val);
+//				checked_val=$('input[name=AllDCinputAvail]:checked').val();//New Source code
 //				$('input[name=gender]:checked').val()
 				var weight=0;
 				

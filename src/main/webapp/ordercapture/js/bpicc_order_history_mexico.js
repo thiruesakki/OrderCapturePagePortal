@@ -486,8 +486,8 @@ OrderHistory=
 
                         var sorttableOrderedDate 	= splitOrderedDate[2] + splitOrderedDate[0] + splitOrderedDate[1],
                         	sorttableShipDate 		= splitShitDate[2] + splitShitDate[0] + splitShitDate[1]
-						 var orderDate=dateDisplayFormat(ORDERED_DATE); 
-						 var shipDate=dateDisplayFormat(SHIP_DATE);
+						 var orderDate=dateFormatChange(ORDERED_DATE); 
+						 var shipDate=dateFormatChange(SHIP_DATE);
 						 html+="<tr id="+tr_id+">"
 						 
                          html+='<td> '+CUST_PO_NUMBER+' </td> ';
@@ -1333,11 +1333,13 @@ Date.prototype.toShortFormat = function() {
 
 function dateFormatChange(date){
 //	var date= '21/01/2015';
-	var d=new Date(date.split("/").reverse().join("-"));
+//	var d=new Date(date.split("/").reverse().join("-"));
+	var d=new Date(date);
 	var dd=d.getDate();
 	var mm=d.getMonth()+1;
 	var yy=d.getFullYear();
-	var newdate=mm+"-"+dd+"-"+yy;
+//	var newdate=mm+"-"+dd+"-"+yy;
+	var newdate=dd+"-"+mm+"-"+yy;
 	return newdate;
 }
 
