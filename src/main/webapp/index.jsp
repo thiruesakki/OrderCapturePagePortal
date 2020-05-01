@@ -49,7 +49,7 @@
 							<TR ALIGN="center" VALIGN="middle">
 								<TD colspan=2 align="right">&nbsp; &nbsp;<B><FONT
 										SIZE="4" face="Arial"><a href="#"
-											style="text-decoration: None"> Forget Password</a></FONT> </B></TD>
+											style="text-decoration: None"> Forgot Password</a></FONT> </B></TD>
 							</TR>
 							<TR ALIGN="center" VALIGN="middle">
 								<TD colspan=2><input type="button" id="loginButton" value="Login"
