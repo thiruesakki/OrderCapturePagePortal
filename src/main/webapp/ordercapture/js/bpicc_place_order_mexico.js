@@ -3012,6 +3012,19 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		var partNum="";
 		var reqQnty="";
 		var warehouse="";
+		
+		var placeOrderJson = {};
+		var orderLinesArray = [];
+		placeOrderJson.CUST_PO_NUMBER=CUST_PO_NUMBER;
+		placeOrderJson.ORDER_TYPE=ORDER_TYPE;
+		placeOrderJson.USER_EMAIL=null;
+		placeOrderJson.SHIPPING_METHOD=SHIPPING_METHOD;  
+		placeOrderJson.SHIP_TO_ORG=SHIP_TO_ORG;
+		placeOrderJson.BILL_TO_ORG=BILL_TO_ORG;
+		placeOrderJson.STORE_ID=""; 
+		placeOrderJson.CUSTOMER_NOTES="";
+		placeOrderJson.REQUESTED_DATE="";
+		
 		$.each(data,function(k,v)
 		{
 			var tr_id=$(this).attr("id");
@@ -3025,6 +3038,16 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			// var warehouse=$("input[name='inputAvail_"+tr_id+"']:checked").val();
 			if(!empty(partNum) && reqQnty>0)
 			{
+				
+				var orderLinesJson = {
+						"partNum":partNum,
+						"reqQnty":reqQnty,
+						"warehouse":warehouse
+
+				};
+				orderLinesArray.push(orderLinesJson);
+				console.log("orderLinesArray"+JSON.stringify(orderLinesArray));
+
 				item_data+='<ns2:P_ORDER_LINES_TBL_ITEM>';
 				item_data+='<ns2:ORDERED_ITEM>'+partNum+'</ns2:ORDERED_ITEM>';
 				item_data+='<ns2:ORDERED_QUANTITY>'+reqQnty+'</ns2:ORDERED_QUANTITY>';
@@ -3033,7 +3056,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			}
 			 
 		});
-	 
+		placeOrderJson.ORDER_LINES=orderLinesArray;
+	    console.log("placeOrderJson"+JSON.stringify(placeOrderJson));
+	    
 		if(empty(item_data))
 		{
 			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("Items are empty","Error");
@@ -3083,13 +3108,13 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				xml_request_data+='</soap:Envelope>';
 	$(".loader").show();
  
-		var url = bpi_com_obj.web_api_url;
+		var url = bpi_com_obj.web_oracle_api_url+"PlaceOrderMule";;
 			 
 					jQuery.ajax({
 						type: "POST",
 						url: url,
-						 data: "xml_data="+xml_request_data,
-						dataType: "xml",
+						 data: JSON.stringify(placeOrderJson),
+						dataType: "json",
 						crossDomain: true,
 						processData: false,
 						// contentType: "text/xml; charset=\"utf-8\"",

@@ -44,6 +44,8 @@ import com.brakepartsinc.project.techportal.dto.OrderShipToObject;
 import com.brakepartsinc.project.techportal.dto.OrderShippingObject;
 import com.brakepartsinc.project.techportal.dto.OrganizationObject;
 import com.brakepartsinc.project.techportal.dto.PRIPromoDetailsObject;
+import com.brakepartsinc.project.techportal.dto.PlaceOrderObject;
+import com.brakepartsinc.project.techportal.dto.PlaceOrderResponseObject;
 import com.brakepartsinc.project.techportal.dto.PromoBusinessDetailsObject;
 import com.brakepartsinc.project.techportal.dto.RegisterOrganizationObject;
 import com.brakepartsinc.project.techportal.dto.RegisterUserObject;
@@ -479,4 +481,49 @@ public class OracleTPService {
 		}
 		return jsonResult.toString();
 }
+	
+
+		@POST
+		@Path("/PlaceOrderMule")
+		public String savePlaceOrderMule(String placeOrderObj){
+			JsonObject jsonResult = new JsonObject();
+			String placeOrderArrayJson = null;
+			int status = -1;
+			String errorMessage = "";
+			System.out.println("JSON:" + placeOrderObj);
+			Gson gson = new Gson();
+			PlaceOrderObject placeObj = gson.fromJson(placeOrderObj,PlaceOrderObject.class); 
+			try {
+				OracleDataHandler dataHandler = new OracleDataHandler();
+//				System.out.println("webservice org_Id :" + orgID);
+				PlaceOrderResponseObject placeOrder = dataHandler.savePlaceOrderMule(placeObj);
+				
+				if (placeOrder != null) {
+					status = 0;
+					
+					placeOrderArrayJson = gson.toJson(placeOrder);
+				} else {
+					status = 1;
+					errorMessage = "Order Details List not found";
+				}
+
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", errorMessage);
+				jsonResult.addProperty("object", placeOrderArrayJson);
+				System.out.println("orderShipToArrayJson - Result to be returned:"
+						+ jsonResult);
+
+			} catch (Exception e) {
+				status = 6;
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", e.getMessage());
+				jsonResult.add("object", null);
+				System.out
+						.println("getOrderDetails - ERROR Result to be returned:"
+								+ jsonResult);
+			}
+			return jsonResult.toString();
+		}
+	
+	
 }

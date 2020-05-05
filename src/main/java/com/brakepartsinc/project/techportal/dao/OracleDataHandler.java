@@ -1,30 +1,16 @@
 package com.brakepartsinc.project.techportal.dao;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
-import java.sql.Types;
-import java.util.List;
-
-//import oracle.jdbc.OracleCallableStatement;
-//import oracle.jdbc.internal.OracleTypes;
-
-
-
-
-
-
-import oracle.jdbc.driver.OracleTypes;
 
 import com.brakepartsinc.project.techportal.dto.CheckStockObject;
 import com.brakepartsinc.project.techportal.dto.InvoiceObject;
@@ -32,12 +18,13 @@ import com.brakepartsinc.project.techportal.dto.InvoiceOrderCheckObject;
 import com.brakepartsinc.project.techportal.dto.OrderHistoryListObject;
 import com.brakepartsinc.project.techportal.dto.OrderShipToObject;
 import com.brakepartsinc.project.techportal.dto.OrderShippingObject;
-import com.brakepartsinc.project.techportal.dto.ShipToAddressObject;
+import com.brakepartsinc.project.techportal.dto.PlaceOrderObject;
+import com.brakepartsinc.project.techportal.dto.PlaceOrderResponseObject;
 import com.brakepartsinc.project.techportal.dto.ShipToObject;
 import com.brakepartsinc.project.techportal.util.StatusObject;
-import com.brakepartsinc.project.techportal.util.TPServerConstants;
-import com.brakepartsinc.project.techportal.util.TPUtility;
 import com.google.gson.Gson;
+//import oracle.jdbc.OracleCallableStatement;
+//import oracle.jdbc.internal.OracleTypes;
 
 public class OracleDataHandler {
 
@@ -459,5 +446,52 @@ public class OracleDataHandler {
 			System.out.println("GET NOT WORKED");
 		}
 		return checkObject;
+	}
+	
+	
+	 public PlaceOrderResponseObject savePlaceOrderMule(PlaceOrderObject placeOrderObject) throws IOException {
+		 
+		 	String org_id="204";
+			String query = "http://xxenv-test-place-sales-order3.us-e2.cloudhub.io/api/PlaceSalesOrder?p_operating_unit_id="
+					+ org_id + "&p_cust_po_number=" + placeOrderObject.getCUST_PO_NUMBER()+"&p_order_type="
+					+ placeOrderObject.getORDER_TYPE() + "&p_user_name=" +placeOrderObject.getUSER_NAME() +"&p_shipping_method="+ placeOrderObject.getSHIPPING_METHOD()+ "&p_ship_to_org="
+					+ placeOrderObject.getSHIP_TO_ORG() +"&p_bill_to_org="+placeOrderObject.getBILL_TO_ORG()+"&p_requested_date="+placeOrderObject.getREQUESTED_DATE();
+
+			System.out.println(query);
+			URL obj = new URL(query);
+			String readLine = null;
+			String outputString = "";
+			HttpURLConnection connection = (HttpURLConnection) obj
+					.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type", "application/json");
+			connection.setDoOutput(true);
+			OutputStream os = connection.getOutputStream();
+			String postParams ="";
+			Gson gson=new Gson();
+			postParams= gson.toJson(placeOrderObject);
+			os.write(postParams.getBytes());
+			os.flush();
+			os.close();
+			int responseCode = connection.getResponseCode();
+			System.out.println("POST Response Code :  " + responseCode);
+	        System.out.println("POST Response Message : " + connection.getResponseMessage());
+	        PlaceOrderResponseObject placeOrderRes=new PlaceOrderResponseObject();
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						connection.getInputStream()));
+				StringBuffer response = new StringBuffer();
+
+				while ((readLine = in.readLine()) != null) {
+					response.append(readLine);
+				}
+			in.close();
+			outputString = response.toString();
+			System.out.println("placeorder result"+outputString);
+			placeOrderRes=gson.fromJson(outputString,PlaceOrderResponseObject.class);
+			} else {
+				System.out.println("POST NOT WORKED");
+			}
+			return placeOrderRes;
 	}
 }
