@@ -1170,6 +1170,8 @@ xml_request_data+=' </soap:Envelope> ';
 						html+='</div>  ';
 
 							 html+=' <div class="ShippedDetails">';
+							 	var tot_shipped=0;		
+								var tot_inv_amt=0;
                                 html+=' <table class="table">';
 								 
 
@@ -1192,8 +1194,7 @@ xml_request_data+=' </soap:Envelope> ';
 										  var xmlInvoiceobject = invoiceListObj [i];
 										  if(ORDER_NUMBER==xmlInvoiceobject.ORDER_NUMBER){
 //											  console.log("Looping invoiceList:"+xmlInvoiceobject.ORDER_NUMBER)
-									
-								var tot_shipped=0;		
+
 //						  
 							  	html+='<tr>';
 							  	var LINE_NUMBER=xmlInvoiceobject.LINE_NUMBER;
@@ -1209,12 +1210,19 @@ xml_request_data+=' </soap:Envelope> ';
 										  html+='<td>'+ORDERED_QUANTITY+'</td>';
 										  html+='<td>'+INVOICE_AMOUNT+'</td>';
 								html+='</tr>'
+								 if(!empty(ORDERED_QUANTITY))
+							  {
+								  tot_shipped=tot_shipped+parseInt(ORDERED_QUANTITY);
+								  tot_inv_amt=tot_inv_amt+INVOICE_AMOUNT;
+							  }
 //							  
 								} 
 							}
 							  html+=' </tbody>'
 //							  
 										html+='</table>';
+							html+=' <td colspan="2"><b>TOTAL SHIPPED PIECES</b><b> : </b><b>'+tot_shipped+'</b></td><br></br>';
+							html+=' <td colspan="2"><b>TOTAL INVOICE AMOUNT</b><b> : </b><b>'+tot_inv_amt+'</b></td>';
 						 html+='</div>';//close of InvoiceDetails
 						 	html+='</div>';//close of panel-body
 							html+='</div>';//close ofcollapseOne1

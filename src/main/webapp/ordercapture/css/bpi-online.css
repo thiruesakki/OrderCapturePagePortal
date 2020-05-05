@@ -169,7 +169,7 @@ body .navbar-nav .dropdown li a:focus{background: #bd0416 !important;}
 .container .bpiOnlineRightPanel .bottomRow .buttonPane .validateOrder, 
 .container .bpiOnlineRightPanel .bottomRow .buttonPane .continueOrder,
 .container .bpiOnlineRightPanel .bottomRow .buttonPane .resetForm{
-	background: #bd0416;
+	background: #2E4F6A;
     color: #fff;
     font-size: 15px;
     border-radius: 6px;
@@ -283,10 +283,10 @@ body .navbar-nav .dropdown li a:focus{background: #bd0416 !important;}
 .bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul li a{color: black; width: 100%; display: block; float: left;}
 .bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul li.active a{background:#76B9ED;}
 .bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul li a:hover {background:#76B9ED;}
-.bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li{border-bottom:1px solid #acb4c8; width: 100%; float: left;}
+.bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li{border-bottom:1px solid #7b7777; width: 100%; float: left;}
 .bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li:last-child{border-bottom:none;}
 .bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li .acctnumber{    width: 120px; float: left; padding: 15px;  /* line-height: 3.5; */   font-weight: bold; }
-.bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li .address{    width: 710px;  /* line-height: 3.5; */  padding: 15px; color: black; float: left; border-left: 1px solid #acb4c8;}
+.bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li .address{    width: 710px;  /* line-height: 3.5; */  padding: 15px; color: black; float: left; border-left: 1px solid #7b7777;}
 .bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li:last-child .address{ border:none !important; }
 
 
@@ -402,7 +402,7 @@ body .navbar-nav .dropdown li a:focus{background: #bd0416 !important;}
 .container .bpiOnlineRightPanel .bottomRow .buttonPane .validateOnEntry label input{margin-right:5px;}
 .container .bpiOnlineRightPanel .bottomRow .buttonPane {margin-top: 0px;}
 .container .bpiOnlineRightPanel .bottomRow .buttonPane .firstButtonPane{float:right;}
-.container .bpiOnlineRightPanel .bottomRow .buttonPane .firstButtonPane .btn-default{text-shadow: none; margin-left:20px; background: #bd0416; color: #fff; font-size: 14px; border-radius: 4px; border: none;}
+.container .bpiOnlineRightPanel .bottomRow .buttonPane .firstButtonPane .btn-default{text-shadow: none; margin-left:20px; background: #2E4F6A; color: #fff; font-size: 14px; border-radius: 4px; border: none;}
 .container .bpiOnlineRightPanel .bottomRow .buttonPane .secondButtonPane{float:right; margin-top:19px;}
 .container .bpiOnlineRightPanel .bottomRow .stockPane{padding-left: 122q5px;padding-right: 15px;}
 .container .bpiOnlineRightPanel .bottomRow .buttonPane .secondButtonPane .btn-default{text-shadow: none; background: #bd0416;color: #fff;font-size: 14px;border-radius: 4px;border: none;}
@@ -417,12 +417,12 @@ body .navbar-nav .dropdown li a:focus{background: #bd0416 !important;}
 .orderlistheader label{ font-size: 12px; color: #666666; font-weight: normal;}
 .orderlistheader select{font-size: 12px; padding: 3px; width: 56% !important; border: 1px solid #b4b4b4; margin-left: 3px; height:30px;}
 .orderlistheader input[type="text"]{font-size: 11px; padding: 2px 2px; width: 117px; border: 1px solid #b4b4b4 !important; height:26px;}
-.orderlistheader input[type="submit"]{background-color: #bd0416; border: medium none;  border-radius: 3px;  color: #fff; text-align:center; height:30px; width:72px;}
+.orderlistheader input[type="submit"]{background-color: #2E4F6A; border: medium none;  border-radius: 3px;  color: #fff; text-align:center; height:30px; width:72px;}
 .orderlistheader .max60days{margin: 0px; padding: 0px !important; width: 157px !important; margin-left: 15px;}
 .orderlistheader .dateRange .dateRangeSpan{font-size: 13px !important; float: left;width: 96px; font-weight:bold;color:#484747;padding-top: 3px;}
 .orderlistheader .datarange{ padding: 0 5px !important; }
 .orderlistheader .searchBtn{padding: 0px; margin: 0px; margin-left: 8px; }
-.orderlistDetailPage h4 span{color: #bd0416;}
+.orderlistDetailPage h4 span{color: #2E4F6A;}
 .orderlistDetailPage h5{ border-bottom: 2px solid #7f7f7f; padding: 15px 0 5px;}
 
 .container .bpiOnlineRightPanel .orderlistDetailPage .tableContentsorderListtBlock .table thead th:nth-child(1) { width:76px !important; }
@@ -476,7 +476,7 @@ body .navbar-nav .dropdown li a:focus{background: #bd0416 !important;}
 .bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .nav-tabs>li.active{background:#e2e6f2;}
 
 /* login starts*/
-.loginBlock button{width: 100%;    border-radius: 5px;    background: #bd0416;    color: white;border: 1px solid #bd0416;    height: 29px;    padding: 0px;}
+.loginBlock button{width: 100%;    border-radius: 5px;    background: #2E4F6A;    color: white;border: 1px solid #2E4F6A;    height: 29px;    padding: 0px;}
 .loginBlock button .glyphicon.glyphicon-user{top:0;font-size:10px; padding:5px;}
 .loginContentPane { box-shadow: 1px 4px 5px #7c7c7c; display: none; min-width: 350px; min-height: 20px; left: auto; border: 2px solid #7c7c7e; background: white; opacity: 1.6; z-index: 10; position: absolute; top: 30px; right: 14px ! important; padding: 0 15px;}
 .loginContentPane .loginHead{margin-left: 0px; margin-top: 15px; border-bottom: : 3px solid #d60000;  margin-right: 0px;  text-align: left;}
@@ -703,7 +703,7 @@ select[disabled]{  cursor: not-allowed !important;    background: #eee !importan
 .bpiOnlineRightPanel .orderListtBlock.adminUserDetailBlock .leftHeadBlock h3{padding: 22px 0 10px 0px;}
 .container .bpiOnlineRightPanel .tableContentsorderListtBlock .table tbody tr td .fa-info-circle{font-size: 17px; padding-left:7px; cursor:pointer;}
 .container .bpiOnlineRightPanel .tableContentsorderListtBlock .table tbody tr td .fa-info-circle.disableCircle{cursor:default !important;}
-.container .bpiOnlineRightPanel .orderlistDetailPage .shippingDetails{background-color: #bd0416;border: medium none;border-radius: 3px;color: #fff;text-align: center;height: 32px;width: 132px;margin-bottom: 10px; margin-top:7px;}
+.container .bpiOnlineRightPanel .orderlistDetailPage .shippingDetails{background-color: #2E4F6A;border: medium none;border-radius: 3px;color: #fff;text-align: center;height: 32px;width: 132px;margin-bottom: 10px; margin-top:7px;}
 
 
 .bpiOnlineRightPanel .adminEditUserBlock  h4{padding: 20px 0 10px 0px;}
@@ -828,7 +828,7 @@ select[disabled]{  cursor: not-allowed !important;    background: #eee !importan
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading.active{background: #7c7c7e;    padding: 10px 0px;height: 45px;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading{padding: 9px 1px 10px 0px;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default .panel-heading .fa-chevron-down:before{opacity:1;}
-.bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body {padding: 30px;background: #e5e5e5; width: 100%; float: left;}
+.bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body {padding: 15px;background: #e5e5e5; width: 100%; float: left;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .shippedDate  .title{font-size: 15px;    color: black;font-weight: 600;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .shippedDate .date{padding:0 10px;color:black;font-size: 15px;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .shippedFrom .title{color:black;font-weight:600;font-size:15px; width: 45%;float: left; padding-left: 43px;}
@@ -838,10 +838,10 @@ select[disabled]{  cursor: not-allowed !important;    background: #eee !importan
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table {margin-bottom:0px;    border: 1px solid grey;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table:nth-child(2){margin-bottom:0px;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .tracking{BACKGROUND: WHITE;height: 35px;}
-.bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .tracking  th:nth-child(1){color: #bd0416; width:110px !important; padding-left:16px; font-size:14px;}
+.bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .tracking  th:nth-child(1){color: #2E4F6A; width:110px !important; padding-left:16px; font-size:14px;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .tracking  th:nth-child(2){color:#333333;padding-left:0px; text-decoration: none;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .tracking  th:nth-child(2) a{color:#333333;text-decoration: underline;}
-.bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .heading{    height: 25px; background: #333333; color: white;}
+.bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .heading{    height: 25px; background: #2E4F6A; color: white;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .heading th{font-size:12px;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table tbody tr td{padding:6px;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .heading .partnumber{    width: 123px;    padding-left: 10px;    border-right: 1px solid #7c7c7e; position: relative; cursor: pointer;}
@@ -849,7 +849,7 @@ select[disabled]{  cursor: not-allowed !important;    background: #eee !importan
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default .panel-heading+ .panel-collapse .panel-body .ShippedDetails .table tfoot tr td:nth-child(2){padding-left:58px;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default .panel-heading+ .panel-collapse .panel-body .ShippedDetails .table tfoot tr td:nth-child(1) b{padding-left:12px;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .heading .desc{    WIDTH: 550PX; border-right: 1px solid #7c7c7e;    padding-left: 20px;}
-.bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .heading .shippedpieces{    padding-left: 10px; width: 125px; cursor: pointer; position: relative;}
+.bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .heading .shippedpieces{    padding-left: 10px; width: 125px; cursor: pointer; position: relative;border-right: 1px solid #7c7c7e;    padding-left: 20px}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .heading .shippedpieces .fa-sort-desc{padding-left:5px;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table tbody tr td{border-right:1px solid #7c7c7e}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table tbody tr{background:white;}
