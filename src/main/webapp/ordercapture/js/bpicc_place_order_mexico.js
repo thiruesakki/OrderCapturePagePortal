@@ -333,7 +333,6 @@ BpiccPlaceOrder=
 		 BpiccPlaceOrder.EnableValidateOrderDiv();
 
 		 checked_val=$("input[name='inputAvail_"+row_id+"']:checked").val();
-		 console.log("validate checked vaal"+checked_val);
 		 $("#V1_i_"+row_id).removeClass("greenIcon");
 		 $("#V1_i_"+row_id).removeClass("yellowIcon");
 		 $("#V1_i_"+row_id).removeClass("redIcon");
@@ -881,7 +880,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	},
 	ValidateErrorsForSelectedPartNo:function(tr_id,part_no,is_qty_check)
 	{	
-		console.log("partno validate");
 		BpiccPlaceOrder.EnableValidateOrderDiv();
 		
 		// BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO(;
@@ -1064,7 +1062,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						  
 //						var default_dc=bpi_com_obj.default_dc;
 						var default_dc="V1";
-						console.log('default:'+default_dc);
 						default_dc=empty(default_dc)?"V1":default_dc;
 						 
 //						  if(IS_CALIPER=="1")
@@ -1232,7 +1229,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				  partNum=$(this).find("#partNum_"+tr_id).val();
 				reqQnty=$(this).find("#reqQnty_"+tr_id).val();
 				checked_val= $(this).find("input[name*='inputAvail_']:checked").val();//Old source code
-				console.log("checked_val"+checked_val);
 //				checked_val=$('input[name=AllDCinputAvail]:checked').val();//New Source code
 //				$('input[name=gender]:checked').val()
 				var weight=0;
@@ -1403,7 +1399,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
  
 	ValidateEnteredPartNo:function (tr_id)
 	{
-		console.log("validate fn");
 		var part_no=$("#bpicc_tableDetails tbody  #partNum_"+tr_id).val();
 		$("#bpicc_tableDetails tbody  #partNum_"+tr_id).attr("value",part_no);
 		$("#validate_po_erro_msg_div").remove(); 
@@ -1426,12 +1421,10 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				
 				if(bpi_obj.prod_stock.hasOwnProperty(part_no))//if its exists no need to call apI
 				{
-					console.log("inside");
 						 BpiccPlaceOrder.ValidateErrorsForSelectedPartNo(tr_id,part_no);
 				}
 				else
 				{
-					console.log("cal  inside");
 					 BpiccPlaceOrder.APICheckStock(part_no, function() {//if its not exists exists no need to call apI
 					//BpiccPlaceOrder.ReadManualXml(part_no, function() {//if its not exists exists no need to call apI
 						  BpiccPlaceOrder.ValidateErrorsForSelectedPartNo(tr_id,part_no);
@@ -1572,7 +1565,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		var url = bpi_com_obj.web_oracle_api_url+"GetCheckStock?org_id="+orgID+"&ship_to="+shipTO+"&product_no="+part_no_arr; 
 		  // var url = "http://uswodapp013.brakepartsinc.com:8010/webservices/SOAProvider/plsql/xxbpi_customer_online/";
 //		 var url = bpi_com_obj.web_api_url;
-		console.log("url"+url);
 			 jQuery.ajax({
 					type: "GET",
 					url: url,
@@ -1585,12 +1577,10 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					 
 					success: function (data) {
 						$(".loader").hide();
-						console.log("success fn");
 						 var obj=JSON.parse(data.object);
 						 if(obj!=null){
 							var productObj=obj.x_product_avail;
 //							if(productObj!=null){
-							console.log("check stock fn");
 							 BpiccPlaceOrder.ProcessCheckStockXml(productObj,callback);
 //							}
 						 }
@@ -1922,7 +1912,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	},
 	ProcessCheckStockXml:function(xml,callback)
 	{
-		console.log("xml"+JSON.stringify(xml));
+//		console.log("xml"+JSON.stringify(xml));
 		  try {
 //				 $(xml).find('X_PRODUCT_AVAIL').each(function(){
 //	                     $(this).find("X_PRODUCT_AVAIL_ITEM").each(function(){
@@ -2040,7 +2030,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		var orgID=getCookie("selected_org_id");
 		if(split_arr.length>1)
 		{
-			console.log(split_arr.length);
 				$(".loader").show();
 				 // setTimeout(function(){$(".loader").show();}, 100);
 		}
@@ -2085,7 +2074,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					 var obj=JSON.parse(data.object);
 					 if(obj!=null){
 						var productObj=obj.x_product_avail;
-						console.log("obj"+productObj);
 						 BpiccPlaceOrder.ProcessExcelCheckStockXml(productObj,part_qty_arr,part_no_dc_arr,callback);
 					 }
 					},
@@ -2099,7 +2087,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	
 	ProcessExcelCheckStockXml:function(xml,part_qty_arr,part_no_dc_arr,callback)
 	{
-		console.log("xml"+JSON.stringify(xml));
 		var inputPo=$("#inputPo").val();
 		var new_tr_id=2;
 		var html="";
@@ -2109,13 +2096,10 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		
 			  var c_length=0;
 				    var tot_xlx_length=xml.length;  
-				    console.log(tot_xlx_length);
 				    new_tr_id=2;
 				    var row_tr_id=2;
 						  for (var j = 0; j < tot_xlx_length; j++) {
-							  console.log("row"+row_tr_id);
 							  var object = xml[j];
-							  console.log("length"+j);
 						var  prod_obj=new Object();
 //                        var PRODUCT_NUM= $(this).find("PRODUCT_NUM").text();
 //                        prod_obj['PRODUCT_NUM']= $(this).find("PRODUCT_NUM").text();;
@@ -2184,7 +2168,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				dis=" disabled ";
 			  html+='<tr id="'+row_tr_id+'">';
 			html+='<td><div class="availableDC"><input id="partNum_'+row_tr_id+'"  onblur="BpiccPlaceOrder.ValidateEnteredPartNo('+row_tr_id+');"  value='+PRODUCT_NUM+' class="partNum" type="text"></td></div>';
-			console.log(PRODUCT_NUM+"inside po"+row_tr_id);
 			html+='<td><input id="brand_'+row_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
 			html+='<td><input id="desc_'+row_tr_id+'" class="inputDesc" value="" disabled="" type="text"></td>';
 			html+='<td><input id="weight_'+row_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
@@ -2199,7 +2182,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			
 			row_tr_id++;
 			new_tr_id++;
-			console.log("row"+row_tr_id);
 					    // var new_tr_id=BpiccPlaceOrder.addNewTableRowFromExcel(PRODUCT_NUM,2,"");
 
 
@@ -2207,7 +2189,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					   
 
 						c_length++;
-						console.log(c_length);
 //					 if(c_length>=tot_xlx_length)
 //					 {
 
@@ -2231,7 +2212,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					  	 
 
 //			 });
-			  console.log("html"+html);
 			  $("#bpicc_tableDetails tbody").html(html)
 			  setTimeout(function(){
 			   bpi_obj.is_bulk_validate=0;
@@ -2261,21 +2241,28 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	ApiGetShippingInfo:function(ship_to_acc)
 	{
 		BpiccPlaceOrder.ClearAllShippingAddressInputBox();
-	 
 		 ship_to_data="";
 			split_arr=ship_to_acc.split(",");
-		 
-			for(i=0;i<split_arr.length;i++)
-			{
-				var ship_to_code=$.trim(split_arr[i]);
-				if(!empty(ship_to_code))
-				{
-					ship_to_data+='<ns2:P_SHIP_TO_LOCTION_ITEM>';
-					ship_to_data+='<ns2:SHIP_TO>'+ship_to_code+'</ns2:SHIP_TO>';
-					ship_to_data+='</ns2:P_SHIP_TO_LOCTION_ITEM>';
-				}
-				
-			}
+			var ship_to_code="";
+//			if(isEmpty(split_arr)){
+				ship_to_code=ship_to_acc;
+//			}
+//			for(i=0;i<split_arr.length-1;i++)
+//			{
+//				if(i==0){
+//					ship_to_code=$.trim(split_arr[i]);
+//				}else{
+//					ship_to_code=ship_to_code+","+$.trim(split_arr[i]);
+//				}
+////				var ship_to_code=$.trim(split_arr[i]);
+////				if(!empty(ship_to_code))
+////				{
+////					ship_to_data+='<ns2:P_SHIP_TO_LOCTION_ITEM>';
+////					ship_to_data+='<ns2:SHIP_TO>'+ship_to_code+'</ns2:SHIP_TO>';
+////					ship_to_data+='</ns2:P_SHIP_TO_LOCTION_ITEM>';
+////				}
+////				
+//			}
 			xml_request_data='';
 			xml_request_data+='<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">';
 			xml_request_data+='<soap:Header xmlns:ns1="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/">';
@@ -2298,19 +2285,29 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			xml_request_data+=' </soap:Body>';
 			xml_request_data+='</soap:Envelope>';
 	 
-			var url = bpi_com_obj.web_api_url;	 
+//			var url = bpi_com_obj.web_api_url;
+			var orgID= getCookie("selected_org_id");
+			var url = bpi_com_obj.web_oracle_api_url + "GetShipToAddress?org_id="
+					+ orgID + "&ship_to_location=" + ship_to_code;
 					jQuery.ajax({
 						type: "POST",
 						url: url,
-						data: "xml_data="+xml_request_data,
-						dataType: "xml",
+		//				data: 
+				    	dataType: "json",
 						crossDomain: true,
 						processData: false,
 						// contentType: "text/xml; charset=\"utf-8\"",
 						 
 						success: function (data) {
-							 
-							 BpiccPlaceOrder.ProcessGetSingleAccountAddressForShipTo(data);
+		//					 SelectAccount.ProcessGetMultipleShiptoAddressForShipTo(data);
+							 var obj=JSON.parse(data.object);
+		//					 var billTo=obj.x_bill_to;
+							 var shipToAdressList=obj.x_ship_to_address;
+							 if(shipToAdressList!=null){
+								 BpiccPlaceOrder.ProcessGetSingleAccountAddressForShipTo(shipToAdressList);
+							 }else{
+								 alert('ShipTo address is not found');
+							 }
 						},
 						error: function (msg) {
 								 
@@ -2325,22 +2322,37 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			option="<option value=''>Select Shipping Address</option>";
 			var first_add="";
 			var first_acc="";
-			 $(xml).find('X_SHIP_TO_ADDRESS').each(function(){
+//			 $(xml).find('X_SHIP_TO_ADDRESS').each(function(){
 				 
-                     $(this).find("X_SHIP_TO_ADDRESS_ITEM").each(function(){
-					 
-                        var SHIP_TO= $(this).find("SHIP_TO").text();
-                        var DROP_SHIP_FLAG= $(this).find("DROP_SHIP_FLAG").text();
-                        var ACCT_NAME= $(this).find("ACCT_NAME").text();
-                        var ACCT_NUM= $(this).find("ACCT_NUM").text();
-                        var PARTY_SITE_ID= $(this).find("PARTY_SITE_ID").text();
-                        var ADDRESS_LINE1= $(this).find("ADDRESS_LINE1").text();
-                        var ADDRESS_LINE2= $(this).find("ADDRESS_LINE2").text();
-                        var ADDRESS_LINE3= $(this).find("ADDRESS_LINE3").text();
-                        var CITY= $(this).find("CITY").text();
-                        var STATE= $(this).find("STATE").text();
-                        var POSTAL_CODE= $(this).find("POSTAL_CODE").text();
-                        var COUNTRY= $(this).find("COUNTRY").text();
+//                     $(this).find("X_SHIP_TO_ADDRESS_ITEM").each(function(){
+			for (var i = 0; i < xml.length; i++) {
+				  var object = xml [i];
+//                        var SHIP_TO= $(this).find("SHIP_TO").text();
+//                        var DROP_SHIP_FLAG= $(this).find("DROP_SHIP_FLAG").text();
+//                        var ACCT_NAME= $(this).find("ACCT_NAME").text();
+//                        var ACCT_NUM= $(this).find("ACCT_NUM").text();
+//                        var PARTY_SITE_ID= $(this).find("PARTY_SITE_ID").text();
+//                        var ADDRESS_LINE1= $(this).find("ADDRESS_LINE1").text();
+//                        var ADDRESS_LINE2= $(this).find("ADDRESS_LINE2").text();
+//                        var ADDRESS_LINE3= $(this).find("ADDRESS_LINE3").text();
+//                        var CITY= $(this).find("CITY").text();
+//                        var STATE= $(this).find("STATE").text();
+//                        var POSTAL_CODE= $(this).find("POSTAL_CODE").text();
+//                        var COUNTRY= $(this).find("COUNTRY").text();
+					  	var DEFAULT_ORG_CODE= object["DEFAULT_DC"];
+		                var SHIP_TO=object["SHIP_TO"];
+						var BILL_TO_FOR_SHIP_TO=object["BILL_TO"];
+		                var DROP_SHIP_FLAG= 1;
+		                var ACCT_NAME= object["ACCOUNT_NAME"];
+		                var ACCT_NUM= object["ACCOUNT_NUMBER"];
+		                var PARTY_SITE_ID= object["PARTY_SITE_ID"];
+		                var ADDRESS_LINE1= object["ADDRESS1"] == undefined? "":object["ADDRESS1"];
+		                var ADDRESS_LINE2= object["ADDRESS2"] == undefined? "":object["ADDRESS2"];
+		                var ADDRESS_LINE3= object["ADDRESS3"] == undefined? "":object["ADDRESS3"];
+		                var CITY= object["CITY"] == undefined? "":object["CITY"];
+		                var STATE=object["STATE"] == undefined? "":object["STATE"];
+		                var POSTAL_CODE= object["POSTAL_CODE"] == undefined? "":object["POSTAL_CODE"];
+		                var COUNTRY= object["COUNTRY"] == undefined? "":object["COUNTRY"];
 						  data_set=new Object();
 						  data_set['SHIP_TO']=SHIP_TO;
 						  data_set['DROP_SHIP_FLAG']=DROP_SHIP_FLAG;
@@ -2367,13 +2379,13 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 								   first_add=ADDRESS_LINE1+" "+ADDRESS_LINE2+" "+CITY+" "+STATE+" "+POSTAL_CODE;
 								  
 							}
-					});
-					$("#shipping_address options").remove();
-					$("#shipping_address").html(option);
-				 
+							$("#shipping_address options").remove();
+							$("#shipping_address").html(option);
+					}
+					
 					
 					// $("#shipping_address").val();
-			 });
+//			 });
 			  if(empty(getCookie("selected_ship_to_account_no")))
 			 {
 				  $(".locationPane").html('<p><span class="numberField">'+first_acc+'</span><span>  '+first_add+'</span></p>');
@@ -2508,9 +2520,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		 var selected_shipping_addres_type=BpiccPlaceOrder.GetSelectedShippingAddressVal();
 			if(selected_shipping_addres_type=="SHIPPING ADDRESS")
 			{
-				 
+				var shitpTo=getCookie("selected_ship_to_account_no");
 					// BpiccPlaceOrder.ApiGetShippingInfo();
-				 	BpiccPlaceOrder.ApiGetShippingInfo(getCookie("selected_ship_to_account_no"));
+				 	BpiccPlaceOrder.ApiGetShippingInfo(shitpTo);
 				BpiccPlaceOrder.DisableShippingInputValues();
 				
 			}if(selected_shipping_addres_type=="DROP SHIP")
@@ -2561,12 +2573,10 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		BpiccPlaceOrder.ClearAllShippingAddressInputBox();
 		var shipping_address=$("#shipping_address").val();
 		if(!empty(shipping_address) && $("#shipping_error_info p:contains('Please Select Ship to Addres')"))
-				{
+		{
 					$("#shipping_error_info").html("");
 						$("#shipping_error_info").hide();
-				}
-				
-			
+		}
 		if(!empty(shipping_address))
 		{
 			if(selected_shipping_addres_type=="SHIPPING ADDRESS")
@@ -2671,15 +2681,12 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 //					}); 
 //		var inputPo="6041";
 		var url = bpi_com_obj.web_oracle_api_url+"ValidatePONumber?org_id="+orgID+"&po_number="+inputPo+"&billTo_number="+bill_to_location+"&shipTo_number="+ship_to_location;	
-		console.log("ValidatePONumber url"+url);
 		jQuery.ajax({
 			type: "GET",
 			url: url,
 		    dataType: "json",
 			data:"userID="+userID,
 			success: function (data) {
-				
-				console.log("ValidatePONumber Result Success:"+JSON.stringify(data));
 				var obj = JSON.parse(data.object);
 //				console.log(JSON.stringify(obj));
 //				console.log("x_response_message"+obj.x_response_message);
@@ -3236,9 +3243,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	},
 	ProcessGetShippingMethodTypes:function(responce)
 	{
-		
-		 
-		 	
 		var html="";
 		$.each(responce.object,function(k,v)
 		{

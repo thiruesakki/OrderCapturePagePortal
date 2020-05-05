@@ -143,16 +143,14 @@ BpiccCommon=
 				window.location.href = selectAccountPrefix;
 				return false;
 			}
-//			BpiccPlaceOrder.GetShippingMethodTypes();
-//			BpiccPlaceOrder.ApiGetShippingInfo(getCookie("selected_ship_to_account_no"));
-//			BpiccPlaceOrder.GetCountryStateList();
+			BpiccPlaceOrder.GetShippingMethodTypes();
+			BpiccPlaceOrder.ApiGetShippingInfo(getCookie("selected_ship_to"));
+			BpiccPlaceOrder.GetCountryStateList();
 		//####### Added on 30-05-17 Handle Items Check from check Stock
 			var cookie_part_obj_str=localStorage.getItem("cookie_part_obj");		   
 	 
 			  if(!empty(cookie_part_obj_str))
 			  {
-				 
-					
 				  // var cookie_part_obj=JSON.parse(getCookie("cookie_part_obj"));
 				 
 				  var cookie_part_obj=JSON.parse(localStorage.getItem("cookie_part_obj"));
@@ -286,7 +284,7 @@ BpiccCommon=
 											 setCookie("selected_ship_to_account_no",shipToSiteID);
 											 setCookie("selected_bill_to_location",billToSiteID);
 											 setCookie("selected_org_id",orgID);
-											 console.log(orgID);
+//											 console.log(orgID);
 											 if($("#page_type").val()=='select_account'){
 												 BpiccCommon.GetSingleAccountAddress(CAPI_ALL_SHIP_TO_ACCOUNTS);
 											 }
@@ -297,7 +295,7 @@ BpiccCommon=
 											setCookie("selected_ship_to_account_no",shipToSiteID);
 											setCookie("selected_bill_to_location",billToSiteID);
 											 setCookie("selected_org_id",orgID);
-											console.log(orgID);
+//											console.log(orgID);
 											if($("#page_type").val()=='select_account'){
 												SelectAccount.GetMultipleShiptoAddressForShipTo(CAPI_ALL_SHIP_TO_ACCOUNTS);
 											}
@@ -450,19 +448,14 @@ BpiccCommon=
 					  data_set['POSTAL_CODE']=POSTAL_CODE;
 					  data_set['COUNTRY']=COUNTRY;
 					 var address=ACCT_NAME+" - "+ADDRESS_LINE1+" "+ADDRESS_LINE2+" "+ADDRESS_LINE3+" "+CITY+" "+STATE+" "+POSTAL_CODE+" "+COUNTRY;
-					  console.log("address"+address);
-					  console.log("ship"+bpi_com_obj.ship_to_location);
-						 console.log("bill"+bpi_com_obj.bill_to_location);	
 						li_val+='<li id="ship_acc_'+SHIP_TO+'" onclick="SelectAccount.UpdateShipToSelectAccountNew(\''+SHIP_TO+'\',\''+BILL_TO_FOR_SHIP_TO+'\',\''+DEFAULT_ORG_CODE+'\')"  >';
 						li_val+='<a href="#">';
 						li_val+='<span class="acctnumber">'+SHIP_TO+'</span>';
 						li_val+='<span class="address" id="ship_acc_add_'+SHIP_TO+'">'+address+'</span>';
 						li_val+='</a>';
 						li_val+='</li>'
-							console.log("inside");
 						if(i==0 && empty(getCookie("selected_ship_to_account_no")))
 						{
-							console.log("inside");
 							 setCookie("selected_ship_to_account_no",SHIP_TO);
 							 setCookie("selected_bill_to_location","");
 							 setCookie("selected_ship_to_account_no",SHIP_TO);

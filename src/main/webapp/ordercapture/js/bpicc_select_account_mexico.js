@@ -121,62 +121,6 @@
 		} ,
 		ProcessGetMultipleShiptoAddressForShipTo:function(xml)
 		{
-//			for (var i = 0; i < xml.length; i++) {
-//				  var object = xml [i];
-//				  for (var property in object) {
-//				    console.log('item ' + i + ': ' + property + '=' + object[property]);
-////				    alert(object["DEFAULT_DC"]);
-//				    var DEFAULT_ORG_CODE= object["DEFAULT_DC"];
-//				    console.log("DEFAULT_ORG_CODE"+DEFAULT_ORG_CODE);
-//	                var SHIP_TO="23612";
-//					var BILL_TO_FOR_SHIP_TO="20677";
-//	                var DROP_SHIP_FLAG= object["DEFAULT_DC"];
-//	                var ACCT_NAME= object["ACCOUNT_NAME"];
-//	                var ACCT_NUM= object["ACCOUNT_NUMBER"];
-//	                var PARTY_SITE_ID= object["PARTY_SITE_ID"];
-//	                var ADDRESS_LINE1= object["ADDRESS1"];
-//	                var ADDRESS_LINE2= object["ADDRESS2"];
-//	                var ADDRESS_LINE3= object["ADDRESS3"];
-//	                var CITY= object["CITY"];
-//	                var STATE=object["STATE"];
-//	                var POSTAL_CODE= object["POSTAL_CODE"];
-//	                var COUNTRY= object["COUNTRY"];
-//					  data_set=new Object();
-//					  data_set['SHIP_TO']=SHIP_TO;
-//					  data_set['DROP_SHIP_FLAG']=DROP_SHIP_FLAG;
-//					  data_set['ACCT_NAME']=ACCT_NAME;
-//					  data_set['ACCT_NUM']=ACCT_NUM;
-//					  data_set['PARTY_SITE_ID']=PARTY_SITE_ID;
-//					  data_set['ADDRESS_LINE1']=ADDRESS_LINE1;
-//					  data_set['ADDRESS_LINE2']=ADDRESS_LINE2;
-//					  data_set['ADDRESS_LINE3']=ADDRESS_LINE3;
-//					  data_set['CITY']=CITY;
-//					  data_set['STATE']=STATE;
-//					  data_set['POSTAL_CODE']=POSTAL_CODE;
-//					  data_set['COUNTRY']=COUNTRY;
-//					 var address=ACCT_NAME+" - "+ADDRESS_LINE1+" "+ADDRESS_LINE2+" "+ADDRESS_LINE3+" "+CITY+" "+STATE+" "+POSTAL_CODE+" "+COUNTRY;
-//					  console.log("address"+address);
-//						li_val+='<li id="ship_acc_'+SHIP_TO+'" onclick="SelectAccount.UpdateShipToSelectAccountNew(\''+SHIP_TO+'\',\''+BILL_TO_FOR_SHIP_TO+'\',\''+DEFAULT_ORG_CODE+'\')"  >';
-//						li_val+='<a href="#">';
-//						li_val+='<span class="acctnumber">'+SHIP_TO+'</span>';
-//						li_val+='<span class="address" id="ship_acc_add_'+SHIP_TO+'">'+address+'</span>';
-//						li_val+='</a>';
-//						li_val+='</li>'
-//						if(i==0 && empty(getCookie("selected_ship_to_account_no")))
-//						{
-//							 setCookie("selected_ship_to_account_no","");
-//							 setCookie("selected_bill_to_location","");
-//							 setCookie("selected_ship_to_account_no",SHIP_TO);
-//							 setCookie("selected_ship_to_account_address",address);
-//							 setCookie("selected_ship_to_wc",DEFAULT_ORG_CODE);
-//							 setCookie("selected_bill_to_location",BILL_TO_FOR_SHIP_TO);
-//						 
-//							i++;
-//						}
-//				  }
-//			}
-			
-			
 //			var bill_to_ship_to_str=getCookie("bill_to_ship_to_obj");
 //			 var bill_to_ship_to_obj=JSON.parse(bill_to_ship_to_str);
 //			console.log("cookie result:"+empty(bill_to_ship_to_obj));
@@ -188,64 +132,6 @@
 			  try {
 				 
 				var li_val="";
-//				console.log($(xml).find("X_SHIP_TO_ADDRESS").text());
-	 
-	//
-//				$(xml).find('channel').each(function(){
-//				   $(this).find('item').each(function(){
-//				 $(xml).find('X_SHIP_TO_ADDRESS').each(function(){
-//					 console.log("cookie result1:res");
-//						var i=0;
-//	                     $(this).find('X_SHIP_TO_ADDRESS_ITEM').each(function(){//old source code
-						
-//	                    	 console.log("cookie result2:res");	 
-//	                        var DEFAULT_ORG_CODE= $(this).find("DEFAULT_ORG_CODE").text();
-//	                        var SHIP_TO= $(this).find("SHIP_TO").text();
-//							var BILL_TO_FOR_SHIP_TO=bill_to_ship_to_obj[SHIP_TO];
-//	                        var DROP_SHIP_FLAG= $(this).find("DROP_SHIP_FLAG").text();
-//	                        var ACCT_NAME= $(this).find("ACCT_NAME").text();
-//	                        var ACCT_NUM= $(this).find("ACCT_NUM").text();
-//	                        var PARTY_SITE_ID= $(this).find("PARTY_SITE_ID").text();
-//	                        var ADDRESS_LINE1= $(this).find("ADDRESS_LINE1").text();
-//	                        var ADDRESS_LINE2= $(this).find("ADDRESS_LINE2").text();
-//	                        var ADDRESS_LINE3= $(this).find("ADDRESS_LINE3").text();
-//	                        var CITY= $(this).find("CITY").text();
-//	                        var STATE= $(this).find("STATE").text();
-//	                        var POSTAL_CODE= $(this).find("POSTAL_CODE").text();
-//	                        var COUNTRY= $(this).find("COUNTRY").text();
-//							  data_set=new Object();
-//							  data_set['SHIP_TO']=SHIP_TO;
-//							  data_set['DROP_SHIP_FLAG']=DROP_SHIP_FLAG;
-//							  data_set['ACCT_NAME']=ACCT_NAME;
-//							  data_set['ACCT_NUM']=ACCT_NUM;
-//							  data_set['PARTY_SITE_ID']=PARTY_SITE_ID;
-//							  data_set['ADDRESS_LINE1']=ADDRESS_LINE1;
-//							  data_set['ADDRESS_LINE2']=ADDRESS_LINE2;
-//							  data_set['ADDRESS_LINE3']=ADDRESS_LINE3;
-//							  data_set['CITY']=CITY;
-//							  data_set['STATE']=STATE;
-//							  data_set['POSTAL_CODE']=POSTAL_CODE;
-//							  data_set['COUNTRY']=COUNTRY;
-//							 var address=ACCT_NAME+" - "+ADDRESS_LINE1+" "+ADDRESS_LINE2+" "+ADDRESS_LINE3+" "+CITY+" "+STATE+" "+POSTAL_CODE+" "+COUNTRY;
-//							  console.log("address"+address);
-//								li_val+='<li id="ship_acc_'+SHIP_TO+'" onclick="SelectAccount.UpdateShipToSelectAccountNew(\''+SHIP_TO+'\',\''+BILL_TO_FOR_SHIP_TO+'\',\''+DEFAULT_ORG_CODE+'\')"  >';
-//								li_val+='<a href="#">';
-//								li_val+='<span class="acctnumber">'+SHIP_TO+'</span>';
-//								li_val+='<span class="address" id="ship_acc_add_'+SHIP_TO+'">'+address+'</span>';
-//								li_val+='</a>';
-//								li_val+='</li>'
-//								if(i==0 && empty(getCookie("selected_ship_to_account_no")))
-//								{
-//									 setCookie("selected_ship_to_account_no","");
-//									 setCookie("selected_bill_to_location","");
-//									 setCookie("selected_ship_to_account_no",SHIP_TO);
-//									 setCookie("selected_ship_to_account_address",address);
-//									 setCookie("selected_ship_to_wc",DEFAULT_ORG_CODE);
-//									 setCookie("selected_bill_to_location",BILL_TO_FOR_SHIP_TO);
-//								 
-//									i++;
-//								}
-//						});
 				
 				for (var i = 0; i < xml.length; i++) {
 					  var object = xml [i];
