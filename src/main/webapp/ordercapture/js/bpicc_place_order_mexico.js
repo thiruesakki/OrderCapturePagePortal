@@ -2369,7 +2369,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						  bpi_obj.shipping_details[SHIP_TO]=new Object();
 						  bpi_obj.shipping_details[SHIP_TO]=data_set;
 						  var selected="";
-						  if(getCookie("selected_ship_to_account_no")==SHIP_TO)
+						  if(getCookie("selected_ship_to")==SHIP_TO)
 							  selected=" selected ";
 						 html=SHIP_TO+" - "+ACCT_NAME+" "+ADDRESS_LINE1+" "+ADDRESS_LINE2+" "+ADDRESS_LINE3+" "+CITY+" "+STATE+" "+POSTAL_CODE+" "+COUNTRY;;
 							option+="<option "+selected+" value='"+SHIP_TO+"'>"+html+"</option>";
@@ -2386,7 +2386,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					
 					// $("#shipping_address").val();
 //			 });
-			  if(empty(getCookie("selected_ship_to_account_no")))
+			  if(empty(getCookie("selected_ship_to")))
 			 {
 				  $(".locationPane").html('<p><span class="numberField">'+first_acc+'</span><span>  '+first_add+'</span></p>');
 				   $("#shipping_address").val(bpi_com_obj.ship_to_location);
@@ -2935,10 +2935,12 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		var SHIPPING_METHOD= bpi_obj.standard_ship_method_code;
 		if($("#select_order_type").val()=="Emergency")
 		{
-			if(base_shipping_method=="option1")
-			SHIPPING_METHOD=$('input[name=inlineRadioOptionsData]:checked').val();
-		 if(base_shipping_method=="option2")
-			SHIPPING_METHOD= bpi_obj.emergency_cust_pick_up_ship_method_code;;
+			if(base_shipping_method=="option1"){
+				SHIPPING_METHOD=$('input[name=inlineRadioOptionsData]:checked').val();
+			}
+		 if(base_shipping_method=="option2"){
+				SHIPPING_METHOD= bpi_obj.emergency_cust_pick_up_ship_method_code;
+		 }
 		}
 		if($("#select_order_type").val()=="Emergency" && base_shipping_method=="option1" && (empty(SHIPPING_METHOD) || SHIPPING_METHOD=="undefined"))
 		{
