@@ -452,9 +452,10 @@ public class OracleDataHandler {
 	 public PlaceOrderResponseObject savePlaceOrderMule(PlaceOrderObject placeOrderObject) throws IOException {
 		 
 		 	String org_id="204";
+		 	String userName= placeOrderObject.getUSER_NAME()==""||placeOrderObject.getUSER_NAME()==null?null:placeOrderObject.getUSER_NAME();
 			String query = "http://xxenv-test-place-sales-order3.us-e2.cloudhub.io/api/PlaceSalesOrder?p_operating_unit_id="
 					+ org_id + "&p_cust_po_number=" + placeOrderObject.getCUST_PO_NUMBER()+"&p_order_type="
-					+ placeOrderObject.getORDER_TYPE() + "&p_user_name=" +placeOrderObject.getUSER_NAME() +"&p_shipping_method="+ placeOrderObject.getSHIPPING_METHOD()+ "&p_ship_to_org="
+					+ placeOrderObject.getORDER_TYPE() + "&p_user_name=" + userName +"&p_shipping_method="+ placeOrderObject.getSHIPPING_METHOD()+ "&p_ship_to_org="
 					+ placeOrderObject.getSHIP_TO_ORG() +"&p_bill_to_org="+placeOrderObject.getBILL_TO_ORG()+"&p_requested_date="+placeOrderObject.getREQUESTED_DATE();
 
 			System.out.println(query);

@@ -2160,6 +2160,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	},
 	ApiGetShippingInfo:function(ship_to_acc)
 	{
+		console.log("api get shipping info"+ship_to_acc);
 		BpiccPlaceOrder.ClearAllShippingAddressInputBox();
 	 
 		 ship_to_data="";
@@ -3096,6 +3097,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		 /*  json_data='{"status":0,"errorMessage":"","object":[{"scac_id":"1","scac_seq_no":"0","scac":"UP2","entity":"65","description":"UPS 2nd Day Air","order_type":"EMERGENCY","scac_default":"n"},{"scac_id":"2","scac_seq_no":"1","scac":"UP3","entity":"65","description":"UPS 3 Day Select","order_type":"EMERGENCY","scac_default":"n"},{"scac_id":"3","scac_seq_no":"19","scac":"FED","entity":"32","description":"FedEx Air","order_type":"EMERGENCY","scac_default":"n"},{"scac_id":"4","scac_seq_no":"20","scac":"FGR","entity":"32","description":"FedEx Ground","order_type":"EMERGENCY","scac_default":"y"},{"scac_id":"5","scac_seq_no":"21","scac":"SAM","entity":"32","description":"Same Day","order_type":"EMERGENCY","scac_default":"n"}]}';
 		   BpiccPlaceOrder.ProcessGetShippingMethodTypes(json_data);
 		   return;  */ 
+		console.log("Shipping method");
 		var url = bpi_com_obj.web_mssql_api_url+"GetShippingMethodTypes";
 			jQuery.ajax({
 					type: "GET",
@@ -3111,7 +3113,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	},
 	ProcessGetShippingMethodTypes:function(responce)
 	{
-		
+		console.log("process get ship to");
 		 
 		 	
 		var html="";

@@ -1665,7 +1665,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	{
 		var flag=true;
 		BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages("","");
-		if($("#page_type").val()=='place_order' && $("#select_order_type").val()=="ER")
+		if($("#page_type").val()=='place_order' && $("#select_order_type").val()=="Emergency")
 		{
 			var data=$("#bpicc_tableDetails tbody tr");
 			$.each(data,function(k,v)
@@ -1754,7 +1754,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			
 			 BpiccPlaceOrder.EnableEmergencyShipRadioType();
 			 BpiccPlaceOrder.PopulateShippingAddressValues();
-			 if($("#select_order_type").val()=="ST")
+			 if($("#select_order_type").val()=="Standard" || $("#select_order_type").val()=="Mixed")
 			 {
 				 $("#shipping_method_div").hide();
 				 $("#standard_shipping_method_div").show();
@@ -2933,14 +2933,14 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		if(selected_shipping_addres_type=="DROP SHIP")
 		DROP_SHIP_FLAG="1";
 		var SHIPPING_METHOD= bpi_obj.standard_ship_method_code;
-		if($("#select_order_type").val()=="ER")
+		if($("#select_order_type").val()=="Emergency")
 		{
 			if(base_shipping_method=="option1")
 			SHIPPING_METHOD=$('input[name=inlineRadioOptionsData]:checked').val();
 		 if(base_shipping_method=="option2")
 			SHIPPING_METHOD= bpi_obj.emergency_cust_pick_up_ship_method_code;;
 		}
-		if($("#select_order_type").val()=="ER" && base_shipping_method=="option1" && (empty(SHIPPING_METHOD) || SHIPPING_METHOD=="undefined"))
+		if($("#select_order_type").val()=="Emergency" && base_shipping_method=="option1" && (empty(SHIPPING_METHOD) || SHIPPING_METHOD=="undefined"))
 		{
 			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("Please Select Shipping Method Option","Error"); 
 				return false;
@@ -2953,10 +2953,15 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		// var SHIP_TO_ORG=shipping_address;
 		var SHIP_TO_ORG=bpi_com_obj.ship_to_location;
 		var BILL_TO_ORG=bpi_com_obj.bill_to_location;
-		if(!empty(getCookie("selected_ship_to_account_no")))
+		if(!empty(getCookie("selected_ship_to")))
 		{
-			SHIP_TO_ORG=getCookie("selected_ship_to_account_no");
+			SHIP_TO_ORG=getCookie("selected_ship_to");
 		}
+		if(!empty(getCookie("selected_bill_to")))
+		{
+			BILL_TO_ORG=getCookie("selected_bill_to");
+		}
+		console.log("shipto:"+SHIP_TO_ORG+"BILL_TO_ORG"+BILL_TO_ORG);
 		//$("#state").html("<option value='CA'>CA</option>");
 		//$(".shippingAddress #country").html("<option value='US'>US</option>");
 		var SHIP_TO_NAME=$("#company").val();
@@ -3012,7 +3017,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		var partNum="";
 		var reqQnty="";
 		var warehouse="";
-		
+		var todayDATE = new Date();
+
+		var RequestedDATE =todayDATE.toShortFormat();
 		var placeOrderJson = {};
 		var orderLinesArray = [];
 		placeOrderJson.CUST_PO_NUMBER=CUST_PO_NUMBER;
@@ -3023,7 +3030,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		placeOrderJson.BILL_TO_ORG=BILL_TO_ORG;
 		placeOrderJson.STORE_ID=""; 
 		placeOrderJson.CUSTOMER_NOTES="";
-		placeOrderJson.REQUESTED_DATE="";
+		placeOrderJson.REQUESTED_DATE=RequestedDATE;
 		
 		$.each(data,function(k,v)
 		{
@@ -3042,7 +3049,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				var orderLinesJson = {
 						"partNum":partNum,
 						"reqQnty":reqQnty,
-						"warehouse":warehouse
+						"WARE_HOUSE":warehouse
 
 				};
 				orderLinesArray.push(orderLinesJson);
@@ -3121,7 +3128,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						 
 						success: function (data) {
 							 $(".loader").hide();
-							 BpiccPlaceOrder.ApiProcessSubmitOrderdata(data);
+							 console.log("result data"+data);
+							 var object=data.object;
+							 BpiccPlaceOrder.ApiProcessSubmitOrderdata(object);
 						},
 						error: function (msg) {
 							 $(".loader").hide();
@@ -3220,14 +3229,17 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
  
 	ApiProcessSubmitOrderdata:function(xml)
 	{
+		var obj=JSON.parse(xml);
 		  try {
 			 
-			 X_RESPONSE_STATUS=$(xml).find('X_RESPONSE_STATUS').text() ;
-			 X_RESPONSE_MESSAGE=$(xml).find('X_RESPONSE_MESSAGE').text()
-			 X_SALES_ORDER_NUMBER=$(xml).find('X_SALES_ORDER_NUMBER').text()
+//			 X_RESPONSE_STATUS=$(xml).find('X_RESPONSE_STATUS').text() ;
+//			 X_RESPONSE_MESSAGE=$(xml).find('X_RESPONSE_MESSAGE').text()
+//			 X_SALES_ORDER_NUMBER=$(xml).find('X_SALES_ORDER_NUMBER').text()
+			var X_RESPONSE_STATUS=obj['x_response_status'] ;
+			var X_RESPONSE_MESSAGE=obj['x_response_message'] ;
+			var X_SALES_ORDER_NUMBER=obj['x_sales_order_number'];
 			 if(X_RESPONSE_STATUS=="S")
 			 {
-				 
 				// BpiccPlaceOrder.EnableAddRowsAndButtonPoValidation();
 				alert(X_RESPONSE_MESSAGE+" - Sales Order No is "+X_SALES_ORDER_NUMBER);
 				window.location.href= selectAccountPrefix + "order-history.html";
@@ -3333,3 +3345,17 @@ function RemoveSpecialChars(str)
 
     return false;
 }
+ 
+ Date.prototype.toShortFormat = function() {
+
+	    var month_names =["JAN","FEB","MAR",
+	                      "APR","MAY","JUN",
+	                      "JUL","AUG","SEP",
+	                      "OCT","NOV","DEC"];
+	    
+	    var day = this.getDate();
+	    var month_index = this.getMonth();
+	    var year = this.getFullYear();
+	    var dayFormat=parseInt(day)<10?"0"+day:day;
+	    return "" + dayFormat + "-" + month_names[month_index] + "-" + year;
+	}
