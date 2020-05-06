@@ -359,7 +359,7 @@ color: #fff;}
 
 .navbar-inverse .navbar-nav > li > a:hover{
   background-color: #fff;
-  color: #bd0416 !important;
+  color: #264057 !important;
   border: 1px solid #7c7c7e; border-bottom: none;
   border-radius: 10px 10px 0 0;
 }
@@ -395,7 +395,7 @@ color: #fff;}
   border-radius: 10px 10px 0 0;}
 
 .navbar-inverse .navbar-nav .dropdown-menu {
-  background-color: #5e5e60;
+  background-color: #44637D;
   -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125);

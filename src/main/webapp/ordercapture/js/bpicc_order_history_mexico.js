@@ -884,7 +884,7 @@ xml_request_data+=' </soap:Envelope> ';
 							html+='<div class="panel-heading '+ship_act_class+'">';
                         html+=' <h3 class="panel-title"> ';
 //                        html+=' <a class="accordion-toggle" data-toggle="collapse"  href="#collapseOne'+ship_cnt+'" aria-expanded="false">SHIPMENT # '+SHIPMENT_NUM+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SHIP DATE: '+SHIPPED_DATE+' <i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
-                        html+=' <a class="accordion-toggle" data-toggle="collapse"  href="#collapseOne'+ship_cnt+'" aria-expanded="false">SHIPMENT # '+SHIPMENT_NUM+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
+                        html+=' <a class="accordion-toggle" data-toggle="collapse" style="color: #2E4F6A;font-weight: bold;" href="#collapseOne'+ship_cnt+'" aria-expanded="false">SHIPMENT # '+SHIPMENT_NUM+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
                         html+=' </h3>';
 						html+='  </div> ';
                        //shipment main div ends starts 
@@ -1143,7 +1143,7 @@ xml_request_data+=' </soap:Envelope> ';
 							html+='<div class="panel-heading '+ship_act_class+'">';
                         html+=' <h3 class="panel-title"> ';
 //                        html+=' <a class="accordion-toggle" data-toggle="collapse"  href="#collapseOne'+ship_cnt+'" aria-expanded="false">ORDER_NUMBER # '+ORDER_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRX DATE: '+TRX_DATE+' <i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
-                        html+=' <a class="accordion-toggle" data-toggle="collapse"  href="#collapseOne'+ship_cnt+'" aria-expanded="false">INVOICE NUMBER # '+TRX_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
+                        html+=' <a class="accordion-toggle" data-toggle="collapse" style="color: #2E4F6A;font-weight: bold;" href="#collapseOne'+ship_cnt+'" aria-expanded="false">INVOICE NUMBER # '+TRX_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
                         html+=' </h3>';
 						html+='  </div> ';
                        //invoice main div ends starts 
@@ -1221,7 +1221,7 @@ xml_request_data+=' </soap:Envelope> ';
 							  html+=' </tbody>'
 //							  
 										html+='</table>';
-							html+=' <td colspan="2"><b>TOTAL SHIPPED PIECES</b><b> : </b><b>'+tot_shipped+'</b></td><br></br>';
+							html+=' <td colspan="2"><b>TOTAL SHIPPED PIECES</b><b> : </b><b>'+tot_shipped+'</b></td><br>';
 							html+=' <td colspan="2"><b>TOTAL INVOICE AMOUNT</b><b> : </b><b>'+tot_inv_amt+'</b></td>';
 						 html+='</div>';//close of InvoiceDetails
 						 	html+='</div>';//close of panel-body

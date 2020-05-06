@@ -30,8 +30,8 @@
 
 .container .bpiOnlineRightPanel .secondRow .btn.btn-default span{padding-right:6px;}
 
-body .navbar-nav .dropdown li a:hover{background: #bd0416 !important;}
-body .navbar-nav .dropdown li a:focus{background: #bd0416 !important;}
+body .navbar-nav .dropdown li a:hover{background: #264057 !important;}
+body .navbar-nav .dropdown li a:focus{background: #264057 !important;}
 
 .container .bpiOnlineRightPanel .placeOrderPane{padding:0px;}
 .container .bpiOnlineRightPanel .poPane{padding:0px;}
@@ -229,9 +229,9 @@ body .navbar-nav .dropdown li a:focus{background: #bd0416 !important;}
 .container .bpiOnlineRightPanel .shippingMethod.upsPickup{display: none;}
 .container .bpiOnlineRightPanel .shippingMethod.customerPickup{display: none;}
 
-.bpiOnlineRightPanel  .shippingBlock  .validate .leftButtonPane button{background:#bd0416;font-family: arial;
+.bpiOnlineRightPanel  .shippingBlock  .validate .leftButtonPane button{background:#2E4F6A;font-family: arial;
     font-size: 15px;}
-.bpiOnlineRightPanel  .shippingBlock  .validate .rightButtonPane button{background:#bd0416;}
+.bpiOnlineRightPanel  .shippingBlock  .validate .rightButtonPane button{background:#2E4F6A;}
 
 .bpiOnlineRightPanel .modal-body .uploadOrder .instructionStepTwo .selectFile{width:100%;}
 .bpiOnlineRightPanel .modal-body .uploadOrder .instructionStepTwo .errorFileFormat{border: 1px solid red;font-size: 12px;color: red;margin: 7px 7px 5px 7px; padding-left:12px;}
@@ -285,7 +285,7 @@ body .navbar-nav .dropdown li a:focus{background: #bd0416 !important;}
 .bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul li a:hover {background:#76B9ED;}
 .bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li{border-bottom:1px solid #7b7777; width: 100%; float: left;}
 .bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li:last-child{border-bottom:none;}
-.bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li .acctnumber{    width: 120px; float: left; padding: 15px;  /* line-height: 3.5; */   font-weight: bold; }
+.bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li .acctnumber{    width: 120px; float: left; padding: 15px;  /* line-height: 3.5; */   font-weight: none; }
 .bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li .address{    width: 710px;  /* line-height: 3.5; */  padding: 15px; color: black; float: left; border-left: 1px solid #7b7777;}
 .bpiOnlineRightPanel .selectAccountBlock .selectAccountContent .selectAccountBody ul  li:last-child .address{ border:none !important; }
 
