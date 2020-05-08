@@ -2717,8 +2717,8 @@ shortcodes page css
 .row .col-sm-3 ul li:last-child { border-bottom-left-radius:0px !important; border-bottom-right-radius: 0px !important;}
 .row .col-sm-3 ul li{list-style:none; padding:0; margin:0;}
 .row .col-sm-3 ul li a{border:none; font-weight: bold; padding: 5px 15px 5px 45px; float:left; width:100%;background: rgba(0, 0, 0, 0) url("../img/left-black-arrow.jpg") no-repeat scroll 22px 10px; color:#555;}
-.row .col-sm-3 ul li a:hover{ color: #bd0416 !important;  background: rgba(0, 0, 0, 0) url("../img/left-red-icon.jpg") no-repeat scroll 22px 10px; color:#bd0416;}
-.row .col-sm-3 ul li a.active{ color: #bd0416 !important; background: none !important;}
+.row .col-sm-3 ul li a:hover{ color: #264057 !important;  background: rgba(0, 0, 0, 0) url("../img/left-red-icon.jpg") no-repeat scroll 22px 10px; color:#bd0416;}
+.row .col-sm-3 ul li a.active{ color: #264057 !important; background: none !important;}
 .row .col-sm-3 ul li i{ margin-right: 10px; font-size: 14px;}
 .innerpage h2.topicHead{margin-top: 0;}
 .productImage{margin:5px 23px 15px 0; border: 1px solid #c5c5c5; border-radius: 3px;}
