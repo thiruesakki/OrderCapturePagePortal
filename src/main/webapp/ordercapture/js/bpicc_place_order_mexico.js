@@ -5,6 +5,21 @@ var orgID="";
 var bill_to_location="";
 var ship_to_location="";
 po_ajax="";
+var partNoList = ["CM15140",
+                  "CM82333",
+                  "AS92888",
+                  "AS72111",
+                  "AS54888",
+                  "AU11888",
+                  "CM75111",
+                  "CM15138",
+                  "AS54999",
+                  "CM15138",
+                  "AS92689",
+                  "CM75113"];
+$(document).ready(function() {
+//	GetPartNumberList()
+});
   jQuery(function($) {'use strict',
   
 	/* function handle(e){
@@ -688,7 +703,7 @@ BpiccPlaceOrder=
 			if(empty(inputPo) && $("#page_type").val()=='place_order')
 				disabled_flag=" disabled ";
 			var html='<tr id="'+new_tr_id+'">';
-			html+='<td><div class="availableDC"><input id="partNum_'+new_tr_id+'" '+disabled_flag+' onblur="BpiccPlaceOrder.ValidateEnteredPartNo('+new_tr_id+');" value="" class="partNum"  type="text"></div></td>';
+			html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'" '+disabled_flag+' onblur="BpiccPlaceOrder.ValidateEnteredPartNo('+new_tr_id+');" value="" class="partNum"  type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
 			html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
 			html+='<td><input id="desc_'+new_tr_id+'" class="inputDesc" value="" disabled="" type="text"></td>';
 			html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
@@ -719,7 +734,7 @@ BpiccPlaceOrder=
 			/*if(empty(inputPo))
 				dis=" disabled "; */
 			var html='<tr id="'+new_tr_id+'">';
-			html+='<td><div class="availableDC"><input id="partNum_'+new_tr_id+'"  onblur="BpiccPlaceOrder.ValidateEnteredPartNo('+new_tr_id+');"  value='+part_no+' class="partNum" type="text"></td></div>';
+			html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'"  onblur="BpiccPlaceOrder.ValidateEnteredPartNo('+new_tr_id+');"  value='+part_no+' class="partNum" type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
 			html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
 			html+='<td><input id="desc_'+new_tr_id+'" class="inputDesc" value="" disabled="" type="text"></td>';
 			html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
@@ -2167,7 +2182,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			 if(empty(inputPo))
 				dis=" disabled ";
 			  html+='<tr id="'+row_tr_id+'">';
-			html+='<td><div class="availableDC"><input id="partNum_'+row_tr_id+'"  onblur="BpiccPlaceOrder.ValidateEnteredPartNo('+row_tr_id+');"  value='+PRODUCT_NUM+' class="partNum" type="text"></td></div>';
+			html+='<td><div class="availableDC ui-widget"><input id="partNum_'+row_tr_id+'"  onblur="BpiccPlaceOrder.ValidateEnteredPartNo('+row_tr_id+');"  value='+PRODUCT_NUM+' class="partNum" type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></td></div>';
 			html+='<td><input id="brand_'+row_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
 			html+='<td><input id="desc_'+row_tr_id+'" class="inputDesc" value="" disabled="" type="text"></td>';
 			html+='<td><input id="weight_'+row_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
@@ -3317,7 +3332,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			});
 			
 			
-	} 
+	}
  
 	
 }
@@ -3361,3 +3376,78 @@ function RemoveSpecialChars(str)
 	    var dayFormat=parseInt(day)<10?"0"+day:day;
 	    return "" + dayFormat + "-" + month_names[month_index] + "-" + year;
 	}
+// $(function() {
+//	  for (var i = 0; i < 500; i++) {
+//		  partNoList.push('abc' + i);
+//   }
+//  
+ $(function() {
+//	 $( ".partNum" ).autocomplete({
+//	      source: partNoList
+//	    });
+// });
+//	  $(function() {
+//          var availableTutorials  =  [
+//             "ActionScript",
+//             "Bootstrap",
+//             "C",
+//             "C++",
+//          ];
+//          $( "#automplete-1" ).autocomplete({
+//             source: availableTutorials
+//          });
+//       });
+ $(document).on('click', '.partNum', function() {
+ 	$(".partNum").autocomplete({
+         minLength: 1,
+         source: function (request, response) {
+         	console.log("insidde funtion");
+         	 var filteredArray = $.map(partNoList, function(item) {
+         		 var item2=item.toLowerCase();
+         		 var request2=request.term;
+         		 request2=request2.toLowerCase();
+         	        if( item2.indexOf(request2) == 0){
+         	            return item;
+         	        }
+         	        else{
+         	            return null;
+         	        }
+         	    });
+         	    response(filteredArray.slice(0, 20));
+         }
+     });
+ });
+});
+ function GetPartNumberList()
+ {
+	 var shipTO=getCookie("selected_ship_to");
+		var billTO=getCookie("selected_bill_to");
+		var userID=getCookie("userID");
+		var orgID=getCookie("selected_org_id");
+		var partNO="CM";
+	 var url = bpi_com_obj.web_oracle_api_url+"GetPartNumber?org_id="+orgID+"&shipTo_number="+shipTO+"&partNumber="+partNO;
+		jQuery.ajax({
+				type: "GET",
+				url: url,
+				    dataType:"json",
+				 
+				success: function (data) {
+					console.log(data);
+					
+					if(data.status==0){
+						var object=JSON.parse(data.object);
+						var partNumberList=object.x_item_search;
+						for(i=0;i<partNumberList.length;i++){
+							var partNoArray=partNumberList[i];
+							partNoList=partNoArray;
+						}
+							
+					}
+				},
+				error: function (msg) {
+					  console.log("Failed: " + msg.status + ": " + msg.statusText);
+				}
+			});
+// 	  return r_str;
+ }
+ 

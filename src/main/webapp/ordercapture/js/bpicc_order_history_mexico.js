@@ -1346,9 +1346,10 @@ function dateFormatChange(date){
 	var dd=d.getDate();
 	var mm=d.getMonth()+1;
 	var yy=d.getFullYear();
+	var dayFormat=parseInt(dd)<10?"0"+dd:dd;
 	var d1=date.split("-");
 //	var newdate=mm+"-"+dd+"-"+yy;
-	var newdate=dd+"-"+d1[1]+"-"+yy;
+	var newdate=dayFormat+"-"+d1[1]+"-"+yy;
 	return newdate;
 }
 

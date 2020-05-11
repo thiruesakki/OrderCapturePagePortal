@@ -317,13 +317,13 @@ body .navbar-nav .dropdown li a:focus{background: #264057 !important;}
 .container .bpiOnlineRightPanel .tableContentsPriceList .table thead th .sortdown i{position: absolute;    right: 9px; top: 15px; font-size: 16px;  }
 
 .container .bpiOnlineRightPanel .tableContentsPriceList .sortable  tbody td{padding:10px 8px !important;}
-.container .bpiOnlineRightPanel .tableContentsPriceList .table thead th:nth-child(1) { width:140px !important; }
-.container .bpiOnlineRightPanel .tableContentsPriceList .table thead th:nth-child(2) { width:467px !important; }
+.container .bpiOnlineRightPanel .tableContentsPriceList .table thead th:nth-child(1) { width:467px !important; }
+.container .bpiOnlineRightPanel .tableContentsPriceList .table thead th:nth-child(2) { width:140px !important; }
 .container .bpiOnlineRightPanel .tableContentsPriceList .table thead th:nth-child(3) { width:120px !important; }
 .container .bpiOnlineRightPanel .tableContentsPriceList .table thead th:nth-child(4){ width:120px !important;    border-right: none; }
 
-.container .bpiOnlineRightPanel .tableContentsPriceList .table tbody td:nth-child(1) { width:140px !important; }
-.container .bpiOnlineRightPanel .tableContentsPriceList .table tbody td:nth-child(2) { width:475px !important; padding-left: 20px;}
+.container .bpiOnlineRightPanel .tableContentsPriceList .table tbody td:nth-child(1) { width:475px !important; }
+.container .bpiOnlineRightPanel .tableContentsPriceList .table tbody td:nth-child(2) { width:140px !important; padding-left: 20px;}
 .container .bpiOnlineRightPanel .tableContentsPriceList .table tbody td:nth-child(3) { width:123px !important; }
 .container .bpiOnlineRightPanel .tableContentsPriceList .table tbody td:nth-child(4){ width:97px !important; }
 .container .bpiOnlineRightPanel .tableContentsPriceList .table tbody tr{ width: 100%; }

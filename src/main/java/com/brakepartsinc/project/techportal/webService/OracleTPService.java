@@ -44,6 +44,7 @@ import com.brakepartsinc.project.techportal.dto.OrderShipToObject;
 import com.brakepartsinc.project.techportal.dto.OrderShippingObject;
 import com.brakepartsinc.project.techportal.dto.OrganizationObject;
 import com.brakepartsinc.project.techportal.dto.PRIPromoDetailsObject;
+import com.brakepartsinc.project.techportal.dto.PartNumberObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderResponseObject;
 import com.brakepartsinc.project.techportal.dto.PromoBusinessDetailsObject;
@@ -524,6 +525,45 @@ public class OracleTPService {
 			}
 			return jsonResult.toString();
 		}
-	
+		@GET
+		@Path("/GetPartNumber")
+		public String GetPartNumber(@QueryParam("org_id") String orgID,
+				@QueryParam("shipTo_number") String shipTo_number,
+				@QueryParam("partNumber") String partNumber
+				) {
+			JsonObject jsonResult = new JsonObject();
+			int status = -1;
+			String errorMessage = "";
+			PartNumberObject partNOObj=null;
+			String partNOJson = null;
+			try {
+				OracleDataHandler dataHandler = new OracleDataHandler();
+				partNOObj=dataHandler.getPartNumber(orgID, shipTo_number, partNumber);
+				Gson gson = new Gson();
+				if (partNOObj != null) {
+					status = 0;
+					
+					partNOJson = gson.toJson(partNOObj);
+				} else {
+					status = 1;
+					errorMessage = "PartNO List not found";
+				}
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", errorMessage);
+				jsonResult.addProperty("object", partNOJson);
+				System.out.println("Part Number List - Result to be returned:"
+						+ jsonResult);
+
+			} catch (Exception e) {
+				status = 6;
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", e.getMessage());
+				jsonResult.add("object", null);
+				System.out
+						.println("Part Number List - ERROR Result to be returned:"
+								+ jsonResult);
+			}
+			return jsonResult.toString();
+	}
 	
 }

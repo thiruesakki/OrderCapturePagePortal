@@ -18,6 +18,7 @@ import com.brakepartsinc.project.techportal.dto.InvoiceOrderCheckObject;
 import com.brakepartsinc.project.techportal.dto.OrderHistoryListObject;
 import com.brakepartsinc.project.techportal.dto.OrderShipToObject;
 import com.brakepartsinc.project.techportal.dto.OrderShippingObject;
+import com.brakepartsinc.project.techportal.dto.PartNumberObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderResponseObject;
 import com.brakepartsinc.project.techportal.dto.ShipToObject;
@@ -142,6 +143,7 @@ public class OracleDataHandler {
 //		String orderFromDate=TPUtility.formatSqlDateToMule(fromDate);
 		String query = "http://xxenv-test-order-history1.us-e2.cloudhub.io/api/OrderHistory?p_operating_unit_id="
 				+ orgId + "&p_ship_to=" + shipTo+"&p_bill_to="+billTo+"&p_from_date="+fromDate+"&p_to_date="+toDate+"&p_search_type="+searchType;
+		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
 		String readLine = null;
 		String outputString = "";
@@ -494,5 +496,35 @@ public class OracleDataHandler {
 				System.out.println("POST NOT WORKED");
 			}
 			return placeOrderRes;
+	}
+	 public PartNumberObject getPartNumber(String org_id,
+			 String shipTo_number, String partNO) throws IOException {
+		String query = "http://item-search.us-e2.cloudhub.io/api/ItemSearch?p_operating_unit_id="
+				+ org_id + "&p_ship_to=" + shipTo_number + "&p_item="+partNO;
+		System.out.println(query);
+		URL urlForGetRequest = new URL(query);
+		String readLine = null;
+		String outputString = "";
+		PartNumberObject partNOObject = null;
+		HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+				.openConnection();
+		conection.setRequestMethod("GET");
+		int responseCode = conection.getResponseCode();
+		if (responseCode == HttpURLConnection.HTTP_OK) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					conection.getInputStream()));
+			StringBuffer response = new StringBuffer();
+
+			while ((readLine = in.readLine()) != null) {
+				response.append(readLine);
+			}
+			in.close();
+			outputString = response.toString();
+			Gson g = new Gson();
+			partNOObject = g.fromJson(outputString, PartNumberObject.class);
+		} else {
+			System.out.println("GET NOT WORKED");
+		}
+		return partNOObject;
 	}
 }
