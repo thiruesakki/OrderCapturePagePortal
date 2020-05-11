@@ -5,18 +5,7 @@ var orgID="";
 var bill_to_location="";
 var ship_to_location="";
 po_ajax="";
-var partNoList = ["CM15140",
-                  "CM82333",
-                  "AS92888",
-                  "AS72111",
-                  "AS54888",
-                  "AU11888",
-                  "CM75111",
-                  "CM15138",
-                  "AS54999",
-                  "CM15138",
-                  "AS92689",
-                  "CM75113"];
+var partNoList = [];
 $(document).ready(function() {
 //	GetPartNumberList()
 });
