@@ -48,7 +48,7 @@
 							</TR>
 							<TR ALIGN="center" VALIGN="middle">
 								<TD colspan=2 align="right">&nbsp; &nbsp;<B><FONT
-										SIZE="4" face="Arial"><a href="#"
+										SIZE="4" face="Arial"><a href="ordercapture\forgotpassword.html"
 											style="text-decoration: None"> Forgot Password</a></FONT> </B></TD>
 							</TR>
 							<TR ALIGN="center" VALIGN="middle">

@@ -245,6 +245,53 @@ public class TPService {
 	}
 
 	@GET
+	@Path("/VerifyEmailForgot")
+	@Produces("application/json")
+	public String verifyEmailForgot(@QueryParam("email") String email) {
+		JsonObject jsonResult = new JsonObject();
+		String userJson = null;
+		int status = -1;
+		String errorMessage = "";
+		String userID = null;
+
+		try {
+			
+			String domainName = "http://" + "localhost"
+					+ ":8080/OrderCapturePortal/ordercapture";
+//			String domainName = request.getScheme() + "://" + // "http" + "://
+//					request.getServerName() + // "myhost"
+//					":" + // ":"
+//					request.getServerPort() + request.getContextPath();
+			
+			DataHandler dataHandler = new DataHandler();
+			userID = dataHandler.verifyEmailForgot(email,domainName);
+
+			if (userID != null && "".equals(userID) == false) {
+				status = 0;
+				JsonObject value = new JsonObject();
+				value.addProperty("userID", userID);
+				Gson gson = new Gson();
+				userJson = gson.toJson(value);
+			} else {
+				status = 1;
+				errorMessage = "Invalid Email";
+			}
+
+			jsonResult.addProperty("status", status);
+			jsonResult.addProperty("errorMessage", errorMessage);
+			jsonResult.addProperty("object", userJson);
+			System.out.println("VerifyEmail - Result to be returned:" + jsonResult);
+
+		} catch (Exception e) {
+			jsonResult.addProperty("status", status);
+			jsonResult.addProperty("errorMessage", e.getMessage());
+			jsonResult.addProperty("object", userJson);
+			System.out.println("VerifyEmail - ERROR Result to be returned:" + jsonResult);
+		}
+		return jsonResult.toString();
+	}
+
+	@GET
 	@Path("/VerifyUser")
 	@Produces("application/json")
 	public String verifyUser(

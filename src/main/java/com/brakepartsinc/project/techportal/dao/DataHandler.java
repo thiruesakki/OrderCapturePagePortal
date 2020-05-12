@@ -7,9 +7,11 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.brakepartsinc.project.techportal.client.util.EmailService;
 import com.brakepartsinc.project.techportal.dto.CAPAddEditUserObject;
 import com.brakepartsinc.project.techportal.dto.CAPUserObject;
 import com.brakepartsinc.project.techportal.dto.CategoryObject;
@@ -172,6 +174,78 @@ public class DataHandler {
 		}
 		return userID;
 	}
+	
+	
+	public String verifyEmailForgot(String email,String domainName) throws Exception {
+		int status = -1;
+		String errorMessage = "";
+		String userID = "";
+		String secretkey = "";
+		ConnectionManager cmanager = null;
+		Connection connection = null;
+
+		String queryString = "Select id from dbo.bpi_user where email = '";
+
+		try {
+			cmanager = new ConnectionManager();
+			connection = cmanager.GetConnection();
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(queryString + email + "'");
+
+			while (rs.next()) {
+				userID = rs.getString("id");
+			}
+			
+			if (userID != null && "".equals(userID) == false) {
+				secretkey = UUID.randomUUID().toString();
+				status = 0;
+				errorMessage= "Email is valid";
+				
+			} else {
+				status = 1;
+				errorMessage = "Invalid Email";
+			}
+
+		} catch (Exception e) {
+			System.err.println("DB ERROR: Method GetUser() : "+e);
+			throw e;
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (Exception e) {
+
+				}
+			}
+		}
+		
+		if (status == 0) {
+			int insertcount = saveResetPswdKey(userID, secretkey);
+//			System.out.println("insertcount:"+insertcount);
+//			if(insertcount > 0) {
+				try {
+				
+			        boolean mailSent =	EmailService.sendMail(email, secretkey, domainName);
+				if ( mailSent == false) {
+					status = 0;
+					errorMessage= "Reset password Link is sent to your email";
+					
+				} else {
+					status = 1;
+					errorMessage="unable to send the reset password link";
+					
+				}
+				} catch (Exception e) {
+					status = 1;
+					errorMessage="unable to send the reset password link";
+					
+				}
+//			}
+		}
+		
+		return userID;
+	}
+	
 	
 	public List<OrganizationObject> GetOrganization() throws Exception {
 		List<OrganizationObject> list = new ArrayList<OrganizationObject>();
@@ -495,7 +569,7 @@ public class DataHandler {
 		return statusObject;
 	}
  
-	public int saveResetPswdKey(String secretkey, String userID)
+	public int saveResetPswdKey(String userID, String secretkey)
 			throws Exception {
 		int status = -1;
 		Statement statement = null;
@@ -551,6 +625,7 @@ public class DataHandler {
 		System.out.println("Status returned:" + status);
 		return status;
 	}
+	
  
 	public StatusObject verifyResetPasswordLink(String secretkey) throws Exception {
 		//String statusString = "-1:null";
