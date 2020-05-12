@@ -499,7 +499,7 @@ public class OracleDataHandler {
 	}
 	 public PartNumberObject getPartNumber(String org_id,
 			 String shipTo_number, String partNO) throws IOException {
-		String query = "http://item-search.us-e2.cloudhub.io/api/ItemSearch?p_operating_unit_id="
+		String query = "http://item-search1.us-e2.cloudhub.io/api/ItemSearch?p_operating_unit_id="
 				+ org_id + "&p_ship_to=" + shipTo_number + "&p_item="+partNO;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);

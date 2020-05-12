@@ -7,7 +7,7 @@ var ship_to_location="";
 po_ajax="";
 var partNoList = [];
 $(document).ready(function() {
-//	GetPartNumberList()
+	GetPartNumberList()
 });
   jQuery(function($) {'use strict',
   
@@ -3413,7 +3413,7 @@ function RemoveSpecialChars(str)
 		var billTO=getCookie("selected_bill_to");
 		var userID=getCookie("userID");
 		var orgID=getCookie("selected_org_id");
-		var partNO="CM";
+		var partNO="";
 	 var url = bpi_com_obj.web_oracle_api_url+"GetPartNumber?org_id="+orgID+"&shipTo_number="+shipTO+"&partNumber="+partNO;
 		jQuery.ajax({
 				type: "GET",
@@ -3421,13 +3421,14 @@ function RemoveSpecialChars(str)
 				    dataType:"json",
 				 
 				success: function (data) {
-					console.log(data);
+					console.log(JSON.stringify(data));
 					
 					if(data.status==0){
 						var object=JSON.parse(data.object);
 						var partNumberList=object.x_item_search;
 						for(i=0;i<partNumberList.length;i++){
 							var partNoArray=partNumberList[i];
+							console.log(partNoArray);
 							partNoList=partNoArray;
 						}
 							
