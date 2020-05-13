@@ -7,6 +7,7 @@ var ship_to_location="";
 po_ajax="";
 var partNoList = [];
 $(document).ready(function() {
+	$(".loader").show();
 	GetPartNumberList()
 });
   jQuery(function($) {'use strict',
@@ -1585,6 +1586,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						 if(obj!=null){
 							var productObj=obj.x_product_avail;
 //							if(productObj!=null){
+//							console.log("procees :"+productObj);
 							 BpiccPlaceOrder.ProcessCheckStockXml(productObj,callback);
 //							}
 						 }
@@ -1953,6 +1955,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 						 
 						 
 	                        prod_obj['UNIT_WEIGHT']= object.UNIT_WEIGHT;
+//	                        var objectWeight=object.UNIT_WEIGHT==undefined?"0Lbs":object.UNIT_WEIGHT;
 							prod_obj['MIN_ORDER_QTY']= object.MIN_ORDER_QTY;
 	                        prod_obj['ERROR_MSG'] = object.ERROR_MSG;
 	                        if(object.UNIT_WEIGHT==null){
@@ -3421,15 +3424,15 @@ function RemoveSpecialChars(str)
 				    dataType:"json",
 				 
 				success: function (data) {
-					console.log(JSON.stringify(data));
+//					console.log(JSON.stringify(data));
 					
 					if(data.status==0){
 						var object=JSON.parse(data.object);
 						var partNumberList=object.x_item_search;
 						for(i=0;i<partNumberList.length;i++){
 							var partNoArray=partNumberList[i];
-							console.log(partNoArray);
 							partNoList=partNoArray;
+							 $(".loader").hide();
 						}
 							
 					}
