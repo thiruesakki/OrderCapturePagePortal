@@ -211,7 +211,7 @@ public class OracleDataHandler {
 	
 	public OrderShipToObject getMuleOrderDetails(String org_id,
 			String sales_order_num) throws IOException {
-		String query = "http://xxenv-order-detail.us-e2.cloudhub.io/api/OrderDetails?p_operating_unit_id="
+		String query = "http://xxenv-order-detail1.us-e2.cloudhub.io/api/OrderDetails?p_operating_unit_id="
 				+ org_id + "&p_sales_order_num=" + sales_order_num;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
