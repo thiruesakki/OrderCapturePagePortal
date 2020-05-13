@@ -567,12 +567,14 @@ public class TPService {
   
 			jsonResult.addProperty("status", statusObject.getStatusCode());
 			jsonResult.addProperty("errorMessage", statusObject.getStatusMessage());
+			jsonResult.addProperty("userID", statusObject.getUserID());
 			jsonResult.add("object", null);
 			System.out.println("VerifyResetPswdLink - Result to be returned:" + jsonResult);
 
 		} catch (Exception e) {
 			jsonResult.addProperty("status", statusObject.getStatusCode());
 			jsonResult.addProperty("errorMessage", e.getMessage());
+			jsonResult.addProperty("userID", statusObject.getUserID());
 			jsonResult.add("object", null);
 			System.out.println("VerifyResetPswdLink - ERROR Result to be returned:" + jsonResult);
 		}

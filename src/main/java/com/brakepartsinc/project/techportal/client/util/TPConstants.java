@@ -167,7 +167,7 @@ public class TPConstants {
 
 	public static String MAIL_SUBJECT = "Reset Password Link";
 
-	public static String MAIL_BODY = "<h4>Click the below link to reset the password :</h4><br><h4><a href=<domain><token>>Click here to reset</a></h4><br><b>This link will be valid for the next 4 hours.</b><br>";
+	public static String MAIL_BODY = "<h4>Click the below link to reset the password :</h4><br><h4><a href=<domain><token>>Click here to reset</a></h4><br>";
 	
 	public static String CC_MAIL_ID = "";
 	

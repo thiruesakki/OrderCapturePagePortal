@@ -8,6 +8,7 @@ var orderDetailsObject;
   
 	   $('#search_order_history').on('click', function(e){
 	  e.preventDefault();
+	  $('#invoice-details').hide();
 //	  if(getSearchParams('s')!=null && getSearchParams('s')!=''){	 
 //			 var requestID=Decoding(decodeURIComponent(getSearchParams('s')));
 //			 orderShipTO=requestID;
@@ -26,6 +27,7 @@ var orderDetailsObject;
 	  userID=getCookie("userID");
 	  orgID=getCookie("selected_org_id");
 		OrderHistory.ApiDisplayOrderHistoryData();
+		
 	});
 	
 	 $("#div_order_history").show();
@@ -338,7 +340,7 @@ OrderHistory=
 			success: function (data) {
 //				 console.log("Result Success:"+JSON.stringify(data));
 				 
-//				 $(".loader").hide();
+				 $(".loader").hide();
 				
 				 var obj = JSON.parse(data.object);
 //				 console.log(obj);
@@ -540,7 +542,9 @@ OrderHistory=
 	},
 	CallOrderDetailAPI:function(P_SALES_ORDER_NUM,SHIPPED_PIECES)
 	{
-		 
+		$(".loader").show();
+		invoiceCheck(P_SALES_ORDER_NUM);
+		
 		var  xml_request_data='';
 	  $("#shipping-details").show();
 		   if(SHIPPED_PIECES=="0" || SHIPPED_PIECES==0)
@@ -592,6 +596,7 @@ OrderHistory=
 						data:"userID="+userID,
 						success: function (data) {
 							
+							$(".loader").hide();
 //							console.log("Order Details Result Success:"+JSON.stringify(data));
 							var obj = JSON.parse(data.object);
 //							console.log(JSON.stringify(obj));
@@ -1358,4 +1363,41 @@ function dateDisplayFormat(date){
 	var dateValue=t[0];
 	var d=dateValue.split("-");
 	return d[1]+"/"+d[2]+"/"+d[0];
+}
+
+function invoiceCheck(P_SALES_ORDER_NUM){
+//	P_SALES_ORDER_NUM=66427;
+	var url = bpi_com_obj.web_oracle_api_url+"GetCheckInvoiceDetails?org_id="+orgID+"&purchase_order_number="+P_SALES_ORDER_NUM;	
+	console.log("order invoice url"+url);
+	jQuery.ajax({
+		type: "GET",
+		url: url,
+	    dataType: "json",
+		data:"userID="+userID,
+		success: function (data) {
+			
+			console.log("Invoice Result Success:"+JSON.stringify(data));
+			var obj = JSON.parse(data.object);
+			var x_inv_exist =obj.x_inv_exist;
+			console.log("x_inv_exist"+obj.x_inv_exist);
+		
+			 if(x_inv_exist=="Y"){
+				 console.log("x_inv_exist"+obj.x_inv_exist);
+//				 alert(P_SALES_ORDER_NUM+""+x_inv_exist);
+				 $('#invoice-details').show();
+
+			 }else{
+				 console.log("x_inv_exist"+obj.x_inv_exist);
+//				 alert(P_SALES_ORDER_NUM+""+x_inv_exist);
+				 $('#invoice-details').hide();
+
+			 }
+		
+		},
+		error: function (msg) {
+ 
+			  alert("Failed1: " + msg.status + ": " + msg.statusText);
+		}
+	}); 
+	
 }
