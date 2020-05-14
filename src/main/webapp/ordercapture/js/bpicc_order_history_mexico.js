@@ -1238,15 +1238,6 @@ xml_request_data+=' </soap:Envelope> ';
 								  var ORDERED_QUANTITY=xmlInvoiceobject.ORDERED_QUANTITY;
 								  var INVOICE_AMOUNT=xmlInvoiceobject.INVOICE_AMOUNT;
 								  
-								  var paymentInvoiceObj=objPayment.x_payment_matching;
-									for (var i = 0; i < paymentInvoiceObj.length; i++) {
-										  var xmlpaymentInvoiceObj = paymentInvoiceObj [i];
-//									  console.log("xmlpaymentInvoiceObj"+JSON.stringify(xmlpaymentInvoiceObj));
-							
-								  var DAYS_OUTSTANDING=xmlpaymentInvoiceObj.DAYS_OUTSTANDING;
-								  var PAID_AMOUNT=xmlpaymentInvoiceObj.PAID_AMOUNT;
-								  var DUE_DATE=xmlpaymentInvoiceObj.DUE_DATE;
-								  var OUTSTANDING_AMOUNT=xmlpaymentInvoiceObj.OUTSTANDING_AMOUNT;
 //							
 								  
 							    html+='<td>'+LINE_NUMBER+'</td>';
@@ -1267,6 +1258,15 @@ xml_request_data+=' </soap:Envelope> ';
 							  html+=' </tbody>'
 //							  
 										html+='</table>';
+							  var paymentInvoiceObj=objPayment.x_payment_matching;
+							  for (var i = 0; i < paymentInvoiceObj.length; i++) {
+								  var xmlpaymentInvoiceObj = paymentInvoiceObj [i];
+//									  console.log("xmlpaymentInvoiceObj"+JSON.stringify(xmlpaymentInvoiceObj));
+								  
+								  var DAYS_OUTSTANDING=xmlpaymentInvoiceObj.DAYS_OUTSTANDING;
+								  var PAID_AMOUNT=xmlpaymentInvoiceObj.PAID_AMOUNT;
+								  var DUE_DATE=xmlpaymentInvoiceObj.DUE_DATE;
+								  var OUTSTANDING_AMOUNT=xmlpaymentInvoiceObj.OUTSTANDING_AMOUNT;
 							html+=' <td colspan="2"><b>TOTAL SHIPPED PIECES</b><b> : </b><b>'+tot_shipped+'</b></td><br>';
 							html+=' <td colspan="2"><b>OUTSTANDING AMOUNT</b><b> : </b><b>'+OUTSTANDING_AMOUNT+'</b></td><br>';
 							html+=' <td colspan="2"><b>PAID_AMOUNT</b><b> : </b><b>'+PAID_AMOUNT+'</b></td><br>';
@@ -1276,8 +1276,8 @@ xml_request_data+=' </soap:Envelope> ';
 						 	html+='</div>';//close of panel-body
 							html+='</div>';//close ofcollapseOne1
                         	html+='</div>';//close div panel panel-default
-							
 									  }
+							
 
                         	
 				}      

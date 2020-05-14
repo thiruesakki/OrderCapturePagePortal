@@ -65,7 +65,7 @@ public class EmailService {
 			BodyPart messageBodyPart = new MimeBodyPart();
 			String domain = domainName + "/reset.html?reset_code=";
 			String mailBody = TPConstants.MAIL_BODY;
-			mailBody = mailBody.replace("<secretkey>",secretkey);
+			mailBody = mailBody.replace("<token>",secretkey);
 			mailBody = mailBody.replace("<domain>",domain);
 			messageBodyPart.setContent(mailBody,"text/html; charset=utf-8");
 			System.out.println("mailBody"+mailBody+""+"messageBodyPart"+messageBodyPart);
