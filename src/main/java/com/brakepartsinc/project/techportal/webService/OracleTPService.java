@@ -45,6 +45,7 @@ import com.brakepartsinc.project.techportal.dto.OrderShippingObject;
 import com.brakepartsinc.project.techportal.dto.OrganizationObject;
 import com.brakepartsinc.project.techportal.dto.PRIPromoDetailsObject;
 import com.brakepartsinc.project.techportal.dto.PartNumberObject;
+import com.brakepartsinc.project.techportal.dto.PaymentObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderResponseObject;
 import com.brakepartsinc.project.techportal.dto.PromoBusinessDetailsObject;
@@ -561,6 +562,47 @@ public class OracleTPService {
 				jsonResult.add("object", null);
 				System.out
 						.println("Part Number List - ERROR Result to be returned:"
+								+ jsonResult);
+			}
+			return jsonResult.toString();
+	}
+		
+		
+		@GET
+		@Path("/GetPaymentInvoice")
+		public String GetPaymentDetails(@QueryParam("org_id") String orgID,
+				@QueryParam("sales_order_number") String salesOrderNumber) {
+			JsonObject jsonResult = new JsonObject();
+			String paymentJson = null;
+//			JsonArray shipToArrayJson = null;
+			int status = -1;
+			String errorMessage = "";
+			PaymentObject paymentObject=null;
+			try {
+				OracleDataHandler dataHandler = new OracleDataHandler();
+				paymentObject = dataHandler.getMulePaymentMatching(orgID, salesOrderNumber);
+					status = 0;
+					if (paymentObject != null) {
+						status = 0;
+						Gson gson = new Gson();
+						paymentJson = gson.toJson(paymentObject);
+					} else {
+						status = 1;
+						errorMessage = "Invoice Details not found";
+					}
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", errorMessage);
+				jsonResult.addProperty("object", paymentJson);
+				System.out.println("getPaymentDetails - Result to be returned:"
+						+ jsonResult);
+
+			} catch (Exception e) {
+				status = 6;
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", e.getMessage());
+				jsonResult.add("object", null);
+				System.out
+						.println("getPaymentDetails - ERROR Result to be returned:"
 								+ jsonResult);
 			}
 			return jsonResult.toString();

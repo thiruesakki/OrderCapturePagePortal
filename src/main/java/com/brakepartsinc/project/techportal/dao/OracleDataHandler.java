@@ -19,6 +19,7 @@ import com.brakepartsinc.project.techportal.dto.OrderHistoryListObject;
 import com.brakepartsinc.project.techportal.dto.OrderShipToObject;
 import com.brakepartsinc.project.techportal.dto.OrderShippingObject;
 import com.brakepartsinc.project.techportal.dto.PartNumberObject;
+import com.brakepartsinc.project.techportal.dto.PaymentObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderResponseObject;
 import com.brakepartsinc.project.techportal.dto.ShipToObject;
@@ -527,4 +528,36 @@ public class OracleDataHandler {
 		}
 		return partNOObject;
 	}
+	 
+	 public PaymentObject getMulePaymentMatching(String org_id,
+				String sales_order_number) throws IOException {
+			String query = "http://xxenv-test-payment-matching.us-e2.cloudhub.io/api/paymentMatching?p_operating_unit_id="
+					+ org_id + "&p_order_num=" + sales_order_number;
+			System.out.println(query);
+			URL urlForGetRequest = new URL(query);
+			String readLine = null;
+			String outputString = "";
+			PaymentObject paymentObject = null;
+			HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+					.openConnection();
+			conection.setRequestMethod("GET");
+			int responseCode = conection.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						conection.getInputStream()));
+				StringBuffer response = new StringBuffer();
+
+				while ((readLine = in.readLine()) != null) {
+					response.append(readLine);
+				}
+				in.close();
+				outputString = response.toString();
+				Gson g = new Gson();
+				paymentObject = g.fromJson(outputString, PaymentObject.class);
+				// GetAndPost.POSTRequest(response.toString());
+			} else {
+				System.out.println("GET NOT WORKED");
+			}
+			return paymentObject;
+		}
 }

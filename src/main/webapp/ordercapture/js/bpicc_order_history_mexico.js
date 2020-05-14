@@ -27,7 +27,7 @@ var orderDetailsObject;
 	  userID=getCookie("userID");
 	  orgID=getCookie("selected_org_id");
 		OrderHistory.ApiDisplayOrderHistoryData();
-		
+	
 	});
 	
 	 $("#div_order_history").show();
@@ -1056,11 +1056,39 @@ xml_request_data+=' </soap:Envelope> ';
 						
 				//		 var obj=data.object;
 				//		 console.log("Shipping Object "+obj);
-						 if(obj!=null){
-							 OrderHistory.APIProcessInvoiceDetailAPI(obj)
-						 }else{
-							 alert('Order Invoice Details is not found');
-						 }
+					
+						 $.ajax({
+							 type: "GET",
+								url : bpi_com_obj.web_oracle_api_url+"GetPaymentInvoice?org_id="+orgID+"&sales_order_number="+P_SALES_ORDER_NUM,
+							    dataType: "json",
+								data:"userID="+userID,
+								success: function (data) {
+									
+									console.log("Payment Result Success:"+JSON.stringify(data));
+									var objPayment = JSON.parse(data.object);
+									var x_response_message =obj.x_response_message;
+									var x_response_status =obj.x_response_status;
+//									console.log(JSON.stringify(obj));
+//									console.log("x_response_message"+x_response_message);
+//									console.log("x_response_status"+x_response_status);
+//									 
+									var paymentInvoiceObj=objPayment.x_payment_matching;
+									for (var i = 0; i < paymentInvoiceObj.length; i++) {
+										  var xmlpaymentInvoiceObj = paymentInvoiceObj [i];
+									  console.log("xmlpaymentInvoiceObj"+JSON.stringify(xmlpaymentInvoiceObj));
+							
+									}
+									if(obj!= null && objPayment!=null){
+										OrderHistory.APIProcessInvoiceDetailAPI(obj,objPayment);
+									}else{
+										alert('Order Invoice Payment Details is not found');
+									}
+								
+							} ,
+							error : function(msg) {
+								alert("unable to update the password");
+							}
+						});
 					
 					},
 					error: function (msg) {
@@ -1072,7 +1100,7 @@ xml_request_data+=' </soap:Envelope> ';
 			 
 			 
 	},
-	APIProcessInvoiceDetailAPI:function(obj)
+	APIProcessInvoiceDetailAPI:function(obj,objPayment)
 	{
 //		console.log("OrderObject:"+JSON.stringify(orderDetailsObject));
 		 $("#div_order_history").hide();
@@ -1190,6 +1218,7 @@ xml_request_data+=' </soap:Envelope> ';
 											  html+='<th class="shippedpieces">LINE NUMBER</th>';
 											  html+='<th class="shippedpieces">ORDERED ITEM</th>';
 											  html+='<th class="shippedpieces">UNIT SELLING PRICE</th>';
+											  html+='<th class="shippedpieces">TAX</th>';
 											  html+='<th class="shippedpieces">ORDERED QUANTITY</th>';
 											  html+='<th class="shippedpieces">INVOICE AMOUNT</th>';
 										html+='</tr>';
@@ -1205,13 +1234,25 @@ xml_request_data+=' </soap:Envelope> ';
 							  	var LINE_NUMBER=xmlInvoiceobject.LINE_NUMBER;
 								  var ORDERED_ITEM=xmlInvoiceobject.ORDERED_ITEM;
 								  var UNIT_SELLING_PRICE=xmlInvoiceobject.UNIT_SELLING_PRICE;
+								  var TAX=xmlInvoiceobject.TAX;
 								  var ORDERED_QUANTITY=xmlInvoiceobject.ORDERED_QUANTITY;
 								  var INVOICE_AMOUNT=xmlInvoiceobject.INVOICE_AMOUNT;
+								  
+								  var paymentInvoiceObj=objPayment.x_payment_matching;
+									for (var i = 0; i < paymentInvoiceObj.length; i++) {
+										  var xmlpaymentInvoiceObj = paymentInvoiceObj [i];
+//									  console.log("xmlpaymentInvoiceObj"+JSON.stringify(xmlpaymentInvoiceObj));
+							
+								  var DAYS_OUTSTANDING=xmlpaymentInvoiceObj.DAYS_OUTSTANDING;
+								  var PAID_AMOUNT=xmlpaymentInvoiceObj.PAID_AMOUNT;
+								  var DUE_DATE=xmlpaymentInvoiceObj.DUE_DATE;
+								  var OUTSTANDING_AMOUNT=xmlpaymentInvoiceObj.OUTSTANDING_AMOUNT;
 //							
 								  
 							    html+='<td>'+LINE_NUMBER+'</td>';
 										  html+='<td>'+ORDERED_ITEM+'</td>';
 										  html+='<td>'+UNIT_SELLING_PRICE+'</td>';
+										  html+='<td>'+TAX+'</td>';
 										  html+='<td>'+ORDERED_QUANTITY+'</td>';
 										  html+='<td>'+INVOICE_AMOUNT+'</td>';
 								html+='</tr>'
@@ -1227,12 +1268,16 @@ xml_request_data+=' </soap:Envelope> ';
 //							  
 										html+='</table>';
 							html+=' <td colspan="2"><b>TOTAL SHIPPED PIECES</b><b> : </b><b>'+tot_shipped+'</b></td><br>';
-							html+=' <td colspan="2"><b>TOTAL INVOICE AMOUNT</b><b> : </b><b>'+tot_inv_amt+'</b></td>';
+							html+=' <td colspan="2"><b>OUTSTANDING AMOUNT</b><b> : </b><b>'+OUTSTANDING_AMOUNT+'</b></td><br>';
+							html+=' <td colspan="2"><b>PAID_AMOUNT</b><b> : </b><b>'+PAID_AMOUNT+'</b></td><br>';
+							html+=' <td colspan="2"><b>DUE DATE</b><b> : </b><b>'+DUE_DATE+'</b></td><br>';
+							html+=' <td colspan="2"><b>DAYS OUTSTANDING</b><b> : </b><b>'+DAYS_OUTSTANDING+'</b></td><br>';
 						 html+='</div>';//close of InvoiceDetails
 						 	html+='</div>';//close of panel-body
 							html+='</div>';//close ofcollapseOne1
                         	html+='</div>';//close div panel panel-default
 							
+									  }
 
                         	
 				}      
@@ -1401,3 +1446,5 @@ function invoiceCheck(P_SALES_ORDER_NUM){
 	}); 
 	
 }
+
+	

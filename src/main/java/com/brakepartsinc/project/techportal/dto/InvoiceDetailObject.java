@@ -14,6 +14,8 @@ public class InvoiceDetailObject {
 
 	private int TRX_NUMBER = 0;
 
+	private double TAX = 0.0;
+	
 	private double INVOICE_AMOUNT = 0.0;
 
 	private String TRX_DATE = "";
@@ -70,6 +72,14 @@ public class InvoiceDetailObject {
 		TRX_NUMBER = tRX_NUMBER;
 	}
 
+	public double getTAX() {
+		return TAX;
+	}
+
+	public void setTAX(double tAX) {
+		TAX = tAX;
+	}
+
 	public double getINVOICE_AMOUNT() {
 		return INVOICE_AMOUNT;
 	}
@@ -108,9 +118,10 @@ public class InvoiceDetailObject {
 				+ ", INVOICE_CURRENCY_CODE=" + INVOICE_CURRENCY_CODE
 				+ ", LINE_NUMBER=" + LINE_NUMBER + ", ORG_ID=" + ORG_ID
 				+ ", ORDER_NUMBER=" + ORDER_NUMBER + ", TRX_NUMBER="
-				+ TRX_NUMBER + ", INVOICE_AMOUNT=" + INVOICE_AMOUNT
-				+ ", TRX_DATE=" + TRX_DATE + ", UNIT_SELLING_PRICE="
-				+ UNIT_SELLING_PRICE + ", ORDERED_ITEM=" + ORDERED_ITEM + "]";
+				+ TRX_NUMBER + ", TAX=" + TAX + ", INVOICE_AMOUNT="
+				+ INVOICE_AMOUNT + ", TRX_DATE=" + TRX_DATE
+				+ ", UNIT_SELLING_PRICE=" + UNIT_SELLING_PRICE
+				+ ", ORDERED_ITEM=" + ORDERED_ITEM + "]";
 	}
 
 }
