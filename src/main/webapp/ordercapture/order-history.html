@@ -36,7 +36,7 @@
 
 <script src="js/jquery.jscrollpane.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
+<script src="js/jquery.table2excel.js" type="text/javascript"></script>
 <script src="js/bpicc_error_msgs.js"></script>
 <script src="js/bpicc_common_mexico.js"></script>
 <script src="js/bpicc_order_history_mexico.js"></script>
@@ -1805,9 +1805,14 @@
 <!-- 						<p><span class="numberField">19410</span><span>  DBA: AUTOMOTIVE SUPPLY CO. 123 S. LINWOOD AVE  APPLETON WI 54914 US</span></p> -->
 						</div>
 					</div>
+					
 					<p>The last 90 days of orders are displayed. Select another date range to view prior orders.<br></p>
 <p>Order details can be viewed by selecting the sales order number.  Shipping details including tracking
 information can also be viewed.</p>
+<div>
+					<button class="btn btn-default excel_download" type="button" id='btn_excel_download' onclick="OrderHistoryExcelDownload();" ><span><img src="images/excel.jpg"></span>DOWNLOAD</button>
+					</div>
+					<br>
 					   <div class="row orderlistheader">
                         <div class="col-md-4 selectBlock">
                             <label>Select Search Option:</label>
@@ -2019,7 +2024,7 @@ information can also be viewed.</p>
 			</div>
 		</div>
 		</div>
-
+	<div id="ExcelexportDiv" style="display: none;"></div>
 <footer>
     <div class="footer-1">
         <div class="container">

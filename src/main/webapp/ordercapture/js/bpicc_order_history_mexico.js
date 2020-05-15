@@ -4,6 +4,7 @@ var orderBillTO="";
 var userID="";
 var orgID="";
 var orderDetailsObject;
+var orderHistoryObject;
   jQuery(function($) {'use strict',
   
 	   $('#search_order_history').on('click', function(e){
@@ -346,6 +347,7 @@ OrderHistory=
 //				 console.log(obj);
 				 if(obj!=null){
 					 OrderHistory.ApiProcessDisplayOrderHistoryData(obj);
+					 orderHistoryObject=obj;
 				 }else{
 					 alert('Order History is not found');
 				 }
@@ -1447,4 +1449,70 @@ function invoiceCheck(P_SALES_ORDER_NUM){
 	
 }
 
-	
+function OrderHistoryExcelDownload(){
+	console.log("excel");
+  var obj=orderHistoryObject;
+  console.log("excel"+JSON.stringify(obj));
+  if(obj!=null){
+	  excelTableCreation(obj);
+  }else{
+	  alert("Excel Download not available");
+  }
+    
+}
+
+
+function excelTableCreation(xml){
+ var html = "<table id='OrderHistoryExcel'>  <tr><th>PURCHASE ORDER#</th><th>SALES ORDER#</th><th>ORDER DATE</th><th>ESTIMATED SHIP DATE</th>" +
+ 		"<th>TOTAL LINES</th><th>ORDERED PIECES</th><th>CANCELLED PIECES</th><th>SHIPPED PIECES</th><th>OPENED PIECES</th></tr>";
+	html=html+""
+	 var orderHistoryObject=xml.x_order_history;
+ 	for (var i = 0; i < orderHistoryObject.length; i++) {
+ 		var object = orderHistoryObject[i];
+            var ORDER_NUMBER= object.ORDER_NUMBER;
+            var CUST_PO_NUMBER= object.CUST_PO_NUMBER==undefined?"":object.CUST_PO_NUMBER;
+            var ORDERED_DATE= object.ORDERED_DATE;
+            var SHIP_DATE= object.SHIP_DATE;
+            var TOTAL_LINES= object.TOTAL_LINES;
+            var ORDERED_PIECES= object.ORDERED_PIECES;
+            var SHIPPED_PIECES= object.SHIPPED_PIECES; 
+            var CANCELLED_PIECES= object.CANCELLED_PIECES;
+			ORDERED_PIECES=empty(ORDERED_PIECES)?0:ORDERED_PIECES;
+			SHIPPED_PIECES=empty(SHIPPED_PIECES)?0:SHIPPED_PIECES;
+			CANCELLED_PIECES=empty(CANCELLED_PIECES)?0:CANCELLED_PIECES;
+            var OPENED_PIECES=  parseInt(ORDERED_PIECES)-parseInt(SHIPPED_PIECES)-parseInt(CANCELLED_PIECES);
+			         var orderedDate 			= getYearMonthDBValue(ORDERED_DATE), 
+            	shipDate 				= getYearMonthDBValue(SHIP_DATE), 
+            	splitOrderedDate 		= orderedDate.split('/'), 
+            	splitShitDate 			= shipDate.split('/')
+
+            var sorttableOrderedDate 	= splitOrderedDate[2] + splitOrderedDate[0] + splitOrderedDate[1],
+            	sorttableShipDate 		= splitShitDate[2] + splitShitDate[0] + splitShitDate[1]
+			 var orderDate=dateFormatChange(ORDERED_DATE); 
+			 var shipDate=dateFormatChange(SHIP_DATE);
+			 html+="<tr id="+tr_id+">"
+			 
+             html+='<td> '+CUST_PO_NUMBER+' </td> ';
+			  html+='<td>'+ORDER_NUMBER+'</td>';
+            html+='<td>'+orderDate+'</td>';
+             html+='<td>'+shipDate+'</td>';
+           
+             html+='<td>'+TOTAL_LINES+'</td>';
+             html+='<td>'+ORDERED_PIECES+'</td>';
+             html+='<td>'+CANCELLED_PIECES+'</td>';
+             html+='<td>'+SHIPPED_PIECES+'</td>';
+             html+='<td>'+OPENED_PIECES+'</td>';
+			 html+="</tr>";
+ 	}
+ 	$("#ExcelexportDiv").append(html);
+// console.log("table"+html);
+ 	exportexcel();
+// exportTableToExcel(OrderHistoryExcel, "sample" )
+}
+function exportexcel() {  
+    $("#OrderHistoryExcel").table2excel({  
+        name: "Table2Excel",  
+        filename: "OrderHistoryExcel",  
+        fileext: ".xlsx"  
+    });  
+} 
