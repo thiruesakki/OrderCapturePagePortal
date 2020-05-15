@@ -178,8 +178,9 @@ public class OracleDataHandler {
 			String shipTo, String billTo, String searchType, String docNumber) throws IOException {
 //		String orderToDate=TPUtility.formatSqlDateToMule(toDate);
 //		String orderFromDate=TPUtility.formatSqlDateToMule(fromDate);
-		String query = "http://xxenv-test-order-history.us-e2.cloudhub.io/api/OrderHistory?p_operating_unit_id="
+		String query = "http://xxenv-test-order-history1.us-e2.cloudhub.io/api/OrderHistory?p_operating_unit_id="
 				+ orgId + "&p_ship_to=" + shipTo+"&p_bill_to="+billTo+"&p_search_type="+searchType+"&p_document_num="+docNumber;
+		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
 		String readLine = null;
 		String outputString = "";
