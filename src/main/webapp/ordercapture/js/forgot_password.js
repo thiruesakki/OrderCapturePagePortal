@@ -48,8 +48,8 @@ function() {
 	var newPassword = $("#new_password").val();
 	var confirmPassword = $("#confirm_password").val();
 	var newPasswordLength = $("#new_password").val().length;
-	var minlength=7;
-	var maxlength=10
+//	var minlength=7;
+//	var maxlength=10
 		//	alert("newPassword"+newPassword+" "+confirmPassword);
 	
 	if (newPassword == "") {
@@ -60,15 +60,15 @@ function() {
 		alert("Enter the confirm Password");
 	}  
 	else if (confirmPassword !==newPassword){
-		alert("Your password and confirmation password shoud be same");
+		alert("Password mismatch");
 	}
 	
-	else if(newPasswordLength < minlength ){
-		alert("Your password must be at least 7 characters long");
-	}
-	else if(newPasswordLength > maxlength ){
-		alert("Your password must be maximum of 10 characters long");
-	}
+//	else if(newPasswordLength < minlength ){
+//		alert("Your password must be at least 7 characters long");
+//	}
+//	else if(newPasswordLength > maxlength ){
+//		alert("Your password must be maximum of 10 characters long");
+//	}
 	
 	else {
 		
@@ -137,3 +137,28 @@ function() {
 	      }
      });
 });
+
+function checkPass()
+{
+    var newPassword = document.getElementById('new_password');
+    var minlength=7;
+	var maxlength=10;
+    var message = document.getElementById('newPwdError');
+    var errorColor = "Red";
+ 	
+    if(newPassword.value.length < minlength )
+    {
+        message.style.color = errorColor;
+        message.innerHTML = " Your password must be at least 7 characters long"
+       
+    }else if(newPassword.value.length > maxlength ){
+        message.style.color = errorColor;
+        message.innerHTML = " Your password must be maximum of 10 characters long"
+    }
+    else{
+    	$("#newPwdError").text("");
+    	return;
+    }
+  
+
+}

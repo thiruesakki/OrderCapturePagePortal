@@ -3,16 +3,22 @@ package com.brakepartsinc.project.techportal.dto;
 public class InvoicePaymentObject {
 	
 	private String TRANSACTION_DATE = "";
-
-	private int ORG_ID = 0;
 	
+	private String PAYMENT_TERM = "";
+
 	private int DAYS_OUTSTANDING = 0;
-
+	
 	private String ORDER_NUMBER = "";
-
-	private double PAID_AMOUNT = 0.0;
+	
+	private String PAYMENT_STATUS = "";
 	
 	private String DUE_DATE = "";
+	
+	private double INVOICE_AMOUNT = 0.0;
+	
+	private int ORG_ID = 0;
+	
+    private double PAID_AMOUNT = 0.0;
 	
 	private String CUSTOMER_NAME = "";
 	
@@ -20,7 +26,9 @@ public class InvoicePaymentObject {
 
 	private String INVOICE_NUMBER = "";
 	
-	private double INVOICE_AMOUNT = 0.0;
+	private String PAYMENT_DATE = "";
+	
+	private String PAYMENT_METHOD = "";
 
     private String CUSTOMER_NUMEBR = "";
 
@@ -32,12 +40,12 @@ public class InvoicePaymentObject {
 		TRANSACTION_DATE = tRANSACTION_DATE;
 	}
 
-	public int getORG_ID() {
-		return ORG_ID;
+	public String getPAYMENT_TERM() {
+		return PAYMENT_TERM;
 	}
 
-	public void setORG_ID(int oRG_ID) {
-		ORG_ID = oRG_ID;
+	public void setPAYMENT_TERM(String pAYMENT_TERM) {
+		PAYMENT_TERM = pAYMENT_TERM;
 	}
 
 	public int getDAYS_OUTSTANDING() {
@@ -56,12 +64,12 @@ public class InvoicePaymentObject {
 		ORDER_NUMBER = oRDER_NUMBER;
 	}
 
-	public double getPAID_AMOUNT() {
-		return PAID_AMOUNT;
+	public String getPAYMENT_STATUS() {
+		return PAYMENT_STATUS;
 	}
 
-	public void setPAID_AMOUNT(double pAID_AMOUNT) {
-		PAID_AMOUNT = pAID_AMOUNT;
+	public void setPAYMENT_STATUS(String pAYMENT_STATUS) {
+		PAYMENT_STATUS = pAYMENT_STATUS;
 	}
 
 	public String getDUE_DATE() {
@@ -70,6 +78,30 @@ public class InvoicePaymentObject {
 
 	public void setDUE_DATE(String dUE_DATE) {
 		DUE_DATE = dUE_DATE;
+	}
+
+	public double getINVOICE_AMOUNT() {
+		return INVOICE_AMOUNT;
+	}
+
+	public void setINVOICE_AMOUNT(double iNVOICE_AMOUNT) {
+		INVOICE_AMOUNT = iNVOICE_AMOUNT;
+	}
+
+	public int getORG_ID() {
+		return ORG_ID;
+	}
+
+	public void setORG_ID(int oRG_ID) {
+		ORG_ID = oRG_ID;
+	}
+
+	public double getPAID_AMOUNT() {
+		return PAID_AMOUNT;
+	}
+
+	public void setPAID_AMOUNT(double pAID_AMOUNT) {
+		PAID_AMOUNT = pAID_AMOUNT;
 	}
 
 	public String getCUSTOMER_NAME() {
@@ -96,12 +128,20 @@ public class InvoicePaymentObject {
 		INVOICE_NUMBER = iNVOICE_NUMBER;
 	}
 
-	public double getINVOICE_AMOUNT() {
-		return INVOICE_AMOUNT;
+	public String getPAYMENT_DATE() {
+		return PAYMENT_DATE;
 	}
 
-	public void setINVOICE_AMOUNT(double iNVOICE_AMOUNT) {
-		INVOICE_AMOUNT = iNVOICE_AMOUNT;
+	public void setPAYMENT_DATE(String pAYMENT_DATE) {
+		PAYMENT_DATE = pAYMENT_DATE;
+	}
+
+	public String getPAYMENT_METHOD() {
+		return PAYMENT_METHOD;
+	}
+
+	public void setPAYMENT_METHOD(String pAYMENT_METHOD) {
+		PAYMENT_METHOD = pAYMENT_METHOD;
 	}
 
 	public String getCUSTOMER_NUMEBR() {
@@ -115,14 +155,18 @@ public class InvoicePaymentObject {
 	@Override
 	public String toString() {
 		return "InvoicePaymentObject [TRANSACTION_DATE=" + TRANSACTION_DATE
-				+ ", ORG_ID=" + ORG_ID + ", DAYS_OUTSTANDING="
+				+ ", PAYMENT_TERM=" + PAYMENT_TERM + ", DAYS_OUTSTANDING="
 				+ DAYS_OUTSTANDING + ", ORDER_NUMBER=" + ORDER_NUMBER
-				+ ", PAID_AMOUNT=" + PAID_AMOUNT + ", DUE_DATE=" + DUE_DATE
-				+ ", CUSTOMER_NAME=" + CUSTOMER_NAME + ", OUTSTANDING_AMOUNT="
-				+ OUTSTANDING_AMOUNT + ", INVOICE_NUMBER=" + INVOICE_NUMBER
-				+ ", INVOICE_AMOUNT=" + INVOICE_AMOUNT + ", CUSTOMER_NUMEBR="
-				+ CUSTOMER_NUMEBR + "]";
+				+ ", PAYMENT_STATUS=" + PAYMENT_STATUS + ", DUE_DATE="
+				+ DUE_DATE + ", INVOICE_AMOUNT=" + INVOICE_AMOUNT + ", ORG_ID="
+				+ ORG_ID + ", PAID_AMOUNT=" + PAID_AMOUNT + ", CUSTOMER_NAME="
+				+ CUSTOMER_NAME + ", OUTSTANDING_AMOUNT=" + OUTSTANDING_AMOUNT
+				+ ", INVOICE_NUMBER=" + INVOICE_NUMBER + ", PAYMENT_DATE="
+				+ PAYMENT_DATE + ", PAYMENT_METHOD=" + PAYMENT_METHOD
+				+ ", CUSTOMER_NUMEBR=" + CUSTOMER_NUMEBR + "]";
 	}
+
+	
 
     
 

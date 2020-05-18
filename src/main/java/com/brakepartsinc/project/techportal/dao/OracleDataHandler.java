@@ -104,7 +104,7 @@ public class OracleDataHandler {
 
 	public ShipToObject getShipToAddressMule(String org_id,
 			String ship_to_location) throws IOException {
-		String query = "http://xxenv-test-get-shipto-billto-info1.us-e2.cloudhub.io/api/ShiptoBilltoInfo?p_operating_unit_id="
+		String query = "http://xxenv-test-shipto-billto-info2.us-e2.cloudhub.io/api/ShiptoBilltoInfo?p_operating_unit_id="
 //				+ "http://xxenv-test-get-ship-to-address1.us-e2.cloudhub.io/api/Customer?p_operating_unit_id="
 				+ org_id + "&p_ship_to=" + ship_to_location;
 		System.out.println(query);
@@ -247,7 +247,9 @@ public class OracleDataHandler {
 	
 	public OrderShippingObject getMuleOrderShippingDetails(String org_id,
 			String order_num) throws IOException {
-		String query = "http://xxenv-test-shipping-detail1.us-e2.cloudhub.io/api/ShippingDetails?p_operating_unit_id="
+//		String query = "http://xxenv-test-shipping-detail1.us-e2.cloudhub.io/api/ShippingDetails?p_operating_unit_id="
+//				+ org_id + "&p_order_num=" + order_num;
+		String query = "http://xxenv-test-shipping-details1.us-e2.cloudhub.io/api/ShippingDetails?p_operating_unit_id="
 				+ org_id + "&p_order_num=" + order_num;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
@@ -283,7 +285,9 @@ public class OracleDataHandler {
 			String ship_To , String product_No) throws IOException {
 //		String query = "http://xxenv-test-check-stock.us-e2.cloudhub.io/api/CheckStock?p_operating_unit_id="
 //				+ org_Id + "&p_ship_to=" + ship_To+ "&p_prodcut=" + product_No;
-		String query = "http://xxenv-test-item-check-stock.us-e2.cloudhub.io/api/ItemCheckStock?p_ship_to="
+//		String query = "http://xxenv-test-item-check-stock.us-e2.cloudhub.io/api/ItemCheckStock?p_ship_to="
+//				+ ship_To+ "&p_product=" + product_No;
+		String query = "http://xxenv-test-check-stock1.us-e2.cloudhub.io/api/ItemCheckStock?p_ship_to="
 				+ ship_To+ "&p_product=" + product_No;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
@@ -349,7 +353,7 @@ public class OracleDataHandler {
 	
 	public InvoiceObject getMuleInvoiceDetails(String org_id,
 			String purchase_order_number) throws IOException {
-		String query = "http://xxenv-test-invoice-details1.us-e2.cloudhub.io/api/InvoiceDetails?p_operating_unit_id="
+		String query = "http://xxenv-test-invoice-details2.us-e2.cloudhub.io/api/InvoiceDetails?p_operating_unit_id="
 				+ org_id + "&p_order_number=" + purchase_order_number;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
@@ -383,7 +387,9 @@ public class OracleDataHandler {
 	}
 	public InvoiceOrderCheckObject getMuleCheckInvoiceDetails(String org_id,
 			String purchase_order_number) throws IOException {
-		String query = "http://xxenv-test-invoice-check.us-e2.cloudhub.io/api/InvoiceCheck?p_operating_unit_id="
+//		String query = "http://xxenv-test-invoice-check.us-e2.cloudhub.io/api/InvoiceCheck?p_operating_unit_id="
+//				+ org_id + "&p_purchase_order=" + purchase_order_number;
+		String query = "http://xxenv-test-invoice-check1.us-e2.cloudhub.io/api/InvoiceCheck?p_operating_unit_id="
 				+ org_id + "&p_purchase_order=" + purchase_order_number;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
@@ -418,7 +424,9 @@ public class OracleDataHandler {
 	}
 	public InvoiceOrderCheckObject validatePoNumber(String org_id,
 			String po_number, String billTo_number, String shipTo_number) throws IOException {
-		String query = "http://xxenv-test-validate-po-number1.us-e2.cloudhub.io/api/ValidatePoNumber?p_operating_unit_id="
+//		String query = "http://xxenv-test-validate-po-number1.us-e2.cloudhub.io/api/ValidatePoNumber?p_operating_unit_id="
+//				+ org_id + "&p_po_num=" + po_number+"&p_bill_num="+billTo_number+"&p_ship_num="+shipTo_number;
+		String query = "http://xxenv-test-validate-po-number.us-e2.cloudhub.io/api/ValidatePoNumber?p_operating_unit_id="
 				+ org_id + "&p_po_num=" + po_number+"&p_bill_num="+billTo_number+"&p_ship_num="+shipTo_number;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
@@ -532,7 +540,9 @@ public class OracleDataHandler {
 	 
 	 public PaymentObject getMulePaymentMatching(String org_id,
 				String sales_order_number) throws IOException {
-			String query = "http://xxenv-test-payment-matching.us-e2.cloudhub.io/api/paymentMatching?p_operating_unit_id="
+//			String query = "http://xxenv-test-payment-matching.us-e2.cloudhub.io/api/paymentMatching?p_operating_unit_id="
+//					+ org_id + "&p_order_num=" + sales_order_number;
+			String query = "http://xxenv-test-payment-matching1.us-e2.cloudhub.io/api/paymentMatching?p_operating_unit_id="
 					+ org_id + "&p_order_num=" + sales_order_number;
 			System.out.println(query);
 			URL urlForGetRequest = new URL(query);

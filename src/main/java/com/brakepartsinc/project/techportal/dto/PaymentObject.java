@@ -8,6 +8,8 @@ public class PaymentObject {
 	
 	private List<InvoicePaymentObject> x_payment_matching=null;
 	
+	private List<PaymentDetailsObject> x_payment_details=null;
+	
 	private String x_response_status="";
 
 	public String getX_response_message() {
@@ -26,6 +28,14 @@ public class PaymentObject {
 		this.x_payment_matching = x_payment_matching;
 	}
 
+	public List<PaymentDetailsObject> getX_payment_details() {
+		return x_payment_details;
+	}
+
+	public void setX_payment_details(List<PaymentDetailsObject> x_payment_details) {
+		this.x_payment_details = x_payment_details;
+	}
+
 	public String getX_response_status() {
 		return x_response_status;
 	}
@@ -40,7 +50,7 @@ public class PaymentObject {
 				+ ", x_payment_matching=" + x_payment_matching
 				+ ", x_response_status=" + x_response_status + "]";
 	}
-	
+
 
 	
 }
