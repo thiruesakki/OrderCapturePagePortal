@@ -4,7 +4,7 @@ var orderBillTO="";
 var userID="";
 var orgID="";
 var orderDetailsObject;
-var orderHistoryObject;
+var globalOrderHistoryObject;
   jQuery(function($) {'use strict',
   
 	   $('#search_order_history').on('click', function(e){
@@ -350,7 +350,7 @@ OrderHistory=
 //				 console.log(obj);
 				 if(obj!=null){
 					 OrderHistory.ApiProcessDisplayOrderHistoryData(obj);
-					 orderHistoryObject=obj;
+					 globalOrderHistoryObject=obj;
 				 }else{
 					 alert('Order History is not found');
 				 }
@@ -1576,7 +1576,7 @@ function invoiceCheck(P_SALES_ORDER_NUM){
 
 function OrderHistoryExcelDownload(){
 	console.log("excel");
-  var obj=orderHistoryObject;
+  var obj=globalOrderHistoryObject;
   console.log("excel"+JSON.stringify(obj));
   if(obj!=null){
 	  excelTableCreation(obj);
@@ -1629,6 +1629,7 @@ function excelTableCreation(xml){
              html+='<td>'+OPENED_PIECES+'</td>';
 			 html+="</tr>";
  	}
+ 	$("#ExcelexportDiv").empty();
  	$("#ExcelexportDiv").append(html);
 // console.log("table"+html);
  	exportexcel();
