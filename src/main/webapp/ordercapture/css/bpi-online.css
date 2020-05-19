@@ -480,7 +480,8 @@ body .navbar-nav .dropdown li a:focus{background: #264057 !important;}
     top: 50%;
     left: 649.5px;
     z-index: 99999;
-    text-align: center;}
+    text-align: center;
+    }
 .container .bpiOnlineRightPanel .tableContents .table tbody td .radioDC{height: 20px;position: absolute; right: 6px; top: 6px; width: 20px; z-index: 1; opacity: 0; cursor: pointer;}
 .container .bpiOnlineRightPanel .shippingInfo .shippingDetails .shippingAddress h3 span{ padding: 2px 5px; }
 .container .bpiOnlineRightPanel .shippingInfo .shippingDetails .shippingAddress h3 span input{height: 10px !important;}
@@ -869,7 +870,7 @@ select[disabled]{  cursor: not-allowed !important;    background: #eee !importan
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .heading .desc{    WIDTH: 550PX; border-right: 1px solid #7c7c7e;    padding-left: 20px;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .heading .shippedpieces{    padding-left: 10px; width: 125px; cursor: pointer; position: relative;border-right: 1px solid #7c7c7e;    padding-left: 20px}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table thead .heading .shippedpieces .fa-sort-desc{padding-left:5px;}
-.bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table tbody tr td{border-right:1px solid #7c7c7e}
+.bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table tbody tr td{border-right:none}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table tbody tr{background:white;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table tbody tr td {padding-left:20px;font-size:12px;    color: #333333;}
 .bpiOnlineRightPanel .ShippingDetailsBlock .panel-group .panel.panel-default  .panel-heading+ .panel-collapse .panel-body .ShippedDetails  .table tbody tr td:nth-child(3){text-align:center;}

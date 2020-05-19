@@ -10,6 +10,7 @@ var orderHistoryObject;
 	   $('#search_order_history').on('click', function(e){
 	  e.preventDefault();
 	  $('#invoice-details').hide();
+
 //	  if(getSearchParams('s')!=null && getSearchParams('s')!=''){	 
 //			 var requestID=Decoding(decodeURIComponent(getSearchParams('s')));
 //			 orderShipTO=requestID;
@@ -103,6 +104,8 @@ OrderHistory=
 			OrderHistory.CallInvoiceDetailAPI(order_no);
 	},
 
+
+	
 	LoadProperDatesAndCallAPI:function()
 	{
 		
@@ -557,6 +560,7 @@ OrderHistory=
 		 $("#div_order_detail").show();
 		 $("#div_shipping_detail").hide();
 		 $("#div_invoice_detail").hide();
+		 
 		$("#dtl_sales_order_no").html("");
 			   $("#dtl_order_date").html("");
 			   $("#dtl_po_no").html("");
@@ -816,6 +820,7 @@ xml_request_data+=' </soap:Envelope> ';
 		 $("#div_order_detail").hide();
 		 $("#div_shipping_detail").show();
 		 $("#div_invoice_detail").hide();
+		 
 		   
 	try {
 			 html="";
@@ -1080,6 +1085,12 @@ xml_request_data+=' </soap:Envelope> ';
 									  console.log("xmlpaymentInvoiceObj"+JSON.stringify(xmlpaymentInvoiceObj));
 							
 									}
+									var paymentDetailsObj=objPayment.x_payment_details;
+									for (var i = 0; i < paymentDetailsObj.length; i++) {
+										  var xmlpaymentDetailsObj = paymentDetailsObj [i];
+									  console.log("xmlpaymentDetailsObj"+JSON.stringify(xmlpaymentDetailsObj));
+							
+									}
 									if(obj!= null && objPayment!=null){
 										OrderHistory.APIProcessInvoiceDetailAPI(obj,objPayment);
 									}else{
@@ -1189,18 +1200,21 @@ xml_request_data+=' </soap:Envelope> ';
 					   	var INVOICE_CURRENCY_CODE= xmlInvoiceobject.INVOICE_CURRENCY_CODE;
 					    var CARRIER= 2;
 					    
+					    var paymentInvoiceObj=objPayment.x_payment_matching;
+					    for (var i = 0; i < paymentInvoiceObj.length; i++) {
+					    	var xmlpaymentInvoiceObj = paymentInvoiceObj [i];
+//									  console.log("xmlpaymentInvoiceObj"+JSON.stringify(xmlpaymentInvoiceObj));
 				 
-				 
+					    	CUSTOMER_NAME=xmlpaymentInvoiceObj.CUSTOMER_NAME;
                         html+='<div class="panel-body">';
                         html+=' <div class="row">';
-						  html+=' <div class="col-md-6 shippedDate">';
-						   html+=' <span class="title">Invoice Date:</span><Span class="date">'+TRX_DATE+' </span>';
-						   html+=' <span class="title"></span>';
-
+                        html+=' <div class="col-md-6 shippedDate">';
+						   html+=' <span class="title">Invoice Date :</span><Span class="date">'+TRX_DATE+' </span>';
 						 html+='  </div>';
 						   
 						   html+='<div class="col-md-6 shippedFrom">';
-						   html+=' <span class="title">Invoice Currency:</span><Span class="shipmethod">'+INVOICE_CURRENCY_CODE+' </span>';
+						   html+=' <span class="title">Invoice Currency :</span><Span class="dc">'+INVOICE_CURRENCY_CODE+' </span>';
+							html+='<span class="title">Customer Name :</span><Span class="shipmethod">'+CUSTOMER_NAME+' </span>';
 						  html+=' </div>';
 						html+='</div>  ';
 
@@ -1257,32 +1271,142 @@ xml_request_data+=' </soap:Envelope> ';
 //							  
 								} 
 							}
-							  html+=' </tbody>'
-//							  
-										html+='</table>';
-							  var paymentInvoiceObj=objPayment.x_payment_matching;
-							  for (var i = 0; i < paymentInvoiceObj.length; i++) {
-								  var xmlpaymentInvoiceObj = paymentInvoiceObj [i];
-//									  console.log("xmlpaymentInvoiceObj"+JSON.stringify(xmlpaymentInvoiceObj));
+
 								  
+
+							  
+							
+								  
+								  var TRANSACTION_DATE=xmlpaymentInvoiceObj.TRANSACTION_DATE;
+								  var PAYMENT_TERM=xmlpaymentInvoiceObj.PAYMENT_TERM;
 								  var DAYS_OUTSTANDING=xmlpaymentInvoiceObj.DAYS_OUTSTANDING;
-								  var PAID_AMOUNT=xmlpaymentInvoiceObj.PAID_AMOUNT;
+								  var ORDER_NUMBER=xmlpaymentInvoiceObj.ORDER_NUMBER;
+								  var PAYMENT_STATUS=xmlpaymentInvoiceObj.PAYMENT_STATUS;
+								  
 								  var DUE_DATE=xmlpaymentInvoiceObj.DUE_DATE;
+								  var INVOICE_AMOUNT=xmlpaymentInvoiceObj.INVOICE_AMOUNT;
+								  var ORG_ID=xmlpaymentInvoiceObj.ORG_ID;
+								  var PAID_AMOUNT=xmlpaymentInvoiceObj.PAID_AMOUNT;
+								  var CUSTOMER_NAME=xmlpaymentInvoiceObj.CUSTOMER_NAME;
+								  
 								  var OUTSTANDING_AMOUNT=xmlpaymentInvoiceObj.OUTSTANDING_AMOUNT;
-							html+=' <td colspan="2"><b>TOTAL SHIPPED PIECES</b><b> : </b><b>'+tot_shipped+'</b></td><br>';
-							html+=' <td colspan="2"><b>OUTSTANDING AMOUNT</b><b> : </b><b>'+OUTSTANDING_AMOUNT+'</b></td><br>';
-							html+=' <td colspan="2"><b>PAID_AMOUNT</b><b> : </b><b>'+PAID_AMOUNT+'</b></td><br>';
-							html+=' <td colspan="2"><b>DUE DATE</b><b> : </b><b>'+DUE_DATE+'</b></td><br>';
-							html+=' <td colspan="2"><b>DAYS OUTSTANDING</b><b> : </b><b>'+DAYS_OUTSTANDING+'</b></td><br>';
+								  var INVOICE_NUMBER=xmlpaymentInvoiceObj.INVOICE_NUMBER;
+								  var PAYMENT_DATE=xmlpaymentInvoiceObj.PAYMENT_DATE;
+								  var PAYMENT_METHOD=xmlpaymentInvoiceObj.PAYMENT_METHOD;
+								  var CUSTOMER_NUMEBR=xmlpaymentInvoiceObj.CUSTOMER_NUMEBR;
+								  								  
+								 
+//							html+=' <td colspan="2"><b>TOTAL SHIPPED PIECES</b><b> : </b><b>'+tot_shipped+'</b></td><br>';
+//							html+=' <td colspan="2"><b>OUTSTANDING AMOUNT</b><b> : </b><b>'+OUTSTANDING_AMOUNT+'</b></td><br>';
+//							html+=' <td colspan="2"><b>PAID_AMOUNT</b><b> : </b><b>'+PAID_AMOUNT+'</b></td><br>';
+//							html+=' <td colspan="2"><b>DUE DATE</b><b> : </b><b>'+DUE_DATE+'</b></td><br>';
+//							html+=' <td colspan="2"><b>DAYS OUTSTANDING</b><b> : </b><b>'+DAYS_OUTSTANDING+'</b></td><br>';
+								  html+= '<tr>';
+								  html+='<td>   </td>';
+								  html+=' <td>   </td>';
+								  html+=' <td>   </td>';
+								  html+=' <td>   </td>';
+								  html+='  <td>';
+								  html+='   <p>';
+								  html+='    <strong>Total</strong>';
+								  html+=' </p>';
+								  html+='   <p>';
+								  html+='    <strong>Paid Amount</strong>';
+								  html+=' </p>';
+								  html+='  <p>';
+								  html+='    <strong>Payment Status</strong>';
+								  html+=' </p></td>';
+								  html+='  <td>';
+								  html+='   <p>';
+								  html+='     <strong>'+INVOICE_AMOUNT+'</strong>';
+								  html+='    </p>';
+								  html+='   <p>';
+								  html+='     <strong>'+PAID_AMOUNT+'</strong>';
+								  html+='    </p>';
+								  html+='     <p>';
+								  if(PAYMENT_STATUS=="Paid"){
+//									  console.log(PAYMENT_STATUS);
+//									  html+='<strong style="background-color:Green;color:White">'+PAYMENT_STATUS+'</strong>';
+								      html+='<button type="button" style="color:Black;" class="btn btn-success btn-sm"">'+PAYMENT_STATUS+'</button>';
+
+								  }
+								  else if(PAYMENT_STATUS=="PartiallyPaid"){
+//									  console.log(PAYMENT_STATUS);
+//									 html+=' <button style="background-color:Yellow;color:Black">'+PAYMENT_STATUS+'</button>';
+									 html+='<button id="payment-details type="Submit" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button>';
+
+								  }
+								  else if(PAYMENT_STATUS=="Pending"){
+//									  console.log(PAYMENT_STATUS);
+									 html+=' <strong style="background-color:Orange;color:Black">'+PAYMENT_STATUS+'</strong>';
+								  }
+								  html+='     </p></td>';
+								  html+='    </tr>';
+//								  html+='<thead>';
+								  
+//								  html+='<tr class="heading">';
+//								  
+//								  html+='<th">Payment Date</th>';
+//								  html+='<th class="shippedpieces">Payment Method</th>';
+//								  html+='<th class="shippedpieces">Payment Term</th>';
+//								  html+='<th class="shippedpieces">TAX</th>';
+//								  html+='<th class="shippedpieces">ORDERED QUANTITY</th>';
+//								  html+='<th class="shippedpieces">INVOICE AMOUNT</th>';
+//								  html+='</tr>';
+//								  html+='</thead>';
+								  html+=' <table class="table">';
+								  html+='<h6>Payment Details</h6>';
+									  html+='  <thead>';
+										  html+='     <tr class="heading">';
+//										  html+=' <tr>';
+//										  html+='         <td><strong>LINE NUM</strong></td>';
+//										  html+=' </tr>';
+										  html+='         <td><strong>NO.</strong></td>';
+										  html+='         <td class="text-center"><strong>DATE</strong></td>';
+										  html+='        <td class="text-center"><strong>METHOD</strong></td>';
+									   html+='      <td class="text-center"><strong>REFERENCE</strong></td>';
+								  html+='      <td class="text-right"><strong>AMOUNT PAID</strong></td>';
+						  html+='   </tr>';
+						  html+='  </thead>';
+						  html+='  <tbody>';
+						  
+						  var paymentDetailsObj=objPayment.x_payment_details;
+							for (var i = 0; i < paymentDetailsObj.length; i++) {
+								  var xmlpaymentDetailsObj = paymentDetailsObj [i];
+							  console.log("xmlpaymentDetailsObj"+JSON.stringify(xmlpaymentDetailsObj));
+							  
+							  var REFERENCE=xmlpaymentDetailsObj.REFERENCE;
+							  var AMOUNT=xmlpaymentDetailsObj.AMOUNT;
+							  var LINE_NUM=xmlpaymentDetailsObj.LINE_NUM;
+							  var CASH_RECEIPT_ID=xmlpaymentDetailsObj.CASH_RECEIPT_ID;
+							  var PAYMENT_DATE=xmlpaymentDetailsObj.PAYMENT_DATE;
+							  var PAYMENT_METHOD=xmlpaymentDetailsObj.PAYMENT_METHOD;
+							  
+					
+						  html+='   <tr>';
+						  html+='      <td>'+LINE_NUM+'</td>';
+						  html+='      <td>'+PAYMENT_DATE+'</td>';
+						  html+='     <td>'+PAYMENT_METHOD+'</td>';
+						  html+='    <td>'+REFERENCE+'</td>';
+						  html+='    <td class="text-center">'+AMOUNT+'</td>';
+						  html+='</tr>';
+
+												  html+='  </tbody>';
+												  html+='</table>';
+								  html+='</table>';
+								  
 						 html+='</div>';//close of InvoiceDetails
 						 	html+='</div>';//close of panel-body
 							html+='</div>';//close ofcollapseOne1
                         	html+='</div>';//close div panel panel-default
+							}
 									  }
 							
 
                         	
-				}      
+				}     
+				
+				      
             	
 
 				 $("#invoice_accordion1").html(html);
@@ -1297,7 +1421,8 @@ xml_request_data+=' </soap:Envelope> ';
 		  message = err.message+" in BpiccPlaceOrder.ApiProcessDisplayOrderHistoryData";
 		  alert(message);
 	  }  
-}
+},
+	
 }
 function getYearMonthUIValue(val,date_field)
 {
