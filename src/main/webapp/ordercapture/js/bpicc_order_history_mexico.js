@@ -65,7 +65,6 @@ $(window).on('load', function() {
 		});
 	    
 	    $('#invoice-details').on('click', function(e){             
-		   	 
 			OrderHistory.CallInvoiceDetailsFromItemDetailedPage();
 			});
 	    
@@ -1225,7 +1224,7 @@ xml_request_data+=' </soap:Envelope> ';
                         html+=' </h3>';
 						html+='  </div> ';
                        //invoice main div ends starts 
-					   	  html+='<div id="collapseOne'+ship_cnt+'" class="panel-collapse collapse" style="height: 0px;" aria-expanded="false">';
+					   	  html+='<div id="collapseOne'+ship_cnt+'" class="panel-collapse collapse in" style="height: 0px;" aria-expanded="false">';
 					  
 					  
 					 
@@ -1972,13 +1971,20 @@ function invoiceCheck(P_SALES_ORDER_NUM){
 			 if(x_inv_exist=="Y"){
 				 console.log("x_inv_exist"+obj.x_inv_exist);
 //				 alert(P_SALES_ORDER_NUM+""+x_inv_exist);
-				 $('#invoice-details').show();
+				  var dist = bpi_com_obj.distributor;
+				  if(dist==1){
+					  $('#invoice-details').show();
+					  $('#payment-details').show();
+				  }else{
+					  $('#invoice-details').hide();
+						 $('#payment-details').hide();
+				  }
 
 			 }else{
 				 console.log("x_inv_exist"+obj.x_inv_exist);
 //				 alert(P_SALES_ORDER_NUM+""+x_inv_exist);
 				 $('#invoice-details').hide();
-
+				 $('#payment-details').hide();
 			 }
 		
 		},

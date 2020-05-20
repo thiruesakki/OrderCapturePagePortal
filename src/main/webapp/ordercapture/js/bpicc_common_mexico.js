@@ -38,7 +38,7 @@ BpiccCommonClass=function()
 //	this.web_mssql_api_url	= "/REST/WebService/"; //old source code   
   	this.web_mssql_api_url	= "/OrderCapturePortal/REST/WebService/";//changed source code
   	this.web_oracle_api_url	= "/OrderCapturePortal/REST/OracleWebService/";
- 
+  	this.distributor="0";
 
     /* includeJsFilesMannually("js/bpicc_error_msgs.js");
      this.web_api_url="http://localhost:8080/OracleApi/OracleApiServlet";  
@@ -221,6 +221,7 @@ BpiccCommon=
 	GetRightsData:function(roles)
 	{
 		var place_order_right_exists=0;
+		var dist=0;
 		$.each(roles,function(k,v)
 		{
 			
@@ -229,8 +230,13 @@ BpiccCommon=
 			 {
 				 place_order_right_exists++;
 			 }
+			 if(roleName=="Distributor"){
+				 dist=1;
+			 }
 			 
 		});
+		bpi_com_obj.distributor=dist;
+//		setCookie("distributor",dist);
 		bpi_com_obj.place_order_right_exists=place_order_right_exists;
 	},
 	LoadProperPageAfterLogin:function()
@@ -258,6 +264,7 @@ BpiccCommon=
 									{			
 										cust_data=responce.object['customer'];	
 										roles=responce.object['roles'];	
+										console.log("roles:"+JSON.stringify(roles));
 										 BpiccCommon.GetRightsData(roles);
 										var billToSiteID="";
 										var shipToSiteID="";

@@ -16,8 +16,6 @@ $(window).on(
 						var searchType = $(
 								"input:radio[name=adminuser]:checked").val();
 						var searchKey = $("#search").val();
-						console.log("User clicked on Search button - Type:",
-								searchType, ",SearchKey:", searchKey);
 						if (searchKey != null && users != undefined) {
 							BpiccAdmin.getMatchingRecordsFromDB(searchType,
 									searchKey);
@@ -31,8 +29,6 @@ $(window).on(
 				 		var searchType = $(
 				 			"input:radio[name=adminuser]:checked").val();
 				 		var searchKey = $("#search").val();
-				 		console.log("User pressed Enter key - Type:",
-							searchType, ",SearchKey:", searchKey);
 				 		if (searchKey != null && users != undefined) {
 				 			BpiccAdmin.getMatchingRecordsFromDB(searchType,
 								searchKey);
@@ -55,27 +51,22 @@ $(window).on(
 			$('#add-user').on('click', function(e) {
 				e.preventDefault();
 				BpiccAdmin.loadAddUserPage();
-				console.log("Add New User button clicked");
 			});
 
 			$('#add-user_edit').on('click', function(e) {
 				e.preventDefault();
 				BpiccAdmin.loadAddUserPage();
-				console.log("Add New User button clicked");
 			});
 
 			$('#cancel-button_add').on('click', function(e) {
 				e.preventDefault();
 				BpiccAdmin.loadUserListPage();
-				console.log("Cancel button clicked");
 
 			});
 
 			$('#cancel-button_edit').on('click', function(e) {
 				e.preventDefault();
 				BpiccAdmin.loadUserListPage();
-				console.log("Edit Page - Cancel button clicked");
-
 			});
 			
 			$('.billtoShipto').on('click', '#btn1', function() {
@@ -117,10 +108,8 @@ $(window).on(
 		})
 
 shipToFocusLost = function(rowID) {
-	console.log("Focus Lost on Row No:", rowID);
 	var id = "#shipto_add_row" + rowID;  
 	var value = $(id).val(); 
-	console.log(id, " ShipTo Value:[", value, "]");
 	if(value != null && value != undefined && value != ""){
 		var id1 = "#billto_add_row" + rowID;  
 		$(id1).val(''); 
@@ -131,11 +120,9 @@ shipToFocusLost = function(rowID) {
 };
 
 shipToFocusLost_edit = function(element) {
-	console.log("Focus Lost on Row No:", element.value);
 	var value = element.value;
 	var id = element.id;
 	var rowID = id.substring(15);
-	console.log(rowID, " ShipTo Value:[", value, "]");
 //	var id = "#shipto_edit_row" + rowID;  
 //	var value = $(id).val();
 //	var id = "shipto_edit_row" + rowID;
@@ -168,7 +155,6 @@ function getCAPUsers() {
 		type : "GET",
 		url : url,
 		success : function(data1) {
-			console.log("User records received:", data1);
 			setUsersInView(data1);
 		},
 		error : function(msg) {
@@ -225,13 +211,11 @@ function setUsersInView(data) {
 
 BpiccAdmin = {
 	loadEditUser : function(id) {
-		console.log("User clicked on Row:", id);
 		$(".loader").show();
 		billToShipToRowNo_Edit = 1;
 		$("label.error").remove();
 		currentEditUserID = id;
 		var user = BpiccAdmin.getSelectedUser(id);
-		console.log("User object for selected Row:", user);
 		var email = user.email;
 		var password = user.password;
 		var firstName = user.firstName;
@@ -254,7 +238,6 @@ BpiccAdmin = {
 			dataType: "json",
 			data:"userID="+id,
 			success : function(data) {
-				console.log("User ROLES and Customer Data received:", data);
 //				BpiccAdmin.setUserRoleSelected(data);
 				var userRoles = null;
 				var customerData = null;
@@ -264,7 +247,6 @@ BpiccAdmin = {
 					customerData = data.object['customer'];
 				}
 				BpiccAdmin.loadCAPRoles(false, userRoles);
-				console.log("customerData:"+customerData);
 				BpiccAdmin.updateBillToShipToInView_Edit(customerData);
 			},
 			error : function(msg) {
@@ -302,7 +284,6 @@ BpiccAdmin = {
 		var fName = $("#fname").val();
 		var lName = $("#lname").val(); 
 		var status = $("input[name='inlineRadioOptions']:checked").val();
-		console.log("Selected Status:", status);
 		var iscustomer = 1;
 		var user = {};
 		user.id = id;
@@ -345,11 +326,9 @@ BpiccAdmin = {
 		var invalidShiptos = [];
 		$('ul#shipToRows li').each(function() {
 			var id = $(this).attr('id');
-			console.log("TESTING:", id);
 			var rowNo = id.substring(3);
 			var id1 = "#shipto_add_row" + rowNo;
 			var shipTo = $(id1).val();
-			console.log("rowNo:", rowNo, "shipTo:", shipTo);
 			var id2 = "#billto_add_row" + rowNo;
 			var billTo = $(id2).val();
 			var id3 = "#accountNo_add_row" + rowNo;
@@ -366,8 +345,6 @@ BpiccAdmin = {
 			});
 		
 		user.fCustomers = customerAccounts;
-		console.log("User to be inserted:", user);
-		console.log("Invalid shipto array size:" + invalidShiptos.length);
 		if(invalidShiptos.length > 0){
 			var errorString = 'The following accounts are inactive or invalid. To save changes delete the rows with invalid accounts before clicking Update: ' + invalidShiptos.toString();
 			console.log(errorString);
@@ -400,7 +377,6 @@ BpiccAdmin = {
 	},
 
 	handleAddUserResponse : function(response) {
-		console.log("Add New User response from web service:", response);
 		var status = response.status;
 		if(status == 0){
 			alert("User added successfully");
@@ -419,7 +395,6 @@ BpiccAdmin = {
 		var fName = $("#fname_edit").val();
 		var lName = $("#lname_edit").val(); 
 		var status = $("input[name='inlineRadioOptions_edit']:checked").val();
-		console.log("Selected Status:", status);
 		$(document).on("keyup", "input.error", function(){
 		    $(this).next(".error").hide();
 		});
@@ -465,7 +440,6 @@ BpiccAdmin = {
 		var invalidShiptos = [];
 		$('ul#shipToRows_Edit li').each(function() {
 			var id = $(this).attr('id');
-			console.log("TESTING:", id);
 			var rowNo = id.substring(7);
 			var id1 = "#shipto_edit_row" + rowNo;
 			var element = $('ul#shipToRows_Edit li').find(id1);
@@ -489,13 +463,10 @@ BpiccAdmin = {
 			} else {
 				if(shipTo != undefined && shipTo != ''){
 					invalidShiptos.push(shipTo);
-					console.log(shipTo + "Invalid shipto added:" + invalidShiptos);
 				}
 			}
 			});
 		user.fCustomers = customerAccounts;
-		console.log("User to be updated:", user);
-		console.log("Invalid shipto array size:" + invalidShiptos.length);
 		if(invalidShiptos.length > 0){
 			var errorString = 'The following accounts are inactive or invalid. To save changes delete the rows with invalid accounts before clicking Update: ' + invalidShiptos.toString();
 			console.log(errorString);
@@ -528,7 +499,6 @@ BpiccAdmin = {
 	},
 	
 	handleEditUserResponse : function(response) {
-		console.log("Edit User response from web service:", response);
 		var status = response.status;
 		if(status == 0){
 			alert("User updated successfully");
@@ -550,7 +520,6 @@ BpiccAdmin = {
 				dataType : "json",
 				data : "email=" + searchKey,
 				success : function(data1) {
-					console.log("User records received on search:", data1);
 					BpiccAdmin.updateUsersInView(data1);
 				},
 				error : function(msg) {
@@ -575,7 +544,6 @@ BpiccAdmin = {
 					searchString : searchKey
 				},
 				success : function(data1) {
-					console.log("User records received on search:", data1);
 					BpiccAdmin.updateUsersInView(data1);
 				},
 				error : function(msg) {
@@ -594,7 +562,6 @@ BpiccAdmin = {
 			var userSelected = data.object;
 			if (userSelected != null && userSelected != undefined
 					&& userSelected.length > 0) {
-				console.log("Search user records:", userSelected);
 				html = "";
 				$("#user_list_tbl tbody tr").remove();
 				for ( var j in userSelected) {
@@ -606,7 +573,6 @@ BpiccAdmin = {
 					var status = userSelected[j].activeStatus;
 					var isCustomer = userSelected[j].iscustomer;
 
-					console.log("Adding User row for:", email);
 					// Add Rows
 					html += "<tr id=" + id + ">"
 					html += '<td><a href="#" onclick="BpiccAdmin.loadEditUser(\''
@@ -634,7 +600,6 @@ BpiccAdmin = {
 	},
 
 	loadAddUserPage : function() {
-		console.log("loadAddUserPage");
 //		var validator = $( "#userdetailsForm" ).validate();
 //		validator.destroy();
 		$(".loader").show();
@@ -649,7 +614,6 @@ BpiccAdmin = {
 	},
 
 	loadUserListPage : function() {
-		console.log("loadUserListPage");
 		$(".adminUserDetailBlock").show();
 		$(".addUserBlock").hide();
 		$(".editUserBlock").hide();
@@ -663,7 +627,6 @@ BpiccAdmin = {
 
 	// Get Billto info from Oracle web service
 	getBillToForEnteredShipTo : function(shipTo, rowNo, isAdd, isEditInitialLoad) {
-		console.log(rowNo, " getBillToForEnteredShipTo called for shipTo:", shipTo);
 		xml_request_data = '';
 		xml_request_data += '<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">';
 		xml_request_data += '<soap:Header xmlns:ns1="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/">';
@@ -690,7 +653,6 @@ BpiccAdmin = {
 		xml_request_data += ' </soap:Body>';
 		xml_request_data += '</soap:Envelope>';
 
-		console.log("XML REQUEST:", xml_request_data);
 
 //		var url = bpi_com_obj.web_api_url;
 //		var url="http://uswodsvr702v:9080/OracleApiServlet";
@@ -783,31 +745,25 @@ BpiccAdmin = {
 			if(isAdd == false){
 				id = "#billto_edit_row" + rowNo;
 				var element = $('ul#shipToRows_Edit li').find(id);
-				console.log("Edit Billto Element:", element);
 				element.attr('value', X_BILLTO);
 			}
 			$(id).val(X_BILLTO); 
-			console.log("Value set:", $(id).val());
 			
 			var id1 = "#accountNo_add_row" + rowNo;
 			if(isAdd == false){
 				id1 = "#accountNo_edit_row" + rowNo;
 				var element = $('ul#shipToRows_Edit li').find(id1);
-				console.log("Edit AccNo Element:", element);
 				element.attr('value', ACCT_NAME);
 			}
 			$(id1).val(ACCT_NAME);
-			console.log(id1, "Value set:", $(id1).val());
 			
 			var id2 = "#account_add_row" + rowNo;
 			if(isAdd == false){
 				id2 = "#account_edit_row" + rowNo;
 				var element = $('ul#shipToRows_Edit li').find(id2);
-				console.log("Edit Account Element:", element);
 				element.attr('value', ACCT_NUM);
 			}
 			$(id2).val(ACCT_NUM);
-			console.log(id2, "Value set:", $(id2).val());
 			
 		} 
 			
@@ -868,7 +824,7 @@ BpiccAdmin = {
 
 //					console.log("Add User roledesc:", roledesc);
 
-					if(roleid == 2 || roleid == 3 || roleid == 9){
+					if(roleid == 2 || roleid == 3){
 						html += '<li style="display:none"><span><input type="checkbox"   id='
 							+ roleid
 							+ ' name="checkRoles" value="'
@@ -927,7 +883,6 @@ BpiccAdmin = {
 					var roledesc = roles[k].roleDesc;
 					var status = roles[k].isActive;
 
-					console.log("Edit User roledesc:", roledesc);
 					var isRoleSet = BpiccAdmin.isRoleSetForUser(userRoles, roleid);
 					var selectClass = '';
 					if(isRoleSet == true){
@@ -935,7 +890,8 @@ BpiccAdmin = {
 						selectClass = 'greenIcon';
 					} 
 					
-					if(roleid == 2 || roleid == 3 || roleid == 9){
+					if(roleid == 2 || roleid == 3){
+						console.log(roleid+" if"+roledesc);
 						html += '<li style="display:none"><span><input type="checkbox"   id='
 							+ roleid
 							+ ' name="checkRoles" value="'
@@ -943,6 +899,7 @@ BpiccAdmin = {
 							+ '" class="checkRoles"><i class="fa fa-check-circle" aria-hidden="true"></i></span><span class="rolename">'
 							+ roledesc + '</span></li>'
 					} else if(roleid == 1){
+						console.log(roleid+"else if "+roledesc);
 						roledesc = "Place Order";
 						html += '<li><span><input type="checkbox"   id='
 							+ roleid
@@ -951,6 +908,7 @@ BpiccAdmin = {
 							+ '" class="checkRoles"><i class="fa fa-check-circle ' + selectClass + '" + aria-hidden="true"></i></span><span class="rolename">'
 							+ roledesc + '</span></li>'
 					} else {
+						console.log(roleid+"else "+roledesc);
 						html += '<li><span><input type="checkbox"   id='
 							+ roleid
 							+ ' name="checkRoles" value="'
@@ -960,6 +918,7 @@ BpiccAdmin = {
 					}
 					k++;
 				}
+				console.log("edit html:"+html);
 				$("#role_list_tbl_edit").append(html);
 				
 				$('.checkRoles').on('change',function() {
@@ -979,15 +938,12 @@ BpiccAdmin = {
 	},
 	
 	setUserRolesChecked : function(userRoles){
-		console.log('setUserRolesChecked...', userRoles)
 		if (userRoles != null && userRoles != undefined && userRoles.length > 0) {
 			for ( var y in userRoles) {
 				var rid = userRoles[y].roleID;
 				var rdesc = userRoles[y].roleDesc;
-				console.log("ID Set for User:", rid);
 				var id = "#" + rid;
 				var element = $('ul#role_list_tbl_edit li').find(id);
-				console.log("Edit ROLE Element:", element);
 				element.attr('checked', 'checked');
 
 			}
@@ -995,12 +951,10 @@ BpiccAdmin = {
 	},
 		
 	isRoleSetForUser : function(userRoles, roleid){
-		console.log('Checking Role for ', roleid)
 			if (userRoles != null && userRoles != undefined && userRoles.length > 0) {
 				for ( var k in userRoles) {
 					var id = userRoles[k].roleID;
 					if(id == roleid){
-						console.log("ID Set for User:", roleid);
 						return true;
 					}
 				}
@@ -1024,7 +978,6 @@ BpiccAdmin = {
 		addBillToShipToRows : function(row, islastRow, shipto, billto, accNo){
 			billToShipToRowNo_Edit = row;
 			if(row == 2){
-				console.log('222 Row:');
 				if ( $(".col-md-1.icons").is("#btn_row1") ) {
 					$( ".fa").removeClass('fa-plus-square').addClass('fa-minus-square');
 					$("#btn_row1 #btn1_edit:first-child").attr('id','minus_edit');
@@ -1044,7 +997,6 @@ BpiccAdmin = {
 			if (customers != null && customers != undefined && customers.length > 0) {
 				for ( var k in customers) {
 					var rowID = Number(k)+1;
-					console.log(rowID, " Customer:", customers[k]);
 					var shipto = customers[k].shipToSiteID;
 					var billto = '';
 					var accName = '';
