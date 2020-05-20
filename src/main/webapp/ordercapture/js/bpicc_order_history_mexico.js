@@ -5,12 +5,28 @@ var userID="";
 var orgID="";
 var orderDetailsObject;
 var globalOrderHistoryObject;
+$(window).on('load', function() {
+	console.log("pdf");
+	var doc = new jsPDF();
+	var specialElementHandlers = {
+	    '#editor': function (element, renderer) {
+	        return true;
+	    }
+	};
+
+	$('#payment_pdf').click(function () {
+	    doc.fromHTML($('#payment_accordion1').html(), 15, 15, {
+	        'width': 1200,
+	            'elementHandlers': specialElementHandlers
+	    });
+	    doc.save('file.pdf');
+	});
+	});//]]> 
   jQuery(function($) {'use strict',
   
 	   $('#search_order_history').on('click', function(e){
 	  e.preventDefault();
 	  $('#invoice-details').hide();
-
 //	  if(getSearchParams('s')!=null && getSearchParams('s')!=''){	 
 //			 var requestID=Decoding(decodeURIComponent(getSearchParams('s')));
 //			 orderShipTO=requestID;
@@ -35,6 +51,7 @@ var globalOrderHistoryObject;
 	 $("#div_order_history").show();
 	 $("#div_shipping_detail").hide();
 	 $("#div_invoice_detail").hide();
+	 $("#div_payment_detail").hide();
 	 $("#div_order_detail").hide();
 	 $("#po_no").val();
 	 $("#sales_order_no").val();
@@ -50,6 +67,11 @@ var globalOrderHistoryObject;
 	    $('#invoice-details').on('click', function(e){             
 		   	 
 			OrderHistory.CallInvoiceDetailsFromItemDetailedPage();
+			});
+	    
+	    $('#payment-details').on('click', function(e){             
+		   	 
+			OrderHistory.CallPaymentDetailsFromItemDetailedPage();
 			});
 	    
 		$('#from_date').keypress(function (e) {
@@ -104,7 +126,11 @@ OrderHistory=
 			OrderHistory.CallInvoiceDetailAPI(order_no);
 	},
 
-
+	CallPaymentDetailsFromItemDetailedPage:function()
+	{
+			var order_no=$.trim($("#dtl_sales_order_no").html().replace("#",""));
+			OrderHistory.CallPaymentDetailAPI(order_no);
+	},
 	
 	LoadProperDatesAndCallAPI:function()
 	{
@@ -543,6 +569,10 @@ OrderHistory=
 		 $("#div_order_detail").hide();
 		 $("#div_shipping_detail").hide();
 		 $("#div_invoice_detail").hide();
+		 $("#div_payment_detail").hide();
+		 $("#div_bpiOnlineLeftPanel").show(); 
+		 $("#header").show(); 
+		 $("#footer").show();
 		 
 	},
 	CallOrderDetailAPI:function(P_SALES_ORDER_NUM,SHIPPED_PIECES)
@@ -560,6 +590,7 @@ OrderHistory=
 		 $("#div_order_detail").show();
 		 $("#div_shipping_detail").hide();
 		 $("#div_invoice_detail").hide();
+		 $("#div_payment_detail").hide();
 		 
 		$("#dtl_sales_order_no").html("");
 			   $("#dtl_order_date").html("");
@@ -820,6 +851,7 @@ xml_request_data+=' </soap:Envelope> ';
 		 $("#div_order_detail").hide();
 		 $("#div_shipping_detail").show();
 		 $("#div_invoice_detail").hide();
+		 $("#div_payment_detail").hide();
 		 
 		   
 	try {
@@ -1214,7 +1246,7 @@ xml_request_data+=' </soap:Envelope> ';
 						   
 						   html+='<div class="col-md-6 shippedFrom">';
 						   html+=' <span class="title">Invoice Currency :</span><Span class="dc">'+INVOICE_CURRENCY_CODE+' </span>';
-							html+='<span class="title">Customer Name :</span><Span class="shipmethod">'+CUSTOMER_NAME+' </span>';
+//							html+='<span class="title">Customer Name :</span><Span class="shipmethod">'+CUSTOMER_NAME+' </span>';
 						  html+=' </div>';
 						html+='</div>  ';
 
@@ -1301,105 +1333,109 @@ xml_request_data+=' </soap:Envelope> ';
 //							html+=' <td colspan="2"><b>PAID_AMOUNT</b><b> : </b><b>'+PAID_AMOUNT+'</b></td><br>';
 //							html+=' <td colspan="2"><b>DUE DATE</b><b> : </b><b>'+DUE_DATE+'</b></td><br>';
 //							html+=' <td colspan="2"><b>DAYS OUTSTANDING</b><b> : </b><b>'+DAYS_OUTSTANDING+'</b></td><br>';
-								  html+= '<tr>';
-								  html+='<td>   </td>';
-								  html+=' <td>   </td>';
-								  html+=' <td>   </td>';
-								  html+=' <td>   </td>';
-								  html+='  <td>';
-								  html+='   <p>';
-								  html+='    <strong>Total</strong>';
-								  html+=' </p>';
-								  html+='   <p>';
-								  html+='    <strong>Paid Amount</strong>';
-								  html+=' </p>';
-								  html+='  <p>';
-								  html+='    <strong>Payment Status</strong>';
-								  html+=' </p></td>';
-								  html+='  <td>';
-								  html+='   <p>';
-								  html+='     <strong>'+INVOICE_AMOUNT+'</strong>';
-								  html+='    </p>';
-								  html+='   <p>';
-								  html+='     <strong>'+PAID_AMOUNT+'</strong>';
-								  html+='    </p>';
-								  html+='     <p>';
-								  if(PAYMENT_STATUS=="Paid"){
-//									  console.log(PAYMENT_STATUS);
-//									  html+='<strong style="background-color:Green;color:White">'+PAYMENT_STATUS+'</strong>';
-								      html+='<button type="button" style="color:Black;" class="btn btn-success btn-sm"">'+PAYMENT_STATUS+'</button>';
 
-								  }
-								  else if(PAYMENT_STATUS=="PartiallyPaid"){
-//									  console.log(PAYMENT_STATUS);
-//									 html+=' <button style="background-color:Yellow;color:Black">'+PAYMENT_STATUS+'</button>';
-									 html+='<button id="payment-details type="Submit" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button>';
-
-								  }
-								  else if(PAYMENT_STATUS=="Pending"){
-//									  console.log(PAYMENT_STATUS);
-									 html+=' <strong style="background-color:Orange;color:Black">'+PAYMENT_STATUS+'</strong>';
-								  }
-								  html+='     </p></td>';
-								  html+='    </tr>';
-//								  html+='<thead>';
+								  //Total amount details 
 								  
-//								  html+='<tr class="heading">';
 //								  
-//								  html+='<th">Payment Date</th>';
-//								  html+='<th class="shippedpieces">Payment Method</th>';
-//								  html+='<th class="shippedpieces">Payment Term</th>';
-//								  html+='<th class="shippedpieces">TAX</th>';
-//								  html+='<th class="shippedpieces">ORDERED QUANTITY</th>';
-//								  html+='<th class="shippedpieces">INVOICE AMOUNT</th>';
-//								  html+='</tr>';
-//								  html+='</thead>';
-								  html+=' <table class="table">';
-								  html+='<h6>Payment Details</h6>';
-									  html+='  <thead>';
-										  html+='     <tr class="heading">';
-//										  html+=' <tr>';
-//										  html+='         <td><strong>LINE NUM</strong></td>';
-//										  html+=' </tr>';
-										  html+='         <td><strong>NO.</strong></td>';
-										  html+='         <td class="text-center"><strong>DATE</strong></td>';
-										  html+='        <td class="text-center"><strong>METHOD</strong></td>';
-									   html+='      <td class="text-center"><strong>REFERENCE</strong></td>';
-								  html+='      <td class="text-right"><strong>AMOUNT PAID</strong></td>';
-						  html+='   </tr>';
-						  html+='  </thead>';
-						  html+='  <tbody>';
+//								  html+= '<tr>';
+//								  html+='<td>   </td>';
+//								  html+=' <td>   </td>';
+//								  html+=' <td>   </td>';
+//								  html+=' <td>   </td>';
+//								  html+='  <td>';
+//								  html+='   <p>';
+//								  html+='    <strong>Total</strong>';
+//								  html+=' </p>';
+//								  html+='   <p>';
+//								  html+='    <strong>Paid Amount</strong>';
+//								  html+=' </p>';
+//								  html+='  <p>';
+//								  html+='    <strong>Payment Status</strong>';
+//								  html+=' </p></td>';
+//								  html+='  <td>';
+//								  html+='   <p>';
+//								  html+='     <strong>'+INVOICE_AMOUNT+'</strong>';
+//								  html+='    </p>';
+//								  html+='   <p>';
+//								  html+='     <strong>'+PAID_AMOUNT+'</strong>';
+//								  html+='    </p>';
+//								  html+='     <p>';
+//								  if(PAYMENT_STATUS=="Paid"){
+//									  console.log(PAYMENT_STATUS);
+//								      html+='<button type="button" style="color:Black;" class="btn btn-success btn-sm"">'+PAYMENT_STATUS+'</button>';
+
+//								  }
+//								  else if(PAYMENT_STATUS=="PartiallyPaid"){
+//									  console.log(PAYMENT_STATUS);
+//									 html+='<button id="payment-details type="Submit" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button>';
+//
+//								  }
+//								  else if(PAYMENT_STATUS=="Pending"){
+//									  console.log(PAYMENT_STATUS);
+//									 html+=' <strong style="background-color:Orange;color:Black">'+PAYMENT_STATUS+'</strong>';
+//								  }
+//								  html+='     </p></td>';
+//								  html+='    </tr>';
+								  
+								  
+			//								  html+='<thead>';
+								  
+			//								  html+='<tr class="heading">';
+			//								  
+			//								  html+='<th">Payment Date</th>';
+			//								  html+='<th class="shippedpieces">Payment Method</th>';
+			//								  html+='<th class="shippedpieces">Payment Term</th>';
+			//								  html+='<th class="shippedpieces">TAX</th>';
+			//								  html+='<th class="shippedpieces">ORDERED QUANTITY</th>';
+			//								  html+='<th class="shippedpieces">INVOICE AMOUNT</th>';
+			//								  html+='</tr>';
+			//								  html+='</thead>';
+								  
+//								  Payment table 
+								  
+//								  html+=' <table class="table">';
+//								  html+='<h6>Payment Details</h6>';
+//									  html+='  <thead>';
+//										  html+='     <tr class="heading">';
+//										  html+='         <td><strong>NO.</strong></td>';
+//										  html+='         <td class="text-center"><strong>DATE</strong></td>';
+//										  html+='        <td class="text-center"><strong>METHOD</strong></td>';
+//									   html+='      <td class="text-center"><strong>REFERENCE</strong></td>';
+//								  html+='      <td class="text-right"><strong>AMOUNT PAID</strong></td>';
+//						  html+='   </tr>';
+//						  html+='  </thead>';
+//						  html+='  <tbody>';
 						  
-						  var paymentDetailsObj=objPayment.x_payment_details;
-							for (var i = 0; i < paymentDetailsObj.length; i++) {
-								  var xmlpaymentDetailsObj = paymentDetailsObj [i];
-							  console.log("xmlpaymentDetailsObj"+JSON.stringify(xmlpaymentDetailsObj));
-							  
-							  var REFERENCE=xmlpaymentDetailsObj.REFERENCE;
-							  var AMOUNT=xmlpaymentDetailsObj.AMOUNT;
-							  var LINE_NUM=xmlpaymentDetailsObj.LINE_NUM;
-							  var CASH_RECEIPT_ID=xmlpaymentDetailsObj.CASH_RECEIPT_ID;
-							  var PAYMENT_DATE=xmlpaymentDetailsObj.PAYMENT_DATE;
-							  var PAYMENT_METHOD=xmlpaymentDetailsObj.PAYMENT_METHOD;
+//						  var paymentDetailsObj=objPayment.x_payment_details;
+//							for (var i = 0; i < paymentDetailsObj.length; i++) {
+//								  var xmlpaymentDetailsObj = paymentDetailsObj [i];
+//							  console.log("xmlpaymentDetailsObj"+JSON.stringify(xmlpaymentDetailsObj));
+//							  
+//							  var REFERENCE=xmlpaymentDetailsObj.REFERENCE;
+//							  var AMOUNT=xmlpaymentDetailsObj.AMOUNT;
+//							  var LINE_NUM=xmlpaymentDetailsObj.LINE_NUM;
+//							  var CASH_RECEIPT_ID=xmlpaymentDetailsObj.CASH_RECEIPT_ID;
+//							  var PAYMENT_DATE=xmlpaymentDetailsObj.PAYMENT_DATE;
+//							  var PAYMENT_METHOD=xmlpaymentDetailsObj.PAYMENT_METHOD;
 							  
 					
-						  html+='   <tr>';
-						  html+='      <td>'+LINE_NUM+'</td>';
-						  html+='      <td>'+PAYMENT_DATE+'</td>';
-						  html+='     <td>'+PAYMENT_METHOD+'</td>';
-						  html+='    <td>'+REFERENCE+'</td>';
-						  html+='    <td class="text-center">'+AMOUNT+'</td>';
-						  html+='</tr>';
-
-												  html+='  </tbody>';
-												  html+='</table>';
+//						  html+='   <tr>';
+//						  html+='      <td>'+LINE_NUM+'</td>';
+//						  html+='      <td>'+PAYMENT_DATE+'</td>';
+//						  html+='     <td>'+PAYMENT_METHOD+'</td>';
+//						  html+='    <td>'+REFERENCE+'</td>';
+//						  html+='    <td class="text-center">'+AMOUNT+'</td>';
+//						  html+='</tr>';
+//
+//												  html+='  </tbody>';
+//												  html+='</table>';
 								  html+='</table>';
 								  
 						 html+='</div>';//close of InvoiceDetails
 						 	html+='</div>';//close of panel-body
 							html+='</div>';//close ofcollapseOne1
                         	html+='</div>';//close div panel panel-default
-							}
+//							}
 									  }
 							
 
@@ -1421,6 +1457,386 @@ xml_request_data+=' </soap:Envelope> ';
 		  message = err.message+" in BpiccPlaceOrder.ApiProcessDisplayOrderHistoryData";
 		  alert(message);
 	  }  
+},
+
+CallPaymentDetailAPI:function(P_SALES_ORDER_NUM)
+{
+if(empty(P_SALES_ORDER_NUM)) return;
+	var  xml_request_data='';
+ // P_SALES_ORDER_NUM="100617196";
+	
+		$("#div_order_detail #dtl_sales_order_no").html("");
+		   $("#div_order_detail #dtl_order_date").html("");
+		   $("#div_order_detail #dtl_po_no").html("");
+		   $("#div_order_detail #dtl_sales_date").html("");
+		   $("#div_order_detail #dtl_sales_order_no1").html("");
+		   $("#div_order_detail #dtl_ship_addr").html("");
+	$("#dtl_order_list_tbl tbody tr").remove();
+ 
+
+//P_SALES_ORDER_NUM=151266;
+//			var orgID= 204;
+//			var userID = userID;
+			var url = bpi_com_obj.web_oracle_api_url+"GetInvoiceDetails?org_id="+orgID+"&purchase_order_number="+P_SALES_ORDER_NUM;	
+			console.log("order invoice url"+url);
+			jQuery.ajax({
+				type: "GET",
+				url: url,
+			    dataType: "json",
+				data:"userID="+userID,
+				success: function (data) {
+					
+					console.log("Invoice Result Success:"+JSON.stringify(data));
+					var obj = JSON.parse(data.object);
+//					console.log(JSON.stringify(obj));
+//					console.log("x_response_message"+obj.x_response_message);
+					var invoiceListObj=obj.x_inv_details;
+					for (var i = 0; i < invoiceListObj.length; i++) {
+						  var xmlInvoiceobject = invoiceListObj [i];
+//						
+//					  console.log	("xmlInvoiceobject"+JSON.stringify(xmlInvoiceobject));
+			
+					}
+					
+			//		 var obj=data.object;
+			//		 console.log("Shipping Object "+obj);
+				
+					 $.ajax({
+						 type: "GET",
+							url : bpi_com_obj.web_oracle_api_url+"GetPaymentInvoice?org_id="+orgID+"&sales_order_number="+P_SALES_ORDER_NUM,
+						    dataType: "json",
+							data:"userID="+userID,
+							success: function (data) {
+								
+								console.log("Payment Result Success:"+JSON.stringify(data));
+								var objPayment = JSON.parse(data.object);
+								var x_response_message =obj.x_response_message;
+								var x_response_status =obj.x_response_status;
+//								console.log(JSON.stringify(obj));
+//								console.log("x_response_message"+x_response_message);
+//								console.log("x_response_status"+x_response_status);
+//								 
+								var paymentInvoiceObj=objPayment.x_payment_matching;
+								for (var i = 0; i < paymentInvoiceObj.length; i++) {
+									  var xmlpaymentInvoiceObj = paymentInvoiceObj [i];
+								  console.log("xmlpaymentInvoiceObj"+JSON.stringify(xmlpaymentInvoiceObj));
+						
+								}
+								var paymentDetailsObj=objPayment.x_payment_details;
+								for (var i = 0; i < paymentDetailsObj.length; i++) {
+									  var xmlpaymentDetailsObj = paymentDetailsObj [i];
+								  console.log("xmlpaymentDetailsObj"+JSON.stringify(xmlpaymentDetailsObj));
+						
+								}
+								if(obj!= null && objPayment!=null){
+									OrderHistory.APIProcessPaymentDetailAPI(obj,objPayment);
+								}else{
+									alert('Order Invoice Payment Details is not found');
+								}
+							
+						} ,
+						error : function(msg) {
+							alert("unable to update the password");
+						}
+					});
+				
+				},
+				error: function (msg) {
+		 
+					  alert("Failed1: " + msg.status + ": " + msg.statusText);
+				}
+			}); 
+
+		 
+		 
+},
+APIProcessPaymentDetailAPI:function(obj,objPayment)
+{
+//	console.log("OrderObject:"+JSON.stringify(orderDetailsObject));
+	 $("#div_order_history").hide();
+	 $("#div_order_detail").hide();
+	 $("#div_invoice_detail").hide();
+	 $("#div_order_block").hide(); 
+	 $("#div_bpiOnlineLeftPanel").hide(); 
+	 $("#header").hide(); 
+	 $("#footer").hide(); 
+	 $("#div_payment_detail").show();
+//	 $("#div_shipping_detail").show();
+
+try {
+		 html="";
+		 tr_id=1;
+			
+				//invoice main div starts
+
+		  var X_SHIP_TO_LINE1=orderDetailsObject.x_ship_to_line1
+		   var X_SHIP_TO_LINE2=orderDetailsObject.x_ship_to_line2
+		   var X_SHIP_TO_LINE3= orderDetailsObject.x_ship_to_line3
+		   var X_SHIP_TO_CITY= orderDetailsObject.x_ship_to_city
+		   var X_SHIP_TO_STATE= orderDetailsObject.x_ship_to_state
+		   var X_SHIP_TO_COUNTRY= orderDetailsObject.x_ship_to_country
+		   var X_SHIP_TO_POSTAL_CODE= orderDetailsObject.x_ship_to_postal_code
+		   
+
+		   var ship_addr_invoice="</br>"+X_SHIP_TO_CITY+", "+X_SHIP_TO_STATE+" "+X_SHIP_TO_POSTAL_CODE;
+//		   console.log("X_SHIP_TO_LINE1"+X_SHIP_TO_LINE1);
+			var html="";
+			ship_cnt=0;
+			var invoiceListObj=obj.x_inv_details;
+			for (var i = 0; i < invoiceListObj.length; i++) {
+				  var xmlInvoiceobject = invoiceListObj [i];
+//				  console.log("xmlInvoiceobject ORDER_NUMBER"+xmlInvoiceobject.ORDER_NUMBER);
+
+			 
+				var ship_act_class="";
+				if( $(this).find("X_SHIP_DETAIL_ITEM").length==1)
+				{
+					ship_act_class=" shipActiveBlock ";
+				}
+			 //run for each invoice
+
+					 ship_cnt++;
+					 var ORDER_NUMBER= xmlInvoiceobject.ORDER_NUMBER;
+					 var TRX_NUMBER= xmlInvoiceobject.TRX_NUMBER;
+				     var TRX_DATE= xmlInvoiceobject.TRX_DATE;
+				     var ORG_ID= xmlInvoiceobject.ORG_ID;
+html+='<div id="payment_pdf">';		   
+ html+='<div class="container">';
+    html+='<div class="row">';
+       html+='<div class="well col-xs-12 col-sm-12 col-md-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1">';
+            html+='<div class="card">';
+                html+='<div class="card-body p-0">';
+				     
+					   html+=' <div class="panel panel-default"> ';
+					   
+						html+='<div class="panel-heading '+ship_act_class+'">';
+                    html+=' <h3 class="panel-title"> ';
+                    html+=' <a class="accordion-toggle" data-toggle="collapse" style="color: #2E4F6A;font-weight: bold;" href="#collapseOne'+ship_cnt+'" aria-expanded="false">INVOICE NUMBER # '+TRX_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
+//                    html+='<button class="btn btn-primary hidden-print" onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>';
+                    html+=' </h3>';
+					html+='  </div> ';
+                   //invoice main div ends starts 
+				   	  html+='<div id="collapseOne'+ship_cnt+'" class="panel-collapse collapse" style="height: 0px;" aria-expanded="false">';
+				  
+				  
+				 
+				   	var INVOICE_CURRENCY_CODE= xmlInvoiceobject.INVOICE_CURRENCY_CODE;
+				    var CARRIER= 2;
+				    
+				    var paymentInvoiceObj=objPayment.x_payment_matching;
+				    for (var i = 0; i < paymentInvoiceObj.length; i++) {
+				    	var xmlpaymentInvoiceObj = paymentInvoiceObj [i];
+//								  console.log("xmlpaymentInvoiceObj"+JSON.stringify(xmlpaymentInvoiceObj));
+			 
+				    	CUSTOMER_NAME=xmlpaymentInvoiceObj.CUSTOMER_NAME;
+				    	
+				    	
+				    	
+                html+='<div class="panel-body">';
+                    	html+=' <div class="row">';
+			                html+=' <div class="col-md-6 shippedDate">';
+							html+=' <span class="title">Invoice Date :</span><Span class="date">'+TRX_DATE+' </span>';
+							html+='  </div>';
+
+							html+='<div class="col-md-6 shippedFrom">';
+							html+='<span class="title">Customer Name :</span><Span class="shipmethod">'+CUSTOMER_NAME+'</span>';
+							html+=' </div>';
+						html+='</div>  ';
+					    html+=' <div class="row">';
+		                    html+=' <div class="col-md-6 shippedDate">';
+							html+=' <span class="title">Invoice Currency :</span><Span class="date">'+INVOICE_CURRENCY_CODE+' </span>';
+							html+='  </div>';
+					   
+							html+='<div class="col-md-6 shippedFrom">';
+							html+='<span class="title">Customer Address :</span><Span class="shipmethod">'+X_SHIP_TO_LINE1+''+ship_addr_invoice+'</span>';
+							html+=' </div>';
+					    html+='</div>  ';
+
+						 html+=' <div class="ShippedDetails">';
+						 	var tot_shipped=0;		
+							var tot_inv_amt=0;
+  
+								    html+=' <table class="table " id="summaryTable'+ship_cnt+'">';
+							 
+								  html+='<thead>';
+								  
+									html+='<tr class="heading">';
+									 
+										  html+='<th class="shippedpieces">LINE NUMBER</th>';
+										  html+='<th class="shippedpieces">ORDERED ITEM</th>';
+										  html+='<th class="shippedpieces">UNIT SELLING PRICE</th>';
+										  html+='<th class="shippedpieces">TAX</th>';
+										  html+='<th class="shippedpieces">ORDERED QUANTITY</th>';
+										  html+='<th class="shippedpieces">INVOICE AMOUNT</th>';
+									html+='</tr>';
+								  html+='</thead>';
+								  html+='<tbody>';
+								  for (var i = 0; i < invoiceListObj.length; i++) {
+									  var xmlInvoiceobject = invoiceListObj [i];
+									  if(ORDER_NUMBER==xmlInvoiceobject.ORDER_NUMBER){
+//										  console.log("Looping invoiceList:"+xmlInvoiceobject.ORDER_NUMBER)
+
+//					  
+						  	html+='<tr>';
+						  	var LINE_NUMBER=xmlInvoiceobject.LINE_NUMBER;
+							  var ORDERED_ITEM=xmlInvoiceobject.ORDERED_ITEM;
+							  var UNIT_SELLING_PRICE=xmlInvoiceobject.UNIT_SELLING_PRICE;
+							  var TAX=xmlInvoiceobject.TAX;
+							  var ORDERED_QUANTITY=xmlInvoiceobject.ORDERED_QUANTITY;
+							  var INVOICE_AMOUNT=xmlInvoiceobject.INVOICE_AMOUNT;
+							  
+//						
+							  
+						    html+='<td>'+LINE_NUMBER+'</td>';
+									  html+='<td>'+ORDERED_ITEM+'</td>';
+									  html+='<td>'+UNIT_SELLING_PRICE+'</td>';
+									  html+='<td>'+TAX+'</td>';
+									  html+='<td>'+ORDERED_QUANTITY+'</td>';
+									  html+='<td>'+INVOICE_AMOUNT+'</td>';
+							html+='</tr>'
+							 if(!empty(ORDERED_QUANTITY))
+						  {
+							  tot_shipped=tot_shipped+parseInt(ORDERED_QUANTITY);
+							  tot_inv_amt=tot_inv_amt+INVOICE_AMOUNT;
+						  }
+//						  
+							} 
+						}
+
+							  
+
+						  
+						
+							  
+							  var TRANSACTION_DATE=xmlpaymentInvoiceObj.TRANSACTION_DATE;
+							  var PAYMENT_TERM=xmlpaymentInvoiceObj.PAYMENT_TERM;
+							  var DAYS_OUTSTANDING=xmlpaymentInvoiceObj.DAYS_OUTSTANDING;
+							  var ORDER_NUMBER=xmlpaymentInvoiceObj.ORDER_NUMBER;
+							  var PAYMENT_STATUS=xmlpaymentInvoiceObj.PAYMENT_STATUS;
+							  
+							  var DUE_DATE=xmlpaymentInvoiceObj.DUE_DATE;
+							  var INVOICE_AMOUNT=xmlpaymentInvoiceObj.INVOICE_AMOUNT;
+							  var ORG_ID=xmlpaymentInvoiceObj.ORG_ID;
+							  var PAID_AMOUNT=xmlpaymentInvoiceObj.PAID_AMOUNT;
+							  var CUSTOMER_NAME=xmlpaymentInvoiceObj.CUSTOMER_NAME;
+							  
+							  var OUTSTANDING_AMOUNT=xmlpaymentInvoiceObj.OUTSTANDING_AMOUNT;
+							  var INVOICE_NUMBER=xmlpaymentInvoiceObj.INVOICE_NUMBER;
+							  var PAYMENT_DATE=xmlpaymentInvoiceObj.PAYMENT_DATE;
+							  var PAYMENT_METHOD=xmlpaymentInvoiceObj.PAYMENT_METHOD;
+							  var CUSTOMER_NUMEBR=xmlpaymentInvoiceObj.CUSTOMER_NUMEBR;
+	
+						
+							  html+='</table>';
+							  
+
+								html+='';
+								html+='                    <div class="d-flex flex-row-reverse bg-dark text-white p-4">';
+								html+='                        <div class="py-3 px-5 text-right">';
+								html+='                            <div class="mb-2 pay_h">Grand Total</div>';
+								html+='                            <div class="h2 font-weight-light pay_c">$'+INVOICE_AMOUNT+'</div>';
+								html+='                        </div>';
+								html+='';
+								html+='                        <div class="py-3 px-5 text-right">';
+								html+='                            <div class="mb-2 pay_h">Paid Amount</div>';
+								html+='                            <div class="h2 font-weight-light pay_c">$'+PAID_AMOUNT+'</div>';
+								html+='                        </div>';
+
+								html+='                        <div class="py-3 px-5 text-right">';
+								html+='                            <div class="mb-2 pay_h">Payment Status</div>';
+//								html+='                            <div class="h2 font-weight-light"><button id="payment-details type="Submit" style="color:Black;" onclick="paymentPage()" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button></div>';
+							  if(PAYMENT_STATUS=="Paid"){
+								  console.log(PAYMENT_STATUS);
+							      html+='<div class="h2 font-weight-light"><button id="payment-details type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-success btn-sm"">'+PAYMENT_STATUS+'</button></div>';
+							  }
+							  else if(PAYMENT_STATUS=="PartiallyPaid"){
+								  console.log(PAYMENT_STATUS);
+//								 html+=' <button style="background-color:Yellow;color:Black">'+PAYMENT_STATUS+'</button>';
+								 html+='<div class="h2 font-weight-light"><button id="payment-details type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button></div>';
+							  }
+							  else if(PAYMENT_STATUS=="Pending"){
+//								  console.log(PAYMENT_STATUS);
+							     html+='<div class="h2 font-weight-light"><button id="payment-details type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button></div>';
+
+							  }
+							
+							  
+							  html+='</div>';
+							  
+							  html+='<div class="panel-heading pay_c" id="payment_info_heading" style="display: none;">';
+								  html+='<h3 class="panel-title" style="text-align: center"><strong>Payment Information</strong></h3>';
+									  html+='</div>';
+							  html+=' <table class="table" id="payment_info" style="display: none;">';
+							 
+								  html+='  <thead>';
+									  html+='     <tr class="heading">';							
+									  html+='         <td class="shippedpieces"><strong>NO.</strong></td>';
+									  html+='         <td class="text-center shippedpieces"><strong>DATE</strong></td>';
+									  html+='        <td class="text-center shippedpieces"><strong>METHOD</strong></td>';
+								   html+='      <td class="text-center shippedpieces"><strong>REFERENCE</strong></td>';
+							  html+='      <td class="text-right shippedpieces"><strong>AMOUNT PAID</strong></td>';
+					  html+='   </tr>';
+					  html+='  </thead>';
+					  html+='  <tbody>';
+					  
+					  var paymentDetailsObj=objPayment.x_payment_details;
+						for (var i = 0; i < paymentDetailsObj.length; i++) {
+							  var xmlpaymentDetailsObj = paymentDetailsObj [i];
+						  console.log("xmlpaymentDetailsObj"+JSON.stringify(xmlpaymentDetailsObj));
+						  
+						  var REFERENCE=xmlpaymentDetailsObj.REFERENCE;
+						  var AMOUNT=xmlpaymentDetailsObj.AMOUNT;
+						  var LINE_NUM=xmlpaymentDetailsObj.LINE_NUM;
+						  var CASH_RECEIPT_ID=xmlpaymentDetailsObj.CASH_RECEIPT_ID;
+						  var PAYMENT_DATE=xmlpaymentDetailsObj.PAYMENT_DATE;
+						  var PAYMENT_METHOD=xmlpaymentDetailsObj.PAYMENT_METHOD;
+						  
+				
+					  html+='   <tr>';
+					  html+='      <td>'+LINE_NUM+'</td>';
+					  html+='      <td>'+PAYMENT_DATE+'</td>';
+					  html+='     <td>'+PAYMENT_METHOD+'</td>';
+					  html+='    <td>'+REFERENCE+'</td>';
+					  html+='    <td class="text-center">'+AMOUNT+'</td>';
+					  html+='</tr>';
+
+											  html+='  </tbody>';
+											  html+='</table>';
+							
+							  
+					 html+='</div>';//close of InvoiceDetails
+					 	html+='</div>';//close of panel-body
+						html+='</div>';//close ofcollapseOne1
+                    	html+='</div>';//close div panel panel-default
+                    	html+='                </div>';
+            			html+='            </div>';
+            			html+='        </div>';
+            			html+='    </div>';
+
+            			html+='</div>'; 
+            			html+='</div>';	
+						}
+								  }
+						
+
+                    	
+			}     
+			
+			      
+			
+
+			 $("#payment_accordion1").html(html);
+			 if(ship_cnt==1)
+				setTimeout(function(){$("#ship_i_1").trigger("click");}, 500); 
+		
+	  
+    }
+  catch(err) {
+	
+	  var message = err.message;
+	  message = err.message+" in BpiccPlaceOrder.ApiProcessDisplayOrderHistoryData";
+	  alert(message);
+  }  
 },
 	
 }
@@ -1642,3 +2058,8 @@ function exportexcel() {
         fileext: ".xlsx"  
     });  
 } 
+
+function paymentPage(){
+	$("#payment_info_heading").show();
+	$("#payment_info").show();
+}

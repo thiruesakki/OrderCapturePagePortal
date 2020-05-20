@@ -41,6 +41,7 @@
 <script src="js/bpicc_common_mexico.js"></script>
 <script src="js/bpicc_order_history_mexico.js"></script>
 <script src="js/jquery-ui.js"></script>
+<script src="js/jspdf.min.js"></script>
 <script src="js/bootstrap-datetimepicker.js"></script>
 <!-- <script type="text/javascript" src="js/ui.mask.js"></script>
 <script type="text/javascript" src="js/ui.core.js"></script> -->
@@ -62,7 +63,6 @@
             
             
 </div>
-
                 
                         <div id="language-link">
                         <ul>
@@ -1758,7 +1758,7 @@
 	     <div class="container">
 		<div class="container">
 		<div class="row">
-			<div class="col-sm-3 bpiOnlineLeftPanel">
+			<div class="col-sm-3 bpiOnlineLeftPanel" id="div_bpiOnlineLeftPanel">
 		 <div class="">
 				<h4>CUSTOMER CENTRAL</h4>
 
@@ -1922,6 +1922,7 @@ information can also be viewed.</p>
                     </div>
 					<input id="shipping-details" class="shippingDetails" value="Shipping Details" type="Submit"/>
 					<input id="invoice-details" class="shippingDetails" value="Invoice Details" type="Submit"/>
+					<input id="payment-details" class="shippingDetails" value="Payment Details" type="Submit"/>
                     <!--<h5>Items Ordered</h5> -->
 					<div class="orderListContent">
 					<div class="tableContentsorderListtBlock">
@@ -2018,6 +2019,21 @@ information can also be viewed.</p>
 				   <div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>
 		   
 				</div>
+				
+				<div class="ShippingDetailsBlock" id='div_payment_detail'>
+				<div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>	   
+				 <br>
+				   <div class="row">
+				<button class="btn btn hidden-print" style="float: right;margin-right:-210px;background-color:#2E4F6A;color:White"" onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+				<button id="payment_pdf" class=" btn btn" style="float: right;margin-right:-117px;background-color:#2E4F6A;color:White"">Generate PDF</button>
+				</div>
+				<br>
+				   <div class="panel-group" id="payment_accordion1"  >
+	
+				   </div>
+				   <div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>
+		   
+				</div>
 		        
 			</div>
 				
@@ -2025,7 +2041,7 @@ information can also be viewed.</p>
 		</div>
 		</div>
 	<div id="ExcelexportDiv" style="display: none;"></div>
-<footer>
+<footer id="footer">
     <div class="footer-1">
         <div class="container">
             <div class="row">
