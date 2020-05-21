@@ -64,7 +64,7 @@ $(window).on('load', function() {
 		OrderHistory.CallShippingDetailsFromItemDetailedPage();
 		});
 	    
-	    $('#invoice-details').on('click', function(e){             
+	    $('#invoice-details').on('click', function(e){
 			OrderHistory.CallInvoiceDetailsFromItemDetailedPage();
 			});
 	    
@@ -570,6 +570,7 @@ OrderHistory=
 		 $("#div_invoice_detail").hide();
 		 $("#div_payment_detail").hide();
 		 $("#div_bpiOnlineLeftPanel").show(); 
+		 $("#div_order_block").show();
 		 $("#header").show(); 
 		 $("#footer").show();
 		 
@@ -1220,11 +1221,11 @@ xml_request_data+=' </soap:Envelope> ';
 							html+='<div class="panel-heading '+ship_act_class+'">';
                         html+=' <h3 class="panel-title"> ';
 //                        html+=' <a class="accordion-toggle" data-toggle="collapse"  href="#collapseOne'+ship_cnt+'" aria-expanded="false">ORDER_NUMBER # '+ORDER_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRX DATE: '+TRX_DATE+' <i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
-                        html+=' <a class="accordion-toggle" data-toggle="collapse" style="color: #2E4F6A;font-weight: bold;" href="#collapseOne'+ship_cnt+'" aria-expanded="false">INVOICE NUMBER # '+TRX_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
+                        html+=' <a class="accordion-toggle" data-toggle="collapse" style="color: #2E4F6A;font-weight: bold;" href="#collapseInvoiceOne'+ship_cnt+'" aria-expanded="false">INVOICE NUMBER # '+TRX_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down pull-left" id="invoice_i_'+ship_cnt+'"></i></a>';
                         html+=' </h3>';
 						html+='  </div> ';
                        //invoice main div ends starts 
-					   	  html+='<div id="collapseOne'+ship_cnt+'" class="panel-collapse collapse in" style="height: 0px;" aria-expanded="false">';
+					   	  html+='<div id="collapseInvoiceOne'+ship_cnt+'" class="panel-collapse collapse" style="height: 0px;" aria-expanded="false">';
 					  
 					  
 					 
@@ -1446,7 +1447,7 @@ xml_request_data+=' </soap:Envelope> ';
 
 				 $("#invoice_accordion1").html(html);
 				 if(ship_cnt==1)
-					setTimeout(function(){$("#ship_i_1").trigger("click");}, 500); 
+					setTimeout(function(){$("#invoice_i_1").trigger("click");}, 500); 
 			
 		  
 	    }
@@ -1610,12 +1611,12 @@ html+='<div id="payment_pdf">';
 					   
 						html+='<div class="panel-heading '+ship_act_class+'">';
                     html+=' <h3 class="panel-title"> ';
-                    html+=' <a class="accordion-toggle" data-toggle="collapse" style="color: #2E4F6A;font-weight: bold;" href="#collapseOne'+ship_cnt+'" aria-expanded="false">INVOICE NUMBER # '+TRX_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down pull-left" id="ship_i_'+ship_cnt+'"></i></a>';
+                    html+=' <a class="accordion-toggle" data-toggle="collapse" style="color: #2E4F6A;font-weight: bold;" href="#collapsePaymentOne'+ship_cnt+'" aria-expanded="false">INVOICE NUMBER # '+TRX_NUMBER+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down pull-left" id="payment_i_'+ship_cnt+'"></i></a>';
 //                    html+='<button class="btn btn-primary hidden-print" onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>';
                     html+=' </h3>';
 					html+='  </div> ';
                    //invoice main div ends starts 
-				   	  html+='<div id="collapseOne'+ship_cnt+'" class="panel-collapse collapse" style="height: 0px;" aria-expanded="false">';
+				   	  html+='<div id="collapsePaymentOne'+ship_cnt+'" class="panel-collapse collapse" style="height: 0px;" aria-expanded="false">';
 				  
 				  
 				 
@@ -1826,7 +1827,7 @@ html+='<div id="payment_pdf">';
 
 			 $("#payment_accordion1").html(html);
 			 if(ship_cnt==1)
-				setTimeout(function(){$("#ship_i_1").trigger("click");}, 500); 
+				setTimeout(function(){$("#payment_i_1").trigger("click");}, 500); 
 		
 	  
     }
