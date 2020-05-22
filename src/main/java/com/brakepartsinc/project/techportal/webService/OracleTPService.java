@@ -607,5 +607,57 @@ public class OracleTPService {
 			}
 			return jsonResult.toString();
 	}
-	
+		@GET
+		@Path("/GetReturnOrderHistoryDetails")
+		// @Consumes(MediaType.APPLICATION_JSON)
+		public String getReturnOrderHistory(@QueryParam("orgId") String orgId,
+				@QueryParam("shipTo") String shipTo,
+				@QueryParam("billTo") String billTo,
+				@QueryParam("fromDate") String fromDate,
+				@QueryParam("toDate") String toDate,
+				@QueryParam("searchType") String searchType,
+				@QueryParam("docNumber") String docNumber) {
+			JsonObject jsonResult = new JsonObject();
+			String orderHistoryListJson = null;
+			OrderHistoryListObject orderHistory=null;
+			int status = -1;
+			String errorMessage = "";
+			try {
+				OracleDataHandler dataHandler = new OracleDataHandler();
+				if(fromDate!=null&&toDate!=null){
+					orderHistory = dataHandler
+							.getMuleAllReturnOrderHistory(orgId, shipTo, billTo, fromDate,
+									toDate, searchType);
+				}else if(docNumber!=null){
+					orderHistory = dataHandler
+							.getMuleReturnPoOrderHistory(orgId, shipTo, billTo, searchType,docNumber);
+				}
+				
+				status = 0;
+				if (orderHistory != null) {
+					status = 0;
+					Gson gson = new Gson();
+					orderHistoryListJson = gson.toJson(orderHistory);
+				} else {
+					status = 1;
+					errorMessage = "Returns History List not found";
+				}
+
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", errorMessage);
+				jsonResult.addProperty("object", orderHistoryListJson);
+				System.out.println("getReturnsHistory - Result to be returned:"
+						+ jsonResult);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				status = 6;
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", e.getMessage());
+				jsonResult.add("object", null);
+				System.out.println("getReturnsHistory - ERROR Result to be returned:"
+						+ jsonResult);
+			}
+			return jsonResult.toString();
+		}
 }

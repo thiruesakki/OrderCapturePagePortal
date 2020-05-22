@@ -571,4 +571,76 @@ public class OracleDataHandler {
 			}
 			return paymentObject;
 		}
+	 public OrderHistoryListObject getMuleAllReturnOrderHistory(String orgId,
+				String shipTo, String billTo, String fromDate,String toDate, String searchType) throws IOException {
+//			String orderToDate=TPUtility.formatSqlDateToMule(toDate);
+//			String orderFromDate=TPUtility.formatSqlDateToMule(fromDate);
+			String query = "http://xxenv-test-rma-order-history.us-e2.cloudhub.io/api/RmaOrderHistory?p_operating_unit_id="
+					+ orgId + "&p_ship_to=" + shipTo+"&p_bill_to="+billTo+"&p_from_date="+fromDate+"&p_to_date="+toDate+"&p_search_type="+searchType;
+			System.out.println(query);
+			URL urlForGetRequest = new URL(query);
+			String readLine = null;
+			String outputString = "";
+			OrderHistoryListObject orderHistoryList = null;
+			HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+					.openConnection();
+			conection.setRequestMethod("GET");
+			// conection.setRequestProperty("p_operating_unit_id", org_id); // set
+			// userId its a sample here
+			// conection.setRequestProperty("p_ship_to_loction", ship_to_location);
+			int responseCode = conection.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						conection.getInputStream()));
+				StringBuffer response = new StringBuffer();
+
+				while ((readLine = in.readLine()) != null) {
+					response.append(readLine);
+				}
+				in.close();
+				outputString = response.toString();
+				Gson g = new Gson();
+				orderHistoryList = g.fromJson(outputString, OrderHistoryListObject.class);
+				// GetAndPost.POSTRequest(response.toString());
+			} else {
+				System.out.println("GET NOT WORKED");
+			}
+			return orderHistoryList;
+		}
+		public OrderHistoryListObject getMuleReturnPoOrderHistory(String orgId,
+				String shipTo, String billTo, String searchType, String docNumber) throws IOException {
+//			String orderToDate=TPUtility.formatSqlDateToMule(toDate);
+//			String orderFromDate=TPUtility.formatSqlDateToMule(fromDate);
+			String query = "http://xxenv-test-rma-order-history.us-e2.cloudhub.io/api/RmaOrderHistory?p_operating_unit_id="
+					+ orgId + "&p_ship_to=" + shipTo+"&p_bill_to="+billTo+"&p_search_type="+searchType+"&p_document_num="+docNumber;
+			System.out.println(query);
+			URL urlForGetRequest = new URL(query);
+			String readLine = null;
+			String outputString = "";
+			OrderHistoryListObject orderHistoryList = null;
+			HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+					.openConnection();
+			conection.setRequestMethod("GET");
+			// conection.setRequestProperty("p_operating_unit_id", org_id); // set
+			// userId its a sample here
+			// conection.setRequestProperty("p_ship_to_loction", ship_to_location);
+			int responseCode = conection.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						conection.getInputStream()));
+				StringBuffer response = new StringBuffer();
+
+				while ((readLine = in.readLine()) != null) {
+					response.append(readLine);
+				}
+				in.close();
+				outputString = response.toString();
+				Gson g = new Gson();
+				orderHistoryList = g.fromJson(outputString, OrderHistoryListObject.class);
+				// GetAndPost.POSTRequest(response.toString());
+			} else {
+				System.out.println("GET NOT WORKED");
+			}
+			return orderHistoryList;
+		}
 }

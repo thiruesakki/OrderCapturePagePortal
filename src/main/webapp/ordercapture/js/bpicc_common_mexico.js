@@ -198,7 +198,7 @@ BpiccCommon=
 			    setTimeout(function(){ $("#partNum_2").focus();}, 1000); 
 				 
 		  }
-		  else if($("#page_type").val()=='order_history')
+		  else if($("#page_type").val()=='order_history'||$("#page_type").val()=='return_history')
 		  {
 			   if(empty(getCookie("selected_ship_to")))
 			{

@@ -10,6 +10,8 @@ public class OrderHistoryListObject {
 	
 	List<OrderHistoryObject> x_order_history=null;
 	
+	List<OrderHistoryObject> x_rma_order_history=null;
+	
 	public String getX_response_message() {
 		return x_response_message;
 	}
@@ -28,12 +30,17 @@ public class OrderHistoryListObject {
 	public void setX_order_history(List<OrderHistoryObject> x_order_history) {
 		this.x_order_history = x_order_history;
 	}
-	
+	public List<OrderHistoryObject> getX_rma_order_history() {
+		return x_rma_order_history;
+	}
+	public void setX_rma_order_history(List<OrderHistoryObject> x_rma_order_history) {
+		this.x_rma_order_history = x_rma_order_history;
+	}
 	@Override
 	public String toString() {
 		return "OrderHistoryListObject [x_response_message="
 				+ x_response_message + ", x_response_status="
 				+ x_response_status + ", x_order_history=" + x_order_history
-				+ "]";
+				+ ", x_rma_order_history=" + x_rma_order_history + "]";
 	}
 }
