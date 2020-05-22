@@ -6,22 +6,49 @@ var orgID="";
 var orderDetailsObject;
 var globalOrderHistoryObject;
 $(window).on('load', function() {
-	console.log("pdf");
-	var doc = new jsPDF();
-	var specialElementHandlers = {
-	    '#editor': function (element, renderer) {
-	        return true;
-	    }
-	};
-
-	$('#payment_pdf').click(function () {
-	    doc.fromHTML($('#payment_accordion1').html(), 15, 15, {
-	        'width': 1200,
-	            'elementHandlers': specialElementHandlers
-	    });
-	    doc.save('file.pdf');
-	});
+	
+//	var doc = new jsPDF();
+//	var specialElementHandlers = {
+//	    '#editor': function (element, renderer) {
+//	        return true;
+//	    }
+//	};
+//
+//	$('#payment_pdf').click(function () {
+//	    doc.fromHTML($('#payment_accordion1').html(), 15, 15, {
+//	        'width': 1200,
+//	            'elementHandlers': specialElementHandlers
+//	    });
+//	    doc.save('file.pdf');
+//	});
 	});//]]> 
+function createPrint(){
+	var sTable = document.getElementById('print_div').innerHTML;
+
+    var style = "<style>";
+    style = style + "table {width: 100%;font: 17px Calibri;}";
+    style = style + "table, th, td {border: solid 1px green; background-color:green; border-collapse: collapse;";
+    style = style + "table, th{ background-color:2E4F6A}";
+    style = style + "padding: 2px 3px;text-align: center;}";
+    style = style + "</style>";
+//     printWindow.document.write('<style type="text/css">.style1{width: 100%;}</style>');
+    // CREATE A WINDOW OBJECT.
+    var win = window.open('', '', 'height=700,width=700');
+
+    win.document.write('<html><head>');
+//    win.document.write('<title>Profile</title>');   // <title> FOR PDF HEADER.
+    win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+    win.document.write('</head>');
+    win.document.write('<body>');
+    win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+    win.document.write('</body></html>');
+
+    win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+    win.print(); 
+//    win.close();
+}
+
   jQuery(function($) {'use strict',
   
 	   $('#search_order_history').on('click', function(e){
@@ -1639,16 +1666,16 @@ html+='<div id="payment_pdf">';
 							html+='  </div>';
 
 							html+='<div class="col-md-6 shippedFrom">';
-							html+='<span class="title">Customer Name :</span><Span class="shipmethod">'+CUSTOMER_NAME+'</span>';
+							html+='<span class="title"></span><Span class="shipmethod">'+CUSTOMER_NAME+'</span>';
 							html+=' </div>';
 						html+='</div>  ';
 					    html+=' <div class="row">';
 		                    html+=' <div class="col-md-6 shippedDate">';
-							html+=' <span class="title">Invoice Currency :</span><Span class="date">'+INVOICE_CURRENCY_CODE+' </span>';
+							html+=' <span class="title">Invoice Currency</span><Span class="date">'+INVOICE_CURRENCY_CODE+' </span>';
 							html+='  </div>';
 					   
 							html+='<div class="col-md-6 shippedFrom">';
-							html+='<span class="title">Customer Address :</span><Span class="shipmethod">'+X_SHIP_TO_LINE1+''+ship_addr_invoice+'</span>';
+							html+='<span class="title"></span><Span class="shipmethod">'+X_SHIP_TO_LINE1+''+ship_addr_invoice+'</span>';
 							html+=' </div>';
 					    html+='</div>  ';
 
@@ -1726,42 +1753,84 @@ html+='<div id="payment_pdf">';
 							  var PAYMENT_METHOD=xmlpaymentInvoiceObj.PAYMENT_METHOD;
 							  var CUSTOMER_NUMEBR=xmlpaymentInvoiceObj.CUSTOMER_NUMEBR;
 	
-						
-							  html+='</table>';
-							  
-
-								html+='';
-								html+='                    <div class="d-flex flex-row-reverse bg-dark text-white p-4">';
-								html+='                        <div class="py-3 px-5 text-right">';
-								html+='                            <div class="mb-2 pay_h">Grand Total</div>';
-								html+='                            <div class="h2 font-weight-light pay_c">$'+INVOICE_AMOUNT+'</div>';
-								html+='                        </div>';
-								html+='';
-								html+='                        <div class="py-3 px-5 text-right">';
-								html+='                            <div class="mb-2 pay_h">Paid Amount</div>';
-								html+='                            <div class="h2 font-weight-light pay_c">$'+PAID_AMOUNT+'</div>';
-								html+='                        </div>';
-
-								html+='                        <div class="py-3 px-5 text-right">';
-								html+='                            <div class="mb-2 pay_h">Payment Status</div>';
-//								html+='                            <div class="h2 font-weight-light"><button id="payment-details type="Submit" style="color:Black;" onclick="paymentPage()" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button></div>';
+							  html+= '<tr>';
+							  html+='<td>   </td>';
+							  html+=' <td>   </td>';
+							  html+=' <td>   </td>';
+							  html+=' <td>   </td>';
+							  html+='  <td>';
+							  html+='   <p>';
+							  html+='    <strong>Total</strong>';
+							  html+=' </p>';
+							  html+='   <p>';
+							  html+='    <strong>Paid Amount</strong>';
+							  html+=' </p>';
+							  html+='  <p>';
+							  html+='    <strong>Payment Status</strong>';
+							  html+=' </p></td>';
+							  html+='  <td>';
+							  html+='   <p>';
+							  html+='     <strong>'+INVOICE_AMOUNT+'</strong>';
+							  html+='    </p>';
+							  html+='   <p>';
+							  html+='     <strong>'+PAID_AMOUNT+'</strong>';
+							  html+='    </p>';
+							  html+='     <p>';
 							  if(PAYMENT_STATUS=="Paid"){
 								  console.log(PAYMENT_STATUS);
-							      html+='<div class="h2 font-weight-light"><button id="payment-details type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-success btn-sm"">'+PAYMENT_STATUS+'</button></div>';
+							      html+='<button id="payment-details" type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-success btn-sm"">'+PAYMENT_STATUS+'</button>';
 							  }
 							  else if(PAYMENT_STATUS=="PartiallyPaid"){
 								  console.log(PAYMENT_STATUS);
-//								 html+=' <button style="background-color:Yellow;color:Black">'+PAYMENT_STATUS+'</button>';
-								 html+='<div class="h2 font-weight-light"><button id="payment-details type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button></div>';
-							  }
-							  else if(PAYMENT_STATUS=="Pending"){
-//								  console.log(PAYMENT_STATUS);
-							     html+='<div class="h2 font-weight-light"><button id="payment-details type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button></div>';
+							      html+='<button id="payment-details" type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button>';
 
 							  }
-							
+							  else if(PAYMENT_STATUS=="Pending"){
+								  console.log(PAYMENT_STATUS);
+							      html+='<button id="payment-details" type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-sample btn-sm"">'+PAYMENT_STATUS+'</button>';
+							  }
+							  else if(PAYMENT_STATUS=="OverDue"){
+								  console.log(PAYMENT_STATUS);
+							      html+='<button id="payment-details" type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-danger btn-sm"">'+PAYMENT_STATUS+'</button>';
+							  }
+							  html+='     </p></td>';
+							  html+='    </tr>';
 							  
-							  html+='</div>';
+							  html+='</table>';
+							  
+
+//								html+='';
+//								html+='                    <div class="d-flex flex-row-reverse bg-dark text-white p-4">';
+//								html+='                        <div class="py-3 px-5 text-right">';
+//								html+='                            <div class="mb-2 pay_h">Grand Total</div>';
+//								html+='                            <div class="h2 font-weight-light pay_c">$'+INVOICE_AMOUNT+'</div>';
+//								html+='                        </div>';
+//								html+='';
+//								html+='                        <div class="py-3 px-5 text-right">';
+//								html+='                            <div class="mb-2 pay_h">Paid Amount</div>';
+//								html+='                            <div class="h2 font-weight-light pay_c">$'+PAID_AMOUNT+'</div>';
+//								html+='                        </div>';
+//
+//								html+='                        <div class="py-3 px-5 text-right">';
+//								html+='                            <div class="mb-2 pay_h">Payment Status</div>';
+////								html+='                            <div class="h2 font-weight-light"><button id="payment-details type="Submit" style="color:Black;" onclick="paymentPage()" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button></div>';
+//							  if(PAYMENT_STATUS=="Paid"){
+//								  console.log(PAYMENT_STATUS);
+//							      html+='<div class="h2 font-weight-light"><button id="payment-details type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-success btn-sm"">'+PAYMENT_STATUS+'</button></div>';
+//							  }
+//							  else if(PAYMENT_STATUS=="PartiallyPaid"){
+//								  console.log(PAYMENT_STATUS);
+////								 html+=' <button style="background-color:Yellow;color:Black">'+PAYMENT_STATUS+'</button>';
+//								 html+='<div class="h2 font-weight-light"><button id="payment-details type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button></div>';
+//							  }
+//							  else if(PAYMENT_STATUS=="Pending"){
+////								  console.log(PAYMENT_STATUS);
+//							     html+='<div class="h2 font-weight-light"><button id="payment-details type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-warning btn-sm"">'+PAYMENT_STATUS+'</button></div>';
+//
+//							  }
+//							
+//							  
+//							  html+='</div>';
 							  
 							  html+='<div class="panel-heading pay_c" id="payment_info_heading" style="display: none;">';
 								  html+='<h3 class="panel-title" style="text-align: center"><strong>Payment Information</strong></h3>';
