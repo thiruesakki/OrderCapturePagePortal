@@ -64,6 +64,8 @@ public class UserObject {
 	private List<CommonObject> jobtitleList = null;
 	private List<CommonObject> organizationList = null;
 	
+	private int isadmin = 0;
+	
 	public int getIsFirstAccess() {
 		return isFirstAccess;
 	}
@@ -441,6 +443,14 @@ public class UserObject {
 		this.organizationList = organizationList;
 	}
 
+	public int getIsadmin() {
+		return isadmin;
+	}
+
+	public void setIsadmin(int isadmin) {
+		this.isadmin = isadmin;
+	}
+
 	@Override
 	public String toString() {
 		return "UserObject [id=" + id + ", email=" + email + ", password="
@@ -470,6 +480,6 @@ public class UserObject {
 				+ ", iscustomer=" + iscustomer + ", verificationlinksenttime="
 				+ verificationlinksenttime + ", referedby=" + referedby
 				+ ", isFirstAccess=" + isFirstAccess + ", jobtitleList="
-				+ jobtitleList + ", organizationList=" + organizationList + "]";
+				+ jobtitleList + ", organizationList=" + organizationList + ".isadmin=" + isadmin + "]";
 	}
 }

@@ -57,7 +57,7 @@ public class DataHandler {
 				+ ",description,years_of_experience,area_of_speciality,bays_in_shop,brake_jobs_in_a_month"
 				+ ",list_in_find_a_shop,currently_using_raybestos_products,mailformat"
 				+ ",maildisplay,htmleditor,shopowner,timemodified,nickname,keepShopPrivate,KeepEmployeePrivate,iscustomer, "
-				+ " referedby  from dbo.bpi_user where email = '";
+				+ " referedby,isadmin from dbo.bpi_user where email = '";
 
 		try {
 			cmanager = new ConnectionManager();
@@ -125,6 +125,7 @@ public class DataHandler {
 					userObject
 							.setIsFirstAccess(TPServerConstants.FIRSTACCESS_NO);
 				}
+				userObject.setIsadmin(rs.getInt("isadmin"));
 			}
 
 		} catch (Exception e) {

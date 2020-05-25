@@ -77,6 +77,7 @@ $(document)
 																alert("Login Successfully");
 																var userID = obj.id;
 																setCookie("userID",obj.id);
+																setCookie("isadmin",obj.isadmin);
 //																url = 'bpionline-mexico/selectAccount.html?q='
 //																		+ encodeURIComponent(Encoding(userID));
 																url = 'ordercapture/selectAccount.html';

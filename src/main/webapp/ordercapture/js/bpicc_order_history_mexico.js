@@ -2,11 +2,13 @@
 var orderShipTO="";
 var orderBillTO="";
 var userID="";
+var isadmin="";
 var orgID="";
 var orderDetailsObject;
 var globalOrderHistoryObject;
 $(window).on('load', function() {
-	
+	isadmin=getCookie("isadmin");
+	adminRole();
 //	var doc = new jsPDF();
 //	var specialElementHandlers = {
 //	    '#editor': function (element, renderer) {
@@ -2138,4 +2140,14 @@ function exportexcel() {
 function paymentPage(){
 	$("#payment_info_heading").show();
 	$("#payment_info").show();
+}
+
+function adminRole(){
+	 console.log("isadmin"+isadmin);
+	if(isadmin==1){
+		$('#admin_bpi').show();
+	}
+	else{
+		$('#admin_bpi').hide();
+	}
 }
