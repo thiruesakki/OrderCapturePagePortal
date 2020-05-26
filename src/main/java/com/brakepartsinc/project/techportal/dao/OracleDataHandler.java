@@ -643,4 +643,36 @@ public class OracleDataHandler {
 			}
 			return orderHistoryList;
 		}
+		
+		public PartNumberObject getSONumber(String org_id,String billTo_number,
+				 String shipTo_number, String salesOrderNO) throws IOException {
+			System.out.println(org_id+" " +billTo_number+" " +shipTo_number+" " + salesOrderNO);
+			String query = "http://so-num-search1.us-e2.cloudhub.io/api/SoNumSearch?p_operating_unit_id="
+					+ org_id + "&p_bill_num=" + billTo_number + "&p_ship_num=" + shipTo_number + "&p_so_num="+salesOrderNO;
+			System.out.println(query);
+			URL urlForGetRequest = new URL(query);
+			String readLine = null;
+			String outputString = "";
+			PartNumberObject partNOObject = null;
+			HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+					.openConnection();
+			conection.setRequestMethod("GET");
+			int responseCode = conection.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						conection.getInputStream()));
+				StringBuffer response = new StringBuffer();
+
+				while ((readLine = in.readLine()) != null) {
+					response.append(readLine);
+				}
+				in.close();
+				outputString = response.toString();
+				Gson g = new Gson();
+				partNOObject = g.fromJson(outputString, PartNumberObject.class);
+			} else {
+				System.out.println("GET NOT WORKED");
+			}
+			return partNOObject;
+		}
 }

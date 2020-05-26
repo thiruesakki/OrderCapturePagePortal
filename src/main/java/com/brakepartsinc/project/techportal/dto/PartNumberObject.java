@@ -8,6 +8,8 @@ public class PartNumberObject {
 	
 	private List<List<String>> x_item_search=null;
 	
+	private List<List<String>> x_so_num_search=null;
+	
 	private String x_response_status ="";
 
 	public String getX_response_message() {
@@ -34,11 +36,20 @@ public class PartNumberObject {
 		this.x_response_status = x_response_status;
 	}
 
+	public List<List<String>> getX_so_num_search() {
+		return x_so_num_search;
+	}
+
+	public void setX_so_num_search(List<List<String>> x_so_num_search) {
+		this.x_so_num_search = x_so_num_search;
+	}
+
 	@Override
 	public String toString() {
 		return "PartNumberObject [x_response_message=" + x_response_message
-				+ ", x_part_item_search=" + x_item_search
-				+ ", x_response_status=" + x_response_status + "]";
+				+ ", x_item_search=" + x_item_search + ", x_so_num_search="
+				+ x_so_num_search + ", x_response_status=" + x_response_status
+				+ "]";
 	}
-	
+
 }

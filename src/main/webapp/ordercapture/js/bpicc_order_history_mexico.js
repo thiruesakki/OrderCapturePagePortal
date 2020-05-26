@@ -6,7 +6,9 @@ var isadmin="";
 var orgID="";
 var orderDetailsObject;
 var globalOrderHistoryObject;
+var salesOrderNoList = [];
 $(window).on('load', function() {
+	GetSalesOrderNumberList();
 //	var doc = new jsPDF();
 //	var specialElementHandlers = {
 //	    '#editor': function (element, renderer) {
@@ -2139,4 +2141,57 @@ function paymentPage(){
 	$("#payment_info_heading").show();
 	$("#payment_info").show();
 }
-
+function GetSalesOrderNumberList()
+{
+	 var shipTO=getCookie("selected_ship_to");
+		var billTO=getCookie("selected_bill_to");
+		var userID=getCookie("userID");
+		var orgID=getCookie("selected_org_id");
+		var salesOrderNO="";
+	 var url = bpi_com_obj.web_oracle_api_url+"GetSalesNumber?org_id="+orgID+"&billTo_number="+billTO+"&shipTo_number="+shipTO+"&salesOrderNO="+salesOrderNO;
+	 console.log(url);
+		jQuery.ajax({
+				type: "GET",
+				url: url,
+				    dataType:"json",
+				 
+				success: function (data) {
+					console.log(JSON.stringify(data));
+					
+					if(data.status==0){
+						var object=JSON.parse(data.object);
+						var sOrderList=object.x_so_num_search;
+						for(i=0;i<sOrderList.length;i++){
+							var sOrderNoArray=sOrderList[i];
+							salesOrderNoList=sOrderNoArray;
+							 $(".loader").hide();
+						}
+							
+					}
+				},
+				error: function (msg) {
+					  console.log("Failed: " + msg.status + ": " + msg.statusText);
+				}
+			});
+//	  return r_str;
+}
+$(document).on('click', '#sales_order_no', function() {
+ 	$("#sales_order_no").autocomplete({
+         minLength: 1,
+         source: function (request, response) {
+         	console.log("insidde funtion");
+         	 var filteredArray = $.map(salesOrderNoList, function(item) {
+         		 var item2=item.toLowerCase();
+         		 var request2=request.term;
+         		 request2=request2.toLowerCase();
+         	        if( item2.indexOf(request2) == 0){
+         	            return item;
+         	        }
+         	        else{
+         	            return null;
+         	        }
+         	    });
+         	    response(filteredArray.slice(0, 20));
+         }
+     });
+ });

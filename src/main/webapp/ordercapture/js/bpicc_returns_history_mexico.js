@@ -1946,46 +1946,52 @@ function OrderHistoryExcelDownload(){
 
 
 function excelTableCreation(xml){
- var html = "<table id='OrderHistoryExcel'>  <tr><th>PURCHASE ORDER#</th><th>SALES ORDER#</th><th>ORDER DATE</th><th>ESTIMATED SHIP DATE</th>" +
- 		"<th>TOTAL LINES</th><th>ORDERED PIECES</th><th>CANCELLED PIECES</th><th>SHIPPED PIECES</th><th>OPENED PIECES</th></tr>";
+ var html = "<table id='OrderHistoryExcel'>  <tr><th>PURCHASE ORDER#</th><th>SALES ORDER#</th><th>RETURNED DATE</th>" +
+ 		"<th>TOTAL LINES</th><th>RETURNED PIECES</th><th>RECEIPT NUMBER</th><th>RETURNED STATUS</th></tr>";
 	html=html+""
 	 var orderHistoryObject=xml.x_rma_order_history;
- 	for (var i = 0; i < orderHistoryObject.length; i++) {
- 		var object = orderHistoryObject[i];
-            var ORDER_NUMBER= object.ORDER_NUMBER;
-            var CUST_PO_NUMBER= object.CUST_PO_NUMBER==undefined?"":object.CUST_PO_NUMBER;
-            var ORDERED_DATE= object.ORDERED_DATE;
-            var SHIP_DATE= object.SHIP_DATE;
-            var TOTAL_LINES= object.TOTAL_LINES;
-            var ORDERED_PIECES= object.ORDERED_PIECES;
-            var SHIPPED_PIECES= object.SHIPPED_PIECES; 
-            var CANCELLED_PIECES= object.CANCELLED_PIECES;
-			ORDERED_PIECES=empty(ORDERED_PIECES)?0:ORDERED_PIECES;
-			SHIPPED_PIECES=empty(SHIPPED_PIECES)?0:SHIPPED_PIECES;
-			CANCELLED_PIECES=empty(CANCELLED_PIECES)?0:CANCELLED_PIECES;
-            var OPENED_PIECES=  parseInt(ORDERED_PIECES)-parseInt(SHIPPED_PIECES)-parseInt(CANCELLED_PIECES);
-			         var orderedDate 			= getYearMonthDBValue(ORDERED_DATE), 
-            	shipDate 				= getYearMonthDBValue(SHIP_DATE), 
-            	splitOrderedDate 		= orderedDate.split('/'), 
-            	splitShitDate 			= shipDate.split('/')
-
-            var sorttableOrderedDate 	= splitOrderedDate[2] + splitOrderedDate[0] + splitOrderedDate[1],
-            	sorttableShipDate 		= splitShitDate[2] + splitShitDate[0] + splitShitDate[1]
-			 var orderDate=dateFormatChange(ORDERED_DATE); 
-			 var shipDate=dateFormatChange(SHIP_DATE);
-			 html+="<tr id="+tr_id+">"
+	 var orderHistoryObject=xml.x_rma_order_history;
+	 	for (var i = 0; i < orderHistoryObject.length; i++) {
+	 		var object = orderHistoryObject[i];
+//	 		console.log("result"+JSON.stringify(object));
+//			  for (var property in object) {
+//			    console.log('item ' + i + ': ' + property + '=' + object[property]);
+//			    alert(object["DEFAULT_DC"]);
+//			    var DEFAULT_ORG_CODE= orderHistoryObject["DEFAULT_DC"];
+//          $(this).find("X_ORDER_HISTORY_ITEM").each(function(){
 			 
-             html+='<td> '+CUST_PO_NUMBER+' </td> ';
-			  html+='<td>'+ORDER_NUMBER+'</td>';
-            html+='<td>'+orderDate+'</td>';
-             html+='<td>'+shipDate+'</td>';
-           
-             html+='<td>'+TOTAL_LINES+'</td>';
-             html+='<td>'+ORDERED_PIECES+'</td>';
-             html+='<td>'+CANCELLED_PIECES+'</td>';
-             html+='<td>'+SHIPPED_PIECES+'</td>';
-             html+='<td>'+OPENED_PIECES+'</td>';
-			 html+="</tr>";
+//             var ORDER_NUMBER= $(this).find("ORDER_NUMBER").text();
+//			 
+//             var CUST_PO_NUMBER= $(this).find("CUST_PO_NUMBER").text();
+//             var ORDERED_DATE= $(this).find("ORDERED_DATE").text();
+//             var SHIP_DATE= $(this).find("SHIP_DATE").text();
+//             var TOTAL_LINES= $(this).find("TOTAL_LINES").text();
+//             var ORDERED_PIECES= $(this).find("ORDERED_PIECES").text();
+//             var SHIPPED_PIECES= $(this).find("SHIPPED_PIECES").text(); 
+//             var CANCELLED_PIECES= $(this).find("CANCELLED_PIECES").text(); 
+//             
+             var ORDER_NUMBER= object.ORDER_NUMBER;
+//			 
+             var CUST_PO_NUMBER= object.CUST_PO_NUMBER==undefined?"":object.CUST_PO_NUMBER;
+             var RETURNED_DATE= object.RETURNED_DATE;
+//             var SHIP_DATE= object.SHIP_DATE==undefined?"":object.SHIP_DATE; 
+             var TOTAL_LINES= object.TOTAL_LINES;
+             var RETURNED_PIECES= object.RETURNED_PIECES;
+//             var SHIPPED_PIECES= object.SHIPPED_PIECES;
+//             var CANCELLED_PIECES= object.CANCELLED_PIECES;
+             var RECEIPT_NUMBER = object.RECEIPT_NUMBER;
+             var RETURN_STATUS = object.RETURN_STATUS;
+				 html+="<tr id="+tr_id+">"
+				 
+              html+='<td> '+CUST_PO_NUMBER+' </td> ';
+				  html+='<td><a href="#" onclick="OrderHistory.CallOrderDetailAPI(\''+ORDER_NUMBER+'\',\''+RETURNED_PIECES+'\');">'+ORDER_NUMBER+'</a></td>';
+             html+='<td >'+RETURNED_DATE+'</td>';
+            
+              html+='<td>'+TOTAL_LINES+'</td>';
+              html+='<td>'+RETURNED_PIECES+'</td>';
+              html+='<td>'+RECEIPT_NUMBER+'</td>';
+              html+='<td>'+RETURN_STATUS+'</td>';
+				 html+="</tr>";
  	}
  	$("#ExcelexportDiv").empty();
  	$("#ExcelexportDiv").append(html);
