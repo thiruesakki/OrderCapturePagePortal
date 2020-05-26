@@ -7,8 +7,6 @@ var orgID="";
 var orderDetailsObject;
 var globalOrderHistoryObject;
 $(window).on('load', function() {
-	isadmin=getCookie("isadmin");
-	adminRole();
 //	var doc = new jsPDF();
 //	var specialElementHandlers = {
 //	    '#editor': function (element, renderer) {
@@ -2142,12 +2140,3 @@ function paymentPage(){
 	$("#payment_info").show();
 }
 
-function adminRole(){
-	 console.log("isadmin"+isadmin);
-	if(isadmin==1){
-		$('#admin_bpi').show();
-	}
-	else{
-		$('#admin_bpi').hide();
-	}
-}

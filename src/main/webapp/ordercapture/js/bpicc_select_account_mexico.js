@@ -1,12 +1,9 @@
 	 //http://uswodapp013.brakepartsinc.com:8010/webservices/SOAProvider/plsql/xxbpi_customer_online
 	  
 	var userRequestID=""; 
-	var isadmin="";
 $(window).on('load', function () {
  
 	 userRequestID=getCookie("userID");
-	 isadmin=getCookie("isadmin");
-	 adminRole();
 });
 	SelectAccount=
 	{ 
@@ -245,14 +242,4 @@ $(window).on('load', function () {
 			
 		},
 		
-	}
-
-function adminRole(){
-		 console.log("isadmin"+isadmin);
-		if(isadmin==1){
-			$('#admin_bpi').show();
-		}
-		else{
-			$('#admin_bpi').hide();
-		}
 	}

@@ -947,6 +947,7 @@
                     <div class="row searchBlock hidden-xs">
                         <div class="col-md-5 col-xs-8 col-xs-push-0 col-sm-push-4 col-md-push-7">
                             <div class="social">
+                            <input type="button" onclick="log();" Style="background-color:#2E4F6A;color:white;margin-left:-60px"  value="Logout" />
                                <!-- <div class="search"> -->  
                                      <!--<form role="form">-->
                             </div>
@@ -1126,6 +1127,11 @@
 			</a></span>
 
 		</li>
+		<li>
+			<span class="page "><a href="http://localhost:8080/OrderCapturePortal/ordercapture-admin/admin.html" id="admin_bpi">
+					Admin 
+			</a></span>
+			</li>
 		</ul>
 		</div><!-- end  --><!-- end  -->
 			</div>
@@ -2026,6 +2032,24 @@
 </footer>
 
 <script src="js/bootstrap.min.js"></script>
+<script>
+var isadmin=getCookie("isadmin");
+function adminRole(){
+	 console.log("isadmin"+isadmin);
+	if(isadmin==1){
+		$('#admin_bpi').show();
+	}
+	else{
+		$('#admin_bpi').hide();
+	}
+}
+function log(){
+
+	document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	document.cookie = "isadmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        location.href = "http://localhost:8080/OrderCapturePortal/";
+}
+</script>
 <script type="text/javascript">
             $(function () {
                 $('#datetimepicker1').datetimepicker();

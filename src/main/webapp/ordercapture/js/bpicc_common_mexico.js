@@ -1,9 +1,12 @@
 var userRequestID=""; 
+var isadmin="";
 $(window).on('load', function () {
  
 	 BpiccCommon.GetUserRoleDetails();
    // BpiccCommon.ProcessGetUserRoleDetails("S");
 	 userRequestID=getCookie("userID");
+	 isadmin=getCookie("isadmin");
+	 adminRole();
 //	 if(getSearchParams('q')!=null && getSearchParams('q')!=''){	 
 //		 var requestID=Decoding(decodeURIComponent(getSearchParams('q')));
 //		 userRequestID=requestID;
@@ -796,4 +799,20 @@ function readCookie(name) {
 }
 function deleteCookie(regID) {
     document.cookie = regID + '=;path=/; expires=Wed, 31 Dec 1969 23:59:59 GMT;'
+}
+
+function adminRole(){
+	 console.log("isadmin"+isadmin);
+	if(isadmin==1){
+		$('#admin_bpi').show();
+	}
+	else{
+		$('#admin_bpi').hide();
+	}
+}
+function log(){
+
+	document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	document.cookie = "isadmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        location.href = "http://localhost:8080/OrderCapturePortal/";
 }
