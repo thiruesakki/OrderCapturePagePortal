@@ -487,54 +487,30 @@ OrderHistory=
                         var ORDER_NUMBER= object.ORDER_NUMBER;
 //   					 
                         var CUST_PO_NUMBER= object.CUST_PO_NUMBER==undefined?"":object.CUST_PO_NUMBER;
-                        var ORDERED_DATE= object.ORDERED_DATE;
-                        var SHIP_DATE= object.SHIP_DATE==undefined?"":object.SHIP_DATE; 
+                        var RETURNED_DATE= object.RETURNED_DATE;
+//                        var SHIP_DATE= object.SHIP_DATE==undefined?"":object.SHIP_DATE; 
                         var TOTAL_LINES= object.TOTAL_LINES;
-                        var ORDERED_PIECES= object.ORDERED_PIECES;
-                        var SHIPPED_PIECES= object.SHIPPED_PIECES;
-                        var CANCELLED_PIECES= object.CANCELLED_PIECES;
-						ORDERED_PIECES=empty(ORDERED_PIECES)?0:ORDERED_PIECES;
-						SHIPPED_PIECES=empty(SHIPPED_PIECES)?0:SHIPPED_PIECES;
-						CANCELLED_PIECES=empty(CANCELLED_PIECES)?0:CANCELLED_PIECES;
-                        var OPENED_PIECES=  parseInt(ORDERED_PIECES)-parseInt(SHIPPED_PIECES)-parseInt(CANCELLED_PIECES);
-//						         var orderedDate 			= getYearMonthDBValue(ORDERED_DATE), 
-//                        	shipDate 				= getYearMonthDBValue(SHIP_DATE), 
-//                        	splitOrderedDate 		= orderedDate.split('/'), 
-//                        	splitShitDate 			= shipDate.split('/')
-//						 var orderDate=dateFormatChange(ORDERED_DATE); 
-//						 var shipDate=dateFormatChange(SHIP_DATE);
+                        var RETURNED_PIECES= object.RETURNED_PIECES;
+//                        var SHIPPED_PIECES= object.SHIPPED_PIECES;
+//                        var CANCELLED_PIECES= object.CANCELLED_PIECES;
+                        var RECEIPT_NUMBER = object.RECEIPT_NUMBER;
+                        var RETURN_STATUS = object.RETURN_STATUS;
 						 html+="<tr id="+tr_id+">"
 						 
                          html+='<td> '+CUST_PO_NUMBER+' </td> ';
-						  html+='<td><a href="#" onclick="OrderHistory.CallOrderDetailAPI(\''+ORDER_NUMBER+'\',\''+SHIPPED_PIECES+'\');">'+ORDER_NUMBER+'</a></td>';
-                        html+='<td >'+ORDERED_DATE+'</td>';
-                         html+='<td >'+SHIP_DATE+'</td>';
+						  html+='<td><a href="#" onclick="OrderHistory.CallOrderDetailAPI(\''+ORDER_NUMBER+'\',\''+RETURNED_PIECES+'\');">'+ORDER_NUMBER+'</a></td>';
+                        html+='<td >'+RETURNED_DATE+'</td>';
                        
                          html+='<td>'+TOTAL_LINES+'</td>';
-                         html+='<td>'+ORDERED_PIECES+'</td>';
-                         html+='<td>'+CANCELLED_PIECES+'</td>';
-                         html+='<td>'+SHIPPED_PIECES+'</td>';
-                         html+='<td>'+OPENED_PIECES+'</td>';
-//						 if(parseFloat(SHIPPED_PIECES)>0)
-//						 {
-//                         html+='<td  onclick="OrderHistory.CallShippingDetailAPI(\''+ORDER_NUMBER+'\');" ><i class="fa fa-info-circle" aria-hidden="true"></i></td>';
-//						 }
-//						 else
-//						 {
-//							  html+='<td><i class="fa fa-info-circle disableCircle" aria-hidden="true" ></i></td>'; 
-//						 }
-						 
+                         html+='<td>'+RETURNED_PIECES+'</td>';
+                         html+='<td>'+RECEIPT_NUMBER+'</td>';
+                         html+='<td>'+RETURN_STATUS+'</td>';
 						 html+="</tr>";
 						 tr_id++;
-//					});
 					  
 					$("#order_list_tbl tbody tr").remove();
 					$("#order_list_tbl tbody").append(html); 
 					
-					 
-			// let the plugin know that we made a update
-					//$("#order_list_tbl").trigger("update");
-				 	// sorttable.makeSortable(newTableObject);
 			 }
 		 }
 		     }
@@ -705,11 +681,11 @@ OrderHistory=
                          html+='<td> '+PART_NUMBER+' </td> ';
                          html+='<td> '+DESCRIPTION+' </td> ';
                          html+='<td> '+QUANTITY_ORDERED+' </td> ';
-                         html+='<td> '+QUANTITY_CANCELLED+' </td> ';
-                         html+='<td> '+QUANTITY_SHIPPED+' </td> ';
+//                         html+='<td> '+QUANTITY_CANCELLED+' </td> ';
+//                         html+='<td> '+QUANTITY_SHIPPED+' </td> ';
                      
                          html+='<td> '+WAREHOUSE_CODE+' </td> ';
-                         html+='<td> '+OPENED_PIECES+' </td> ';
+//                         html+='<td> '+OPENED_PIECES+' </td> ';
                        
                      
 						 html+="</tr>";
@@ -788,30 +764,6 @@ xml_request_data+=' </soap:Envelope> ';
 				    dataType: "json",
 					data:"userID="+userID,
 					success: function (data) {
-						
-				//		console.log("Shipping Result Success:"+JSON.stringify(data));
-						var obj = JSON.parse(data.object);
-				//		console.log(JSON.stringify(obj));
-				//		console.log("x_response_message"+obj.x_response_message);
-				//		var shippingListObj=obj.x_ship_detail;
-				//		for (var i = 0; i < shippingListObj.length; i++) {
-				//			  var xmlShippingobject = shippingListObj [i];
-				//			  console.log("xmlShippingobject CARRIER"+xmlShippingobject.CARRIER);
-				//		  console.log	("xmlShippingobject"+JSON.stringify(xmlShippingobject));
-				
-				//		}
-						
-				//		var shipAddressList=obj.x_ship_to_address;
-				//		for (var j = 0; j < shipAddressList.length; j++) {
-				//			  var xmlShipAddressObject = shipAddressList [j];
-				//	
-				//			  console.log("xmlshipAddressobject obj SALES_ORDER_NUM"+xmlShipAddressObject[SALES_ORDER_NUM]);
-				//			  console.log("xmlshipAddressobject SALES_ORDER_NUM"+xmlShipAddressObject.SALES_ORDER_NUM);
-				//			  console.log	("xmlshipAddressobject"+JSON.stringify(xmlShipAddressObject));
-				//			 
-				//		}
-				//		 var obj=data.object;
-				//		 console.log("Shipping Object "+obj);
 						 if(obj!=null){
 							 OrderHistory.APIProcessShippingDetailAPI(obj)
 						 }else{

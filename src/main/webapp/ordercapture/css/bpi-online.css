@@ -428,27 +428,23 @@ body .navbar-nav .dropdown li a:focus{background: #264057 !important;}
 .container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th .sortdown i{position: absolute;    right: 9px;    top: 18px;}
 
 .container .bpiOnlineRightPanel .tableContentsReturnListtBlock .sortable  tbody td{padding: 8px 0px 8px 8px !important; font-size: 11px; color: #333333}
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(1) { width:112px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(2) { width:100px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(3) { width:103px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(4) { width:90px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(5) { width:90px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(6) { width:90px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(7) { width:90px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(8) { width:90px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(9) { width:90px !important;     border-right: none; }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(1) { width:125px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(2) { width:128px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(3) { width:128px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(4) { width:113px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(5) { width:113px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(6) { width:113px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(7) { width:123px !important;      border-right: none; }
  
 
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(1) { width:112px !important;}
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(2) { width:100px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(3) { width:103px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(4) { width:90px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(5) { width:90px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(6) { width:90px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(7) { width:90px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(8) { width:90px !important; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(9) { width:70px !important; border-right: none; }
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(1) a{width:112px;}
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(1) { width:125px !important;}
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(2) { width:128px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(3) { width:128px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(4) { width:113px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(5) { width:113px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(6) { width:113px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(7) { width:123px !important;      border-right: none;  }
+.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody td:nth-child(1) a{width:125px;}
 
 
 .container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table  tbody tr td:nth-child(3) input{width:90px;}
@@ -456,8 +452,6 @@ body .navbar-nav .dropdown li a:focus{background: #264057 !important;}
 .container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table  tbody tr td:nth-child(5) input{width:50px;margin-left:19px;}
 .container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table  tbody tr td:nth-child(6) input{width:50px;margin-left:19px;}
 .container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table  tbody tr td:nth-child(7) input{width:50px;margin-left:19px;}
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table  tbody tr td:nth-child(8) input{width:50px;margin-left:19px;}
-.container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table  tbody tr td:nth-child(9) input{width:50px;margin-left:19px;}
 .container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table  tbody tr td input{ border:1px solid #ccc; }
     .container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table  tbody tr:last-child{max-height:40px;height:40px;border-bottom:1px solid #ddd;}                           
 .container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table thead th:nth-child(3) {text-align: left; padding-left: 10px; }
@@ -465,6 +459,40 @@ body .navbar-nav .dropdown li a:focus{background: #264057 !important;}
 .container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table  tbody tr  td a{color:#333333; text-decoration:underline;}
 .container .bpiOnlineRightPanel .tableContentsReturnListtBlock .table tbody{display:block;max-height: 338px !important;    overflow-y: auto !important;    width: 100%;display:block;}
 
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table tr::after{clear: both !important; content: " " !important;display: block !important; visibility: hidden !important;}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table .archiveIcon{width:7%;}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .orderlistheader .selectBlock select{}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table{ border: 1px solid #a2aabc; margin:0px;height:385px;}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table thead{/*background:#e2e5ed;*/  border-bottom:none; font-size: 10px;  background: linear-gradient(#fff, #dadee8);}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table thead{width: 100%;  color:#333;display:block; }
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table thead .glyphicon.glyphicon-trash{font-size: 18px; cursor:pointer;}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table thead tr th{border-right: 1px solid #a2aabc; border-bottom:none; text-align:left;vertical-align: middle; padding: 8px 10px;  position: relative; cursor: pointer;}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table thead th .sortdown i{position: absolute;    right: 9px;    top: 18px;}
+
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .sortable  tbody td{padding: 8px 0px 8px 8px !important; font-size: 11px; color: #333333}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table thead th:nth-child(1) { width:165px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table thead th:nth-child(2) { width:168px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table thead th:nth-child(3) { width:198px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table thead th:nth-child(4) { width:153px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table thead th:nth-child(5) { width:153px !important;  border-right: none;}
+ 
+
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table tbody td:nth-child(1) { width:165px !important;}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table tbody td:nth-child(2) { width:168px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table tbody td:nth-child(3) { width:198px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table tbody td:nth-child(4) { width:153px !important; }
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table tbody td:nth-child(5) { width:153px !important;  border-right: none;}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table tbody td:nth-child(1) a{width:145px;}
+
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table  tbody tr td:nth-child(3) input{width:90px;}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table  tbody tr td:nth-child(4) input{width:40px;}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table  tbody tr td:nth-child(5) input{width:50px;margin-left:19px;}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table  tbody tr td input{ border:1px solid #ccc; }
+    .container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table  tbody tr:last-child{max-height:40px;height:40px;border-bottom:1px solid #ddd;}                           
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table thead th:nth-child(3) {text-align: left; padding-left: 10px; }
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table  tbody tr .partnumber{color:black;font-weight:600;}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table  tbody tr  td a{color:#333333; text-decoration:underline;}
+.container .bpiOnlineRightPanel .tableContentsReturnsDetailsListtBlock .table tbody{display:block;max-height: 338px !important;    overflow-y: auto !important;    width: 100%;display:block;}
 
 .container .bpiOnlineRightPanel .bottomRow .buttonPane .validateOnEntry{margin:0px 0px 0px 10px;}
 .container .bpiOnlineRightPanel .bottomRow .buttonPane .validateOnEntry label{color: #000; margin-left:5px; font-size:13px;font-weight:normal; float:right;}

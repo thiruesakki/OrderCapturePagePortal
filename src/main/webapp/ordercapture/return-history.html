@@ -1189,7 +1189,7 @@
                                         <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/check-stock.html">Check Stock</a></li>
                                         <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/index.html">Place Order</a></li>
                                         <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/order-history.html">Order History</a></li>
-                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/return-history.html">Return History</a></li>
+                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/return-history.html">Returns History</a></li>
                                         
 <!--                                         <li><a href="#">Why BPI</a></li> -->
                                         <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/priceList.html">Price Lists</a></li>
@@ -1249,7 +1249,7 @@
                                  <li class="dropdown"><a href="http://localhost:8080/OrderCapturePortal/ordercapture/order-history.html" data-toggle="dropdown">New Features</a>
                                     <ul class="dropdown-menu">
                                         <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/order-history.html">Invoice Details</a></li>
-										<li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/return-history.html">Return History</a></li>
+										<li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/return-history.html">Returns History</a></li>
                                        
                                     </ul>
                                 </li>
@@ -1791,7 +1791,7 @@
 		</li>
 		<li>
 			<span class="page "><a href="return-history.html">
-					Return History
+					Returns History
 			</a></span>
 
 		</li>
@@ -1807,7 +1807,7 @@
 			<div class="col-sm-9 bpiOnlineRightPanel">
 			
 				<div class="orderListtBlock" id='div_order_block'>
-					<h3>Return History</h3>
+					<h3>Returns History</h3>
 					<div class="row locationRow">
 						<div class="col-md-12 locationPane">
 <!-- 						<p><span class="numberField">19410</span><span>  DBA: AUTOMOTIVE SUPPLY CO. 123 S. LINWOOD AVE  APPLETON WI 54914 US</span></p> -->
@@ -1825,8 +1825,8 @@
                             <label>Select Search Option:</label>
                             <select name="cars" id="orderType">
                                 <option value="allorders">All Orders</option>
-                                <option value="shippedorders">Shipped Orders</option>
-                                <option value="openorders">Open Orders</option>
+<!--                                 <option value="shippedorders">Shipped Orders</option> -->
+<!--                                 <option value="openorders">Open Orders</option> -->
                                 <option value="ponumbers">PO#</option>
                                 <option value="salesorders">Sales Order#</option>
                             </select>
@@ -1872,13 +1872,13 @@
 								<tr>
 									<th>PURCHASE ORDER# <span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
 									<th>SALES ORDER<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
-									<th>ORDER DATE<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
-									<th>ESTIMATED <br/>SHIP DATE<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+									<th>RETURNED DATE<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+<!-- 									<th>ESTIMATED <br/>SHIP DATE<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th> -->
 									<th>TOTAL <br/>LINES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
-									<th>ORDERED <br/>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
-									<th>CANCELLED<br/>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
-									<th>SHIPPED <br/>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
-									<th>OPENED <br/>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+									<th>RETURNED <br/>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+<!-- 									<th>CANCELLED<br/>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th> -->
+									<th>RECEIPT <br/>NUMBER<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+									<th>RETURNED <br/>STATUS<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
 <!-- 									<th>SHIPPING<br/>DETAILS</th> -->
 									
 							   </tr>
@@ -1904,16 +1904,16 @@
 				
 				<div class="orderListtBlock orderlistDetailPage" id='div_order_detail'>
 
-                  <div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>	   
+                  <div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Returns History</a></div>	   
 					<h4>Sales Order <span id='dtl_sales_order_no'>#</span></h4>
-                    <h5>ORDER DETAILS</h5>
+                    <h5>RETURNS DETAILS</h5>
 					
                     <div class="row orderDetails">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-5">
                                     <ul>
-                                        <li><span class="topics"  >Order Date:</span><span class="answer" id='dtl_order_date' ></span></li>
+                                        <li><span class="topics"  >Returned Date:</span><span class="answer" id='dtl_order_date' ></span></li>
                                         <li><span class="topics">Purchase Order #:</span><span class="answer"  id='dtl_po_no' ></span></li>
                                         <li><span class="topics"  >Sales Order #:</span><span class="answer"  id='dtl_sales_order_no1'></span></li>
                                     </ul>                                    
@@ -1921,7 +1921,6 @@
                                 <div class="col-md-7 shipDetail">
                                     <ul>
                                         <li><span class="topics">Shipping Address:</span><span class="answer" id='dtl_ship_addr' > </br></br></span></li>
-                                        
                                     </ul>
                                 </div>
                             </div>
@@ -1932,18 +1931,18 @@
 <!-- 					<input id="payment-details" class="shippingDetails" value="Payment Details" type="Submit"/> -->
                     <!--<h5>Items Ordered</h5> -->
 					<div class="orderListContent">
-					<div class="tableContentsorderListtBlock">
+					<div class="tableContentsReturnsDetailsListtBlock">
 						<table id="dtl_order_list_tbl" class="table sortable">
 				<thead>
 					<tr>
 						<th>LINE<br>ITEM #<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span> </th>
 						<th>PART NUMBER<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
 						<th>DESCRIPTION<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span> </th>
-						<th>ORDERED<br>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
-						<th>CANCELLED<br>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
-						<th>SHIPPED<br>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
-						<th>SHIPPED<br>FROM<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>	
-						<th>OPENED<br>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+						<th>RETURNED<br>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>
+<!-- 						<th>CANCELLED<br>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th> -->
+<!-- 						<th>SHIPPED<br>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th> -->
+						<th>RETURNED<br>TO<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th>	
+<!-- 						<th>OPENED<br>PIECES<span class="sortdown"><i class="fa fa-sort-desc" aria-hidden="true"></i></span></th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -1959,89 +1958,11 @@
 
 
 					</div>
-                     <div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>	 
+                     <div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Returns History</a></div>	 
 					</div>
 
 				</div>
 				
-				<div class="ShippingDetailsBlock" id='div_shipping_detail'>
-				<div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>	   
-				 <h5>ORDER DETAILS</h5>
-					
-                    <div class="row orderDetails">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-5 ">
-                                    <ul>
-                                        <li><span class="topics"  >Order Date:</span><span class="answer" id='dtl_order_date' ></span></li>
-                                        <li><span class="topics">Purchase Order #:</span><span class="answer"  id='dtl_po_no' ></span></li>
-                                        <li><span class="topics"  >Sales Order #:</span><span class="answer"  id='dtl_sales_order_no1'></span></li>
-                                    </ul>                                    
-                                </div>
-                                <div class="col-md-7 shipDetail">
-                                    <ul>
-                                        <li><span class="topics">Shipping Address:</span><span class="answer" id='dtl_ship_addr' > </br> </br></span></li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-				   <h6>SHIPPING DETAILS </h6>
-				   <div class="panel-group" id="accordion1"  >
-	
-				   </div>
-				   <div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>
-		   
-				</div>
-				  
-				  
-				<div class="ShippingDetailsBlock" id='div_invoice_detail'>
-				<div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>	   
-				 <h5>ORDER DETAILS</h5>
-					
-                    <div class="row orderDetails">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-5 ">
-                                    <ul>
-                                        <li><span class="topics"  >Order Date:</span><span class="answer" id='dtl_order_date_invoice' ></span></li>
-                                        <li><span class="topics">Purchase Order #:</span><span class="answer"  id='dtl_po_no_invoice' ></span></li>
-                                        <li><span class="topics"  >Sales Order #:</span><span class="answer"  id='dtl_sales_order_no1_invoice'></span></li>
-                                    </ul>                                    
-                                </div>
-                                <div class="col-md-7 shipDetail">
-                                    <ul>
-                                        <li><span class="topics">Shipping Address:</span><span class="answer" id='dtl_ship_addr_invoice' > </br> </br></span></li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-				   <h6>INVOICE DETAILS </h6>
-				   <div class="panel-group" id="invoice_accordion1"  >
-	
-				   </div>
-				   <div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>
-		   
-				</div>
-				
-				<div class="ShippingDetailsBlock" id='div_payment_detail'>
-				<div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>	   
-				 <br>
-				   <div class="row">
-				<button class="btn btn hidden-print" style="float: right;margin-right:-210px;background-color:#2E4F6A;color:White"" onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
-				<button id="payment_pdf" class=" btn btn" style="float: right;margin-right:-117px;background-color:#2E4F6A;color:White"">Generate PDF</button>
-				</div>
-				<br>
-				   <div class="panel-group" id="payment_accordion1"  >
-	
-				   </div>
-				   <div class="backtoMyOrders"><a href="#" onclick='OrderHistory.HandleBackToOrders();'><i class="fa fa-angle-double-left" aria-hidden="true"></i>  Back to Order History</a></div>
-		   
-				</div>
-		        
 			</div>
 				
 			</div>
