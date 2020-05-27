@@ -1022,3 +1022,95 @@ ul#role_list_tbl li label.error{ position: absolute; top: 11px; }
 .bpiOnlineRightPanel .adminEditUserBlock .adminEditUserContent .editUserBody  .billtoShipto .bill .ShipTo .invalidshipto{width:100%;float:left;display:none;}
 .bpiOnlineRightPanel .adminEditUserBlock .adminEditUserContent .editUserBody  .billtoShipto .bill .ShipTo .invalidshipto span:first-child{width: 50%;    float: left;    padding-right: 0px;    text-align: center;    color: red;    padding-left: 76px;}
 .bpiOnlineRightPanel .adminEditUserBlock .adminEditUserContent .editUserBody  .billtoShipto .bill .ShipTo .invalidshipto span:last-child{    width: 50%;    float: left;    padding: 0px;    padding-top: 5px;    color: red;}
+
+.btn-blue { 
+  color: #FFFFFF; 
+  background-color: #2E4F6A; 
+  border-color: #2E4F6A; 
+} 
+ 
+.btn-blue:hover, 
+.btn-blue:focus, 
+.btn-blue:active, 
+.btn-blue.active, 
+.open .dropdown-toggle.btn-blue { 
+  color: #FFFFFF; 
+  background-color: #2E4F6A; 
+  border-color: #2E4F6A; 
+} 
+ 
+.btn-blue:active, 
+.btn-blue.active, 
+.open .dropdown-toggle.btn-blue { 
+  background-image: none; 
+} 
+ 
+.btn-blue.disabled, 
+.btn-blue[disabled], 
+fieldset[disabled] .btn-blue, 
+.btn-blue.disabled:hover, 
+.btn-blue[disabled]:hover, 
+fieldset[disabled] .btn-blue:hover, 
+.btn-blue.disabled:focus, 
+.btn-blue[disabled]:focus, 
+fieldset[disabled] .btn-blue:focus, 
+.btn-blue.disabled:active, 
+.btn-blue[disabled]:active, 
+fieldset[disabled] .btn-blue:active, 
+.btn-blue.disabled.active, 
+.btn-blue[disabled].active, 
+fieldset[disabled] .btn-blue.active { 
+  background-color: #2E4F6A; 
+  border-color: #2E4F6A; 
+} 
+ 
+.btn-blue .badge { 
+  color: #2E4F6A; 
+  background-color: #FFFFFF; 
+}
+
+.btn-yellow { 
+  color: #000000; 
+  background-color: #FFC200; 
+  border-color: #FFC200; 
+} 
+ 
+.btn-yellow:hover, 
+.btn-yellow:focus, 
+.btn-yellow:active, 
+.btn-yellow.active, 
+.open .dropdown-toggle.btn-yellow { 
+  color: #000000; 
+  background-color: #FFC200; 
+  border-color: #FFC200; 
+} 
+ 
+.btn-yellow:active, 
+.btn-yellow.active, 
+.open .dropdown-toggle.btn-yellow { 
+  background-image: none; 
+} 
+ 
+.btn-yellow.disabled, 
+.btn-yellow[disabled], 
+fieldset[disabled] .btn-yellow, 
+.btn-yellow.disabled:hover, 
+.btn-yellow[disabled]:hover, 
+fieldset[disabled] .btn-yellow:hover, 
+.btn-yellow.disabled:focus, 
+.btn-yellow[disabled]:focus, 
+fieldset[disabled] .btn-yellow:focus, 
+.btn-yellow.disabled:active, 
+.btn-yellow[disabled]:active, 
+fieldset[disabled] .btn-yellow:active, 
+.btn-yellow.disabled.active, 
+.btn-yellow[disabled].active, 
+fieldset[disabled] .btn-yellow.active { 
+  background-color: #FFC200; 
+  border-color: #FFC200; 
+} 
+ 
+.btn-yellow .badge { 
+  color: #FFC200; 
+  background-color: #000000; 
+}

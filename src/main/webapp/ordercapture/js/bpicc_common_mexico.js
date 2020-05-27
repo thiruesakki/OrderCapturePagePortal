@@ -811,8 +811,11 @@ function adminRole(){
 	}
 }
 function log(){
-
-	document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-	document.cookie = "isadmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        location.href = "http://localhost:8080/OrderCapturePortal/";
+    
+    if (confirm("Are you sure to logout?")) {
+    	document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    	document.cookie = "isadmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    	location.href = "http://localhost:8080/OrderCapturePortal/";
+      
+    } 
 }

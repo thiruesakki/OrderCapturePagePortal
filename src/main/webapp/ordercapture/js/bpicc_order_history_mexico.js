@@ -1789,7 +1789,7 @@ html+='<div id="payment_pdf">';
 							  }
 							  else if(PAYMENT_STATUS=="Pending"){
 								  console.log(PAYMENT_STATUS);
-							      html+='<button id="payment-details" type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-sample btn-sm"">'+PAYMENT_STATUS+'</button>';
+							      html+='<button id="payment-details" type="Submit" style="color:Black;" onclick="paymentPage();" style="color:Black;"  class="btn btn-yellow btn-sm"">'+PAYMENT_STATUS+'</button>';
 							  }
 							  else if(PAYMENT_STATUS=="OverDue"){
 								  console.log(PAYMENT_STATUS);
