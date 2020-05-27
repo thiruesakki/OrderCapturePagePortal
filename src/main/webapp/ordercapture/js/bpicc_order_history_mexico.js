@@ -2045,10 +2045,10 @@ function invoiceCheck(P_SALES_ORDER_NUM){
 //				 alert(P_SALES_ORDER_NUM+""+x_inv_exist);
 				  var dist = bpi_com_obj.distributor;
 				  if(dist==1){
-					  $('#invoice-details').show();
+//					  $('#invoice-details').show();
 					  $('#payment-details').show();
 				  }else{
-					  $('#invoice-details').hide();
+//					  $('#invoice-details').hide();
 						 $('#payment-details').hide();
 				  }
 
