@@ -812,7 +812,7 @@ function adminRole(){
 }
 function log(){
     
-    if (confirm("Are you sure to logout?")) {
+    if (confirm("Are you sure do you want to logout?")) {
     	document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     	document.cookie = "isadmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     	location.href = "http://localhost:8080/OrderCapturePortal/";

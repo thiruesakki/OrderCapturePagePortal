@@ -18,7 +18,7 @@ h5,
 h6 {
   font-weight: 600; 
   font-family: 'Open Sans', sans-serif;
-  color:#4e4e4e;
+  color: White;
 }
 
 h1{
@@ -39,10 +39,17 @@ h3{
 
 h4{
   font-size: 16px;
-}
-
+font-weight: 600; 	
+  font-family: 'Open Sans', sans-serif;	
+  color:#666666;	
+}	
+h5{	
+  font-size: 16px;	
+   font-weight: 600; 	
+  font-family: 'Open Sans', sans-serif;	
+  color:#666666;	
+}	
 a {
-  color: #bd0416;
   -webkit-transition: color 300ms, background-color 300ms;
   -moz-transition: color 300ms, background-color 300ms;
   -o-transition:  color 300ms, background-color 300ms;
@@ -192,7 +199,7 @@ IE10 and IE11
 .navbar-toggle{background: #333;}
 .top-bar {
   padding: 5px 0;
-  background: #7c7c7e;
+  background:  #0E1821;
   line-height: 28px;
 }
 
@@ -338,7 +345,7 @@ color: #fff;}
   padding: 5px 12px;
   margin: 0;
   border-radius: 3px;
-  color: #4e4e4e;
+  color: White;
   line-height: 24px;
   display: inline-block;
   font-weight: bold;
@@ -350,7 +357,7 @@ color: #fff;}
 
 .navbar-inverse .navbar-nav > li > a:hover{
   background-color: #fff;
-  color: #bd0416 !important;
+  color: #264057 !important;
   border: 1px solid #7c7c7e; border-bottom: none;
   border-radius: 10px 10px 0 0;
 }
@@ -386,7 +393,7 @@ color: #fff;}
   border-radius: 10px 10px 0 0;}
 
 .navbar-inverse .navbar-nav .dropdown-menu {
-  background-color: #5e5e60;
+  background-color: #44637D;
   -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125);
@@ -413,7 +420,7 @@ color: #fff;}
 .navbar-inverse .navbar-nav .dropdown-menu > li:hover > a,
 .navbar-inverse .navbar-nav .dropdown-menu > li:focus > a,
 .navbar-inverse .navbar-nav .dropdown-menu > li.active > a {
-  background-color: #bd0416;
+  background-color: #264057;
   color: #fff;
 }
 .navbar-inverse .navbar-nav .dropdown-menu > li:hover i,
@@ -457,7 +464,7 @@ display: block !important;
 .redicon:hover{ background: #f5f5f5 ; border:1px solid #c5c5c5; }
 .searchBlock{margin-top: 20px;}
 .navbar>.container{ margin-top: 0px;}
-.navbar>.container>div{width: 100%; float: left; border-bottom: 2px solid #bd0416;}
+.navbar>.container>div{width: 100%; float: left; border-bottom: none}
 .dropdown-menu li:last-child{border-bottom: 1px solid #fff;}
 .topicHead.highLight{ margin-top: 0;}
 .featuredProducts>div{ position: relative; padding: 0;}
@@ -469,7 +476,7 @@ display: block !important;
 .featuredProducts>div .blockWrapper .contentBlock{ width: 100%; position: absolute; bottom: 0; min-height: 110px; left: 0; padding: 0 20px 0 25px;}
 .featuredProducts>div .blockWrapper .contentBlock h2{color: #bd0416; margin:25px 0 10px 0; font-size: 18px; line-height: 20px; text-transform:none; }
 .featuredProducts>div .blockWrapper .contentBlock p{font-size: 1.px;line-height: 1.2;}
-.container.menuwrap{position: relative;}
+.container.menuwrap{position: relative;background-color:#2E4F6A}
 
 /*************************
 *******Home Page******
@@ -2633,8 +2640,8 @@ shortcodes page css
 ********* Footer ******
 ************************/
 .footer-1 {
-  background: #f5f5f5;
-  border-bottom: 5px solid #bd0416;
+  background: #0E1821;
+  border-bottom: none;
   font-size: 14px;
   padding:24px 0;
 }
@@ -2648,7 +2655,7 @@ shortcodes page css
   font-weight: bold;
   line-height: 1.2
 }
-.footer-1 ul li:first-child a{font-size:15px !important; color: #4e4e4e !important; font-family:"Open Sans",sans-serif;}
+.footer-1 ul li:first-child a{font-size:15px !important; color: White !important; font-family:"Open Sans",sans-serif;}
 .footer-1 ul {
   list-style: none;
   padding: 0;
@@ -2664,12 +2671,12 @@ shortcodes page css
 }
 
 .footer-1 ul li a {
-  color: #808080;
+  color: White;
   font-size: 12px;
 }
 
 .footer-1 ul li a:hover {
-  color: #bd0416;
+  color: White;
 }
 
 .footer-1 .widget {
@@ -2680,7 +2687,7 @@ shortcodes page css
   padding-top: 15px;
     padding-bottom: 15px;
     color: #fff;
-    background: #2e2e2e;
+    background: #000000;
     font-size: 12px;
 }
 
@@ -2689,7 +2696,7 @@ shortcodes page css
 }
 
 #footer a:hover {
-  color: #bd0416;
+  color: White;
 }
 
 #footer ul {
@@ -2708,8 +2715,8 @@ shortcodes page css
 .row .col-sm-3 ul li:last-child { border-bottom-left-radius:0px !important; border-bottom-right-radius: 0px !important;}
 .row .col-sm-3 ul li{list-style:none; padding:0; margin:0;}
 .row .col-sm-3 ul li a{border:none; font-weight: bold; padding: 5px 15px 5px 45px; float:left; width:100%;background: rgba(0, 0, 0, 0) url("../img/left-black-arrow.jpg") no-repeat scroll 22px 10px; color:#555;}
-.row .col-sm-3 ul li a:hover{ color: #bd0416 !important;  background: rgba(0, 0, 0, 0) url("../img/left-red-icon.jpg") no-repeat scroll 22px 10px; color:#bd0416;}
-.row .col-sm-3 ul li a.active{ color: #bd0416 !important; background: none !important;}
+.row .col-sm-3 ul li a:hover{ color: #264057 !important;  background: rgba(0, 0, 0, 0) url("../img/left-red-icon.jpg") no-repeat scroll 22px 10px; color:#bd0416;}
+.row .col-sm-3 ul li a.active{ color: #264057 !important; background: none !important;}
 .row .col-sm-3 ul li i{ margin-right: 10px; font-size: 14px;}
 .innerpage h2.topicHead{margin-top: 0;}
 .productImage{margin:5px 23px 15px 0; border: 1px solid #c5c5c5; border-radius: 3px;}
