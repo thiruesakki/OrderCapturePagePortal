@@ -710,7 +710,7 @@ select[disabled]{  cursor: not-allowed !important;    background: #eee !importan
 .bpiOnlineRightPanel .adminEditUserBlock .adminEditUserContent{width:850px; min-height:500px;border:1px solid #dde0ea;margin-bottom:20px; float:left;}
 .bpiOnlineRightPanel .adminEditUserBlock .adminEditUserContent .editUserHeader{height:50px; background: linear-gradient(#fff, #dadee8);border:1px solid #acb4c8;}
 .bpiOnlineRightPanel .adminEditUserBlock .adminEditUserContent .editUserHeader  .row.editUserBlock {display:block !important;}
-.bpiOnlineRightPanel .adminEditUserBlock .adminEditUserContent .editUserHeader  .row.editUserBlock  .accountinfo h6{FLOAT: left; padding-top: 10px;  padding-left: 15px;font-weight: bold;}
+.bpiOnlineRightPanel .adminEditUserBlock .adminEditUserContent .editUserHeader  .row.editUserBlock  .accountinfo h6{FLOAT: left; padding-top: 10px;  padding-left: 15px;font-weight: bold;color: #2E4F6A}
 .bpiOnlineRightPanel .adminEditUserBlock .adminEditUserContent .editUserHeader  .row.editUserBlock  .radiobuttons{text-align: right; padding: 12px 45px 10px 10px;}
 .bpiOnlineRightPanel .adminEditUserBlock .adminEditUserContent .editUserHeader  .row.editUserBlock  .radiobuttons .radio-inline{padding-left: 37px;} 
 .bpiOnlineRightPanel .adminEditUserBlock .adminEditUserContent .editUserHeader  .row.editUserBlock  .radiobuttons .radio-inline .active{color: #0aa203;font-weight: bold;}
