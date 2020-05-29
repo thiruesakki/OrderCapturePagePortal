@@ -22,7 +22,7 @@ $(document).ready(function() {
     } */
 	  userID=getCookie("userID");
 	  orgID=getCookie("selected_org_id");
-      bill_to_location=getCookie("selected_bill_to_location");
+      bill_to_location=getCookie("selected_bill_to");
       ship_to_location=getCookie("selected_ship_to");
 
 	$('#inputPo').keypress(function (e) {
