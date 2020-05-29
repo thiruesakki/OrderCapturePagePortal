@@ -948,7 +948,7 @@
                         <div class="col-md-5 col-xs-8 col-xs-push-0 col-sm-push-4 col-md-push-7">
                             <div class="social">
 <!--                             <input type="button" onclick="log();" Style="background-color:#2E4F6A;color:white;margin-left:-60px"  value="Logout" /> -->
-<a href="#" class="btn btn-info btn-lg" onclick="log();">
+  <a href="#" class="btn btn-blue btn-lg" onclick="log();">
           <span class="glyphicon glyphicon-log-out"></span> Log out
         </a>
                                <!-- <div class="search"> -->  
@@ -2047,10 +2047,13 @@ function adminRole(){
 	}
 }
 function log(){
-
-	document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-	document.cookie = "isadmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        location.href = "http://localhost:8080/OrderCapturePortal/";
+    
+    if (confirm("Are you sure do you want to logout?")) {
+    	document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    	document.cookie = "isadmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    	location.href = "http://localhost:8080/OrderCapturePortal/";
+      
+    } 
 }
 </script>
 <script type="text/javascript">
