@@ -1671,33 +1671,33 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	{
 		var flag=true;
 		BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages("","");
-//		if($("#page_type").val()=='place_order' && $("#select_order_type").val()=="Emergency")
-//		{
-//			var data=$("#bpicc_tableDetails tbody tr");
-//			$.each(data,function(k,v)
-//			{
-//				var tr_id=$(this).attr("id");
-//				var partNum=$("#bpicc_tableDetails tbody tr#"+tr_id+" #partNum_"+tr_id).val();
-//				var reqQnty=parseFloat($("#bpicc_tableDetails tbody tr#"+tr_id+" #reqQnty_"+tr_id).val());
-//				var warehouse=$("input[name='inputAvail_"+tr_id+"']:checked").val();
-//				if(!empty(warehouse) && warehouse!='undefined')
-//				{
-//					var warehouse_inpu=warehouse.toLowerCase();
-//					var warehouse_inpu_val=parseFloat($("#"+warehouse_inpu+"_"+tr_id).val());
-//			 
-//					 if(!empty(partNum) && reqQnty>warehouse_inpu_val)
-//					{
-//						 flag=false;
-//						 setTimeout(function(){
-//					BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages(partNum+" -- Emergency Orders Cannot be Backordered","Error");
-//				}, 500); 
-//						
-//						return flag;
-//					}
-//				}
-//			 
-//			});
-//		}
+		if($("#page_type").val()=='place_order' && $("#select_order_type").val()=="Emergency")
+		{
+			var data=$("#bpicc_tableDetails tbody tr");
+			$.each(data,function(k,v)
+			{
+				var tr_id=$(this).attr("id");
+				var partNum=$("#bpicc_tableDetails tbody tr#"+tr_id+" #partNum_"+tr_id).val();
+				var reqQnty=parseFloat($("#bpicc_tableDetails tbody tr#"+tr_id+" #reqQnty_"+tr_id).val());
+				var warehouse=$("input[name='inputAvail_"+tr_id+"']:checked").val();
+				if(!empty(warehouse) && warehouse!='undefined')
+				{
+					var warehouse_inpu=warehouse.toLowerCase();
+					var warehouse_inpu_val=parseFloat($("#"+warehouse_inpu+"_"+tr_id).val());
+			 
+					 if(!empty(partNum) && reqQnty>warehouse_inpu_val)
+					{
+						 flag=false;
+						 setTimeout(function(){
+					BpiccPlaceOrder.ShowPlaceOrderErrorSuccessMessages(partNum+" -- Emergency Orders Cannot be Backordered","Error");
+				}, 500); 
+						
+						return flag;
+					}
+				}
+			 
+			});
+		}
 		return flag;
 	},
 	EnableContinueOrderDiv:function()

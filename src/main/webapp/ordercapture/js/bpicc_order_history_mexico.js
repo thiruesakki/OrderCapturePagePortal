@@ -2043,14 +2043,14 @@ function invoiceCheck(P_SALES_ORDER_NUM){
 			 if(x_inv_exist=="Y"){
 				 console.log("x_inv_exist"+obj.x_inv_exist);
 //				 alert(P_SALES_ORDER_NUM+""+x_inv_exist);
-				  var dist = bpi_com_obj.distributor;
-				  if(dist==1){
+//				  var dist = bpi_com_obj.distributor;
+//				  if(dist==1){
 //					  $('#invoice-details').show();
 					  $('#payment-details').show();
-				  }else{
-//					  $('#invoice-details').hide();
-						 $('#payment-details').hide();
-				  }
+//				  }else{
+////					  $('#invoice-details').hide();
+//						 $('#payment-details').hide();
+//				  }
 
 			 }else{
 				 console.log("x_inv_exist"+obj.x_inv_exist);
