@@ -569,7 +569,7 @@ OrderHistory=
 						 {
 							  html+='<td><i class="fa fa-info-circle disableCircle" aria-hidden="true" ></i></td>'; 
 						 }
-						 
+						 html+='<td  onclick="redirectReturns(\''+ORDER_NUMBER+'\');"><i class="fa fa-registered" aria-hidden="true" ></i></td>';
 						 html+="</tr>";
 						 tr_id++;
 //					});
@@ -2195,3 +2195,6 @@ $(document).on('click', '#sales_order_no', function() {
          }
      });
  });
+function redirectReturns(ORDER_NUMBER){
+	location.href="returns-page.html?q="+encodeURIComponent(Encoding(ORDER_NUMBER));
+}

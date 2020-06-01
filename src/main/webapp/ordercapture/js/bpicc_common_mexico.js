@@ -217,6 +217,22 @@ BpiccCommon=
 			   $(".locationPane").html('<p><span class="numberField">'+getCookie("selected_ship_to")+'</span><span>  '+getCookie("selected_ship_to_account_address")+'</span></p>');
 			   }	 
 		  }
+		  else if($("#page_type").val()=='select_account')
+		  {
+			   if(empty(getCookie("selected_ship_to")))
+				{
+					alert("Account information is currently unavailable.  Please try again in a few minutes or contact customer service at 800-323-0354 for assistance.  We apologize for any inconvenience.");
+					window.location.href = selectAccountPrefix;
+					return false;
+				}
+				
+//				 OrderHistory.LoadProperDatesAndCallAPI();
+				 getCookie("selected_ship_to_account_address");
+				   if(!empty(getCookie("selected_ship_to")))
+				   {
+				   $(".locationPane").html('<p><span class="numberField">'+getCookie("selected_ship_to")+'</span><span>  '+getCookie("selected_ship_to_account_address")+'</span></p>');
+				   }	
+		  }
 
 
 	},

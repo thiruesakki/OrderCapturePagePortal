@@ -2002,7 +2002,7 @@ function excelTableCreation(xml){
 function exportexcel() {  
     $("#OrderHistoryExcel").table2excel({  
         name: "Table2Excel",  
-        filename: "OrderHistoryExcel",  
+        filename: "ReturnsHistoryExcel",  
         fileext: ".xlsx"  
     });  
 } 
