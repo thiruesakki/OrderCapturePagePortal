@@ -702,4 +702,46 @@ public class OracleTPService {
 			}
 			return jsonResult.toString();
 	}
+		@GET
+		@Path("/GetPurchaseOrderNumber")
+		public String GetPurchaseOrderNumber(@QueryParam("org_id") String orgID,
+				@QueryParam("billTo_number") String billTo_number,
+				@QueryParam("shipTo_number") String shipTo_number,
+				@QueryParam("purchaseOrderNO") String purchaseOrderNO
+				) {
+			JsonObject jsonResult = new JsonObject();
+			int status = -1;
+			String errorMessage = "";
+			PartNumberObject partNOObj=null;
+			String partNOJson = null;
+			try {
+				OracleDataHandler dataHandler = new OracleDataHandler();
+				System.out.println(orgID+" " +billTo_number+" " +shipTo_number+" " + purchaseOrderNO);
+				partNOObj=dataHandler.getPONumber(orgID, billTo_number, shipTo_number, purchaseOrderNO);
+				Gson gson = new Gson();
+				if (partNOObj != null) {
+					status = 0;
+					
+					partNOJson = gson.toJson(partNOObj);
+				} else {
+					status = 1;
+					errorMessage = "Purchase number List not found";
+				}
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", errorMessage);
+				jsonResult.addProperty("object", partNOJson);
+				System.out.println("Part Number List - Result to be returned:"
+						+ jsonResult);
+
+			} catch (Exception e) {
+				status = 6;
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", e.getMessage());
+				jsonResult.add("object", null);
+				System.out
+						.println("Part Number List - ERROR Result to be returned:"
+								+ jsonResult);
+			}
+			return jsonResult.toString();
+	}
 }
