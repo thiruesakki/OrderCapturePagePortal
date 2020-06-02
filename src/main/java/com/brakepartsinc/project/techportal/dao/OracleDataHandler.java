@@ -22,6 +22,9 @@ import com.brakepartsinc.project.techportal.dto.PartNumberObject;
 import com.brakepartsinc.project.techportal.dto.PaymentObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderResponseObject;
+import com.brakepartsinc.project.techportal.dto.ReturnReasonListObject;
+import com.brakepartsinc.project.techportal.dto.SOLineItemObject;
+import com.brakepartsinc.project.techportal.dto.SalesOrderLineItems;
 import com.brakepartsinc.project.techportal.dto.ShipToObject;
 import com.brakepartsinc.project.techportal.util.StatusObject;
 import com.google.gson.Gson;
@@ -142,7 +145,7 @@ public class OracleDataHandler {
 			String shipTo, String billTo, String fromDate,String toDate, String searchType) throws IOException {
 //		String orderToDate=TPUtility.formatSqlDateToMule(toDate);
 //		String orderFromDate=TPUtility.formatSqlDateToMule(fromDate);
-		String query = "http://xxenv-test-order-history1.us-e2.cloudhub.io/api/OrderHistory?p_operating_unit_id="
+		String query = "http://xxenv-test-order-history2.us-e2.cloudhub.io/api/OrderHistory?p_operating_unit_id="
 				+ orgId + "&p_ship_to=" + shipTo+"&p_bill_to="+billTo+"&p_from_date="+fromDate+"&p_to_date="+toDate+"&p_search_type="+searchType;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
@@ -178,7 +181,7 @@ public class OracleDataHandler {
 			String shipTo, String billTo, String searchType, String docNumber) throws IOException {
 //		String orderToDate=TPUtility.formatSqlDateToMule(toDate);
 //		String orderFromDate=TPUtility.formatSqlDateToMule(fromDate);
-		String query = "http://xxenv-test-order-history1.us-e2.cloudhub.io/api/OrderHistory?p_operating_unit_id="
+		String query = "http://xxenv-test-order-history2.us-e2.cloudhub.io/api/OrderHistory?p_operating_unit_id="
 				+ orgId + "&p_ship_to=" + shipTo+"&p_bill_to="+billTo+"&p_search_type="+searchType+"&p_document_num="+docNumber;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
@@ -213,7 +216,7 @@ public class OracleDataHandler {
 	
 	public OrderShipToObject getMuleOrderDetails(String org_id,
 			String sales_order_num) throws IOException {
-		String query = "http://xxenv-order-detail1.us-e2.cloudhub.io/api/OrderDetails?p_operating_unit_id="
+		String query = "http://xxenv-order-detail2.us-e2.cloudhub.io/api/OrderDetails?p_operating_unit_id="
 				+ org_id + "&p_sales_order_num=" + sales_order_num;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
@@ -465,7 +468,7 @@ public class OracleDataHandler {
 		 
 		 	String org_id="204";
 		 	String userName= placeOrderObject.getUSER_NAME()==""||placeOrderObject.getUSER_NAME()==null?null:placeOrderObject.getUSER_NAME();
-			String query = "http://xxenv-test-place-sales-order3.us-e2.cloudhub.io/api/PlaceSalesOrder?p_operating_unit_id="
+			String query = "http://xxenv-test-place-sales-order4.us-e2.cloudhub.io/api/PlaceSalesOrder?p_operating_unit_id="
 					+ org_id + "&p_cust_po_number=" + placeOrderObject.getCUST_PO_NUMBER()+"&p_order_type="
 					+ placeOrderObject.getORDER_TYPE() + "&p_user_name=" + userName +"&p_shipping_method="+ placeOrderObject.getSHIPPING_METHOD()+ "&p_ship_to_org="
 					+ placeOrderObject.getSHIP_TO_ORG() +"&p_bill_to_org="+placeOrderObject.getBILL_TO_ORG()+"&p_requested_date="+placeOrderObject.getREQUESTED_DATE();
@@ -509,7 +512,7 @@ public class OracleDataHandler {
 	}
 	 public PartNumberObject getPartNumber(String org_id,
 			 String shipTo_number, String partNO) throws IOException {
-		String query = "http://item-search1.us-e2.cloudhub.io/api/ItemSearch?p_operating_unit_id="
+		String query = "http://item-search2.us-e2.cloudhub.io/api/ItemSearch?p_operating_unit_id="
 				+ org_id + "&p_ship_to=" + shipTo_number + "&p_item="+partNO;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
@@ -705,5 +708,99 @@ public class OracleDataHandler {
 				System.out.println("GET NOT WORKED");
 			}
 			return partNOObject;
+		}
+		
+		public InvoiceOrderCheckObject validateReturnQty(String org_id,
+				String so_number, String line_num, String part_num, String req_qty) throws IOException {
+			String query = "http://xxenv-test-validate-return-qty.us-e2.cloudhub.io/api/validateReturnQty?p_operating_unit_id="
+					+ org_id + "&p_so_num=" + so_number+"&p_line_num="+line_num+"&p_part_num="+part_num+"&p_ret_qty="+req_qty;
+			System.out.println(query);
+			URL urlForGetRequest = new URL(query);
+			String readLine = null;
+			String outputString = "";
+			InvoiceOrderCheckObject checkObject = null;
+			HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+					.openConnection();
+			conection.setRequestMethod("GET");
+			// conection.setRequestProperty("p_operating_unit_id", org_id); // set
+			// userId its a sample here
+			// conection.setRequestProperty("p_ship_to_loction", ship_to_location);
+			int responseCode = conection.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						conection.getInputStream()));
+				StringBuffer response = new StringBuffer();
+
+				while ((readLine = in.readLine()) != null) {
+					response.append(readLine);
+				}
+				in.close();
+				outputString = response.toString();
+				Gson g = new Gson();
+				checkObject = g.fromJson(outputString, InvoiceOrderCheckObject.class);
+//				statusString=checkObject.getX_inv_exist();
+				// GetAndPost.POSTRequest(response.toString());
+			} else {
+				System.out.println("GET NOT WORKED");
+			}
+			return checkObject;
+		}
+		
+		public SalesOrderLineItems getSoLineItems(String org_id,String soNumber) throws IOException {
+			String query = "http://xxenv-test-get-so-line-items.us-e2.cloudhub.io/api/GetSoLineItems?p_operating_unit_id="
+					+ org_id + "&p_so_num=" + soNumber;
+			System.out.println(query);
+			URL urlForGetRequest = new URL(query);
+			String readLine = null;
+			String outputString = "";
+			SalesOrderLineItems soLineItemListObj = null;
+			HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+					.openConnection();
+			conection.setRequestMethod("GET");
+			int responseCode = conection.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						conection.getInputStream()));
+				StringBuffer response = new StringBuffer();
+
+				while ((readLine = in.readLine()) != null) {
+					response.append(readLine);
+				}
+				in.close();
+				outputString = response.toString();
+				Gson g = new Gson();
+				soLineItemListObj = g.fromJson(outputString, SalesOrderLineItems.class);
+			} else {
+				System.out.println("GET NOT WORKED");
+			}
+			return soLineItemListObj;
+		}
+		public ReturnReasonListObject getReturnReason() throws IOException {
+			String query = "http://xxenv-test-get-return-reason.us-e2.cloudhub.io/ReturnReason";
+			System.out.println(query);
+			URL urlForGetRequest = new URL(query);
+			String readLine = null;
+			String outputString = "";
+			ReturnReasonListObject returnsReasonListObj = null;
+			HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+					.openConnection();
+			conection.setRequestMethod("GET");
+			int responseCode = conection.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						conection.getInputStream()));
+				StringBuffer response = new StringBuffer();
+
+				while ((readLine = in.readLine()) != null) {
+					response.append(readLine);
+				}
+				in.close();
+				outputString = response.toString();
+				Gson g = new Gson();
+				returnsReasonListObj = g.fromJson(outputString, ReturnReasonListObject.class);
+			} else {
+				System.out.println("GET NOT WORKED");
+			}
+			return returnsReasonListObj;
 		}
 }

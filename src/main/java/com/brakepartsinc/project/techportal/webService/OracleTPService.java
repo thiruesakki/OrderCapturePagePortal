@@ -51,11 +51,13 @@ import com.brakepartsinc.project.techportal.dto.PlaceOrderResponseObject;
 import com.brakepartsinc.project.techportal.dto.PromoBusinessDetailsObject;
 import com.brakepartsinc.project.techportal.dto.RegisterOrganizationObject;
 import com.brakepartsinc.project.techportal.dto.RegisterUserObject;
+import com.brakepartsinc.project.techportal.dto.ReturnReasonListObject;
 import com.brakepartsinc.project.techportal.dto.RewardEventsObject;
 import com.brakepartsinc.project.techportal.dto.RewardProgramsObject;
 import com.brakepartsinc.project.techportal.dto.RewardSummaryObject;
 import com.brakepartsinc.project.techportal.dto.RewardTransactionObject;
 import com.brakepartsinc.project.techportal.dto.RoleObject;
+import com.brakepartsinc.project.techportal.dto.SalesOrderLineItems;
 import com.brakepartsinc.project.techportal.dto.ShipToAddressObject;
 import com.brakepartsinc.project.techportal.dto.ShipToObject;
 import com.brakepartsinc.project.techportal.dto.ShippingMethodObject;
@@ -740,6 +742,123 @@ public class OracleTPService {
 				jsonResult.add("object", null);
 				System.out
 						.println("Part Number List - ERROR Result to be returned:"
+								+ jsonResult);
+			}
+			return jsonResult.toString();
+	}
+	
+		@GET
+		@Path("/validateReturnQty")
+		public String validateReturnQty(@QueryParam("org_id") String orgID,
+				@QueryParam("so_number") String so_number, @QueryParam("line_num") String line_num, 
+				@QueryParam("part_num") String part_num, @QueryParam("req_qty") String req_qty) {
+			JsonObject jsonResult = new JsonObject();
+			String invoiceJson = null;
+//			JsonArray shipToArrayJson = null;
+			int status = -1;
+			String errorMessage = "";
+			InvoiceOrderCheckObject checkInvoiceStatus=null;
+			try {
+				OracleDataHandler dataHandler = new OracleDataHandler();
+				checkInvoiceStatus=dataHandler.validateReturnQty(orgID, so_number, line_num, part_num, req_qty);
+					status = 0;
+					if (checkInvoiceStatus != null) {
+						status = 0;
+						Gson gson = new Gson();
+						invoiceJson = gson.toJson(checkInvoiceStatus);
+					} else {
+						status = 1;
+						errorMessage = "Invoice Details check not found";
+					}
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", errorMessage);
+				jsonResult.addProperty("object", invoiceJson);
+				System.out.println("getCheckInvoiceDetails - Result to be returned:"
+						+ jsonResult);
+
+			} catch (Exception e) {
+				status = 6;
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", e.getMessage());
+				jsonResult.add("object", null);
+				System.out
+						.println("getCheckInvoiceDetails - ERROR Result to be returned:"
+								+ jsonResult);
+			}
+			return jsonResult.toString();
+	}
+		
+		@GET
+		@Path("/getSoLineItems")
+		public String getSoLineItems(@QueryParam("org_id") String orgID,
+				@QueryParam("soNumber") String soNumber) {
+			JsonObject jsonResult = new JsonObject();
+			int status = -1;
+			String errorMessage = "";
+			SalesOrderLineItems soLineItemObject=null;
+			String soLineItemObjJson = null;
+			try {
+				OracleDataHandler dataHandler = new OracleDataHandler();
+				soLineItemObject=dataHandler.getSoLineItems(orgID, soNumber);
+				Gson gson = new Gson();
+				if (soLineItemObject != null) {
+					status = 0;
+					
+					soLineItemObjJson = gson.toJson(soLineItemObject);
+				} else {
+					status = 1;
+					errorMessage = "Sales order Line Item Object not found";
+				}
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", errorMessage);
+				jsonResult.addProperty("object", soLineItemObjJson);
+				System.out.println("Sales order Line Item Object - Result to be returned:"
+						+ jsonResult);
+
+			} catch (Exception e) {
+				status = 6;
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", e.getMessage());
+				jsonResult.add("object", null);
+				System.out
+						.println("Sales order Line Item Object - ERROR Result to be returned:"
+								+ jsonResult);
+			}
+			return jsonResult.toString();
+	}
+		@GET
+		@Path("/getReturnReason")
+		public String getReturnReason() {
+			JsonObject jsonResult = new JsonObject();
+			int status = -1;
+			String errorMessage = "";
+			ReturnReasonListObject returnReasonListObj=null;
+			String returnReturnListObjJson = null;
+			try {
+				OracleDataHandler dataHandler = new OracleDataHandler();
+				returnReasonListObj=dataHandler.getReturnReason();
+				Gson gson = new Gson();
+				if (returnReasonListObj != null) {
+					status = 0;
+					
+					returnReturnListObjJson = gson.toJson(returnReasonListObj);
+				} else {
+					status = 1;
+					errorMessage = "Return Reason List Object not found";
+				}
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", errorMessage);
+				jsonResult.addProperty("object", returnReturnListObjJson);
+				System.out.println("Return Reason List Object - Result to be returned:"
+						+ jsonResult);
+
+			} catch (Exception e) {
+				status = 6;
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", e.getMessage());
+				jsonResult.add("object", null);
+				System.out
+						.println("Return Reason List Object - ERROR Result to be returned:"
 								+ jsonResult);
 			}
 			return jsonResult.toString();
