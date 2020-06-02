@@ -704,7 +704,7 @@ BpiccPlaceOrder=
 			html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
 			html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'" maxlength=5 disabled  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccPlaceOrder.ValidateQty('+new_tr_id+');BpiccPlaceOrder.CalculateTotQtyWt();" class="inputReqQnty" type="text"></div></td>';
 			
-			html+='<td><select id="select_returns_reason" onchange="changeReturnsReason();"><option value="orderType">Select Returns Reason</option></select></td>';
+			html+='<td><select id="select_returns_reason" Style="margin-left:27px;margin-top:8px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
 			html+='<td><div class="availableDC"><span onclick="BpiccPlaceOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></div></td>';
 			html+='	</tr>';
 			$("#bpicc_tableDetails tbody").append(html);

@@ -1852,8 +1852,8 @@
 						<div class="col-md-5 poPane"> 
 							<form class="form-inline">
 								<div class="form-group">
-								   <label  for="inputPo"><span class="requiredField">*</span>ENTER PO</label>
-								   <input type="text"  onblur='BpiccPlaceOrder.ApiValidatePoNumber();' class="form-control" id="inputPo" placeholder="Enter Unique PO Number">
+								   <label  for="inputPo"><span class="requiredField">*</span>ENTER SO</label>
+								   <input type="text"  onblur='BpiccPlaceOrder.ApiValidatePoNumber();' class="form-control" id="inputPo" placeholder="Enter Unique Sales Order No">
 								 </div>
 								<!-- <div class="form-group ReqShipDate">
 								  <label  for="inputShipDate"><span class="requiredField">*</span>REQUESTED SHIP DATE</label>
@@ -1868,12 +1868,13 @@
 					  </div>
 					  <div class="col-md-4 selectOptPane">
 						  <div class="orderType">
-						  <label  for="inputPo"><span class="requiredField">*</span>ORDER TYPE</label>
-						  <select id='select_order_type' onchange="BpiccPlaceOrder.HandleOnchangeOrderType();">
-							  <option value="orderType">Select Order Type</option>
-							  <option value="Standard">Standard</option>
-							  <option value="Emergency">Emergency</option>
-							  <option value="Mixed">Mixed</option>
+						  <label  for="inputPo"><span class="requiredField">*</span>RETUR TYPE</label>
+						  <select id='select_returns_type' onchange="BpiccPlaceOrder.HandleOnchangeOrderType();">
+							  <option value="returnsType">Select Returns Type</option>
+							  <option value="Return">Return Only</option>
+							  <option value="RMA">RMA - Credit</option>
+							  <option value="Approval">Return with Approval</option>
+							   <option value="Submission">Return w/Submission/Approval</option>
 						</select>
 						  </div>
 						</div>
