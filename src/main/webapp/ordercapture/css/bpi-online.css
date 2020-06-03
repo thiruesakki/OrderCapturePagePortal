@@ -1132,17 +1132,21 @@ fieldset[disabled] .btn-yellow.active {
 .container .bpiOnlineRightPanel .returnstableContents .table thead{width: 100%;  color:#333; }
 .container .bpiOnlineRightPanel .returnstableContents .table thead .glyphicon.glyphicon-trash{font-size: 18px; cursor:pointer;}
 .container .bpiOnlineRightPanel .returnstableContents .table thead tr th{border-right: 1px solid #a2aabc; border-bottom:none; text-align:center;vertical-align: middle; padding: 8px 0;}
-.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(1) { width:158px !important; }
-.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(2) { width:110px !important; }
-.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(3) { width:142px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(1) { width:80px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(2) { width:143px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(3) { width:110px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(4) { width:142px !important; }
 
 .container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(1),
 .container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(2),
-.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(3) {text-align: left; padding-left: 10px; }
+.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(3),
+.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(4) {text-align: left; padding-left: 12px; }
 
-.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(4) { width:78px !important; }
 .container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(5) { width:78px !important; }
-.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(6) { width:223px !important; padding: 10px 0 2px 0 !important; border: none ; border-right:1px solid #a2aabc;}
+.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(6) { width:78px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(7) { width:78px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(8) { width:78px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(9) { width:223px !important; padding: 10px 0 2px 0 !important; border: none ; border-right:1px solid #a2aabc;}
 .container .bpiOnlineRightPanel .returnstableContents .table thead #insideDiv th{width:74px !important; /*height: 24px;*/ border: none; padding:0px !important;}
 #insideDiv th span, #insideDiv th p{display: inline-block; margin-bottom:0px !important; }
 #insideDiv th span:first-child, #insideDiv th p:first-child{margin-right:3px !important; margin-top:2px !important;}
@@ -1157,23 +1161,25 @@ fieldset[disabled] .btn-yellow.active {
 .container .bpiOnlineRightPanel .returnstableContents .table tbody tr{/*border-bottom: 1px solid #ccc;*/}
 .container .bpiOnlineRightPanel .returnstableContents .table tbody tr:last-child{ border-top: 1px solid #a2aabc; border-bottom: 0px solid #ccc;}
 .container .bpiOnlineRightPanel .returnstableContents .table tbody tr td{padding: 0px; border-top: 1px solid #a2aabc;}
-.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(1) { width:158px !important; }
-.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(2) { width:110px !important; }
-.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(3) { width:142px !important; }
-.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(4) { width:78px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(1) { width:78px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(2) { width:170px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(3) { width:110px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(4) { width:155px !important; }
 .container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(5) { width:78px !important; }
-.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(6) { width:224px !important; }
-.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(7){ width:42px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(6) { width:78px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(7) { width:224px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(8){ width:42px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(9){ width:42px !important; }
 
 .container .bpiOnlineRightPanel .returnstableContents .table tbody .partNum{margin: 8px;width: 89%;border: 1px solid #ccc;}
 .errorError{border: 1px solid #f00 !important;}
 .errorWarning{border: 1px solid #fbbf54 !important;}
 .container .bpiOnlineRightPanel .returnstableContents .table tbody .inputBrand{margin: 8px;width: 86%;border: 1px solid #ccc;}
-.container .bpiOnlineRightPanel .returnstableContents .table tbody .inputDesc{margin: 8px;width: 86%;border: 1px solid #ccc;}
-.container .bpiOnlineRightPanel .returnstableContents .table tbody .inputUnitWgt{margin: 8px 8px 8px 13px;width: 71%;border: 1px solid #ccc;}
-.container .bpiOnlineRightPanel .returnstableContents .table tbody .inputReqQnty{margin: 8px 0px 8px 18px; width: 55%; border: 1px solid #ccc;}
+.container .bpiOnlineRightPanel .returnstableContents .table tbody .inputDesc{margin: 8px 8px 8px 15px;width: 100%;border: 1px solid #ccc;}
+.container .bpiOnlineRightPanel .returnstableContents .table tbody .inputUnitWgt{margin: 8px 8px 8px 35px;width: 71%;border: 1px solid #ccc;}
+.container .bpiOnlineRightPanel .returnstableContents .table tbody .inputReqQnty{margin: 8px 0px 8px 36px; width: 55%; border: 1px solid #ccc;}
 .partNum, .inputBrand, .inputDesc, .inputUnitWgt, .inputReqQnty{padding:4px 5px; font-size: 11px;}
-.container .bpiOnlineRightPanel .returnstableContents .table tbody .selectReturnsReason{margin-right: 0px;padding-right: 0px; width: 430px !important;}
+.container .bpiOnlineRightPanel .returnstableContents .table tbody .selectReturnsReason{margin-right: 0px;padding-right: 0px; width: 350px !important;}
 .container .bpiOnlineRightPanel .returnstableContents .table tbody .glyphicon.glyphicon-trash { margin: 11px;font-size: 15px; opacity: 0.7; cursor:pointer;}
 .container .bpiOnlineRightPanel .returnstableContents .table tbody td .availableDC {position:relative;}
 .container .bpiOnlineRightPanel .returnstableContents .table tbody td .fa-check-circle{

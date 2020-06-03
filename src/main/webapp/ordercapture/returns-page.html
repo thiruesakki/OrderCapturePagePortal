@@ -1852,8 +1852,8 @@
 						<div class="col-md-5 poPane"> 
 							<form class="form-inline">
 								<div class="form-group">
-								   <label  for="inputPo"><span class="requiredField">*</span>ENTER SO</label>
-								   <input type="text"  onblur='BpiccReturnsOrder.ApiGetSOLineItem();' class="form-control" id="inputSO" placeholder="Enter Unique Sales Order No">
+								   <label  for="inputPo"><span class="requiredField">*</span>ENTER SALES ORDER NO</label>
+								   <input type="text"  onblur='BpiccReturnsOrder.ApiGetSOLineItem();' class="form-control" id="inputSO" placeholder="Enter Unique SO No">
 								 </div>
 								<!-- <div class="form-group ReqShipDate">
 								  <label  for="inputShipDate"><span class="requiredField">*</span>REQUESTED SHIP DATE</label>
@@ -1907,12 +1907,14 @@
 				 <table id="bpicc_tableDetails" class="table">
 				<thead>
 					<tr>
+					    <th rowspan=2>LINE NUMBER</th>
 						<th rowspan=2>PART NUMBER</th>
 						<th rowspan=2>BRAND</th>
 						<th rowspan=2>DESCRIPTION</th>
 						<th rowspan=2>UNIT WEIGHT<br/>(lbs)</th>
 						<th rowspan=2>REQUESTED QUANTITY</th>    
-						<th colspan=3>Returns Reason</th>
+						<th rowspan=2>RETURNS REASONS</th>
+						<th rowspan=2>RETURNABLE</th>
 						<th class="archiveIcon" rowspan=2><span class="glyphicon glyphicon-trash" aria-hidden="true" onclick="BpiccReturnsOrder.DeleteAllRows();"></span></th>
 					</tr>
 				</thead>
@@ -1924,7 +1926,8 @@
 						<td><input type="text" id="weight_1"  class="inputUnitWgt" value="" disabled></td>
 						<td><div class="availableDC"><input type="text" id="reqQnty_1"  disabled onkeydown="return acceptNumbersOnlyForModule(event);" onblur="BpiccReturnsOrder.ValidateQty(1);BpiccReturnsOrder.CalculateTotQtyWt();"   class="inputReqQnty"></div></td>
 						<td><div class="availableDC"><select id='select_returns_reason' class="selectReturnsReason" onchange="changeReturnsReason();">
-							  <option value="orderType">Select Returns Reason</option></select></td>
+							  <option value="orderType">Select Returns Reason</option></select></div></td>
+							  <td><input type="checkbox" name="" value="checked" /><td>
 					</tr>
 					 
 					
