@@ -16,7 +16,7 @@ $(document).ready(function() {
 	 }
 	 console.log("soNum:"+soNum);
 	 $("#inputSO").val(soNum);
-	 $("#inputSO").trigger("change");
+	 $("#inputSO").trigger("onblur");
 });
 jQuery(function($) {'use strict',
 
@@ -2648,58 +2648,36 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				var obj = JSON.parse(data.object);
 				 if(obj!=null){
 					 console.log("res"+JSON.stringify(obj));
-					 BpiccReturnsOrder.ApiProcessValidatePoNumber(obj)
+					 BpiccReturnsOrder.ApiProcessGetSOLine(obj)
 				 }else{
 					 alert('ValidatePONumber is not found');
 				 }
 			
 			},
 			error: function (msg) {
-	 
 				  alert("Failed1: " + msg.status + ": " + msg.statusText);
 			}
 		}); 
 	}  ,
-	ApiProcessValidatePoNumber:function(xml)
+	ApiProcessGetSOLine:function(xml)
 	{
 		$("#validate_po_erro_msg_div").remove();
 		  try {
 			 
 			 X_RESPONSE_STATUS=xml.x_response_status;
 			 X_RESPONSE_MESSAGE=xml.x_response_message;
+			 var soLineObj=xml.x_so_line_items;
+			 console.log("soline"+JSON.stringify(soLineObj));
 			 if(X_RESPONSE_STATUS=="S")
 			 {
+				BpiccReturnsOrder.AddSOLineItems(soLineObj);
 				BpiccReturnsOrder.EnableAddRowsAndButtonPoValidation();
-				 if($("#place_order_error_info p:contains('Please Enter Valid PO')").length>0)
+				 if($("#place_order_error_info p:contains('Please Enter Valid SO')").length>0)
 					{
 							$("#place_order_error_info").hide();
 					} 
-					setTimeout(function(){$("#select_order_type").focus();}, 100); 
+					setTimeout(function(){$("#select_returns_type").focus();}, 100); 
 			 }
-			else if(X_RESPONSE_STATUS=="'D")
-			 {
-				 
-				$("#place_order_error_info").after(' <div id="validate_po_erro_msg_div" class="errorInfo"> <p><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">'+X_RESPONSE_MESSAGE+'</span></p></div> ');
-				  $("#validate_po_erro_msg_div").show();
-				  BpiccReturnsOrder.EnableAddRowsAndButtonPoValidation();
-				   if($("#place_order_error_info p:contains('Please Enter Valid PO')").length>0)
-					{
-							$("#place_order_error_info").hide();
-					} 
-			 }
-			 else
-			 {
-			 // BpiccReturnsOrder.DisableAddRowsAndButtonPoValidation();
-			 BpiccReturnsOrder.EnableAddRowsAndButtonPoValidation();
-			$("#place_order_error_info").after(' <div id="validate_po_erro_msg_div" class="errorInfo"> <p><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">'+X_RESPONSE_MESSAGE+'</span></p></div> ');
-				$("#validate_po_erro_msg_div").show();			
-			setTimeout(function(){$("#select_order_type").focus();}, 100); 
-			  if($("#place_order_error_info p:contains('Please Enter Valid PO')").length>0)
-					{
-							$("#place_order_error_info").hide();
-					} 
-			 }
-			  
 		    }
 		  catch(err) {
 			
@@ -2738,11 +2716,11 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		}
 		window.location.href= selectAccountPrefix + "index.html";
 	},
-	AddItemsFromCheckStockPage:function(cookie_part_obj)
+	AddSOLineItems:function(cookie_part_obj)
 	{
-	 if(!empty(getCookie("selected_ship_to_wc")))
+	 if(!empty(getCookie("selected_ship_to")))
 		   {
-			   bpi_com_obj.default_dc=getCookie("selected_ship_to_wc");
+			   bpi_com_obj.default_dc=getCookie("selected_ship_to");
 		   }
 		$("#validate_on_entry").removeAttr('checked');
 		$("#validate_on_entry").attr("validate","0");
@@ -2751,9 +2729,10 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		  part_no_qty_arr=new Object();
 		 part_no_dc_arr=new Object();
 		 
-		 
+		 console.log("before loop");
 		$.each(cookie_part_obj, function(k,v)  
 		{
+			console.log("inside loop:"+v);
 			var part_no=v['partNum'];
 			var qty=v['reqQnty'];
 			var dc=v['dc'];
