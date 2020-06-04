@@ -571,7 +571,15 @@ OrderHistory=
 						 {
 							  html+='<td><i class="fa fa-info-circle disableCircle" aria-hidden="true" ></i></td>'; 
 						 }
-						 html+='<td  onclick="redirectReturns(\''+ORDER_NUMBER+'\');"><i class="fa fa-registered" aria-hidden="true" ></i></td>';
+						 if(parseFloat(SHIPPED_PIECES)>0)
+						 {
+							 html+='<td  onclick="redirectReturns(\''+ORDER_NUMBER+'\');"><i class="fa fa-registered" aria-hidden="true" ></i></td>';
+						 }
+						 else
+						 {
+							  html+='<td><i class="fa fa-registered disableCircle" aria-hidden="true" ></i></td>'; 
+						 }
+						 
 						 html+="</tr>";
 						 tr_id++;
 //					});

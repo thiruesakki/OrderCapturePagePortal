@@ -15,8 +15,10 @@ $(document).ready(function() {
 		 soNum=requestID;
 	 }
 	 console.log("soNum:"+soNum);
+	 orgID=getCookie("selected_org_id");
 	 $("#inputSO").val(soNum);
 	 $("#inputSO").trigger("onblur");
+//	 qtyValidation(1);
 });
 jQuery(function($) {'use strict',
 
@@ -52,7 +54,7 @@ $("#bpicc_tableDetails tbody tr#1").remove();
 		   $("#m1_1").val("");
 		   $("#m2_1").val("");
 //			$("#inputSO").val("");
-		   $("#reqQnty_1").attr("disabled",true);
+//		   $("#reqQnty_1").attr("disabled",true);
   $('#reset_form').on('click', function(e){
 	 
 		BpiccReturnsOrder.ResetForm();
@@ -165,13 +167,13 @@ $("#bpicc_tableDetails tbody tr#1").remove();
 				   setCookie("cookie_part_obj","");
 				localStorage.setItem("cookie_part_obj","");   
 				 $('#reset_form').prop("disabled",true);
-				 setTimeout(function(){ $("#reqQnty_2").prop("disabled",true);}, 500); 
+//				 setTimeout(function(){ $("#reqQnty_2").prop("disabled",true);}, 500); 
 				
 		  }
 		  $('input[name="shippingmodel"][value="SHIPPING ADDRESS"]')[0].checked = true;
 			$('input[name="inlineRadioOptions"][value="option1"]')[0].checked = true;
 			BpiccReturnsOrder.DisableShippingInputValues();
-			 $('[id^=reqQnty_]').attr('disabled',true);
+//			 $('[id^=reqQnty_]').attr('disabled',true);
 			 // $('[id^=partNum_]').attr('disabled',true);
 			 
 			   $("#select_order_type").attr('disabled',true);
@@ -225,7 +227,7 @@ BpiccReturnsOrder=
 		}
 			$( "#bpicc_tableDetails tbody" ).scrollTop(0); //setTimeout(function(){$("#partNum_1").focus();}, 100); 
 		 BpiccReturnsOrder.EnableValidateOrderDiv();
-		  $('[id^=reqQnty_]').attr('disabled',true);
+//		  $('[id^=reqQnty_]').attr('disabled',true);
 	},
 	HandleValidateEntry:function()
 	{
@@ -246,7 +248,7 @@ BpiccReturnsOrder=
 				var tr_id=$(this).attr("id");
 			 if(!empty($("#partNum_"+tr_id).val()))
 			 {
-				 $("#reqQnty_"+tr_id).removeAttr('disabled',true);
+//				 $("#reqQnty_"+tr_id).removeAttr('disabled',true);
 			 }
 					$("#partNum_"+tr_id).removeClass("errorError");
 					$("#partNum_"+tr_id).removeClass("errorWarning");
@@ -284,12 +286,13 @@ BpiccReturnsOrder=
 	EnableAddRowsAndButtonPoValidation:function()
 	{
 		$("#bpicc_tableDetails tbody tr input[id^='partNum_']").removeAttr('disabled');
-		$("#bpicc_tableDetails tbody tr input[id^='reqQnty_']").filter(function () {
-		if(empty(this.value)) 
-			$(this).attr('disabled',true);
-		else
-			$(this).removeAttr('disabled');
-		});
+		$("#bpicc_tableDetails tbody tr input[id^='reqQnty_']").removeAttr('disabled');
+//		$("#bpicc_tableDetails tbody tr input[id^='reqQnty_']").filter(function () {
+//		if(empty(this.value)) 
+//			$(this).attr('disabled',true);
+//		else
+//			$(this).removeAttr('disabled');
+//		});
 		$("#validate_order").removeAttr('disabled');
 		$("#select_order_type").removeAttr('disabled');
 		$("#btn_excel_upload").removeAttr('disabled');
@@ -341,353 +344,6 @@ BpiccReturnsOrder=
 		last_row_id=2;
 		  setTimeout(function(){$("#partNum_"+last_row_id).focus();}, 100); 
 	},
-	EnableProperCheckBoxColor:function(row_id)
-	{
-		 BpiccReturnsOrder.EnableValidateOrderDiv();
-
-		 checked_val=$("input[name='inputAvail_"+row_id+"']:checked").val();
-		 $("#V1_i_"+row_id).removeClass("greenIcon");
-		 $("#V1_i_"+row_id).removeClass("yellowIcon");
-		 $("#V1_i_"+row_id).removeClass("redIcon");
-		 
-		 $("#M1_i_"+row_id).removeClass("greenIcon");
-		 $("#M1_i_"+row_id).removeClass("yellowIcon");
-		 $("#M1_i_"+row_id).removeClass("redIcon");
-		 
-		 
-		 $("#M2_i_"+row_id).removeClass("greenIcon");
-		 $("#M2_i_"+row_id).removeClass("yellowIcon");
-		 $("#M2_i_"+row_id).removeClass("redIcon");
-		 	 var part_no=$.trim($("#partNum_"+row_id).val());
-		if($("#validate_on_entry").attr("validate")=="1")
-		{		
-			if(bpi_obj.prod_stock.hasOwnProperty(part_no))
-			{
-
-
-
-
-				MIN_ORDER_QTY=	bpi_obj.prod_stock[part_no]['MIN_ORDER_QTY'];
-				ERROR_MSG=	$.trim(bpi_obj.prod_stock[part_no]['ERROR_MSG']);
-				if(empty(ERROR_MSG))
-				{
-					EDC=	bpi_obj.prod_stock[part_no]['V1'];
-					MDC=	bpi_obj.prod_stock[part_no]['M1'];
-					WDC=	bpi_obj.prod_stock[part_no]['M2'];
-				}
-				var reqQnty=$.trim($("#reqQnty_"+row_id).val());
-				reqQnty= parseInt((empty(reqQnty))?0:reqQnty);
-				 if(reqQnty<EDC)
-						EDC=reqQnty;
-					if(reqQnty<MDC)
-						MDC=reqQnty;
-					if(reqQnty<WDC)
-						WDC=reqQnty;
-				checked_val_lower=checked_val.toLowerCase();
-				if(checked_val=="V1")
-						assign_val=EDC;
-					if(checked_val=="M1")
-						assign_val=MDC;
-					if(checked_val=="M2")
-						assign_val=WDC;
-				 
-					$("#"+checked_val_lower+"_"+row_id).val(assign_val);
-				if(checked_val=="V1")
-					{
-						if(EDC==0)
-						{
-							 BpiccReturnsOrder.DCEnableProperCheckBox(row_id,"V1","redIcon",1);
-						}
-						else if(reqQnty<=EDC)
-						{
-							 BpiccReturnsOrder.DCEnableProperCheckBox(row_id,"V1","greenIcon",1);
-						}
-						else
-						{
-							 BpiccReturnsOrder.DCEnableProperCheckBox(row_id,"V1","yellowIcon",1);
-							
-						}
-					}
-					else if(checked_val=="M1")
-					{
-						if(MDC==0)
-						{
-							 BpiccReturnsOrder.DCEnableProperCheckBox(row_id,"M1","redIcon",1);
-						}
-						else if(reqQnty<=MDC)
-						{
-							 BpiccReturnsOrder.DCEnableProperCheckBox(row_id,"M1","greenIcon",1);
-						}
-						else
-						{
-							 BpiccReturnsOrder.DCEnableProperCheckBox(row_id,"M1","yellowIcon",1);
-							
-						}
-					}
-					else if(checked_val=="M2")
-					{
-						if(WDC==0)
-						{
-							 BpiccReturnsOrder.DCEnableProperCheckBox(row_id,"M2","redIcon",1);
-						}
-						else if(reqQnty<=WDC)
-						{
-							 BpiccReturnsOrder.DCEnableProperCheckBox(row_id,"M2","greenIcon",1);
-						}
-						else
-						{
-							 BpiccReturnsOrder.DCEnableProperCheckBox(row_id,"M2","yellowIcon",1);
-							
-						}
-					}
-					
-			}
-		}
-		else		
-		{ 
-		 $("#"+checked_val+"_i_"+row_id).addClass("greenIcon");
-		}
-		BpiccReturnsOrder.CalculateTotQtyWt();
-	},
-	HandleGlobalWcSelect:function(u_checked_val)
-	{
-		 $(".loader").show();
-		 setTimeout(function(){
-		var data=$("#bpicc_tableDetails tbody tr");
-		var cnt=0;
-		  var tot_cnt=$("#bpicc_tableDetails tbody tr").length;
-		$.each(data,function(k,v)
-		{
-			 $(".loader").show();
-			var row_id=$(this).attr("id");
-			  var part_no=$.trim($(this).find("#partNum_"+row_id).val());
-			if(bpi_obj.prod_stock.hasOwnProperty(part_no))
-			{
-				 var EDC=0;
-				 var MDC=0;
-				 var WDC=0;
-					 EDC=	bpi_obj.prod_stock[part_no]['V1'];
-					MDC=	bpi_obj.prod_stock[part_no]['M1'];
-					WDC=	bpi_obj.prod_stock[part_no]['M2'];
-					var IS_CALIPER=	bpi_obj.prod_stock[part_no]['IS_CALIPER'];
-					if(IS_CALIPER=="0")
-					{
-						var reqQnty=$(this).find("#reqQnty_"+row_id).val(); 
-						if(reqQnty>0)
-						{
-							reqQnty= parseInt((empty(reqQnty))?0:reqQnty);
-							 if(reqQnty<EDC)
-									EDC=reqQnty;
-								if(reqQnty<MDC)
-									MDC=reqQnty;
-								if(reqQnty<WDC)
-									WDC=reqQnty;
-								 
-								if(u_checked_val=="V1")
-								{
-									 
-									$("#v1_"+row_id).val(EDC);
-									if(EDC==0)
-									{
-										 BpiccReturnsOrder.DCEnableProperCheckBoxGlobalDC(row_id,"V1","redIcon");
-									}
-									else if(reqQnty<=EDC)
-									{
-										 BpiccReturnsOrder.DCEnableProperCheckBoxGlobalDC(row_id,"V1","greenIcon");
-									}
-									else
-									{
-										 BpiccReturnsOrder.DCEnableProperCheckBoxGlobalDC(row_id,"V1","yellowIcon");
-										
-									}
-								}
-								else if(u_checked_val=="M1")
-								{
-										 
-									$("#m1_"+row_id).val(MDC);
-									if(MDC==0)
-									{
-										 BpiccReturnsOrder.DCEnableProperCheckBoxGlobalDC(row_id,"M1","redIcon");
-									}
-									else if(reqQnty<=MDC)
-									{
-										 BpiccReturnsOrder.DCEnableProperCheckBoxGlobalDC(row_id,"M1","greenIcon");
-									}
-									else
-									{
-										 BpiccReturnsOrder.DCEnableProperCheckBoxGlobalDC(row_id,"M1","yellowIcon");
-										
-									}
-								}
-								else if(u_checked_val=="M2")
-								{
-								 
-									$("#m2_"+row_id).val(WDC);
-									if(WDC==0)
-									{
-										 BpiccReturnsOrder.DCEnableProperCheckBoxGlobalDC(row_id,"M2","redIcon");
-									}
-									else if(reqQnty<=WDC)
-									{
-										 BpiccReturnsOrder.DCEnableProperCheckBoxGlobalDC(row_id,"M2","greenIcon");
-									}
-									else
-									{
-										 BpiccReturnsOrder.DCEnableProperCheckBoxGlobalDC(row_id,"M2","yellowIcon");
-										
-									}
-								}
-						 }
-					}
-			}
-			cnt++;
-			if(cnt>=tot_cnt)
-			{
-				$(".loader").hide();
-				 BpiccReturnsOrder.CalculateTotQtyWt();	
-			}
-		});
-			 }, 500); 		
-		
-		 
-	},
-	HandleCheckStockPage:function(row_id)
-	{
-		 	 var part_no=$.trim($("#partNum_"+row_id).val());
-		if($("#validate_on_entry").attr("validate")=="1")
-		{		
-			if(bpi_obj.prod_stock.hasOwnProperty(part_no))
-			{
-				MIN_ORDER_QTY=	bpi_obj.prod_stock[part_no]['MIN_ORDER_QTY'];
-				ERROR_MSG=	$.trim(bpi_obj.prod_stock[part_no]['ERROR_MSG']);
-				if(empty(ERROR_MSG))
-				{
-					EDC=	bpi_obj.prod_stock[part_no]['V1'];
-					MDC=	bpi_obj.prod_stock[part_no]['M1'];
-					WDC=	bpi_obj.prod_stock[part_no]['M2'];
-				}
-				var reqQnty=$.trim($("#reqQnty_"+row_id).val());
-				reqQnty= parseInt((empty(reqQnty))?0:reqQnty);
-				 if(reqQnty<EDC)
-						EDC=reqQnty;
-					if(reqQnty<MDC)
-						MDC=reqQnty;
-					if(reqQnty<WDC)
-						WDC=reqQnty;
-				
-						if(EDC==0)
-						{
-							 BpiccReturnsOrder.CheckStockDCEnableProperCheckBox(row_id,"V1","redIcon")
-						}
-						else if(reqQnty<=EDC)
-						{
-							 BpiccReturnsOrder.CheckStockDCEnableProperCheckBox(row_id,"V1","greenIcon")
-						}
-						else
-						{
-							 BpiccReturnsOrder.CheckStockDCEnableProperCheckBox(row_id,"V1","yellowIcon")
-							
-						}
-					
-					 
-						if(MDC==0)
-						{
-							 BpiccReturnsOrder.CheckStockDCEnableProperCheckBox(row_id,"M1","redIcon")
-						}
-						else if(reqQnty<=MDC)
-						{
-							 BpiccReturnsOrder.CheckStockDCEnableProperCheckBox(row_id,"M1","greenIcon")
-						}
-						else
-						{
-							 BpiccReturnsOrder.CheckStockDCEnableProperCheckBox(row_id,"M1","yellowIcon")
-							
-						}
-					 
-					 
-						if(WDC==0)
-						{
-							 BpiccReturnsOrder.CheckStockDCEnableProperCheckBox(row_id,"M2","redIcon")
-						}
-						else if(reqQnty<=WDC)
-						{
-							 BpiccReturnsOrder.CheckStockDCEnableProperCheckBox(row_id,"M2","greenIcon")
-						}
-						else
-						{
-							 BpiccReturnsOrder.CheckStockDCEnableProperCheckBox(row_id,"M2","yellowIcon")
-							
-						}
-					 
-			}
-		}
-	},
-	CheckStockDCEnableProperCheckBox:function(row_id,dc,ClassName)
-	{
-		 
-		 
-		
-		  $("#"+dc+"_i_"+row_id).removeClass("greenIcon");
-		  $("#"+dc+"_i_"+row_id).removeClass("yellowIcon");
-		  $("#"+dc+"_i_"+row_id).removeClass("redIcon");
-		 
-		  $("#"+dc+"_i_"+row_id).addClass(ClassName);	
-		 $("#"+dc+"_RADIO_"+row_id).attr('disabled',true);
-				
-	},
-	DCEnableProperCheckBox:function(row_id,value,ClassName,is_tot_cal_required)
-	{
-		 
-		is_tot_cal_required=empty(is_tot_cal_required)?1:is_tot_cal_required;
-		 $("#bpicc_tableDetails #"+row_id+" .radioDC").removeAttr("disabled");
-		 
-		 $("#"+value+"_RADIO_"+row_id).prop("checked", true)
-		 
-		 
-		  checked_val=$("input[name='inputAvail_"+row_id+"']:checked").val();
-		  $("#V1_i_"+row_id).removeClass("greenIcon");
-		 $("#V1_i_"+row_id).removeClass("yellowIcon");
-		 $("#V1_i_"+row_id).removeClass("redIcon");
-		 
-		 $("#M1_i_"+row_id).removeClass("greenIcon");
-		 $("#M1_i_"+row_id).removeClass("yellowIcon");
-		 $("#M1_i_"+row_id).removeClass("redIcon");
-		 
-		 
-		 $("#M2_i_"+row_id).removeClass("greenIcon");
-		 $("#M2_i_"+row_id).removeClass("yellowIcon");
-		 $("#M2_i_"+row_id).removeClass("redIcon");
-
-		$("#"+checked_val+"_i_"+row_id).addClass(ClassName);	
-		if(is_tot_cal_required==1)
-		BpiccReturnsOrder.CalculateTotQtyWt();		
-	},
-	DCEnableProperCheckBoxGlobalDC:function(row_id,value,ClassName)
-	{
-		 
-	 
-		 $("#bpicc_tableDetails").find("#"+row_id+" .radioDC").removeAttr("disabled");
-		 
-		 $("#bpicc_tableDetails").find("#"+value+"_RADIO_"+row_id).prop("checked", true)
-		 
-		checked_val= $("#bpicc_tableDetails").find("input[name='inputAvail_"+row_id+"']:checked").val();
-		  $("#bpicc_tableDetails").find("input[name='inputAvail_"+row_id+"']:checked").val();
-		$("#bpicc_tableDetails").find("#V1_i_"+row_id).removeClass("greenIcon");
-		 $("#bpicc_tableDetails").find("#V1_i_"+row_id).removeClass("yellowIcon");
-		 $("#bpicc_tableDetails").find("#V1_i_"+row_id).removeClass("redIcon");
-		 
-		 $("#bpicc_tableDetails").find("#M1_i_"+row_id).removeClass("greenIcon");
-		 $("#bpicc_tableDetails").find("#M1_i_"+row_id).removeClass("yellowIcon");
-		 $("#bpicc_tableDetails").find("#M1_i_"+row_id).removeClass("redIcon");
-		 
-		 
-		 $("#bpicc_tableDetails").find("#M2_i_"+row_id).removeClass("greenIcon");
-		 $("#bpicc_tableDetails").find("#M2_i_"+row_id).removeClass("yellowIcon");
-		$("#bpicc_tableDetails").find("#M2_i_"+row_id).removeClass("redIcon");
-
-		 $("#bpicc_tableDetails").find("#"+checked_val+"_i_"+row_id).addClass(ClassName);	
-	 		
-	},
 	addNewTableRow:function ()
 	{
 		var inputSO=$("#inputSO").val();
@@ -701,22 +357,25 @@ BpiccReturnsOrder=
 			if(empty(inputSO) && $("#page_type").val()=='returns_page')
 				disabled_flag=" disabled ";
 			var html='<tr id="'+new_tr_id+'">';
-			html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'" '+disabled_flag+' onblur="BpiccReturnsOrder.ValidateEnteredPartNo('+new_tr_id+');" value="" class="partNum"  type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
-			html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
-			html+='<td><input id="desc_'+new_tr_id+'" class="inputDesc" value="" disabled="" type="text"></td>';
-			html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
-			html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'" maxlength=5 disabled  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccReturnsOrder.ValidateQty('+new_tr_id+');BpiccReturnsOrder.CalculateTotQtyWt();" class="inputReqQnty" type="text"></div></td>';
-			
-			html+='<td><select id="select_returns_reason" Style="margin-left:27px;margin-top:8px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
-			html+='<td><div class="availableDC"><span onclick="BpiccReturnsOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></div></td>';
-			html+='	</tr>';
+            html+='<td><input Style="width:40px;margin-left:10px;margin-top:8px" id="'+new_tr_id+'" class="" value=""  type="text"></td>';
+            html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'" '+disabled_flag+' onblur="BpiccReturnsOrder.ValidateEnteredPartNo('+new_tr_id+');" value="" class="partNum"  type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
+            html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
+            html+='<td><input id="desc_'+new_tr_id+'" class="inputDesc" value="" disabled="" type="text"></td>';
+            html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
+            html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'" maxlength=5 disabled  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccReturnsOrder.ValidateQty('+new_tr_id+');BpiccReturnsOrder.CalculateTotQtyWt();" class="inputReqQnty" type="text"></div></td>';
+           
+            html+='<td><select id="select_returns_reason" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
+            html+='<td><input type="checkbox" name="" Style="margin-top:15px" value="checked" /><td>';
+            html+='<td><div class="availableDC"><span onclick="BpiccReturnsOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></div></td>';
+            html+='    </tr>';
 			$("#bpicc_tableDetails tbody").append(html);
 			$("#bpicc_tableDetails tbody tr#"+new_tr_id+" #partNum_"+new_tr_id).focus();
+			
 			
 		}
 //		$('.select_returns_reason').css("height", "20px");
 	},
-	addNewTableRowFromExcel:function (part_no,qty,dc)
+	addRowSalesLineItems:function (LINE_NUMBER,part_no,desc,qty,BRAND,RETURNABLE_YN)
 	{
 			bpi_obj.is_bulk_validate=1;
 		// var inputPo= $("#inputPo").val();
@@ -729,27 +388,28 @@ BpiccReturnsOrder=
 			 var dis="";
 			/*if(empty(inputPo))
 				dis=" disabled "; */
+			
 			var html='<tr id="'+new_tr_id+'">';
-			html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'"  onblur="BpiccReturnsOrder.ValidateEnteredPartNo('+new_tr_id+');"  value='+part_no+' class="partNum" type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
-			html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
-			html+='<td><input id="desc_'+new_tr_id+'" class="inputDesc" value="" disabled="" type="text"></td>';
-			html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
-			html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'"  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccReturnsOrder.ValidateQty('+new_tr_id+');BpiccReturnsOrder.CalculateTotQtyWt();" class="inputReqQnty" '+dis+' type="text" value='+qty+'></td></div>';
-			
-			html+='<td><div class="availableDC"><input id="v1_'+new_tr_id+'" class="inputEdc" value="" disabled><span><input type="radio"  id="V1_RADIO_'+new_tr_id+'" name="inputAvail_'+new_tr_id+'" value="EDC" class="radioDC" disabled onclick="BpiccReturnsOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="V1_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
-			html+='<td><div class="availableDC"><input id="m1_'+new_tr_id+'" class="inputMdc" value="" disabled><span><input type="radio" id="M1_RADIO_'+new_tr_id+'"   name="inputAvail_'+new_tr_id+'" value="MDC" class="radioDC" disabled onclick="BpiccReturnsOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle"   id="M1_i_'+new_tr_id+'" aria-hidden="true"></i></span></input></td></div>';
-			html+='<td><div class="availableDC"><input id="m2_'+new_tr_id+'" class="inputWdc" value="" disabled><span><input type="radio"  id="M2_RADIO_'+new_tr_id+'"  name="inputAvail_'+new_tr_id+'" value="WDC" class="radioDC" disabled onclick="BpiccReturnsOrder.EnableProperCheckBoxColor('+new_tr_id+');"  ><i class="fa fa-check-circle" id="M2_i_'+new_tr_id+'"  aria-hidden="true"></i></span></input></td></div>';
-			
+			html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'" disabled=""   value='+part_no+' class="partNum" type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
+			if(BRAND==""){
+				html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
+			}else{
+				html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value='+BRAND+' disabled="" type="text"></td>';
+			}
+			html+='<td><input id="desc_'+new_tr_id+'" class="inputDesc" value='+desc+' disabled="" type="text"></td>';
+			html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value='+qty+' disabled="" type="text"></td>';
+			html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'"  maxlength=5 disabled="false"  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="qtyValidation('+new_tr_id+');;" class="inputReqQnty" '+dis+' type="text" value=""></td></div>';
+			html+='<td><select id="select_returns_reason" Style="margin-left:27px;margin-top:8px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
 			html+='<td><div class="availableDC"><span onclick="BpiccReturnsOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td></div>';
 			html+='	</tr>';
 			$("#bpicc_tableDetails tbody").append(html);
-			if(!empty(dc))
-			{
-			 
-				var checkd_val_f=dc+"_RADIO_"+new_tr_id;
-				$("#"+checkd_val_f).prop("checked", true);
-				BpiccReturnsOrder.EnableProperCheckBoxColor(new_tr_id);
-			}
+//			if(!empty(dc))
+//			{
+//			 
+//				var checkd_val_f=dc+"_RADIO_"+new_tr_id;
+//				$("#"+checkd_val_f).prop("checked", true);
+//				BpiccReturnsOrder.EnableProperCheckBoxColor(new_tr_id);
+//			}
 			// M1_RADIO_2
 			/* $("#bpicc_tableDetails tbody tr#"+new_tr_id+" #partNum_"+new_tr_id).focus()  */
 			
@@ -792,25 +452,6 @@ BpiccReturnsOrder=
 		 }
 		
 		 
-	},
-	HandleGlobalDeleteForCheckDuplicatePartNo:function()
-	{
-		if( bpi_obj.is_bulk_validate==0)
-		{
-			  $("#bpicc_tableDetails tbody input[id*='partNum_']").each(function() {
-			   if(!empty($(this).val()))
-				  {
-			  // check if there is another one with the same value
-				if ( $("#bpicc_tableDetails tbody input[id*='partNum_'][value='"+$(this).val()+"']").size() > 1) {
-				  // highlight this
-				  $(this).addClass('errorWarning');
-				} else {
-				  // otherwise remove
-				  $(this).removeClass('errorWarning');
-				}
-			  }
-			});
-		}
 	},
 HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	{
@@ -870,344 +511,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			$(input_id).after('<i class="fa fa-exclamation-circle" aria-hidden="true"></i>');
 		 }
 	 
-	},
-	EmptyWareHouseData:function(tr_id)
-	{
-		$("#v1_"+tr_id).parent().find("span i").removeClass("greenIcon");
-		$("#v1_"+tr_id).parent().find("span i").removeClass("redIcon");
-		$("#v1_"+tr_id).parent().find("span i").removeClass("yellowIcon");
-
-		$("#m1_"+tr_id).parent().find("span i").removeClass("greenIcon");
-		$("#m1_"+tr_id).parent().find("span i").removeClass("redIcon");
-		$("#m1_"+tr_id).parent().find("span i").removeClass("yellowIcon");
-
-		$("#m2_"+tr_id).parent().find("span i").removeClass("greenIcon");
-		$("#m2_"+tr_id).parent().find("span i").removeClass("redIcon");
-		$("#m2_"+tr_id).parent().find("span i").removeClass("yellowIcon");
-
-	/* 	$("#v1_"+tr_id).val("");
-		$("#m1_"+tr_id).val("");
-		$("#m2_"+tr_id).val(""); */
-	},
-	ValidateErrorsForSelectedPartNo:function(tr_id,part_no,is_qty_check)
-	{	
-		BpiccReturnsOrder.EnableValidateOrderDiv();
-		
-		// BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO(;
-		 part_no=part_no;
-		 if(empty(part_no) && bpi_obj.is_bulk_validate==0)
-		 {
-			 BpiccReturnsOrder.RemoveError("#partNum_"+tr_id,'Error');
-			 BpiccReturnsOrder.RemoveError("#reqQnty_"+tr_id,'Error');
-			 $("#partNum_"+tr_id).parent().find("i").remove();
-			 $("#reqQnty_"+tr_id).parent().find("i").remove();
-			 BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-			 BpiccReturnsOrder.HandleGlobalDeleteForCheckDuplicateForAllPartNo();
-			 return;
-		 }
-		if($("#validate_on_entry").attr("validate")=="1")
-		{		
-			
-			if(bpi_obj.prod_stock.hasOwnProperty(part_no))
-			{
-			
-				BRAND_NAME=	bpi_obj.prod_stock[part_no]['BRAND_NAME'];
-				ITEM_DESCRIPTION=	bpi_obj.prod_stock[part_no]['ITEM_DESCRIPTION'];
-				var IS_CALIPER=	bpi_obj.prod_stock[part_no]['IS_CALIPER'];
-				INVENTORY_ITEM_ID=	bpi_obj.prod_stock[part_no]['INVENTORY_ITEM_ID'];
-				ITEM_STATUS=	bpi_obj.prod_stock[part_no]['ITEM_STATUS'];
-				MIN_ORDER_QTY=	bpi_obj.prod_stock[part_no]['MIN_ORDER_QTY'];
-				PRODUCT_NUM=	bpi_obj.prod_stock[part_no]['PRODUCT_NUM'];
-				UNIT_WEIGHT=	bpi_obj.prod_stock[part_no]['UNIT_WEIGHT'];
-				UNIT_WEIGHT=UNIT_WEIGHT.replace(/[^0-9.]/gi, '');
-				ERROR_MSG=	$.trim(bpi_obj.prod_stock[part_no]['ERROR_MSG']);
-				BpiccReturnsOrder.HandleGlobalDeleteForCheckDuplicateForAllPartNo();
-			 
-				if(empty(ERROR_MSG))
-				{
-					  
-					EDC=	bpi_obj.prod_stock[part_no]['V1'];
-					MDC=	bpi_obj.prod_stock[part_no]['M1'];
-					WDC=	bpi_obj.prod_stock[part_no]['M2'];
-					 
-					$("#brand_"+tr_id).val(BRAND_NAME);
-					$("#desc_"+tr_id).val(ITEM_DESCRIPTION);
-					$("#weight_"+tr_id).val(UNIT_WEIGHT);
-					 
-					$("#partNum_"+tr_id).removeClass("errorError");	
-					$("#partNum_"+tr_id).parent().find("i").remove();
-		 
-					BpiccReturnsOrder.CalculateTotQtyWt();
-						$("#reqQnty_"+tr_id).removeAttr("disabled");
-						 if(bpi_obj.is_bulk_validate==0)
-						 setTimeout(function(){$("#reqQnty_"+tr_id).focus();}, 100); 
-					  
-								
-								BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-								if(is_qty_check=="Yes")
-								{
-									BpiccReturnsOrder.ValidateQty(tr_id);
-								}
-				}
-				else
-				{
-						BpiccReturnsOrder.AddError("#partNum_"+tr_id,'Error');
-						BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-						
-						$("#reqQnty_"+tr_id).attr("disabled",'true');
-						$("#reqQnty_"+tr_id).val("");
-						$("#brand_"+tr_id).val("");
-						$("#desc_"+tr_id).val("");
-						$("#weight_"+tr_id).val("");
-						
-						$("#v1_"+tr_id).val("");
-						$("#m1_"+tr_id).val("");
-						$("#m2_"+tr_id).val("");
-						 
-					
-						// $("#reqQnty_"+tr_id).removeAttr("disabled");
-				}
-			}
-			else
-			{
-					BpiccReturnsOrder.AddError("#partNum_"+tr_id,'Error');
-							BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-					BpiccReturnsOrder.EmptyWareHouseData(tr_id);
-					$("#reqQnty_"+tr_id).attr("disabled",'true');
-					$("#brand_"+tr_id).val("");
-						$("#desc_"+tr_id).val("");
-						$("#weight_"+tr_id).val("");
-						$("#v1_"+tr_id).val("");
-						$("#m1_"+tr_id).val("");
-						$("#m2_"+tr_id).val("");
-			}
-		}
-		else
-		{
-			BpiccReturnsOrder.RemoveError("#partNum_"+tr_id,'Error');
-				BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-		}
-	},
-	 
-	ValidateQty:function (tr_id)
-	{
-		// if($("#reqQnty_"+tr_id).attr("disabled")=='disabled') return;
-		 var part_no=$.trim($("#partNum_"+tr_id).val());
-		 var reqQnty=$.trim($("#reqQnty_"+tr_id).val());
-		 reqQnty= parseInt((empty(reqQnty))?0:reqQnty);
-
-		 BpiccReturnsOrder.RemoveError("#reqQnty_"+tr_id);
-		  	BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-		if($("#validate_on_entry").attr("validate")=="1")
-		{
-			if(reqQnty==0)
-			{
-				BpiccReturnsOrder.AddError("#reqQnty_"+tr_id,'Error');
-					BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-				 
-				return;
-			}
-			else
-			{
-					BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-			}
-			 if(bpi_obj.prod_stock.hasOwnProperty(part_no))
-			 {
-				
-				var MIN_ORDER_QTY=	parseInt(bpi_obj.prod_stock[part_no]['MIN_ORDER_QTY']);
-				 var IS_CALIPER=	bpi_obj.prod_stock[part_no]['IS_CALIPER'];
-				 MIN_ORDER_QTY= 1;
-				 /*  if(reqQnty<MIN_ORDER_QTY)
-				 {
-					BpiccReturnsOrder.AddError("#reqQnty_"+tr_id,'Warning');
-					BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-					$("#reqQnty_"+tr_id).val(MIN_ORDER_QTY);
-					reqQnty=MIN_ORDER_QTY;
-					
-				 } */
-				  if(MIN_ORDER_QTY>0)
-				 { 
-					 var o_reqQnty=reqQnty;
-					 reqQnty=MIN_ORDER_QTY*Math.ceil(o_reqQnty/MIN_ORDER_QTY);
-//					 var attr_orignal_qty=parseFloat($("#reqQnty_"+tr_id).attr("orignal_qty"));//Old source code
-					 var attr_orignal_qty=parseFloat(reqQnty);//new code
-					if(o_reqQnty!=reqQnty)
-					{
-						BpiccReturnsOrder.AddError("#reqQnty_"+tr_id,'Warning');
-						BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-						$("#reqQnty_"+tr_id).val(reqQnty);
-						$("#reqQnty_"+tr_id).attr("orignal_qty",o_reqQnty);
-							bpi_obj.excel_upload_min_qty_rows.push(tr_id);
-					}
-					else if(attr_orignal_qty>0 && in_array(tr_id,bpi_obj.excel_upload_min_qty_rows) &&
-							attr_orignal_qty!=reqQnty && $("#bpicc_tableDetails tbody").find("tr").last().attr('id')-1==tr_id  && bpi_obj.is_last_excel_min_row_updated<=1)
-					{
-						BpiccReturnsOrder.AddError("#reqQnty_"+tr_id,'Warning');
-						BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessagesForPartNO();
-						bpi_obj.is_last_excel_min_row_updated++;
-					 
-					}
-				 }
-					ERROR_MSG=	$.trim(bpi_obj.prod_stock[part_no]['ERROR_MSG']);
-					if(empty(ERROR_MSG))
-					{
-						 
-						var V1=parseInt(bpi_obj.prod_stock[part_no]['V1']);
-						var M1=parseInt(bpi_obj.prod_stock[part_no]['M1']);
-						var M2=parseInt(bpi_obj.prod_stock[part_no]['M2']);
-						if(reqQnty<V1)
-							V1=reqQnty;
-						if(reqQnty<M1)
-							M1=reqQnty;
-						if(reqQnty<M2)
-							M2=reqQnty;
-						BpiccReturnsOrder.EmptyWareHouseData(tr_id);
-					
-						if($("#page_type").val()=='check_stock')
-						{						
-							$("#v1_"+tr_id).val(V1);
-							$("#m1_"+tr_id).val(M1);
-							$("#m2_"+tr_id).val(M2); 
-							BpiccReturnsOrder.HandleCheckStockPage(tr_id);
-						}
-						  
-//						var default_dc=bpi_com_obj.default_dc;
-						var default_dc="V1";
-						default_dc=empty(default_dc)?"V1":default_dc;
-						 
-//						  if(IS_CALIPER=="1")
-//						  {
-//							default_dc="M2";  
-//						  }
-
-						var default_dc_lower=default_dc.toLowerCase();
-						var assign_val=0;
-						if(default_dc=="V1")
-							assign_val=V1;
-						if(default_dc=="M1")
-							assign_val=M1;
-						if(default_dc=="M2")
-							assign_val=M2;
-						
-						existing_V1_val=$("#v1_"+tr_id).val();
-						existing_M1_val=$("#m1_"+tr_id).val();
-						existing_M2_val=$("#m2_"+tr_id).val();
-						
-						// console.log("existing_V1_val--"+existing_V1_val+"---------existing_M1_val"+existing_M1_val+"-----------existing_M2_val"+existing_M2_val);
-						// if(empty($("#"+default_dc_lower+"_"+tr_id).val()))
-							// alert($("#"+default_dc_lower+"_"+tr_id).val());
-						// if(IS_CALIPER!="1")
-							$("#"+default_dc_lower+"_"+tr_id).val(assign_val);
-					 
-						
-						var already_check_val=$("input[name='inputAvail_"+tr_id+"']:checked").val();
-
-
-						 if(already_check_val=="M2")
-						 {
-							 $("#m2_"+tr_id).val(M2);
-						 }if(already_check_val=="V1")
-						 {
-							 $("#v1_"+tr_id).val(V1);
-						 }if(already_check_val=="M1")
-						 {
-							 $("#m1_"+tr_id).val(M1);
-						 }
-//						  if(IS_CALIPER=="1")
-//						  {
-//							  already_check_val="M2";
-//						  }
-						if(!empty(already_check_val))
-							default_dc=already_check_val;
-//						  if(IS_CALIPER=="1")
-//						  {
-//							  default_dc="M2";
-//						  }
-//						 
-						if(default_dc=="V1")
-						{
-							if(V1==0)
-							{
-								 BpiccReturnsOrder.DCEnableProperCheckBox(tr_id,"V1","redIcon",1);
-								 // BpiccReturnsOrder.EnableValidateOrderDiv();
-							}
-							else if(reqQnty<=V1)
-							{
-								 BpiccReturnsOrder.DCEnableProperCheckBox(tr_id,"V1","greenIcon",1);
-							}
-							else
-							{
-								 BpiccReturnsOrder.DCEnableProperCheckBox(tr_id,"V1","yellowIcon",1);
-								
-							}
-						}
-						else if(default_dc=="M1")
-						{
-							if(M1==0)
-							{
-								 BpiccReturnsOrder.DCEnableProperCheckBox(tr_id,"M1","redIcon",1);
-								 // BpiccReturnsOrder.EnableValidateOrderDiv();
-							}
-							else if(reqQnty<=M1)
-							{
-								 BpiccReturnsOrder.DCEnableProperCheckBox(tr_id,"M1","greenIcon",1);
-							}
-							else
-							{
-								 BpiccReturnsOrder.DCEnableProperCheckBox(tr_id,"M1","yellowIcon",1);
-								
-							}
-						}
-						else if(default_dc=="M2")
-						{
-							if(M2==0)
-							{
-								 BpiccReturnsOrder.DCEnableProperCheckBox(tr_id,"M2","redIcon",1);
-								 // BpiccReturnsOrder.EnableValidateOrderDiv();
-							}
-							else if(reqQnty<=M2)
-							{
-								 BpiccReturnsOrder.DCEnableProperCheckBox(tr_id,"M2","greenIcon",1);
-							}
-							else
-							{
-								 BpiccReturnsOrder.DCEnableProperCheckBox(tr_id,"M2","yellowIcon",1);
-								
-							}
-							
-						}
-						  
-						 
-						if($("#page_type").val()=='check_stock')
-						{						
-							 
-								BpiccReturnsOrder.HandleCheckStockPage(tr_id);
-						} 
-						 if(IS_CALIPER=="1")
-						  {
-							  BpiccReturnsOrder.DisableAllINputFieldsForCaliber(tr_id);
-						  }
-					}
-					
-
-			 }
-			 else
-			 {
-				 BpiccReturnsOrder.EnableValidateOrderDiv();
-			 }
-		}
-		 
-	},
-	DisableAllINputFieldsForCaliber:function(tr_id)
-	{
-		$("#M1_RADIO_"+tr_id).attr('disabled',true);
-		$("#M1_i_"+tr_id).attr('disabled',true);
-		
-		$("#V1_RADIO_"+tr_id).attr('disabled',true);
-		$("#V1_i_"+tr_id).attr('disabled',true);
-		
-		$("#M2_RADIO_"+tr_id).attr('disabled',true);
-		$("#M2_i_"+tr_id).attr('disabled',true);
 	},
 	CalculateTotQtyWt:function ()
 	{
@@ -1408,53 +711,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				}
 	},
 
-	ValidateEnteredPartNo:function (tr_id)
-	{
-		var part_no=$("#bpicc_tableDetails tbody  #partNum_"+tr_id).val();
-		$("#bpicc_tableDetails tbody  #partNum_"+tr_id).attr("value",part_no);
-		$("#validate_po_erro_msg_div").remove(); 
-		 BpiccReturnsOrder.RemoveError("#partNum_"+tr_id);
-		 if(bpi_obj.is_bulk_validate==0)
-		 BpiccReturnsOrder.ClearRowValuesExceptPart(tr_id);
-		
-		 // BpiccReturnsOrder.EnableValidateOrderDiv();
-		if(!empty(part_no))
-		{ 
-		BpiccReturnsOrder.RemoveError("#partNum_"+tr_id);
-			$('#reset_form').removeAttr("disabled");
-			 if($("#place_order_error_info p:contains('Please enter at least one item')").length>0)
-			{
-					$("#place_order_error_info").hide();
-			}  
-				
-			if($("#validate_on_entry").attr("validate")=="1")
-			{ 
-				
-				if(bpi_obj.prod_stock.hasOwnProperty(part_no))//if its exists no need to call apI
-				{
-						 BpiccReturnsOrder.ValidateErrorsForSelectedPartNo(tr_id,part_no);
-				}
-				else
-				{
-					 BpiccReturnsOrder.APICheckStock(part_no, function() {//if its not exists exists no need to call apI
-					//BpiccReturnsOrder.ReadManualXml(part_no, function() {//if its not exists exists no need to call apI
-						  BpiccReturnsOrder.ValidateErrorsForSelectedPartNo(tr_id,part_no);
-						});
-				}
-			}
-			else
-			{
-				$("#reqQnty_"+tr_id).removeAttr('disabled',true);
-				
-				if(bpi_obj.is_bulk_validate==0)
-				 setTimeout(function(){$("#reqQnty_"+tr_id).focus();}, 100); //removed by natesha
-			}
-		}
-		else
-		{
-			 BpiccReturnsOrder.ValidateErrorsForSelectedPartNo(tr_id,part_no);
-		}
-	},
 	ClearRowValues:function(tr_id)
 	{
 		$("#partNum_"+tr_id).removeClass("errorError");
@@ -1518,100 +774,6 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 
 	
 	 
-	APICheckStock:function(prod_ids_list,callback)
-	{
-		split_arr=prod_ids_list.split(",");
-		prod_list="";
-		var part_no_arr="";
-		for(i=0;i<split_arr.length;i++)
-		{
-			if(i==0){
-				part_no_arr=$.trim(split_arr[i]);
-			}else{
-				part_no_arr=part_no_arr+","+$.trim(split_arr[i]);
-			}
-//			var part_no=$.trim(split_arr[i]);
-//			if(!empty(part_no))
-//			{
-//				prod_list+='<chec:P_PRODUCT_ITEM>';
-//				prod_list+='<chec:PRODUCT_NUM>'+part_no+'</chec:PRODUCT_NUM>';
-//				prod_list+='</chec:P_PRODUCT_ITEM>';
-//			}
-//			
-		}
-		if(split_arr.length>1)
-		{
-				$(".loader").show();
-		}
-		var shipTO=getCookie("selected_ship_to");
-		var billTO=getCookie("selected_bill_to");
-		var userID=getCookie("userID");
-		var orgID=getCookie("selected_org_id");
-		if(empty(part_no_arr)) return;
-		xml_request_data='';
-		xml_request_data+='<soapenv:Envelope xmlns:chec="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/check_stock/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xxb="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/">';
-		xml_request_data+='<soapenv:Header><wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"><wsse:UsernameToken wsu:Id="UsernameToken-E739E7BD4A96DC5D3A148740685027013"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password><wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">Q0bJKr12IBZPbXDrCOFkKw==</wsse:Nonce><wsu:Created>2017-02-18T08:34:10.270Z</wsu:Created></wsse:UsernameToken></wsse:Security>';
-		xml_request_data+='<xxb:SOAHeader>';
-		xml_request_data+='<xxb:Responsibility>BPI_WEB_SERVICE_USER</xxb:Responsibility>';
-		xml_request_data+='<xxb:RespApplication>XXBPI</xxb:RespApplication>';
-		xml_request_data+='<xxb:SecurityGroup>STANDARD</xxb:SecurityGroup>';
-		xml_request_data+='<xxb:NLSLanguage>AMERICAN</xxb:NLSLanguage>';
-		xml_request_data+='<xxb:Org_Id>82</xxb:Org_Id>';
-		xml_request_data+='</xxb:SOAHeader>';
-		xml_request_data+='</soapenv:Header>';
-		xml_request_data+='<soapenv:Body>';
-		xml_request_data+='<chec:InputParameters>';
-		
-		
-		xml_request_data+='<chec:P_SHIP_TO>'+bpi_com_obj.ship_to_location+'</chec:P_SHIP_TO>';
-       xml_request_data+='<chec:P_BILL_TO>'+bpi_com_obj.bill_to_location+'</chec:P_BILL_TO>';
-	 
-			
-		xml_request_data+='<chec:P_PRODUCT>';
-		xml_request_data+=prod_list;		
-		xml_request_data+='</chec:P_PRODUCT>';
-		xml_request_data+='</chec:InputParameters>';
-		xml_request_data+='</soapenv:Body>';
-		xml_request_data+='</soapenv:Envelope>';
-		var url = bpi_com_obj.web_oracle_api_url+"GetCheckStock?org_id="+orgID+"&ship_to="+shipTO+"&product_no="+part_no_arr; 
-		  // var url = "http://uswodapp013.brakepartsinc.com:8010/webservices/SOAProvider/plsql/xxbpi_customer_online/";
-//		 var url = bpi_com_obj.web_api_url;
-			 jQuery.ajax({
-					type: "GET",
-					url: url,
-	//				 data: "xml_data="+xml_request_data+"&call_type=MEXICO",
-					dataType: "json",
-					async:false,
-					crossDomain: true,
-					processData: false,
-					// contentType: "text/xml; charset=\"utf-8\"",
-					 
-					success: function (data) {
-						$(".loader").hide();
-						 var obj=JSON.parse(data.object);
-						 if(obj!=null){
-							var productObj=obj.x_product_avail;
-//							if(productObj!=null){
-//							console.log("procees :"+productObj);
-							 BpiccReturnsOrder.ProcessCheckStockXml(productObj,callback);
-//							}
-						 }
-					},
-					error: function (msg) {
-						$(".loader").hide();
-							setTimeout(function(){$("#select_order_type").focus();}, 100); 
-						// alert("Failed: " + msg.status + ": " + msg.statusText);
-					}
-				});
-	},
-	ReadManualXml:function(prod_list,callback)
-	{
-	 
-		var a="a.xml";
-		$.get( a, function(data) {
-			 BpiccReturnsOrder.ProcessCheckStockXml(data,callback);
-			});
-	},
 	ValidateOrder:function()
 	{
 			bpi_obj.excel_upload_min_qty_rows=[];
@@ -1735,14 +897,21 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				
 		
 	},
-	HandleOnchangeOrderType:function()
+	HandleOnchangeReturnsType:function()
 	{
 		$("#validate_po_erro_msg_div").remove();
 		 if($("#place_order_error_info p:contains('Please Select Order Type')").length>0)
 				{
 						$("#place_order_error_info").hide();
-				}  
-	
+				}
+		 var returnsType=$("#select_returns_type").val();
+		 if(returnsType==""){
+			 $('[id^=reqQnty_]').attr('disabled',true);
+			 $('[id^=select_returns_reason_]').attr('disabled',true);
+		 }else{
+			 $('[id^=reqQnty_]').attr('disabled',false);
+			 $('[id^=select_returns_reason_]').attr('disabled',false);
+		 }
 	},
 	ContinueOrder:function()
 	{
@@ -2629,17 +1798,18 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				$("#validate_po_erro_msg_div").remove();
 				
 			 // BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessages("",""); 
-			if(empty(inputSo))
-			{
-				$("#inputSO").addClass("errorError");
-				 // BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessages("Please Enter Valid PO","Error"); 
-				 BpiccReturnsOrder.DisableAddRowsAndButtonPoValidation();
-				 $("#bpicc_tableDetails tbody tr input[id*='reqQnty_']").attr('disabled',true);	 
-				return false;
-			}
+//			if(empty(inputSo))
+//			{
+//				$("#inputSO").addClass("errorError");
+//				 // BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessages("Please Enter Valid PO","Error"); 
+//				 BpiccReturnsOrder.DisableAddRowsAndButtonPoValidation();
+//				 $("#bpicc_tableDetails tbody tr input[id*='reqQnty_']").attr('disabled',true);	 
+//				return false;
+//			}
 		  
 		setTimeout(function(){$("#select_returns_type").focus();}, 100); 
-		var url = bpi_com_obj.web_oracle_api_url+"getSoLineItems?org_id="+orgID+"&soNumber="+inputSo;	
+		var url = bpi_com_obj.web_oracle_api_url+"getSoLineItems?org_id="+orgID+"&soNumber="+inputSo;
+		console.log("url:"+url);
 		jQuery.ajax({
 			type: "GET",
 			url: url,
@@ -2670,19 +1840,57 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			 console.log("soline"+JSON.stringify(soLineObj));
 			 if(X_RESPONSE_STATUS=="S")
 			 {
-				BpiccReturnsOrder.AddSOLineItems(soLineObj);
-				BpiccReturnsOrder.EnableAddRowsAndButtonPoValidation();
-				 if($("#place_order_error_info p:contains('Please Enter Valid SO')").length>0)
-					{
-							$("#place_order_error_info").hide();
-					} 
-					setTimeout(function(){$("#select_returns_type").focus();}, 100); 
+				 $("#bpicc_tableDetails tbody tr").remove();
+				 var dis="";
+				 var new_tr_id=1;
+				 $.each(soLineObj, function(k,v)  
+							{
+								var part_no=v['PART_NUMBER'];
+								var desc=v['DESCRIPTION']
+								var qty=v['UNIT_WEIGHT'];
+								qty=qty.replace(/[^0-9.]/gi, '');
+								var brand=v['BRAND'];
+								var BRAND = BRAND==undefined?"":BRAND;
+								console.log("BRAND:"+brand);
+								var LINE_NUMBER=v['LINE_NUMBER'];
+								var RETURNABLE_YN=v['RETURNABLE_YN'];
+							 
+//								xml_part_no+=part_no+",";
+//								 part_no_qty_arr[part_no]=qty;
+//								 part_no_dc_arr[part_no]=dc;
+								var html='<tr id="'+new_tr_id+'">';
+								html+='<td><input Style="width:40px;margin-left:10px;margin-top:8px" disabled="" id="lineNum'+new_tr_id+'" "class="" value='+LINE_NUMBER+'  type="text"></td>';
+								html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'" disabled=""   value='+part_no+' class="partNum" type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
+								if(BRAND==""){
+									html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
+								}else{
+									html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value='+BRAND+' disabled="" type="text"></td>';
+								}
+								html+='<td><input id="desc_'+new_tr_id+'" class="inputDesc" value='+desc+' disabled="" type="text"></td>';
+								html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value='+qty+' disabled="" type="text"></td>';
+								
+								if(RETURNABLE_YN=="Returnable"){
+									html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'" disabled=""  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="qtyValidation('+new_tr_id+');;" class="inputReqQnty" '+dis+' type="text" value=""></td></div>';
+									html+='<td><select id="select_returns_reason_'+new_tr_id+'" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
+//									html+='<td><input type="checkbox" name="" Style="margin-top:15px" value="checked" /><td>';
+									html+='<td><label for="Y" Style="margin-top:10px">Y</label></td>';
+								}else{
+									html+='<td><div class="availableDC"><input id="d_reqQnty_'+new_tr_id+'" disabled=""  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="qtyValidation('+new_tr_id+');;" class="inputReqQnty" '+dis+' type="text" value=""></td></div>';
+									html+='<td><select id="d_select_returns_reason" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
+//									html+='<td><input type="checkbox" name="" disabled="" Style="margin-top:15px" value="checked" /><td>';
+									html+='<td><label for="N" Style="margin-top:10px">N</label></td>';
+								}
+								html+='<td><div class="availableDC"><span onclick="BpiccReturnsOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td></div>';
+								html+='	</tr>';
+								$("#bpicc_tableDetails tbody").append(html);
+								new_tr_id++;
+							});
 			 }
 		    }
 		  catch(err) {
 			
 			  var message = err.message;
-			  message = err.message+" in BpiccReturnsOrder.ProcessCheckStockXml";
+			  message = err.message+" in BpiccReturnsOrder.ApiProcessGetSOLine";
 			  alert(message);
 		  }  
 	},
@@ -2729,43 +1937,52 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		  part_no_qty_arr=new Object();
 		 part_no_dc_arr=new Object();
 		 
-		 console.log("before loop");
 		$.each(cookie_part_obj, function(k,v)  
 		{
-			console.log("inside loop:"+v);
-			var part_no=v['partNum'];
-			var qty=v['reqQnty'];
-			var dc=v['dc'];
+			var part_no=v['PART_NUMBER'];
+			var desc=v['DESCRIPTION']
+			var qty=v['UNIT_WEIGHT'];
+			qty=qty.replace(/[^0-9.]/gi, '');
+			var BRAND=v['BRAND'];
+			var brand = BRAND==undefined?"":BRAND;
+			console.log("BRAND:"+brand);
+			var LINE_NUMBER=v['LINE_NUMBER'];
+			var RETURNABLE_YN=v['RETURNABLE_YN'];
 		 
-			xml_part_no+=part_no+",";
-			 part_no_qty_arr[part_no]=qty;
-			 part_no_dc_arr[part_no]=dc;
-			 // BpiccReturnsOrder.addNewTableRowFromExcel(part_no,qty,dc); 
+//			xml_part_no+=part_no+",";
+//			 part_no_qty_arr[part_no]=qty;
+//			 part_no_dc_arr[part_no]=dc;
+			var html='<tr id="'+new_tr_id+'">';
+			html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'" disabled=""   value='+part_no+' class="partNum" type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
+			if(BRAND==""){
+				html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
+			}else{
+				html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value='+BRAND+' disabled="" type="text"></td>';
+			}
+			html+='<td><input id="desc_'+new_tr_id+'" class="inputDesc" value='+desc+' disabled="" type="text"></td>';
+			html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value='+qty+' disabled="" type="text"></td>';
+			html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'"  maxlength=5 disabled="false"  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="qtyValidation('+new_tr_id+');;" class="inputReqQnty" '+dis+' type="text" value=""></td></div>';
+			html+='<td><select id="select_returns_reason" Style="margin-left:27px;margin-top:8px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
+			html+='<td><div class="availableDC"><span onclick="BpiccReturnsOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td></div>';
+			html+='	</tr>';
+			$("#bpicc_tableDetails tbody").append(html);
 		});
 			$("#validate_on_entry").prop('checked', true);
 			$("#validate_on_entry").attr("validate","1");
 	 
+//				bpi_obj.is_bulk_validate=1;
+//			  BpiccReturnsOrder.APIExcelCheckStock(xml_part_no,part_no_qty_arr,part_no_dc_arr,function(){
+//				  setTimeout(function(){
+//
+//									
+//							 
+//							  $("#bpicc_tableDetails tbody tr input[id*='reqQnty_']").attr('disabled',true);	 
+//							  }, 300); 
+//			  });	  
 
-		 	  
-				bpi_obj.is_bulk_validate=1;
-
-
-
-			  BpiccReturnsOrder.APIExcelCheckStock(xml_part_no,part_no_qty_arr,part_no_dc_arr,function(){
-				  setTimeout(function(){
-
-									
-							 
-							  $("#bpicc_tableDetails tbody tr input[id*='reqQnty_']").attr('disabled',true);	 
-							  }, 300); 
-			  });	  
-			  
-
-			 
-			$("#bpicc_tableDetails tbody tr input[id*='partNum_']").attr('disabled',true);	 
-			$("#bpicc_tableDetails tbody tr input[id*='reqQnty_']").attr('disabled',true);	 
-				setTimeout(function(){	$("#bpicc_tableDetails tbody tr input[id*='reqQnty_']").attr('disabled',true);	 }, 700); 
-
+//			$("#bpicc_tableDetails tbody tr input[id*='partNum_']").attr('disabled',true);	 
+//			$("#bpicc_tableDetails tbody tr input[id*='reqQnty_']").attr('disabled',true);	 
+//				setTimeout(function(){	$("#bpicc_tableDetails tbody tr input[id*='reqQnty_']").attr('disabled',true);	 }, 700); 
 	}
 	,
 	GetCountryStateList:function()
@@ -3370,4 +2587,44 @@ function GetPartNumberList()
 				}
 			});
 //	  return r_str;
+}
+function qtyValidation(tr_id){
+	var line_num=$.trim($("#lineNum"+tr_id).val());
+	var part_no=$.trim($("#partNum_"+tr_id).val());
+	 var reqQnty=$.trim($("#reqQnty_"+tr_id).val());
+	 reqQnty= parseInt((empty(reqQnty))?0:reqQnty);
+	var inputSo=$("#inputSO").val();
+	console.log("line_num: "+line_num+" part_no: "+part_no+" reqQnty: "+reqQnty+" inputSo: "+inputSo)
+//	var line_num=1;
+//	var part_no='CM15140';
+//	 var reqQnty=10;
+////	 reqQnty= parseInt((empty(reqQnty))?0:reqQnty);
+//	var inputSo=66642;
+	var url = bpi_com_obj.web_oracle_api_url+"validateReturnQty?org_id="+orgID+"&so_number="+inputSo+"&line_num="+line_num+"&part_num="+part_no+"&req_qty="+reqQnty;
+	console.log('url:'+url);
+	jQuery.ajax({
+			type: "GET",
+			url: url,
+			    dataType:"json",
+			 
+			success: function (data) {
+				var obj=JSON.parse(data.object);
+				console.log(JSON.stringify(obj));
+				if(obj.x_response_status=='S'){
+					console.log("success");	
+					$("#e_quan_greater").hide();
+					$("#reqQnty_"+tr_id).removeClass("errorError");
+					BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessages("","");
+				}else if(obj.x_response_status=='E'){
+					$("#e_quan_greater").show();
+					$("place_order_error_info").show();
+					$("#reqQnty_"+tr_id).addClass("errorError");
+					BpiccReturnsOrder.ShowPlaceOrderErrorSuccessMessages("Requested quantity is not greater than shipped quantity","Error");
+//					error_found++; 
+				}
+			},
+			error: function (msg) {
+				  console.log("Failed: " + msg.status + ": " + msg.statusText);
+			}
+		});
 }

@@ -1869,8 +1869,8 @@
 					  <div class="col-md-5 selectOptPane">
 						  <div class="orderType">
 						  <label  for=""><span class="requiredField">*</span>RETURNS TYPE</label>
-						  <select id='select_returns_type' onchange="BpiccReturnsOrder.HandleOnchangeOrderType();">
-							  <option value="returnsType">Select Returns Type</option>
+						  <select id='select_returns_type' onchange="BpiccReturnsOrder.HandleOnchangeReturnsType();">
+							  <option value="">Select Returns Type</option>
 							  <option value="Return">Return Only</option>
 							  <option value="RMA">RMA - Credit</option>
 							  <option value="Approval">Return with Approval</option>
@@ -1885,10 +1885,10 @@
 						<div class="col-md-10 locationPane">
 
 						</div>
-						<div class="col-md-2 uploadOrderPane">
-					<button class="btn btn-default" type="button" data-toggle="modal" id='btn_excel_upload'  onclick="BpiccReturnsOrder.OpenExcelModel();"><span><img src="images/excel.jpg"></span>UPLOAD ORDER</button>
+<!-- 						<div class="col-md-2 uploadOrderPane"> -->
+<!-- 					<button class="btn btn-default" type="button" data-toggle="modal" id='btn_excel_upload'  onclick="BpiccReturnsOrder.OpenExcelModel();"><span><img src="images/excel.jpg"></span>UPLOAD ORDER</button> -->
 						
-						</div>
+<!-- 						</div> -->
 					</div>
 				</div>
 				  <div id="place_order_error_info" class="errorInfo"> </div>
@@ -1896,7 +1896,7 @@
 				 
 				<div class="placeorder">
         <div id="place_order_part_error_info" class="errorInfo"> 
-            <p id='e_invalid_part' style='display:none'><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">Invalid Part Number</span></p>
+            <p id='e_quan_greater' style='display:none'><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">Requested quantity is not greater than shipped quantity</span></p>
             <p id='e_dup_part'  style='display:none'><span><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span><span class="errorMessage">Duplicate Part Number-availability may not be accurate</span></p>
             <p id='e_zero_qty'  style='display:none'><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span><span class="errorMessage">Enter the Requested quantity</span></p>
             <p id='e_min_qty'  style='display:none'><span><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span><span class="errorMessage">Quantity must be in increments of pack size. �Increased quantity to meet the standard pack size</span></p>
@@ -1934,9 +1934,9 @@
 							
 				</tbody>
 				<tfoot>
-				    <tr id="addRowPane">
-						<td colspan="10" class="addRow"><p><a href="#" disabled id='tbl_add_rows'>Add Rows</a></p><img src="images/arrowUp.jpg"></span></td>
-					</tr>
+<!-- 				    <tr id="addRowPane"> -->
+<!-- 						<td colspan="10" class="addRow"><p><a href="#" disabled id='tbl_add_rows'>Add Rows</a></p><img src="images/arrowUp.jpg"></span></td> -->
+<!-- 					</tr> -->
 					<tr class="totalPane">
                         <td> <p class="NumOfRows">TOTAL NUMBER OF ROWS:</p> <p id="Tot_No_Of_Lines">0</p></td>
 					    <td><p class="fillrateLabel">TOTAL FILL RATE:</p> <p id="percentValue">0%</p><!-- Dynamic Field --></td>
@@ -1964,10 +1964,10 @@
 				 <div class="row errorIconPane">
 					<div class="col-md-12 errorPane">
 					<ul>
-						 <li><span class="circleIcon"><i class="fa fa-check-circle greenIcon" aria-hidden="true"></i></span><span class="availability">Available</span></li>
-						 <li><span class="circleIcon"><i class="fa fa-check-circle redIcon" aria-hidden="true"></i></span><span class="availability">No Quantity Available</span></li>
-						 <li><span class="circleIcon"><i class="fa fa-check-circle yellowIcon" aria-hidden="true"></i></span><span class="availability">Partially Available</span></li>
-						 <li><span class="DiffDC availability ">*Click on the gray icon</span><span class="circleIcon"><i class="fa fa-check-circle " aria-hidden="true"></i></span><span class="availability">to select the different DC</span></li>
+						 <li><span class="circleIcon"><i class="fa fa-check-circle greenIcon" aria-hidden="true"></i></span><span class="availability">Returnable</span></li>
+						 <li><span class="circleIcon"><i class="fa fa-check-circle redIcon" aria-hidden="true"></i></span><span class="availability">Not Returnable</span></li>
+<!-- 						 <li><span class="circleIcon"><i class="fa fa-check-circle yellowIcon" aria-hidden="true"></i></span><span class="availability">Partially Available</span></li> -->
+<!-- 						 <li><span class="DiffDC availability ">*Click on the gray icon</span><span class="circleIcon"><i class="fa fa-check-circle " aria-hidden="true"></i></span><span class="availability">to select the different DC</span></li> -->
 						 </ul>
 					</div>
 				</div>
@@ -1982,13 +1982,13 @@
 						</div> -->
 					  </div>
 					 <div class="col-md-4 buttonPane">
-					 <div class="checkbox">
-					<label><input type="checkbox" value="" id='validate_on_entry' checked>Validate on Entry</label>
-					</div>
-					  <button type="button" class="btn btn-default validateOrder" disabled id='validate_order'  >Validate Order</button>
+<!-- 					 <div class="checkbox"> -->
+<!-- 					<label><input type="checkbox" value="" id='validate_on_entry' checked>Validate on Entry</label> -->
+<!-- 					</div> -->
+<!-- 					  <button type="button" class="btn btn-default validateOrder" disabled id='validate_order'  >Validate Order</button> -->
 					  <!-- #issue 91,please correct the continue spelling by updating the below code to server.-->
-					  <button type="button" class="btn btn-default continueOrder"  id='continue_order' disabled>Continue Order </button>
-					  <button type="button" class="btn btn-default resetForm" id='reset_form'  disabled>Reset Form</button>
+<!-- 					  <button type="button" class="btn btn-default continueOrder"  id='continue_order' disabled>Continue Order </button> -->
+					  <button type="button" Style="margin-left:30px;" class="btn btn-default submitForm" id='submit'  disabled>Submit</button>
 					  </div>
 				  </div>
 				  
