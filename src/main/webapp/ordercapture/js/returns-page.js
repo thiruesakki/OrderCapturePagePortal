@@ -21,6 +21,7 @@ $(document).ready(function() {
 		 $("#inputSO").trigger("onblur");
 	 }
 //	 qtyValidation(1);
+	 getReturnReason();
 });
 jQuery(function($) {'use strict',
 
@@ -2642,4 +2643,59 @@ function qtyValidation(tr_id){
 				  console.log("Failed: " + msg.status + ": " + msg.statusText);
 			}
 		});
+}
+
+
+
+function getReturnReason(){
+
+	var url = bpi_com_obj.web_oracle_api_url+"getReturnReason";	
+	console.log("Get return reason"+url);
+	jQuery.ajax({
+		type: "GET",
+		url: url,
+	    dataType: "json",
+		success: function (data) {
+			
+			var obj = JSON.parse(data.object);
+//			console.log("Return Reason Success:"+JSON.stringify(obj));
+//			var x_return_reason =obj.x_return_reason;
+//			console.log("x_return_reason"+x_return_reason);
+//			
+
+		
+			 if (obj != null) {
+				 appendReturnReason(obj);
+	            }
+		},
+		error: function (msg) {
+ 
+			  alert("Failed1: " + msg.status + ": " + msg.statusText);
+		}
+	}); 
+	
+}
+function appendReturnReason(obj) {
+	$('[id^=select_returns_reason_]').empty();
+    $('[id^=select_returns_reason_]').append(
+            '<option value="">Select Returns Reason</option>');
+//    var obj = JSON.parse(data.object);
+//	console.log("Return Reason Success:"+JSON.stringify(obj));
+	var x_return_reason =obj.x_return_reason;
+	console.log("x_return_reason"+x_return_reason);
+	
+	for (var i = 0; i < x_return_reason.length; i++) {
+		  var x_return_reasonObj = x_return_reason [i];
+		  var MEANING_QUOTES = JSON.stringify(x_return_reasonObj.MEANING);
+		  var LOOKUP_CODE_QUOTES = JSON.stringify(x_return_reasonObj.LOOKUP_CODE);
+		  var MEANING = MEANING_QUOTES.toString().replace(/"/g, "");
+		  var LOOKUP_CODE = LOOKUP_CODE_QUOTES.toString().replace(/"/g, "");
+//	  console.log("MEANING"+JSON.stringify(x_return_reasonObj.MEANING));
+//	  console.log("LOOKUP_CODE"+JSON.stringify(x_return_reasonObj.LOOKUP_CODE));
+	  $('[id^=select_returns_reason_]').append(
+              '<option value="' + LOOKUP_CODE + '">'
+                      + MEANING + '</option>');
+	}
+	
+
 }
