@@ -217,7 +217,7 @@ BpiccCommon=
 			   $(".locationPane").html('<p><span class="numberField">'+getCookie("selected_ship_to")+'</span><span>  '+getCookie("selected_ship_to_account_address")+'</span></p>');
 			   }	 
 		  }
-		  else if($("#page_type").val()=='select_account')
+		  else if($("#page_type").val()=='returns_page')
 		  {
 			   if(empty(getCookie("selected_ship_to")))
 				{

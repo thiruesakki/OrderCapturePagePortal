@@ -511,7 +511,7 @@ body .navbar-nav .dropdown li a:focus{background: #264057 !important;}
 .container .bpiOnlineRightPanel .orderType{margin-top: 20px;}
 .container .bpiOnlineRightPanel .orderType select{border: 1px solid #c5c5c5;color: #333;float: right;font-size: 11px; padding: 4px 6px; width: 160px;}
 .container .bpiOnlineRightPanel .selectOptPane{ padding-right: 0 !important; }
-.container .bpiOnlineRightPanel .selectOptPane .orderType label{font-size: 11px;margin: 5px 0px 0px 30px;}
+.container .bpiOnlineRightPanel .selectOptPane .orderType label{font-size: 11px;margin: 5px 0px 0px 20px;}
 .container .bpiOnlineRightPanel .selectOptPane .orderType .requiredField{color:#f00;}
 .orderlistheader{ padding: 15px 0 }
 .orderlistheader label{ font-size: 12px; color: #666666; font-weight: normal;}

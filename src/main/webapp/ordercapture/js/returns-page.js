@@ -16,8 +16,10 @@ $(document).ready(function() {
 	 }
 	 console.log("soNum:"+soNum);
 	 orgID=getCookie("selected_org_id");
-	 $("#inputSO").val(soNum);
-	 $("#inputSO").trigger("onblur");
+	 if(soNum>0){
+		 $("#inputSO").val(soNum);
+		 $("#inputSO").trigger("onblur");
+	 }
 //	 qtyValidation(1);
 });
 jQuery(function($) {'use strict',
@@ -357,15 +359,16 @@ BpiccReturnsOrder=
 			if(empty(inputSO) && $("#page_type").val()=='returns_page')
 				disabled_flag=" disabled ";
 			var html='<tr id="'+new_tr_id+'">';
-            html+='<td><input Style="width:40px;margin-left:10px;margin-top:8px" id="'+new_tr_id+'" class="" value=""  type="text"></td>';
-            html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'" '+disabled_flag+' onblur="BpiccReturnsOrder.ValidateEnteredPartNo('+new_tr_id+');" value="" class="partNum"  type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
+            html+='<td><input Style="width:40px;margin-left:10px;margin-top:8px" disabled="" id="'+new_tr_id+'" class="" value=""  type="text"></td>';
+            html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'" '+disabled_flag+' disabled="" onblur="BpiccReturnsOrder.ValidateEnteredPartNo('+new_tr_id+');" value="" class="partNum"  type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
             html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
             html+='<td><input id="desc_'+new_tr_id+'" class="inputDesc" value="" disabled="" type="text"></td>';
             html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
-            html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'" maxlength=5 disabled  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccReturnsOrder.ValidateQty('+new_tr_id+');BpiccReturnsOrder.CalculateTotQtyWt();" class="inputReqQnty" type="text"></div></td>';
+            html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'" maxlength=5 disabled=""  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccReturnsOrder.ValidateQty('+new_tr_id+');BpiccReturnsOrder.CalculateTotQtyWt();" class="inputReqQnty" type="text"></div></td>';
            
-            html+='<td><select id="select_returns_reason" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
-            html+='<td><input type="checkbox" name="" Style="margin-top:15px" value="checked" /><td>';
+            html+='<td><select id="select_returns_reason" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
+//            html+='<td><input type="checkbox" name="" Style="margin-top:15px" value="checked" /><td>';
+            html+='<td><span class="circleIcon"><i class="fa fa-check-circle greenIcon" aria-hidden="true"></i></span></td>';
             html+='<td><div class="availableDC"><span onclick="BpiccReturnsOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></div></td>';
             html+='    </tr>';
 			$("#bpicc_tableDetails tbody").append(html);
@@ -1888,6 +1891,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 								$("#bpicc_tableDetails tbody").append(html);
 								new_tr_id++;
 							});
+				 $("#Tot_No_Of_Lines").html(--new_tr_id);
 				 var returnsType=$("#select_returns_type").val();
 				 if(returnsType==""){
 					 $('[id^=reqQnty_]').attr('disabled',true);
