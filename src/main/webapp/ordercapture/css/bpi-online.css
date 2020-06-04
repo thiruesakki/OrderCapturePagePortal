@@ -1207,7 +1207,7 @@ fieldset[disabled] .btn-yellow.active {
 .container .bpiOnlineRightPanel .returnstableContents .table tfoot tr#addRowPane td{ width:100%; border: none; padding: 0px;  }
 .container .bpiOnlineRightPanel .returnstableContents .table tfoot tr#addRowPane {background: #fff;}
 .container .bpiOnlineRightPanel .returnstableContents .table tfoot .totalPane td:nth-child(1) { width:280px; border: none;  }
-.container .bpiOnlineRightPanel .returnstableContents .table tfoot .totalPane td:nth-child(2) { width:163px; border: none; }
+.container .bpiOnlineRightPanel .returnstableContents .table tfoot .totalPane td:nth-child(2) { width:50px; border: none; }
 .container .bpiOnlineRightPanel .returnstableContents .table tfoot .totalPane td:nth-child(2) p{float: left; margin: 0;}
 .fillrateLabel{padding-right: 3px;}
 .container .bpiOnlineRightPanel .returnstableContents .table tfoot .totalPane td:nth-child(1) p{float: left; margin: 0;}
