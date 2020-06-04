@@ -573,11 +573,11 @@ OrderHistory=
 						 }
 						 if(parseFloat(SHIPPED_PIECES)>0)
 						 {
-							 html+='<td  onclick="redirectReturns(\''+ORDER_NUMBER+'\');"><i class="fa fa-registered" aria-hidden="true" ></i></td>';
+							 html+='<td  onclick="redirectReturns(\''+ORDER_NUMBER+'\');"><i style="font-size:16px;" class="fa" >&#xf25d;</i></td>';
 						 }
 						 else
 						 {
-							  html+='<td><i class="fa fa-registered disableCircle" aria-hidden="true" ></i></td>'; 
+							  html+='<td><i style="font-size:16px;color:grey" class="fa" >&#xf25d;</i></td>'; 
 						 }
 						 
 						 html+="</tr>";
