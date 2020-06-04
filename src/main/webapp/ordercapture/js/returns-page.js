@@ -1852,7 +1852,11 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 								var part_no=v['PART_NUMBER'];
 								var desc=v['DESCRIPTION']
 								var qty=v['UNIT_WEIGHT'];
-								qty=qty.replace(/[^0-9.]/gi, '');
+								if(qty==null||qty==undefined){
+									qty=0;
+								}else{
+									qty=qty.replace(/[^0-9.]/gi, '');
+								}
 								var brand=v['BRAND'];
 								var BRAND = BRAND==undefined?"":BRAND;
 								console.log("BRAND:"+brand);
@@ -1909,6 +1913,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			  message = err.message+" in BpiccReturnsOrder.ApiProcessGetSOLine";
 			  alert(message);
 		  }  
+		  getReturnReason();
 	},
 	HandleConvertToOrderFromCheckStock:function()
 	{
@@ -2643,6 +2648,15 @@ function qtyValidation(tr_id){
 				  console.log("Failed: " + msg.status + ": " + msg.statusText);
 			}
 		});
+//		var totalWeight=$("#totalWeight").text();
+//		var totalWeightCal=totalWeight+reqQnty;
+//		var totalWeight=$("#totalWeight").text();
+//		var totalWeightCal=totalWeight+reqQnty;
+//		
+//		console.log('totalWeight'+totalWeight);
+//		console.log('totalQty'+$("#totalQty").text());
+//		$("#totalWeight").html(0);
+//		$("#totalQty").html(0);
 }
 
 
