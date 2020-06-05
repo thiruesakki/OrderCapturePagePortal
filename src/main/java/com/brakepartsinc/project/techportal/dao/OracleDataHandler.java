@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.brakepartsinc.project.techportal.dto.CheckStockObject;
 import com.brakepartsinc.project.techportal.dto.InvoiceObject;
@@ -22,14 +24,20 @@ import com.brakepartsinc.project.techportal.dto.PartNumberObject;
 import com.brakepartsinc.project.techportal.dto.PaymentObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderResponseObject;
+import com.brakepartsinc.project.techportal.dto.RMAObject;
+import com.brakepartsinc.project.techportal.dto.RMAOverallObject;
+import com.brakepartsinc.project.techportal.dto.RMAResponseObject;
 import com.brakepartsinc.project.techportal.dto.ReturnReasonListObject;
 import com.brakepartsinc.project.techportal.dto.SOLineItemObject;
 import com.brakepartsinc.project.techportal.dto.SalesOrderLineItems;
 import com.brakepartsinc.project.techportal.dto.ShipToObject;
 import com.brakepartsinc.project.techportal.util.StatusObject;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 //import oracle.jdbc.OracleCallableStatement;
 //import oracle.jdbc.internal.OracleTypes;
+import com.google.gson.reflect.TypeToken;
 
 public class OracleDataHandler {
 
@@ -802,5 +810,44 @@ public class OracleDataHandler {
 				System.out.println("GET NOT WORKED");
 			}
 			return returnsReasonListObj;
+		}
+		 public RMAResponseObject saveReturnsMule(RMAOverallObject rmaOverallObject) throws IOException {
+				String query = "http://create-rma-order1.us-e2.cloudhub.io/api/RMAOrder?p_operating_unit_id="
+						+ rmaOverallObject.getOrgID() + "&p_order_type=" + rmaOverallObject.getReturnType()+"&p_ref_so="+ rmaOverallObject.getRefSO();
+				System.out.println(query);
+				URL obj = new URL(query);
+				String readLine = null;
+				String outputString = "";
+				HttpURLConnection connection = (HttpURLConnection) obj
+						.openConnection();
+				connection.setRequestMethod("POST");
+				connection.setRequestProperty("Content-Type", "application/json");
+				connection.setDoOutput(true);
+				OutputStream os = connection.getOutputStream();
+				String postParams ="";
+				Gson gson=new Gson();
+				postParams= gson.toJson(rmaOverallObject);
+				os.flush();
+				os.close();
+				int responseCode = connection.getResponseCode();
+				System.out.println("POST Response Code :  " + responseCode);
+		        System.out.println("POST Response Message : " + connection.getResponseMessage());
+		        RMAResponseObject rmaRes=new RMAResponseObject();
+				if (responseCode == HttpURLConnection.HTTP_OK) {
+					BufferedReader in = new BufferedReader(new InputStreamReader(
+							connection.getInputStream()));
+					StringBuffer response = new StringBuffer();
+
+					while ((readLine = in.readLine()) != null) {
+						response.append(readLine);
+					}
+				in.close();
+				outputString = response.toString();
+				System.out.println("placeorder result"+outputString);
+				rmaRes=gson.fromJson(outputString,RMAResponseObject.class);
+				} else {
+					System.out.println("POST NOT WORKED");
+				}
+				return rmaRes;
 		}
 }

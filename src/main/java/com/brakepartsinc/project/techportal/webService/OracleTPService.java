@@ -49,6 +49,9 @@ import com.brakepartsinc.project.techportal.dto.PaymentObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderObject;
 import com.brakepartsinc.project.techportal.dto.PlaceOrderResponseObject;
 import com.brakepartsinc.project.techportal.dto.PromoBusinessDetailsObject;
+import com.brakepartsinc.project.techportal.dto.RMAObject;
+import com.brakepartsinc.project.techportal.dto.RMAOverallObject;
+import com.brakepartsinc.project.techportal.dto.RMAResponseObject;
 import com.brakepartsinc.project.techportal.dto.RegisterOrganizationObject;
 import com.brakepartsinc.project.techportal.dto.RegisterUserObject;
 import com.brakepartsinc.project.techportal.dto.ReturnReasonListObject;
@@ -863,4 +866,45 @@ public class OracleTPService {
 			}
 			return jsonResult.toString();
 	}
+		@POST
+		@Path("/SaveReturnsMule")
+		public String saveReturnsMule(String rmaOverallObject){
+			JsonObject jsonResult = new JsonObject();
+			String returnsResponseJson = null;
+			int status = -1;
+			String errorMessage = "";
+			System.out.println("JSON:" + rmaOverallObject);
+			Gson gson = new Gson();
+			RMAOverallObject rmaSaveObject = gson.fromJson(rmaOverallObject,RMAOverallObject.class); 
+			try {
+				OracleDataHandler dataHandler = new OracleDataHandler();
+//				System.out.println("webservice org_Id :" + orgID);
+				RMAResponseObject response = dataHandler.saveReturnsMule(rmaSaveObject);
+				if (response != null) {
+					status = 0;
+					
+					returnsResponseJson = gson.toJson(response);
+				} else {
+					status = 1;
+					errorMessage = " not found";
+				}
+
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", errorMessage);
+				jsonResult.addProperty("object", returnsResponseJson);
+				System.out.println("orderShipToArrayJson - Result to be returned:"
+						+ jsonResult);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				status = 6;
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", e.getMessage());
+				jsonResult.add("object", null);
+				System.out
+						.println("getOrderDetails - ERROR Result to be returned:"
+								+ jsonResult);
+			}
+			return jsonResult.toString();
+		}
 }
