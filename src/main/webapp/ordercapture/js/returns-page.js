@@ -518,6 +518,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	},
 	CalculateTotQtyWt:function ()
 	{
+		console.log("calculates");
 		 if(bpi_obj.is_bulk_validate==0)
 		 {
 			var e_tot_qty=0;
@@ -529,9 +530,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			var w_tot_qty=0;
 			var w_tot_wt=0;
 			var data=$("#bpicc_tableDetails tbody tr");
-			var s_v1_qty=0;
-			var s_m1_qty=0;
-			var s_m2_qty=0;
+			
 			var tot_wc_qty=0;
 			var tot_lines=0;
 				var partNum="";
@@ -546,6 +545,9 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				checked_val=$("input[name='inputAvail_"+tr_id+"']:checked").val(); */
 				  partNum=$(this).find("#partNum_"+tr_id).val();
 				reqQnty=$(this).find("#reqQnty_"+tr_id).val();
+				weight_=$(this).find("#weight_"+tr_id).val();
+				console.log("partNum"+partNum+weight_);
+				 $("#totalWeight").html(weight_);
 				checked_val= $(this).find("input[name*='inputAvail_']:checked").val();//Old source code
 //				checked_val=$('input[name=AllDCinputAvail]:checked').val();//New Source code
 //				$('input[name=gender]:checked').val()
@@ -558,69 +560,39 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				}
 				if(reqQnty>0)
 				{
-					  s_v1_qty=0;
-					  s_m1_qty=0;
-					  s_m2_qty=0;
+					 
 					
-					if(checked_val=="V1")
-					{
-						s_v1_qty=parseInt($(this).find("#v1_"+tr_id).val());
+					
+//						s_v1_qty=parseInt($(this).find("#v1_"+tr_id).val());
 						e_tot_qty=parseFloat(e_tot_qty+reqQnty);
 						 weight=$(this).find("#weight_"+tr_id).val();
 						weight=parseFloat((empty(weight))?0:weight);
-						e_tot_wt=parseFloat(e_tot_wt+(weight*reqQnty))  ;
+//						e_tot_wt=parseFloat(e_tot_wt+(weight*reqQnty))  ;
+						console.log("weight"+weight);
 						
-					}
-					if(checked_val=="M1")
-					{
-						s_m1_qty=parseInt($(this).find("#m1_"+tr_id).val());
-						 
-						m_tot_qty=parseFloat(m_tot_qty+reqQnty);
-						  weight=$(this).find("#weight_"+tr_id).val();
-						weight=parseFloat((empty(weight))?0:weight);
-						m_tot_wt=parseFloat(m_tot_wt+(weight*reqQnty))  ;
-						
-					}
-					if(checked_val=="M2")
-					{
-						s_m2_qty=parseInt($(this).find("#m2_"+tr_id).val());
-						w_tot_qty=parseFloat(w_tot_qty+reqQnty);
-						  weight=$(this).find("#weight_"+tr_id).val();
-						weight=parseFloat((empty(weight))?0:weight);
-						w_tot_wt=parseFloat(w_tot_wt+(weight*reqQnty))  ;
-						
-					}
-					tot_wc_qty=empty(tot_wc_qty)?0:tot_wc_qty;
-					s_v1_qty=empty(s_v1_qty)?0:s_v1_qty;
-					s_m1_qty=empty(s_m1_qty)?0:s_m1_qty;
-					s_m2_qty=empty(s_m2_qty)?0:s_m2_qty;
-					tot_wc_qty=parseFloat(tot_wc_qty)+parseFloat(s_v1_qty)+parseFloat(s_m1_qty)+parseFloat(s_m2_qty);
+						 e_tot_wt=parseFloat(e_tot_wt+(weight*reqQnty))  ;
+					
+//					tot_wc_qty=empty(tot_wc_qty)?0:tot_wc_qty;
+//					
+//					tot_wc_qty=parseFloat(tot_wc_qty);
 				}
 
 				
 			});
 			
-			$("#Tot_No_Of_Lines").html(tot_lines);
-			$("#totalWeightEDC").html(0);
-			$("#totalWeightMDC").html(0);
-			$("#totalWeightWDC").html(0);
+			$("#Tot_No_Of_Lines").html();
 			
-			$("#totalQtyEDC").html(0);
-			$("#totalQtyMDC").html(0);
-			$("#totalQtyWDC").html(0);
 			
-			$("#totalWeightEDC").html(tarkaRound(e_tot_wt,3));
-			$("#totalWeightMDC").html(tarkaRound(m_tot_wt,3));
-			$("#totalWeightWDC").html(tarkaRound(w_tot_wt,3));
+			$("#totalWeight").html(tarkaRound(e_tot_wt));
 			
-			$("#totalQtyEDC").html(e_tot_qty);
-			$("#totalQtyMDC").html(m_tot_qty);
-			$("#totalQtyWDC").html(w_tot_qty);
-			var e_tot_qty=parseFloat(e_tot_qty)+parseFloat(m_tot_qty)+parseFloat(w_tot_qty);
-			var perc=tarkaRound((tot_wc_qty/e_tot_qty)*100,1);
-				 $("#percentValue").html("0%");
-			if(!isNaN(perc))
-			 $("#percentValue").html(perc+"%");
+			
+			$("#totalQty").html(e_tot_qty);
+			
+//			var e_tot_qty=parseFloat(e_tot_qty)+parseFloat(m_tot_qty)+parseFloat(w_tot_qty);
+//			var perc=tarkaRound((tot_wc_qty/e_tot_qty)*100,1);
+//				 $("#percentValue").html("0%");
+//			if(!isNaN(perc))
+//			 $("#percentValue").html(perc+"%");
 
 		 
 		 }
@@ -1906,6 +1878,8 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 					 $('[id^=select_returns_reason_]').attr('disabled',false);
 				 }
 			 }
+			 BpiccReturnsOrder.CalculateTotQtyWt();	
+			 
 		    }
 		  catch(err) {
 			
@@ -2099,8 +2073,11 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				return false;
 		}
 		var base_shipping_method= $('input[name=inlineRadioOptions]:checked').val();
-		var CUST_PO_NUMBER=$("#inputSO").val();;
-		var ORDER_TYPE=$("#select_order_type").val();
+		var orgID=getCookie("selected_org_id");
+		var SALES_NUMBER=$("#inputSO").val();;
+		var RETURS_TYPE=$("#select_returns_type").val();
+//		var CUST_PO_NUMBER=$("#inputSO").val();;
+//		var ORDER_TYPE=$("#select_order_type").val();
 		var selected_shipping_addres_type=BpiccReturnsOrder.GetSelectedShippingAddressVal();
 		var DROP_SHIP_FLAG="0";
 		if(selected_shipping_addres_type=="DROP SHIP")
@@ -2191,21 +2168,28 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		}
 		var partNum="";
 		var reqQnty="";
-		var warehouse="";
+		var returnableValue="";
+		var returnReasonValue="";
+		var lineNum="";
 		var todayDATE = new Date();
 
 		var RequestedDATE =todayDATE.toShortFormat();
-		var placeOrderJson = {};
-		var orderLinesArray = [];
-		placeOrderJson.CUST_PO_NUMBER=CUST_PO_NUMBER;
-		placeOrderJson.ORDER_TYPE=ORDER_TYPE;
-		placeOrderJson.USER_EMAIL=null;
-		placeOrderJson.SHIPPING_METHOD=SHIPPING_METHOD;  
-		placeOrderJson.SHIP_TO_ORG=SHIP_TO_ORG;
-		placeOrderJson.BILL_TO_ORG=BILL_TO_ORG;
-		placeOrderJson.STORE_ID=""; 
-		placeOrderJson.CUSTOMER_NOTES="";
-		placeOrderJson.REQUESTED_DATE=RequestedDATE;
+//		var placeOrderJson = {};
+//		var orderLinesArray = [];
+//		placeOrderJson.CUST_PO_NUMBER=CUST_PO_NUMBER;
+//		placeOrderJson.ORDER_TYPE=ORDER_TYPE;
+//		placeOrderJson.USER_EMAIL=null;
+//		placeOrderJson.SHIPPING_METHOD=SHIPPING_METHOD;  
+//		placeOrderJson.SHIP_TO_ORG=SHIP_TO_ORG;
+//		placeOrderJson.BILL_TO_ORG=BILL_TO_ORG;
+//		placeOrderJson.STORE_ID=""; 
+//		placeOrderJson.CUSTOMER_NOTES="";
+//		placeOrderJson.REQUESTED_DATE=RequestedDATE;
+		var returnsJson = {};
+		var returnsArray = [];
+		returnsJson.orgID=orgID;
+		returnsJson.refSO=SALES_NUMBER;
+		returnsJson.returnType=RETURS_TYPE;
 		
 		$.each(data,function(k,v)
 		{
@@ -2215,20 +2199,29 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			
 			  partNum=$.trim($(this).find("#partNum_"+tr_id).val());
 			  reqQnty=$.trim($(this).find("#reqQnty_"+tr_id).val());
+			  lineNum=$.trim($(this).find("#lineNum"+tr_id).val());
+			  returnableValue=$.trim($(this).find("#returnableValue"+tr_id).val());
+			  var returnReason = document.getElementById("select_returns_reason_");
+//			  returnReasonValue = returnReason.options[returnReason.selectedIndex].text;
+			  
 			
-			warehouse= $(this).find("input[name*='inputAvail_']:checked").val();
+			returnReasonValue= $(this).find("input[id*='select_returns_reason_']:selected").val();
 			// var warehouse=$("input[name='inputAvail_"+tr_id+"']:checked").val();
 			if(!empty(partNum) && reqQnty>0)
 			{
-				
-				var orderLinesJson = {
-						"partNum":partNum,
-						"reqQnty":reqQnty,
-						"WARE_HOUSE":warehouse
+				if(returnableValue=='Y'){
+					
+				var returnsObjJson = {
+						
+						"partnumber": partNum,
+						"return_qty": reqQnty,
+						"return_reason": returnReasonValue,
+						"line_number": lineNum
 
 				};
-				orderLinesArray.push(orderLinesJson);
-				console.log("orderLinesArray"+JSON.stringify(orderLinesArray));
+				}
+				returnsArray.push(returnsObjJson);
+				console.log("returnsArray"+JSON.stringify(returnsArray));
 
 				item_data+='<ns2:P_ORDER_LINES_TBL_ITEM>';
 				item_data+='<ns2:ORDERED_ITEM>'+partNum+'</ns2:ORDERED_ITEM>';
@@ -2238,8 +2231,8 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			}
 			 
 		});
-		placeOrderJson.ORDER_LINES=orderLinesArray;
-	    console.log("placeOrderJson"+JSON.stringify(placeOrderJson));
+		returnsJson.listRMAObject=returnsArray;
+	    console.log("returnsJson"+JSON.stringify(returnsJson));
 	    
 		if(empty(item_data))
 		{
@@ -2258,15 +2251,15 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				xml_request_data+='<ns1:RespApplication>XXBPI</ns1:RespApplication>';
 				xml_request_data+='<ns1:SecurityGroup>STANDARD</ns1:SecurityGroup>';
 				xml_request_data+='<ns1:NLSLanguage>AMERICAN</ns1:NLSLanguage>';
-				xml_request_data+='<ns1:Org_Id>82</ns1:Org_Id>';
+				xml_request_data+='<ns1:'+OrgId+'>82</ns1:Org_Id>';
 				xml_request_data+='</ns1:SOAHeader>';
 				xml_request_data+='<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" soap:mustUnderstand="1"><wsse:UsernameToken xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password></wsse:UsernameToken></wsse:Security></soap:Header>';
 				xml_request_data+='<soap:Body xmlns:ns2="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/place_sales_order/">';
 				xml_request_data+='<ns2:InputParameters>';
 				xml_request_data+='<ns2:P_ORDER_HEADER_REC>';
-				xml_request_data+='<ns2:CUST_PO_NUMBER>'+CUST_PO_NUMBER+'</ns2:CUST_PO_NUMBER>';
+				xml_request_data+='<ns2:CUST_PO_NUMBER>'+SALES_NUMBER+'</ns2:CUST_PO_NUMBER>';
 				xml_request_data+='<ns2:DROP_SHIP_FLAG>'+DROP_SHIP_FLAG+'</ns2:DROP_SHIP_FLAG>';
-				xml_request_data+='<ns2:ORDER_TYPE>'+ORDER_TYPE+'</ns2:ORDER_TYPE>';
+				xml_request_data+='<ns2:ORDER_TYPE>'+RETURNS_TYPE+'</ns2:ORDER_TYPE>';
 				xml_request_data+='<ns2:USER_NAME>'+xml_email+'</ns2:USER_NAME>';
 				xml_request_data+='<ns2:SHIPPING_METHOD>'+SHIPPING_METHOD+'</ns2:SHIPPING_METHOD>';
 				xml_request_data+='<ns2:SHIP_TO_ORG>'+SHIP_TO_ORG+'</ns2:SHIP_TO_ORG>';
@@ -2290,12 +2283,12 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				xml_request_data+='</soap:Envelope>';
 	$(".loader").show();
 
-		var url = bpi_com_obj.web_oracle_api_url+"PlaceOrderMule";;
+		var url = bpi_com_obj.web_oracle_api_url+"saveReturnsMule";;
 			 
 					jQuery.ajax({
 						type: "POST",
 						url: url,
-						 data: JSON.stringify(placeOrderJson),
+						 data: JSON.stringify(returnsJson),
 						dataType: "json",
 						crossDomain: true,
 						processData: false,
