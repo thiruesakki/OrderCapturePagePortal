@@ -1882,14 +1882,14 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 									html+='<td><select id="select_returns_reason_'+new_tr_id+'" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
 //									html+='<td><input type="checkbox" name="" Style="margin-top:15px" value="checked" /><td>';
 //									html+='<td><label for="Y" Style="margin-top:10px">Y</label></td>';
-									html+='<td><span class="circleIcon"><i class="fa fa-check-circle greenIcon" aria-hidden="true"></i></span></td>';
-									
+									html+='<td><span class="circleIcon"><i class="fa fa-check-circle greenIcon" aria-hidden="true"></i></span><input type="hidden" id="returnableValue'+new_tr_id+'" name="returnableValue" value="Y"></td>';
+											
 								}else{
 									html+='<td><div class="availableDC"><input id="d_reqQnty_'+new_tr_id+'" disabled=""  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="qtyValidation('+new_tr_id+');;" class="inputReqQnty" '+dis+' type="text" value=""></td></div>';
 									html+='<td><select id="d_select_returns_reason" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
 //									html+='<td><input type="checkbox" name="" disabled="" Style="margin-top:15px" value="checked" /><td>';
 //									html+='<td><label for="N" Style="margin-top:10px">N</label></td>';
-									html+='<td><span class="circleIcon"><i class="fa fa-check-circle redIcon" aria-hidden="true"></i></span></td>';
+									html+='<td><span class="circleIcon"><i class="fa fa-times-circle redIcon" style="font-size: 20px;margin-top: 12px;margin-left: -18px;" aria-hidden="true"></i></span><input type="hidden" id="returnableValue'+new_tr_id+'" name="returnableValue" value="N"></td>';
 								}
 								html+='<td><div class="availableDC"><span onclick="BpiccReturnsOrder.deleteTableRow('+new_tr_id+');" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td></div>';
 								html+='	</tr>';
