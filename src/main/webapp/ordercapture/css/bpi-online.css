@@ -1186,7 +1186,7 @@ fieldset[disabled] .btn-yellow.active {
 	background: #fff;
 	color:#ccc;
 	border-radius: 10px; 
-	position:absolute;
+	position:relative;
 	margin-top: 11px;
 	margin-left: -17px;
 	font-size: 19px;
