@@ -424,16 +424,20 @@ BpiccReturnsOrder=
 	},
 	deleteTableRow:function (del_id)
 	{
+		
 		 if($("#bpicc_tableDetails tbody tr").length>1)
 		 {
+		
 				var row_disabled=$("#partNum_"+del_id).attr("disabled");
-		 
+				
 				if(row_disabled!="disabled")
+					
 				{
 					var confirm_flag=confirm("Do you want to delete this record?");
 					if(confirm_flag)
 					{
-						var del_part_no=$("#partNum_"+del_id).val();;
+						var del_part_no=$("#partNum_"+del_id).val();
+						
 						$("#bpicc_tableDetails tbody tr#"+del_id).remove();
 						  bpi_obj.is_bulk_validate=0;
 						BpiccReturnsOrder.CalculateTotQtyWt();
@@ -456,6 +460,25 @@ BpiccReturnsOrder=
 		 }
 		
 		 
+	},
+	HandleGlobalDeleteForCheckDuplicatePartNo:function()
+	{
+		if( bpi_obj.is_bulk_validate==0)
+		{
+			  $("#bpicc_tableDetails tbody input[id*='partNum_']").each(function() {
+			   if(!empty($(this).val()))
+				  {
+			  // check if there is another one with the same value
+				if ( $("#bpicc_tableDetails tbody input[id*='partNum_'][value='"+$(this).val()+"']").size() > 1) {
+				  // highlight this
+				  $(this).addClass('errorWarning');
+				} else {
+				  // otherwise remove
+				  $(this).removeClass('errorWarning');
+				}
+			  }
+			});
+		}
 	},
 HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	{
@@ -1838,17 +1861,19 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 //								xml_part_no+=part_no+",";
 //								 part_no_qty_arr[part_no]=qty;
 //								 part_no_dc_arr[part_no]=dc;
+								var disabled_flag="";
+								disabled_flag="  ";
 								var html='<tr id="'+new_tr_id+'">';
 								html+='<td><input Style="width:40px;margin-left:10px;margin-top:8px" disabled="" id="lineNum'+new_tr_id+'" "class="" value='+LINE_NUMBER+'  type="text"></td>';
-								html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'" disabled=""   value='+part_no+' class="partNum" type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
+								html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'" '+disabled_flag+'   value='+part_no+' class="partNum" type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
 //								if(BRAND==""){
 //									html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
 //								}else{
 //									html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value='+BRAND+' disabled="" type="text"></td>';
 //								}
-								html+='<td><input id="desc_'+new_tr_id+'"  value='+desc+' disabled="" type="text"></td>';
-								html+='<td><input id="shippedQty_'+new_tr_id+'"  value='+SHIPPED_QUANTITY+' disabled="" type="text"></td>';
-								html+='<td><input id="returnedQty_'+new_tr_id+'"  value='+RETURNED_QUANTITY+' disabled="" type="text"></td>';
+								html+='<td><input id="desc_'+new_tr_id+'" class="inputBrand"  value='+desc+' disabled="" type="text"></td>';
+                                html+='<td><input id="shippedQty_'+new_tr_id+'" class="inputDesc"  value='+SHIPPED_QUANTITY+' disabled="" type="text"></td>';
+                                html+='<td><input id="returnedQty_'+new_tr_id+'" class="inputUnitWgt" value='+RETURNED_QUANTITY+' disabled="" type="text"></td>';
 								
 								if(RETURNABLE_YN=="Returnable"){
 									html+='<td><input id="reqQnty_'+new_tr_id+'" disabled=""  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="qtyValidation('+new_tr_id+');;" class="inputReqQnty" '+dis+' type="text" value=""></td>';
