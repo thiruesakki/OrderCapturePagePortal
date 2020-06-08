@@ -879,7 +879,7 @@ public class OracleTPService {
 			try {
 				OracleDataHandler dataHandler = new OracleDataHandler();
 //				System.out.println("webservice org_Id :" + orgID);
-				RMAResponseObject response = dataHandler.saveReturnsMule(rmaSaveObject);
+				RMAResponseObject response = dataHandler.saveReturnsOrderMule(rmaSaveObject);
 				if (response != null) {
 					status = 0;
 					

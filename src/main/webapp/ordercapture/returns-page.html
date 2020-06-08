@@ -1879,10 +1879,10 @@
 						  <label  for=""><span class="requiredField">*</span>RETURNS TYPE</label>
 						  <select id='select_returns_type' onchange="BpiccReturnsOrder.HandleOnchangeReturnsType();">
 							  <option value="">Select Returns Type</option>
-							  <option value="Return">Return Only</option>
-							  <option value="RMA">RMA - Credit</option>
-							  <option value="Approval">Return with Approval</option>
-							   <option value="Submission">Return w/Submission/Approval</option>
+							  <option value="Return Only">Return Only</option>
+							  <option value="RMA - Credit">RMA - Credit</option>
+							  <option value="Return with Approval">Return with Approval</option>
+							   <option value="Return w/Submission/Approval">Return w/Submission/Approval</option>
 						</select>
 						  </div>
 						</div>
@@ -1917,10 +1917,10 @@
 					<tr>
 					    <th rowspan=2>LINE NUMBER</th>
 						<th rowspan=2>PART NUMBER</th>
-						<th rowspan=2>BRAND</th>
 						<th rowspan=2>DESCRIPTION</th>
-						<th rowspan=2>UNIT WEIGHT<br/>(lbs)</th>
-						<th rowspan=2>RETURNED QUANTITY</th>    
+						<th rowspan=2>SHIPPED<br/>QUANTITY</th>
+						<th rowspan=2>RETURNED<br/>QUANTITY</th>
+						<th rowspan=2>REQUESTED<br/>QUANTITY</th>    
 						<th rowspan=2>RETURNS REASONS</th>
 						<th rowspan=2>RETURNABLE</th>
 						<th class="archiveIcon" rowspan=2><span class="glyphicon glyphicon-trash" aria-hidden="true" onclick="BpiccReturnsOrder.DeleteAllRows();"></span></th>
@@ -1948,17 +1948,10 @@
 					<tr class="totalPane">
                         <td> <p class="NumOfRows">TOTAL NUMBER OF ROWS:</p> <p id="Tot_No_Of_Lines">0</p></td>
                         <td></td>
-					    <td>TOTAL WEIGHT</td>
-                        <td><p id="totalWeight">0</p><!-- Dynamic Value of Total Weight EDC --></td>
+					    <td>TOTAL QUANTITY</td>
+                        <td><p id="totalQty">0</p><!-- Dynamic Value of Total Weight EDC --></td>
                         
 					</tr>
-                    <tr class="totalPane">
-                        <td></td>
-                        <td></td>                        
-                        <td>TOTAL QUANTITY</td>
-                        <td><p id="totalQty">0</p><!-- Dynamic Value of Total Quantity EDC --></td>
-                        
-                    </tr>
 				</tfoot>
 				</table>
                 </div>
@@ -1993,7 +1986,7 @@
 					  <!-- #issue 91,please correct the continue spelling by updating the below code to server.-->
 <!-- 					  <button type="button" class="btn btn-default continueOrder"  id='continue_order' disabled>Continue Order </button> -->
 <!-- 					  <button type="button" Style="margin-left: 190px;background-color: #2E4F6A;color: #fff;border: medium none;border-radius: 3px;" class="btn btn-default submitForm" id='submit'>Submit</button> -->
-					  <button type="button" class="btn btn-blue btn-md" Style="margin-left: 190px;" id='submit'>Submit</button>
+					  <button type="button" class="btn btn-blue btn-md" Style="margin-left: 190px;" id='submit_order'>Submit</button>
 
 					  </div>
 				  </div>

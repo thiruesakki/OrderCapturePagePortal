@@ -365,7 +365,7 @@ BpiccReturnsOrder=
             html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
             html+='<td><input id="desc_'+new_tr_id+'" class="inputDesc" value="" disabled="" type="text"></td>';
             html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value="" disabled="" type="text"></td>';
-            html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'" maxlength=5 disabled=""  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccReturnsOrder.ValidateQty('+new_tr_id+');BpiccReturnsOrder.CalculateTotQtyWt();" class="inputReqQnty" type="text"></div></td>';
+            html+='<td><input id="reqQnty_'+new_tr_id+'" maxlength=5 disabled=""  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="BpiccReturnsOrder.ValidateQty('+new_tr_id+');BpiccReturnsOrder.CalculateTotQtyWt();" class="inputReqQnty" type="text"></td>';
            
             html+='<td><select id="select_returns_reason" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
 //            html+='<td><input type="checkbox" name="" Style="margin-top:15px" value="checked" /><td>';
@@ -545,6 +545,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				checked_val=$("input[name='inputAvail_"+tr_id+"']:checked").val(); */
 				  partNum=$(this).find("#partNum_"+tr_id).val();
 				reqQnty=$(this).find("#reqQnty_"+tr_id).val();
+				console.log("qty:"+$(this).find("#reqQnty_"+tr_id).val());
 				weight_=$(this).find("#weight_"+tr_id).val();
 				console.log("partNum"+partNum+weight_);
 				 $("#totalWeight").html(weight_);
@@ -583,7 +584,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			$("#Tot_No_Of_Lines").html();
 			
 			
-			$("#totalWeight").html(tarkaRound(e_tot_wt));
+//			$("#totalWeight").html(tarkaRound(e_tot_wt));
 			
 			
 			$("#totalQty").html(e_tot_qty);
@@ -1823,15 +1824,14 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 							{
 								var part_no=v['PART_NUMBER'];
 								var desc=v['DESCRIPTION']
-								var qty=v['UNIT_WEIGHT'];
-								if(qty==null||qty==undefined){
-									qty=0;
-								}else{
-									qty=qty.replace(/[^0-9.]/gi, '');
-								}
-								var brand=v['BRAND'];
-								var BRAND = BRAND==undefined?"":BRAND;
-								console.log("BRAND:"+brand);
+								var SHIPPED_QUANTITY=v['SHIPPED_QUANTITY'];
+//								if(qty==null||qty==undefined){
+//									qty=0;
+//								}else{
+//									qty=qty.replace(/[^0-9.]/gi, '');
+//								}
+								var RETURNED_QUANTITY=v['RETURNED_QUANTITY']==undefined?"":v['RETURNED_QUANTITY'];
+//								console.log("BRAND:"+brand);
 								var LINE_NUMBER=v['LINE_NUMBER'];
 								var RETURNABLE_YN=v['RETURNABLE_YN'];
 							 
@@ -1841,24 +1841,25 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 								var html='<tr id="'+new_tr_id+'">';
 								html+='<td><input Style="width:40px;margin-left:10px;margin-top:8px" disabled="" id="lineNum'+new_tr_id+'" "class="" value='+LINE_NUMBER+'  type="text"></td>';
 								html+='<td><div class="availableDC ui-widget"><input id="partNum_'+new_tr_id+'" disabled=""   value='+part_no+' class="partNum" type="text"><span class="glyphicon glyphicon-search form-control-feedback"></span></div></td>';
-								if(BRAND==""){
-									html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
-								}else{
-									html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value='+BRAND+' disabled="" type="text"></td>';
-								}
-								html+='<td><input id="desc_'+new_tr_id+'" class="inputDesc" value='+desc+' disabled="" type="text"></td>';
-								html+='<td><input id="weight_'+new_tr_id+'" class="inputUnitWgt" value='+qty+' disabled="" type="text"></td>';
+//								if(BRAND==""){
+//									html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value="" disabled="" type="text"></td>';
+//								}else{
+//									html+='<td><input id="brand_'+new_tr_id+'" class="inputBrand" value='+BRAND+' disabled="" type="text"></td>';
+//								}
+								html+='<td><input id="desc_'+new_tr_id+'"  value='+desc+' disabled="" type="text"></td>';
+								html+='<td><input id="shippedQty_'+new_tr_id+'"  value='+SHIPPED_QUANTITY+' disabled="" type="text"></td>';
+								html+='<td><input id="returnedQty_'+new_tr_id+'"  value='+RETURNED_QUANTITY+' disabled="" type="text"></td>';
 								
 								if(RETURNABLE_YN=="Returnable"){
-									html+='<td><div class="availableDC"><input id="reqQnty_'+new_tr_id+'" disabled=""  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="qtyValidation('+new_tr_id+');;" class="inputReqQnty" '+dis+' type="text" value=""></td></div>';
-									html+='<td><select id="select_returns_reason_'+new_tr_id+'" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
+									html+='<td><input id="reqQnty_'+new_tr_id+'" disabled=""  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="qtyValidation('+new_tr_id+');;" class="inputReqQnty" '+dis+' type="text" value=""></td>';
+									html+='<td><select id="select_returns_reason_'+new_tr_id+'" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" ><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
 //									html+='<td><input type="checkbox" name="" Style="margin-top:15px" value="checked" /><td>';
 //									html+='<td><label for="Y" Style="margin-top:10px">Y</label></td>';
 									html+='<td><span class="circleIcon"><i class="fa fa-check-circle greenIcon" aria-hidden="true"></i></span><input type="hidden" id="returnableValue'+new_tr_id+'" name="returnableValue" value="Y"></td>';
 											
 								}else{
-									html+='<td><div class="availableDC"><input id="d_reqQnty_'+new_tr_id+'" disabled=""  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="qtyValidation('+new_tr_id+');;" class="inputReqQnty" '+dis+' type="text" value=""></td></div>';
-									html+='<td><select id="d_select_returns_reason" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" onchange="changeReturnsReason();"><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
+									html+='<td><input id="d_reqQnty_'+new_tr_id+'" disabled=""  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="qtyValidation('+new_tr_id+');;" class="inputReqQnty" '+dis+' type="text" value=""></td>';
+									html+='<td><select id="d_select_returns_reason" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" ><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
 //									html+='<td><input type="checkbox" name="" disabled="" Style="margin-top:15px" value="checked" /><td>';
 //									html+='<td><label for="N" Style="margin-top:10px">N</label></td>';
 									html+='<td><span class="circleIcon"><i class="fa fa-times-circle redIcon" style="font-size: 20px;margin-top: 12px;margin-left: -18px;" aria-hidden="true"></i></span><input type="hidden" id="returnableValue'+new_tr_id+'" name="returnableValue" value="N"></td>';
@@ -2059,138 +2060,41 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	},
 	SubmitFinalOrder:function()
 	{
-		var shipping_address=$("#shipping_address").val();
-		 var selected_shipping_addres_type=BpiccReturnsOrder.GetSelectedShippingAddressVal();
-		if(empty(shipping_address) && selected_shipping_addres_type!="DROP SHIP")
-		{
-			BpiccReturnsOrder.ShowShppingErrorSuccessMessages("Please Select Ship to Address","Error"); 
-			return false;
-		}	
+		console.log("submit function");
 		inputSO=$("#inputSO").val();
 		if(empty(inputSO))
 		{
-				BpiccReturnsOrder.ShowShppingErrorSuccessMessages("Please Enter PO Number","Error"); 
+				BpiccReturnsOrder.ShowShppingErrorSuccessMessages("Please Enter SO Number","Error"); 
 				return false;
 		}
-		var base_shipping_method= $('input[name=inlineRadioOptions]:checked').val();
+		console.log("after if");
 		var orgID=getCookie("selected_org_id");
 		var SALES_NUMBER=$("#inputSO").val();;
 		var RETURS_TYPE=$("#select_returns_type").val();
-//		var CUST_PO_NUMBER=$("#inputSO").val();;
-//		var ORDER_TYPE=$("#select_order_type").val();
-		var selected_shipping_addres_type=BpiccReturnsOrder.GetSelectedShippingAddressVal();
-		var DROP_SHIP_FLAG="0";
-		if(selected_shipping_addres_type=="DROP SHIP")
-		DROP_SHIP_FLAG="1";
-		var SHIPPING_METHOD= bpi_obj.standard_ship_method_code;
-		if($("#select_order_type").val()=="Emergency")
-		{
-//			if(base_shipping_method=="option1"){
-//				SHIPPING_METHOD=$('input[name=inlineRadioOptionsData]:checked').val();
-//			}
-//		 if(base_shipping_method=="option2"){
-//				SHIPPING_METHOD= bpi_obj.emergency_cust_pick_up_ship_method_code;
-//		 }
-		}
-		/*if($("#select_order_type").val()=="Emergency" && base_shipping_method=="option1" && (empty(SHIPPING_METHOD) || SHIPPING_METHOD=="undefined"))
-		{
-			BpiccReturnsOrder.ShowShppingErrorSuccessMessages("Please Select Shipping Method Option","Error"); 
-				return false;
-		}/* 
-		if($("#select_order_type").val()=="ER" && base_shipping_method=="option1" && (SHIPPING_METHOD=="UP2" || SHIPPING_METHOD=="UP3" || SHIPPING_METHOD=="FGR"))
-		{
-			BpiccReturnsOrder.ShowShppingErrorSuccessMessages("You cannot select UPS 2nd Day Air/UPS 3 Day Select/FedEx Ground Shipping Method for EMERGENCY Orders","Error"); 
-				return false;
-		} */
-		// var SHIP_TO_ORG=shipping_address;
-		var SHIP_TO_ORG=bpi_com_obj.ship_to_location;
-		var BILL_TO_ORG=bpi_com_obj.bill_to_location;
-		if(!empty(getCookie("selected_ship_to")))
-		{
-			SHIP_TO_ORG=getCookie("selected_ship_to");
-		}
-		if(!empty(getCookie("selected_bill_to")))
-		{
-			BILL_TO_ORG=getCookie("selected_bill_to");
-		}
-		console.log("shipto:"+SHIP_TO_ORG+"BILL_TO_ORG"+BILL_TO_ORG);
-		//$("#state").html("<option value='CA'>CA</option>");
-		//$(".shippingAddress #country").html("<option value='US'>US</option>");
-		var SHIP_TO_NAME=$("#company").val();
-		var SHIP_TO_ADDRESS1=$("#address1").val();
-		var SHIP_TO_ADDRESS2=$("#address2").val();
-		var SHIP_TO_ADDRESS2="";
-		var SHIP_TO_ADDRESS3="";
-		var SHIP_TO_ADDRESS4="";
-		var SHIP_TO_CITY=$("#city").val();
-		var SHIP_TO_STATE=$("#state").val();
-		var SHIP_TO_COUNTRY=$(".shippingAddress #country").val();
-		var SHIP_TO_POSTAL_CODE=$("#zip").val();
-		var STORE_ID="";
-		
-		var data=$("#bpicc_tableDetails tbody tr");
-		var item_data="";
-		
-		$("#shipping_error_info").html("");
-		$("#shipping_error_info").hide();
-		$("#place_order_error_info").html("");
-		$("#place_order_error_info").hide();
-		
-		if(empty(SHIP_TO_ADDRESS1))
-		{
-			BpiccReturnsOrder.ShowShppingErrorSuccessMessages("Shipping Address1 is Empty","Error");
-			return false;
-		}
-		else if(empty(SHIP_TO_CITY))
-		{
-			BpiccReturnsOrder.ShowShppingErrorSuccessMessages("SHIP CITY is Empty","Error");
-			return false;
-		}
-		else if(empty(SHIP_TO_STATE))
-		{
-			BpiccReturnsOrder.ShowShppingErrorSuccessMessages("SHIP TO STATE is Empty","Error");
-			return false;
-		}
-		else if(empty(SHIP_TO_COUNTRY))
-		{
-			BpiccReturnsOrder.ShowShppingErrorSuccessMessages("SHIP TO COUNTRY is Empty","Error");
-			return false;
-		}
-		else if(empty(SHIP_TO_POSTAL_CODE))
-		{
-			BpiccReturnsOrder.ShowShppingErrorSuccessMessages("SHIP TO  POSTAL_CODE is Empty","Error");
-			return false;
-		}
-		if(!$("#inlineValidate").is(':checked'))
-		{
-			BpiccReturnsOrder.ShowShppingErrorSuccessMessages(" Please Accept terms and conditions","Error");
-			return false;
-		}
+
+//		var SHIP_TO_ORG=bpi_com_obj.ship_to_location;
+//		var BILL_TO_ORG=bpi_com_obj.bill_to_location;
+//		if(!empty(getCookie("selected_ship_to")))
+//		{
+//			SHIP_TO_ORG=getCookie("selected_ship_to");
+//		}
+//		if(!empty(getCookie("selected_bill_to")))
+//		{
+//			BILL_TO_ORG=getCookie("selected_bill_to");
+//		}
+
 		var partNum="";
 		var reqQnty="";
 		var returnableValue="";
 		var returnReasonValue="";
 		var lineNum="";
-		var todayDATE = new Date();
-
-		var RequestedDATE =todayDATE.toShortFormat();
-//		var placeOrderJson = {};
-//		var orderLinesArray = [];
-//		placeOrderJson.CUST_PO_NUMBER=CUST_PO_NUMBER;
-//		placeOrderJson.ORDER_TYPE=ORDER_TYPE;
-//		placeOrderJson.USER_EMAIL=null;
-//		placeOrderJson.SHIPPING_METHOD=SHIPPING_METHOD;  
-//		placeOrderJson.SHIP_TO_ORG=SHIP_TO_ORG;
-//		placeOrderJson.BILL_TO_ORG=BILL_TO_ORG;
-//		placeOrderJson.STORE_ID=""; 
-//		placeOrderJson.CUSTOMER_NOTES="";
-//		placeOrderJson.REQUESTED_DATE=RequestedDATE;
 		var returnsJson = {};
 		var returnsArray = [];
 		returnsJson.orgID=orgID;
 		returnsJson.refSO=SALES_NUMBER;
 		returnsJson.returnType=RETURS_TYPE;
-		
+		console.log("before build");
+		var data=$("#bpicc_tableDetails tbody tr");
 		$.each(data,function(k,v)
 		{
 			var tr_id=$(this).attr("id");
@@ -2204,9 +2108,10 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			  var returnReason = document.getElementById("select_returns_reason_");
 //			  returnReasonValue = returnReason.options[returnReason.selectedIndex].text;
 			  
-			
-			returnReasonValue= $(this).find("input[id*='select_returns_reason_']:selected").val();
+			  returnReasonValue=$(this).find("#select_returns_reason_"+tr_id).val()
+//			returnReasonValue= $(this).find("input[id*='select_returns_reason_1']:selected").val();
 			// var warehouse=$("input[name='inputAvail_"+tr_id+"']:checked").val();
+			console.log("returnReason:"+returnReasonValue);
 			if(!empty(partNum) && reqQnty>0)
 			{
 				if(returnableValue=='Y'){
@@ -2222,69 +2127,16 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				}
 				returnsArray.push(returnsObjJson);
 				console.log("returnsArray"+JSON.stringify(returnsArray));
-
-				item_data+='<ns2:P_ORDER_LINES_TBL_ITEM>';
-				item_data+='<ns2:ORDERED_ITEM>'+partNum+'</ns2:ORDERED_ITEM>';
-				item_data+='<ns2:ORDERED_QUANTITY>'+reqQnty+'</ns2:ORDERED_QUANTITY>';
-				item_data+='<ns2:WARE_HOUSE>'+warehouse+'</ns2:WARE_HOUSE>';
-				item_data+='</ns2:P_ORDER_LINES_TBL_ITEM>';
 			}
 			 
 		});
 		returnsJson.listRMAObject=returnsArray;
 	    console.log("returnsJson"+JSON.stringify(returnsJson));
 	    
-		if(empty(item_data))
-		{
-			BpiccReturnsOrder.ShowShppingErrorSuccessMessages("Items are empty","Error");
-			return;
-		}
-		
-			var  xml_request_data='';
-			var xml_email="";
-			if(typeof(dbEmail)!="undefined")
-				xml_email=dbEmail;
-				xml_request_data+='<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">';
-				xml_request_data+='<soap:Header xmlns:ns1="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/">';
-				xml_request_data+='<ns1:SOAHeader>';
-				xml_request_data+='<ns1:Responsibility>BPI_WEB_SERVICE_USER</ns1:Responsibility>';
-				xml_request_data+='<ns1:RespApplication>XXBPI</ns1:RespApplication>';
-				xml_request_data+='<ns1:SecurityGroup>STANDARD</ns1:SecurityGroup>';
-				xml_request_data+='<ns1:NLSLanguage>AMERICAN</ns1:NLSLanguage>';
-				xml_request_data+='<ns1:'+OrgId+'>82</ns1:Org_Id>';
-				xml_request_data+='</ns1:SOAHeader>';
-				xml_request_data+='<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" soap:mustUnderstand="1"><wsse:UsernameToken xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><wsse:Username>'+bpi_com_obj.api_usr+'</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+bpi_com_obj.api_pwd+'</wsse:Password></wsse:UsernameToken></wsse:Security></soap:Header>';
-				xml_request_data+='<soap:Body xmlns:ns2="http://xmlns.oracle.com/apps/custom/soaprovider/plsql/xxbpi_customer_online/place_sales_order/">';
-				xml_request_data+='<ns2:InputParameters>';
-				xml_request_data+='<ns2:P_ORDER_HEADER_REC>';
-				xml_request_data+='<ns2:CUST_PO_NUMBER>'+SALES_NUMBER+'</ns2:CUST_PO_NUMBER>';
-				xml_request_data+='<ns2:DROP_SHIP_FLAG>'+DROP_SHIP_FLAG+'</ns2:DROP_SHIP_FLAG>';
-				xml_request_data+='<ns2:ORDER_TYPE>'+RETURNS_TYPE+'</ns2:ORDER_TYPE>';
-				xml_request_data+='<ns2:USER_NAME>'+xml_email+'</ns2:USER_NAME>';
-				xml_request_data+='<ns2:SHIPPING_METHOD>'+SHIPPING_METHOD+'</ns2:SHIPPING_METHOD>';
-				xml_request_data+='<ns2:SHIP_TO_ORG>'+SHIP_TO_ORG+'</ns2:SHIP_TO_ORG>';
-				xml_request_data+='<ns2:BILL_TO_ORG>'+BILL_TO_ORG+'</ns2:BILL_TO_ORG>';
-				xml_request_data+='<ns2:SHIP_TO_NAME>'+RemoveSpecialChars(SHIP_TO_NAME)+'</ns2:SHIP_TO_NAME>';
-				xml_request_data+='<ns2:SHIP_TO_ADDRESS1>'+RemoveSpecialChars(SHIP_TO_ADDRESS1)+'</ns2:SHIP_TO_ADDRESS1>';
-				xml_request_data+='<ns2:SHIP_TO_ADDRESS2>'+RemoveSpecialChars(SHIP_TO_ADDRESS2)+'</ns2:SHIP_TO_ADDRESS2>';
-				xml_request_data+='<ns2:SHIP_TO_ADDRESS3>'+RemoveSpecialChars(SHIP_TO_ADDRESS3)+'</ns2:SHIP_TO_ADDRESS3>';
-				xml_request_data+='<ns2:SHIP_TO_ADDRESS4>'+RemoveSpecialChars(SHIP_TO_ADDRESS4)+'</ns2:SHIP_TO_ADDRESS4>';
-				xml_request_data+='<ns2:SHIP_TO_CITY>'+RemoveSpecialChars(SHIP_TO_CITY)+'</ns2:SHIP_TO_CITY>';
-				xml_request_data+='<ns2:SHIP_TO_STATE>'+SHIP_TO_STATE+'</ns2:SHIP_TO_STATE>';
-				xml_request_data+='<ns2:SHIP_TO_COUNTRY>'+SHIP_TO_COUNTRY+'</ns2:SHIP_TO_COUNTRY>';
-				xml_request_data+='<ns2:SHIP_TO_POSTAL_CODE>'+SHIP_TO_POSTAL_CODE+'</ns2:SHIP_TO_POSTAL_CODE>';
-				xml_request_data+='<ns2:STORE_ID>'+STORE_ID+'</ns2:STORE_ID>';
-				xml_request_data+='</ns2:P_ORDER_HEADER_REC>';
-				xml_request_data+='<ns2:P_ORDER_LINES_TBL>';
-				xml_request_data+=item_data;
-				xml_request_data+='</ns2:P_ORDER_LINES_TBL>';
-				xml_request_data+='</ns2:InputParameters>';
-				xml_request_data+='</soap:Body>';
-				xml_request_data+='</soap:Envelope>';
 	$(".loader").show();
 
-		var url = bpi_com_obj.web_oracle_api_url+"saveReturnsMule";;
-			 
+		var url = bpi_com_obj.web_oracle_api_url+"SaveReturnsMule";;
+		console.log("url:"+url);			 
 					jQuery.ajax({
 						type: "POST",
 						url: url,
@@ -2298,7 +2150,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 							 $(".loader").hide();
 							 console.log("result data"+data);
 							 var object=data.object;
-							 BpiccReturnsOrder.ApiProcessSubmitOrderdata(object);
+//							 BpiccReturnsOrder.ApiProcessSubmitOrderdata(object);
 						},
 						error: function (msg) {
 							 $(".loader").hide();
@@ -2641,6 +2493,7 @@ function qtyValidation(tr_id){
 				  console.log("Failed: " + msg.status + ": " + msg.statusText);
 			}
 		});
+	BpiccReturnsOrder.CalculateTotQtyWt();
 //		var totalWeight=$("#totalWeight").text();
 //		var totalWeightCal=totalWeight+reqQnty;
 //		var totalWeight=$("#totalWeight").text();

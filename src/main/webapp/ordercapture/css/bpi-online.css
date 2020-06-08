@@ -1135,8 +1135,8 @@ fieldset[disabled] .btn-yellow.active {
 .container .bpiOnlineRightPanel .returnstableContents .table thead tr th{border-right: 1px solid #a2aabc; border-bottom:none; text-align:center;vertical-align: middle; padding: 8px 0;}
 .container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(1) { width:70px !important; }
 .container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(2) { width:133px !important; }
-.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(3) { width:90px !important; }
-.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(4) { width:132px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(3) { width:132px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(4) { width:90px !important; }
 
 .container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(1),
 .container .bpiOnlineRightPanel .returnstableContents .table thead th:nth-child(2),
@@ -1163,8 +1163,8 @@ fieldset[disabled] .btn-yellow.active {
 .container .bpiOnlineRightPanel .returnstableContents .table tbody tr td{padding: 0px; border-top: 1px solid #a2aabc;}
 .container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(1) { width:60px !important; }
 .container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(2) { width:113px !important; }
-.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(3) { width:70px !important; }
-.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(4) { width:122px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(3) { width:120px !important; }
+.container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(4) { width:70px !important; }
 .container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(5) { width:60px !important; }
 .container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(6) { width:88px !important; }
 .container .bpiOnlineRightPanel .returnstableContents .table tbody td:nth-child(7) { width:234px !important; }

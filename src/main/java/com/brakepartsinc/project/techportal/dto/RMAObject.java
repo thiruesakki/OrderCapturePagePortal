@@ -4,11 +4,11 @@ public class RMAObject {
 
 	private String partnumber = "";
 
-	private int return_qty = 0;
+	private String return_qty = "";
 
 	private String return_reason = "";
 
-	private int line_number = 0;
+	private String line_number = "";
 
 	public String getPartnumber() {
 		return partnumber;
@@ -18,11 +18,11 @@ public class RMAObject {
 		this.partnumber = partnumber;
 	}
 
-	public int getReturn_qty() {
+	public String getReturn_qty() {
 		return return_qty;
 	}
 
-	public void setReturn_qty(int return_qty) {
+	public void setReturn_qty(String return_qty) {
 		this.return_qty = return_qty;
 	}
 
@@ -34,11 +34,11 @@ public class RMAObject {
 		this.return_reason = return_reason;
 	}
 
-	public int getLine_number() {
+	public String getLine_number() {
 		return line_number;
 	}
 
-	public void setLine_number(int line_number) {
+	public void setLine_number(String line_number) {
 		this.line_number = line_number;
 	}
 

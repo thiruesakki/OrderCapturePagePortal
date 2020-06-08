@@ -8,9 +8,9 @@ public class SOLineItemObject {
 
 	String DESCRIPTION = "";
 
-	String UNIT_WEIGHT = "";
+	String SHIPPED_QUANTITY = "";
 
-	String BRAND = "";
+	String RETURNED_QUANTITY = "";
 
 	String RETURNABLE_YN = "";
 
@@ -38,20 +38,20 @@ public class SOLineItemObject {
 		DESCRIPTION = dESCRIPTION;
 	}
 
-	public String getUNIT_WEIGHT() {
-		return UNIT_WEIGHT;
+	public String getSHIPPED_QUANTITY() {
+		return SHIPPED_QUANTITY;
 	}
 
-	public void setUNIT_WEIGHT(String uNIT_WEIGHT) {
-		UNIT_WEIGHT = uNIT_WEIGHT;
+	public void setSHIPPED_QUANTITY(String sHIPPED_QUANTITY) {
+		SHIPPED_QUANTITY = sHIPPED_QUANTITY;
 	}
 
-	public String getBRAND() {
-		return BRAND;
+	public String getRETURNED_QUANTITY() {
+		return RETURNED_QUANTITY;
 	}
 
-	public void setBRAND(String bRAND) {
-		BRAND = bRAND;
+	public void setRETURNED_QUANTITY(String rETURNED_QUANTITY) {
+		RETURNED_QUANTITY = rETURNED_QUANTITY;
 	}
 
 	public String getRETURNABLE_YN() {
@@ -66,8 +66,9 @@ public class SOLineItemObject {
 	public String toString() {
 		return "SOLineItemObject [LINE_NUMBER=" + LINE_NUMBER
 				+ ", PART_NUMBER=" + PART_NUMBER + ", DESCRIPTION="
-				+ DESCRIPTION + ", UNIT_WEIGHT=" + UNIT_WEIGHT + ", BRAND="
-				+ BRAND + ", RETURNABLE_YN=" + RETURNABLE_YN + "]";
+				+ DESCRIPTION + ", SHIPPED_QUANTITY=" + SHIPPED_QUANTITY
+				+ ", RETURNED_QUANTITY=" + RETURNED_QUANTITY
+				+ ", RETURNABLE_YN=" + RETURNABLE_YN + "]";
 	}
 
 }

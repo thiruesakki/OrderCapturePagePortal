@@ -755,7 +755,7 @@ public class OracleDataHandler {
 		}
 		
 		public SalesOrderLineItems getSoLineItems(String org_id,String soNumber) throws IOException {
-			String query = "http://xxenv-test-get-so-line-items.us-e2.cloudhub.io/api/GetSoLineItems?p_operating_unit_id="
+			String query = "http://xxenv-test-get-so-line-items1.us-e2.cloudhub.io/api/GetSoLineItems?p_operating_unit_id="
 					+ org_id + "&p_so_num=" + soNumber;
 			System.out.println(query);
 			URL urlForGetRequest = new URL(query);
@@ -811,9 +811,11 @@ public class OracleDataHandler {
 			}
 			return returnsReasonListObj;
 		}
-		 public RMAResponseObject saveReturnsMule(RMAOverallObject rmaOverallObject) throws IOException {
-				String query = "http://create-rma-order1.us-e2.cloudhub.io/api/RMAOrder?p_operating_unit_id="
-						+ rmaOverallObject.getOrgID() + "&p_order_type=" + rmaOverallObject.getReturnType()+"&p_ref_so="+ rmaOverallObject.getRefSO();
+		 public RMAResponseObject saveReturnsOrderMule(RMAOverallObject rmaOverallObject) throws IOException {
+				String query = "http://create-rma-order1.us-e2.cloudhub.io/api/RMAOrder?p_order_type="
+						+ rmaOverallObject.getReturnType() + "&p_ref_so=" + rmaOverallObject.getRefSO()+"&p_operating_unit_id="
+						+ rmaOverallObject.getOrgID();
+
 				System.out.println(query);
 				URL obj = new URL(query);
 				String readLine = null;
@@ -827,12 +829,13 @@ public class OracleDataHandler {
 				String postParams ="";
 				Gson gson=new Gson();
 				postParams= gson.toJson(rmaOverallObject);
+				os.write(postParams.getBytes());
 				os.flush();
 				os.close();
 				int responseCode = connection.getResponseCode();
 				System.out.println("POST Response Code :  " + responseCode);
 		        System.out.println("POST Response Message : " + connection.getResponseMessage());
-		        RMAResponseObject rmaRes=new RMAResponseObject();
+		        RMAResponseObject rmaResponse=new RMAResponseObject();
 				if (responseCode == HttpURLConnection.HTTP_OK) {
 					BufferedReader in = new BufferedReader(new InputStreamReader(
 							connection.getInputStream()));
@@ -844,10 +847,10 @@ public class OracleDataHandler {
 				in.close();
 				outputString = response.toString();
 				System.out.println("placeorder result"+outputString);
-				rmaRes=gson.fromJson(outputString,RMAResponseObject.class);
+				rmaResponse=gson.fromJson(outputString,RMAResponseObject.class);
 				} else {
 					System.out.println("POST NOT WORKED");
 				}
-				return rmaRes;
+				return rmaResponse;
 		}
 }
