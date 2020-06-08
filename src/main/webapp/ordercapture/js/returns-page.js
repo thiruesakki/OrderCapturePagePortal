@@ -604,7 +604,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				
 			});
 			
-			$("#Tot_No_Of_Lines").html();
+			$("#Tot_No_Of_Lines").html(tot_lines);
 			
 			
 //			$("#totalWeight").html(tarkaRound(e_tot_wt));
@@ -1894,7 +1894,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 								$("#bpicc_tableDetails tbody").append(html);
 								new_tr_id++;
 							});
-				 $("#Tot_No_Of_Lines").html(--new_tr_id);
+//				 $("#Tot_No_Of_Lines").html(--new_tr_id);
 				 var returnsType=$("#select_returns_type").val();
 				 if(returnsType==""){
 					 $('[id^=reqQnty_]').attr('disabled',true);
@@ -2175,7 +2175,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 							 $(".loader").hide();
 							 console.log("result data"+data);
 							 var object=data.object;
-//							 BpiccReturnsOrder.ApiProcessSubmitOrderdata(object);
+							 BpiccReturnsOrder.ApiProcessSubmitOrderdata(object);
 						},
 						error: function (msg) {
 							 $(".loader").hide();
@@ -2280,21 +2280,21 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 //			 X_RESPONSE_STATUS=$(xml).find('X_RESPONSE_STATUS').text() ;
 //			 X_RESPONSE_MESSAGE=$(xml).find('X_RESPONSE_MESSAGE').text()
 //			 X_SALES_ORDER_NUMBER=$(xml).find('X_SALES_ORDER_NUMBER').text()
-			var X_RESPONSE_STATUS=obj['x_response_status'] ;
-			var X_RESPONSE_MESSAGE=obj['x_response_message'] ;
-			var X_SALES_ORDER_NUMBER=obj['x_sales_order_number'];
-			 if(X_RESPONSE_STATUS=="S")
+//			var X_RESPONSE_STATUS=obj['x_response_status'] ;
+//			var X_RESPONSE_MESSAGE=obj['x_response_message'] ;
+			var X_SALES_ORDER_NUMBER=obj.x_order_number;
+			 if(obj.x_return_message=="Order Successfuly Created")
 			 {
 				// BpiccReturnsOrder.EnableAddRowsAndButtonPoValidation();
-				alert(X_RESPONSE_MESSAGE+" - Sales Order No is "+X_SALES_ORDER_NUMBER);
-				window.location.href= selectAccountPrefix + "order-history.html";
+				alert(obj.x_return_message+" - Sales Order No is "+X_SALES_ORDER_NUMBER);
+				window.location.href= selectAccountPrefix + "return-history.html";
 				// location.reload(); ;
 			 }
 			 else
 			 {
 				 $("#submit_order").show();
 			 // BpiccReturnsOrder.DisableAddRowsAndButtonPoValidation();
-			 alert(X_RESPONSE_MESSAGE);
+			 alert(obj.x_return_message);
 			 }
 			  
 			}
