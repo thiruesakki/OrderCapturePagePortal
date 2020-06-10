@@ -73,7 +73,8 @@ $("#bpicc_tableDetails tbody tr#1").remove();
 	});
   $('#submit_order').on('click', function(e){
 	  e.preventDefault();
-		BpiccReturnsOrder.SubmitFinalOrder();
+	    submitValidation();
+		
 	});
 
   $('#validate_on_entry').on('click', function(e){
@@ -1877,14 +1878,14 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 								
 								if(RETURNABLE_YN=="Returnable"){
 									html+='<td><input id="reqQnty_'+new_tr_id+'" disabled=""  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="qtyValidation('+new_tr_id+');;" class="inputReqQnty" '+dis+' type="text" value=""></td>';
-									html+='<td><select id="select_returns_reason_'+new_tr_id+'" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" ><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
+									html+='<td><select id="select_returns_reason_'+new_tr_id+'" onchange="Validation()" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" ><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
 //									html+='<td><input type="checkbox" name="" Style="margin-top:15px" value="checked" /><td>';
 //									html+='<td><label for="Y" Style="margin-top:10px">Y</label></td>';
 									html+='<td><span class="circleIcon"><i class="fa fa-check-circle greenIcon" aria-hidden="true"></i></span><input type="hidden" id="returnableValue'+new_tr_id+'" name="returnableValue" value="Y"></td>';
 											
 								}else{
 									html+='<td><input id="d_reqQnty_'+new_tr_id+'" disabled=""  maxlength=5  onkeypress="return acceptNumbersOnlyForModule(event);" onblur="qtyValidation('+new_tr_id+');;" class="inputReqQnty" '+dis+' type="text" value=""></td>';
-									html+='<td><select id="d_select_returns_reason" disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" ><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
+									html+='<td><select id="d_select_returns_reason"  disabled="" Style="margin-left:24px;margin-top:8px;width:142px;font-size:11px;height:24px" ><option value="select_returns_reason">Select Returns Reason</option><option value="">All Orders</option></select></td>';
 //									html+='<td><input type="checkbox" name="" disabled="" Style="margin-top:15px" value="checked" /><td>';
 //									html+='<td><label for="N" Style="margin-top:10px">N</label></td>';
 									html+='<td><span class="circleIcon"><i class="fa fa-times-circle redIcon" style="font-size: 20px;margin-top: 12px;margin-left: -18px;" aria-hidden="true"></i></span><input type="hidden" id="returnableValue'+new_tr_id+'" name="returnableValue" value="N"></td>';
@@ -2583,4 +2584,42 @@ function appendReturnReason(obj) {
 	}
 	
 
+}
+
+function Validation(){
+	var data=$("#bpicc_tableDetails tbody tr");
+	
+	$.each(data,function(k,v)
+	{
+	var tr_id=$(this).attr("id");
+	var reqQntyValue=$("#reqQnty_"+tr_id).val();
+//	alert(reqQntyValue);
+	if (reqQntyValue == "") {
+		$("#reqQnty_"+tr_id).addClass("errorError");
+	}
+	else{
+		$("#reqQnty_"+tr_id).removeClass("errorError");
+	}
+	});
+}
+
+function submitValidation(){
+	var data=$("#bpicc_tableDetails tbody tr");
+	
+	$.each(data,function(k,v)
+	{
+	var tr_id=$(this).attr("id");
+	var reqQntyValue=$("#reqQnty_"+tr_id).val();
+	var select_returns_reasonValue=$("#select_returns_reason_"+tr_id).val(); 
+//	alert(reqQntyValue);
+	if (reqQntyValue == "" && select_returns_reasonValue=="") {
+		$("#reqQnty_"+tr_id).addClass("errorError");
+		$("#select_returns_reason_"+tr_id).addClass("errorError");
+	}
+	else{
+		$("#reqQnty_"+tr_id).removeClass("errorError");
+		$("#select_returns_reason_"+tr_id).removeClass("errorError");
+		BpiccReturnsOrder.SubmitFinalOrder();
+	}
+	});
 }

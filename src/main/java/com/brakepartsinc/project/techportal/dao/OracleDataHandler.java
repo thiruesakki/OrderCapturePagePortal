@@ -812,7 +812,8 @@ public class OracleDataHandler {
 			return returnsReasonListObj;
 		}
 		 public RMAResponseObject saveReturnsOrderMule(RMAOverallObject rmaOverallObject) throws IOException {
-				String query = "http://create-rma-order1.us-e2.cloudhub.io/api/RMAOrder?p_order_type="
+//				String query = "http://create-rma-order1.us-e2.cloudhub.io/api/RMAOrder?p_order_type="
+			    String query = "http://create-rma-order2.us-e2.cloudhub.io/api/CreateRmaOrder?p_order_type="
 						+ rmaOverallObject.getReturnType() + "&p_ref_so=" + rmaOverallObject.getRefSO()+"&p_operating_unit_id="
 						+ rmaOverallObject.getOrgID();
 
