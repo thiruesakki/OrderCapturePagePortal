@@ -1349,17 +1349,17 @@
                         </div>
                         <div Style="margin-left:21.5%;" class="collapse navbar-collapse navbar-left chinaEnglish">
                             <ul class="nav navbar-nav">
-                            <li class="dropdown"><a href="#" data-toggle="dropdown">Customer Central</a>
+                           <li class="dropdown"><a href="#" data-toggle="dropdown">Customer Central</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/selectAccount.html">Select Account</a></li>
-                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/check-stock.html">Check Stock</a></li>
-                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/index.html">Place Order</a></li>
-                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/order-history.html">Order History</a></li>
-                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/returns-page.html">Returns</a></li>
-                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/return-history.html">Returns History</a></li>
+                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/selectAccount.html" id="selectAccount" >Select Account</a></li>
+                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/check-stock.html" id="checkStock" >Check Stock</a></li>
+                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/index.html" id="placeOrder">Place Order</a></li>
+                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/order-history.html" id="orderHistory" >Order History</a></li>
+                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/returns-page.html" id="returns" >Returns</a></li>
+                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/return-history.html" id="returnsHistory" >Returns History</a></li>
 <!--                                         <li><a href="#">Why BPI</a></li> -->
-                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/priceList.html">Price Lists</a></li>
-                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/order-history.html">Invoice Details</a></li>
+                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/priceList.html" id="priceList" >Price Lists</a></li>
+                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/order-history.html" id="invoiceDetails" >Invoice Details</a></li>
                                         
                                     </ul>
                                 </li>
@@ -1462,8 +1462,8 @@
                                  <li class="dropdown"><a href="http://localhost:8080/OrderCapturePortal/ordercapture/order-history.html" data-toggle="dropdown">New Features</a>
                                     <ul class="dropdown-menu">
                                         <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/order-history.html">Invoice Details</a></li>
-                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/returns-page.html">Returns</a></li>
-										<li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/return-history.html">Returns History</a></li>
+                                        <li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/returns-page.html" id="newReturns">Returns</a></li>
+										<li><a href="http://localhost:8080/OrderCapturePortal/ordercapture/return-history.html" id="newReturnsHistory">Returns History</a></li>
                                        
                                     </ul>
                                 </li>
@@ -1687,52 +1687,53 @@
 
 		<ul>
 				<li>
-			<span class="page "><a href="selectAccount.html">
+			<span class="page " id="liselectAccount" ><a href="selectAccount.html">
 					Select Account
 			</a></span>
 
 		</li>
 				<li>
-			<span class="page "><a href="check-stock.html">
+			<span class="page " id="licheckStock" ><a href="check-stock.html">
 					Check Stock
 			</a></span>
 
 		</li>
 				<li>
-			<span class="page "><a href="index.html">
+			<span class="page " id="liplaceOrder" ><a href="index.html">
 					Place Order
 			</a></span>
 
 		</li>
 				<li>
-			<span class="page "><a href="order-history.html">
+			<span class="page " id="liorderHistory"  ><a href="order-history.html">
 					Order History
 			</a></span>
 
 		</li>
 		<li>
-			<span class="page "><a href="returns-page.html">
+			<span class="page " id="lireturns" ><a href="returns-page.html">
 					Returns
 			</a></span>
 
 		</li>
 		<li>
-			<span class="page "><a href="return-history.html">
+			<span class="page " id="lireturnsHistory" ><a href="return-history.html">
 					Returns History
 			</a></span>
 
 		</li>
 				<li>
-			<span class="page "><a href="priceList.html">
+			<span class="page " id="lipriceList" ><a href="priceList.html">
 					Price Lists
 			</a></span>
 
 		</li>
 		<li>
-			<span class="page "><a href="http://localhost:8080/OrderCapturePortal/ordercapture-admin/admin.html" id="admin_bpi">
+			<span class="page " id="liadmin"><a href="http://localhost:8080/OrderCapturePortal/ordercapture-admin/admin.html" id="admin_bpi">
 					Admin 
 			</a></span>
-			</li>
+
+		</li>
 		</ul>
 		</div><!-- end  -->
 			</div>

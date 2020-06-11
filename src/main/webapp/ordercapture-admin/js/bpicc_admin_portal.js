@@ -467,6 +467,7 @@ BpiccAdmin = {
 			}
 			});
 		user.fCustomers = customerAccounts;
+		console.log("user json"+JSON.stringify(user));
 		if(invalidShiptos.length > 0){
 			var errorString = 'The following accounts are inactive or invalid. To save changes delete the rows with invalid accounts before clicking Update: ' + invalidShiptos.toString();
 			console.log(errorString);

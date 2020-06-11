@@ -74,10 +74,11 @@ $(document)
 															var obj = JSON
 																	.parse(json.object);
 															if (json.status == 0) {
-																alert("Login Successfully");
 																var userID = obj.id;
 																setCookie("userID",obj.id);
 																setCookie("isadmin",obj.isadmin);
+																BpiccCommon.GetUserRoleDetails(1);
+																alert("Login Successfully");
 //																url = 'bpionline-mexico/selectAccount.html?q='
 //																		+ encodeURIComponent(Encoding(userID));
 																url = 'ordercapture/selectAccount.html';

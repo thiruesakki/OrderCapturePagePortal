@@ -2,11 +2,12 @@ var userRequestID="";
 var isadmin="";
 $(window).on('load', function () {
  
-	 BpiccCommon.GetUserRoleDetails();
+	 BpiccCommon.GetUserRoleDetails(2);
    // BpiccCommon.ProcessGetUserRoleDetails("S");
 	 userRequestID=getCookie("userID");
 	 isadmin=getCookie("isadmin");
-	 adminRole();
+//	 adminRole();
+	 userRoleBasedAccess();
 //	 if(getSearchParams('q')!=null && getSearchParams('q')!=''){	 
 //		 var requestID=Decoding(decodeURIComponent(getSearchParams('q')));
 //		 userRequestID=requestID;
@@ -42,6 +43,11 @@ BpiccCommonClass=function()
   	this.web_mssql_api_url	= "/OrderCapturePortal/REST/WebService/";//changed source code
   	this.web_oracle_api_url	= "/OrderCapturePortal/REST/OracleWebService/";
   	this.distributor="0";
+  	this.checkstock_exists="0";
+  	this.view_status_exists="0";
+  	this.returns_exists="0";
+  	this.returns_history_exists="0";
+  	this.price_list_exist="0";
 
     /* includeJsFilesMannually("js/bpicc_error_msgs.js");
      this.web_api_url="http://localhost:8080/OracleApi/OracleApiServlet";  
@@ -82,7 +88,7 @@ BpiccCommon=
 			  userID=2;
 		  return userID;
 	},
-	GetUserRoleDetails:function()
+	GetUserRoleDetails:function(fromPage)
 	{
 		var userID=BpiccCommon.GetUserIdInfo();
 		if(userID==""||userID==null){
@@ -97,7 +103,12 @@ BpiccCommon=
 					 dataType: "json",
 					data:"userID="+userID,
 					success: function (data1) {
-						BpiccCommon.ProcessGetUserRoleDetails(data1);
+						if(fromPage==1){
+							var roles = data1.object['roles'];
+							BpiccCommon.SetUserRoleCookie(roles);
+						}else{
+							BpiccCommon.ProcessGetUserRoleDetails(data1);
+						}
 					},
 					error: function (msg) {
 						 BpiccCommon.HandleApiCals();
@@ -143,7 +154,7 @@ BpiccCommon=
 			if(empty(getCookie("selected_ship_to")))
 			{
 				alert("Account information is currently unavailable.  Please try again in a few minutes or contact customer service at 800-323-0354 for assistance.  We apologize for any inconvenience.");
-				window.location.href = selectAccountPrefix;
+				window.location.href = "selectAccount.html";
 				return false;
 			}
 			BpiccPlaceOrder.GetShippingMethodTypes();
@@ -185,7 +196,7 @@ BpiccCommon=
 			 if(empty(getCookie("selected_ship_to")))
 			{
 				alert("Account information is currently unavailable.  Please try again in a few minutes or contact customer service at 800-323-0354 for assistance.  We apologize for any inconvenience.");
-				window.location.href = selectAccountPrefix;
+				window.location.href = "selectAccount.html";
 				return false;
 			}
 			 
@@ -206,7 +217,7 @@ BpiccCommon=
 			   if(empty(getCookie("selected_ship_to")))
 			{
 				alert("Account information is currently unavailable.  Please try again in a few minutes or contact customer service at 800-323-0354 for assistance.  We apologize for any inconvenience.");
-				window.location.href = selectAccountPrefix;
+				window.location.href = "selectAccount.html";
 				return false;
 			}
 			
@@ -222,7 +233,7 @@ BpiccCommon=
 			   if(empty(getCookie("selected_ship_to")))
 				{
 					alert("Account information is currently unavailable.  Please try again in a few minutes or contact customer service at 800-323-0354 for assistance.  We apologize for any inconvenience.");
-					window.location.href = selectAccountPrefix;
+					window.location.href = "selectAccount.html";
 					return false;
 				}
 				
@@ -236,7 +247,36 @@ BpiccCommon=
 
 
 	},
-	
+	SetUserRoleCookie:function(roles)
+	{
+		$.each(roles,function(k,v)
+	   {
+			roleName=v['roleName'];
+			console.log('Rolenames:'+roleName);
+			 if(roleName=="Admin"){
+				 setCookie("isAdminrole",1);
+			 }
+		 if(roleName=="StockCheck"){
+			 setCookie("isStockCheck",1);
+		 }
+		if(roleName=="ViewOrderStatus"){
+			 setCookie("isViewOrderStatus",1);
+		 }
+	    if(roleName=="StockOrder"){
+			 setCookie("isStockOrder",1);
+		 }
+		if(roleName=="Returns"){
+			 setCookie("isReturns",1);
+		 }
+	    if(roleName=="ReturnsHistory"){
+			 setCookie("isReturnsHistory",1);
+		 }
+		if(roleName=="PriceList"){
+			 setCookie("isPriceList",1);
+		 }
+		 });
+		
+	},
 	GetRightsData:function(roles)
 	{
 		var place_order_right_exists=0;
@@ -245,14 +285,14 @@ BpiccCommon=
 		{
 			
 			 roleName=v['roleName'];
+			 console.log(roleName);
 			 if(roleName=="StockOrder" || roleName=='EmergencyOrder'   || roleName=='DropShip')
 			 {
 				 place_order_right_exists++;
 			 }
-			 if(roleName=="Distributor"){
+			 else if(roleName=="Distributor"){
 				 dist=1;
 			 }
-			 
 		});
 		bpi_com_obj.distributor=dist;
 //		setCookie("distributor",dist);
@@ -826,12 +866,94 @@ function adminRole(){
 		$('#admin_bpi').hide();
 	}
 }
+function userRoleBasedAccess(){
+	var isAdminrole=getCookie("isAdminrole");
+	 var isStockCheck=getCookie("isStockCheck");
+	 var isViewOrderStatus=getCookie("isViewOrderStatus");
+	 var isStockOrder=getCookie("isStockOrder");
+	 var isReturns=getCookie("isReturns");
+	 var isReturnsHistory=getCookie("isReturnsHistory");
+	 var isPriceList=getCookie("isPriceList");
+	 console.log(isReturns);
+	 if(isAdminrole==1){
+		 $('#admin_bpi').show();
+		 $('#liadmin').show();
+		}
+		else{
+			$('#admin_bpi').hide();
+			 $('#liadmin').hide();
+		}
+	 if(isStockCheck==1){
+		 $('#checkStock').show();
+		 $('#licheckStock').show();
+		}
+		else{
+			$('#checkStock').hide();
+			 $('#licheckStock').hide();
+		}
+	 if(isViewOrderStatus==1){
+		 $('#orderHistory').show();
+		 $('#liorderHistory').show();
+		}
+		else{
+			 $('#orderHistory').hide();
+			 $('#liorderHistory').hide();
+		}
+	 if(isStockOrder==1){
+		 $('#placeOrder').show();
+		 $('#liplaceOrder').show();
+		}
+		else{
+			$('#placeOrder').hide();
+			 $('#liplaceOrder').hide();
+		}
+	 if(isReturns==1){
+		 $('#newReturns').show();
+		 $('#returns').show();
+		 $('#lireturns').show();
+		}
+		else{
+			 $('#newReturns').hide();
+			 $('#returns').hide();
+			 $('#lireturns').hide();
+		}
+	 if(isReturnsHistory==1){
+			 $('#newReturnsHistory').show();
+		 $('#returnsHistory').show();
+		 $('#lireturnsHistory').show();
+		}
+		else{
+			$('#newReturnsHistory').hide();
+			 $('#returnsHistory').hide();
+			 $('#lireturnsHistory').hide();
+		}
+	 if(isPriceList==1){
+		 $('#priceList').show();
+		 $('#lipriceList').show();
+		}
+		else{
+			$('#priceList').hide();
+			 $('#lipriceList').hide();
+		}
+	 
+	
+}
 function log(){
-    
     if (confirm("Are you sure do you want to logout?")) {
     	document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     	document.cookie = "isadmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    	deleteAllCookies();
     	location.href = "http://localhost:8080/OrderCapturePortal/";
-      
     } 
+}
+
+function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
 }
