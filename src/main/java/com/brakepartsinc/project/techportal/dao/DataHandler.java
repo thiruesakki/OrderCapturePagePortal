@@ -834,7 +834,8 @@ public class DataHandler {
 				+ " ,u.description,u.years_of_experience,u.area_of_speciality,u.bays_in_shop,u.brake_jobs_in_a_month"
 				+ " ,u.list_in_find_a_shop,u.currently_using_raybestos_products,u.mailformat ,u.maildisplay,"
 				+ " u.htmleditor,u.shopowner,u.timemodified,u.nickname,u.keepShopPrivate,u.KeepEmployeePrivate,"
-				+ " u.iscustomer, u.referedby, isNull(dbo.CombineJobCatValues(u.id),'') jobtitle, isNull(dbo.CombineOrgValues(u.id),'') organization "
+				+ " u.iscustomer, u.referedby"
+//				+ " u.iscustomer, u.referedby, isNull(dbo.CombineJobCatValues(u.id),'') jobtitle, isNull(dbo.CombineOrgValues(u.id),'') organization "
 				+ " FROM dbo.bpi_user u where u.id  =  " +usr;
 
 	//	System.out.println("Record set in UserObject:QueryString: "  + queryString);
@@ -899,8 +900,8 @@ public class DataHandler {
 						.getString("Keepemployeeprivate"));
 				userObject.setIscustomer(rs.getInt("iscustomer"));
 				userObject.setReferedby(rs.getString("referedby"));
-				userObject.setJobtitleList(TPUtility.StringToJobTitleObject(rs.getString("jobtitle")));
-				userObject.setOrganizationList(TPUtility.StringToOrganizationObject(rs.getString("organization"))); 
+//				userObject.setJobtitleList(TPUtility.StringToJobTitleObject(rs.getString("jobtitle")));
+//				userObject.setOrganizationList(TPUtility.StringToOrganizationObject(rs.getString("organization"))); 
 				if (userObject.getLastaccess() != null
 						&& userObject.getLastaccess().equals("") == false) {
 					userObject

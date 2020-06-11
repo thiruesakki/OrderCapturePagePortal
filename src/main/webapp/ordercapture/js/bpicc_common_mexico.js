@@ -7,6 +7,7 @@ $(window).on('load', function () {
 	 userRequestID=getCookie("userID");
 	 isadmin=getCookie("isadmin");
 //	 adminRole();
+	 userName();
 	 userRoleBasedAccess();
 //	 if(getSearchParams('q')!=null && getSearchParams('q')!=''){	 
 //		 var requestID=Decoding(decodeURIComponent(getSearchParams('q')));
@@ -956,4 +957,32 @@ function deleteAllCookies() {
         var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
+}
+
+function userName(){
+	 var userID = userRequestID;
+	 console.log("userID"+userID);
+	 var url = bpi_com_obj.web_mssql_api_url+"GetUserProfile";
+		jQuery.ajax({
+				type: "GET",
+				url: url,
+				 dataType: "json",
+				data:"userID="+userID,
+				success: function (data1) {
+					console.log("GetUserProfile"+JSON.stringify(data1));
+					var userObj = JSON.parse(data1.object);
+					console.log("userObj"+userObj+userObj.firstName)
+					if(userObj!= null){
+						
+						$('.userName').text("WELCOME "+userObj.firstName.toUpperCase());
+					}
+					else{
+						
+					}
+				},
+				error: function (msg) {
+					 BpiccCommon.HandleApiCals();
+					  alert("Failed1: " + msg.status + ": " + msg.statusText);
+				}
+			});
 }
