@@ -487,14 +487,14 @@ OrderHistory=
                         var ORDER_NUMBER= object.ORDER_NUMBER;
 //   					 
                         var CUST_PO_NUMBER= object.CUST_PO_NUMBER==undefined?"":object.CUST_PO_NUMBER;
-                        var RETURNED_DATE= object.RETURNED_DATE;
+                        var RETURNED_DATE= object.RETURNED_DATE==undefined?"":object.RETURNED_DATE;
 //                        var SHIP_DATE= object.SHIP_DATE==undefined?"":object.SHIP_DATE; 
-                        var TOTAL_LINES= object.TOTAL_LINES;
-                        var RETURNED_PIECES= object.RETURNED_PIECES;
+                        var TOTAL_LINES= object.TOTAL_LINES==undefined?"":object.TOTAL_LINES;
+                        var RETURNED_PIECES= object.RETURNED_PIECES==undefined?"":object.RETURNED_PIECES;
 //                        var SHIPPED_PIECES= object.SHIPPED_PIECES;
 //                        var CANCELLED_PIECES= object.CANCELLED_PIECES;
-                        var RECEIPT_NUMBER = object.RECEIPT_NUMBER;
-                        var RETURN_STATUS = object.RETURN_STATUS;
+                        var RECEIPT_NUMBER = object.RECEIPT_NUMBER==undefined?"":object.RECEIPT_NUMBER;
+                        var RETURN_STATUS = object.RETURN_STATUS==undefined?"":object.RETURN_STATUS;
 						 html+="<tr id="+tr_id+">"
 						 
                          html+='<td> '+CUST_PO_NUMBER+' </td> ';

@@ -2287,7 +2287,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			 if(obj.x_return_message=="Order Successfuly Created")
 			 {
 				// BpiccReturnsOrder.EnableAddRowsAndButtonPoValidation();
-				alert(obj.x_return_message+" - Sales Order No is "+X_SALES_ORDER_NUMBER);
+				alert("RMA "+obj.x_return_message+" - Sales Order No is "+X_SALES_ORDER_NUMBER);
 				window.location.href= selectAccountPrefix + "return-history.html";
 				// location.reload(); ;
 			 }
