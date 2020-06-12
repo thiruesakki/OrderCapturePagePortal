@@ -30,6 +30,7 @@
 <script src="js/jquery.object-fit-cover-simple.js"></script>
 <script src="js/slick.min.js"></script>
 <script src="js/bpi-online.js"></script>
+<script src="js/bpicc_common_mexico.js"></script>
 <script src="https://static.addtoany.com/menu/page.js"></script>
 <script src="js/main.js"></script>
 <script src="js/jquery.flip.js"></script>
@@ -947,6 +948,7 @@
                     <div class="row searchBlock hidden-xs">
                         <div class="col-md-5 col-xs-8 col-xs-push-0 col-sm-push-4 col-md-push-7">
                             <div class="social">
+                             <h4><b><span Style="color:White;font-family:Calibri (Body);font-weight: 500;" class="userName"></span></b></h4>
 <!--                             <input type="button" onclick="log();" Style="background-color:#2E4F6A;color:white;margin-left:-60px"  value="Logout" /> -->
   <a href="#" class="btn btn-blue btn-lg" onclick="log();">
           <span class="glyphicon glyphicon-log-out"></span> Log out
@@ -1134,7 +1136,7 @@
 		</li>
 				<li>
 			<span class="page " id="lipriceList" ><a href="priceList.html">
-					Price Lists
+			<mark Style="color: White;background-color:#2E4F6A;">&#8592; Price Lists</mark>
 			</a></span>
 
 		</li>
@@ -2044,27 +2046,6 @@
 </footer>
 
 <script src="js/bootstrap.min.js"></script>
-<script>
-var isadmin=getCookie("isadmin");
-function adminRole(){
-	 console.log("isadmin"+isadmin);
-	if(isadmin==1){
-		$('#admin_bpi').show();
-	}
-	else{
-		$('#admin_bpi').hide();
-	}
-}
-function log(){
-    
-    if (confirm("Are you sure do you want to logout?")) {
-    	document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    	document.cookie = "isadmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    	location.href = "http://localhost:8080/OrderCapturePortal/";
-      
-    } 
-}
-</script>
 <script type="text/javascript">
             $(function () {
                 $('#datetimepicker1').datetimepicker();

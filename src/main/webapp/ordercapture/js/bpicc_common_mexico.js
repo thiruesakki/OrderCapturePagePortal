@@ -971,10 +971,14 @@ function userName(){
 				success: function (data1) {
 					console.log("GetUserProfile"+JSON.stringify(data1));
 					var userObj = JSON.parse(data1.object);
-					console.log("userObj"+userObj+userObj.firstName)
+					console.log("userObj"+userObj)
+					var userFLName=userObj.firstName+" "+userObj.lastname;
+					console.log("userFLName"+userFLName);
+					var userLoginName=userFLName.charAt(0).toUpperCase() + userFLName.slice(1);
+					console.log("userLoginName"+userLoginName); 
 					if(userObj!= null){
 						
-						$('.userName').text("WELCOME "+userObj.firstName.toUpperCase());
+						$('.userName').text("Hello, "+userLoginName);
 					}
 					else{
 						

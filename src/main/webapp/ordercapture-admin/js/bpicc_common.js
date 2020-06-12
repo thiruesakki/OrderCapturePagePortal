@@ -1,4 +1,5 @@
- $(window).on('load', function () {
+var userRequestID="";  
+$(window).on('load', function () {
  
 	 BpiccCommon.GetUserRoleDetails();
    // BpiccCommon.ProcessGetUserRoleDetails("S");
@@ -7,6 +8,9 @@
 	$('.logoutBlock .login').on('click', function () {
 		window.location.reload(true)
 	})
+	
+	userRequestID=getCookie("userID");
+	userName();
 })
 
  // selectAccountPrefix="";
@@ -502,4 +506,35 @@ function log(){
     	location.href = "http://localhost:8080/OrderCapturePortal/";
       
     } 
+}
+function userName(){
+	 var userID = userRequestID;
+	 console.log("userID"+userID);
+	 var url = bpi_com_obj.web_mssql_api_url+"GetUserProfile";
+		jQuery.ajax({
+				type: "GET",
+				url: url,
+				 dataType: "json",
+				data:"userID="+userID,
+				success: function (data1) {
+					console.log("GetUserProfile"+JSON.stringify(data1));
+					var userObj = JSON.parse(data1.object);
+					console.log("userObj"+userObj)
+					var userFLName=userObj.firstName+" "+userObj.lastname;
+					console.log("userFLName"+userFLName);
+					var userLoginName=userFLName.charAt(0).toUpperCase() + userFLName.slice(1);
+					console.log("userLoginName"+userLoginName); 
+					if(userObj!= null){
+						
+						$('.userName').text("Hello, "+userLoginName);
+					}
+					else{
+						
+					}
+				},
+				error: function (msg) {
+					 BpiccCommon.HandleApiCals();
+					  alert("Failed1: " + msg.status + ": " + msg.statusText);
+				}
+			});
 }

@@ -690,6 +690,16 @@ OrderHistory=
 								 orderDetailsObject=obj;
 //								 console.log(JSON.stringify(orderDetailsObject));
 								 OrderHistory.ApiProcessOrderDetailAPI(obj);
+								 
+									var orderListObj=orderDetailsObject.x_order_detail;
+									for (var i = 0; i < orderListObj.length; i++) {
+										  var object = orderListObj [i];
+										 
+							                var WAREHOUSE_CODE= object.SHIP_FROM;
+										  console.log("WAREHOUSE_CODE"+WAREHOUSE_CODE);
+							                
+									}
+//									invoiceCheck(WAREHOUSE_CODE);
 							 }else{
 								 alert('Order Details is not found');
 							 }
@@ -1662,14 +1672,10 @@ html+='<div id="payment_pdf">';
 				   	var INVOICE_CURRENCY_CODE= xmlInvoiceobject.INVOICE_CURRENCY_CODE;
 				    var CARRIER= 2;
 				    
-				    var paymentInvoiceObj=objPayment.x_payment_matching;
-				    for (var i = 0; i < paymentInvoiceObj.length; i++) {
-				    	var xmlpaymentInvoiceObj = paymentInvoiceObj [i];
-//								  console.log("xmlpaymentInvoiceObj"+JSON.stringify(xmlpaymentInvoiceObj));
 			 
-				    	CUSTOMER_NAME=xmlpaymentInvoiceObj.CUSTOMER_NAME;
+//				    	CUSTOMER_NAME=xmlpaymentInvoiceObj.CUSTOMER_NAME;
 				    	
-				    	
+				    CUSTOMER_NAME="";
 				    	
                 html+='<div class="panel-body">';
                     	html+=' <div class="row">';
@@ -1746,6 +1752,12 @@ html+='<div id="payment_pdf">';
 
 						  
 						
+								  var paymentInvoiceObj=objPayment.x_payment_matching;
+								  if(paymentInvoiceObj.length>0){
+									  
+									  for (var i = 0; i < paymentInvoiceObj.length; i++) {
+										  var xmlpaymentInvoiceObj = paymentInvoiceObj [i];
+//								  console.log("xmlpaymentInvoiceObj"+JSON.stringify(xmlpaymentInvoiceObj));
 							  
 							  var TRANSACTION_DATE=xmlpaymentInvoiceObj.TRANSACTION_DATE;
 							  var PAYMENT_TERM=xmlpaymentInvoiceObj.PAYMENT_TERM;
@@ -1898,6 +1910,7 @@ html+='<div id="payment_pdf">';
             			html+='</div>';	
 						}
 								  }
+			}
 						
 
                     	
@@ -2189,7 +2202,7 @@ $(document).on('click', '#sales_order_no', function() {
  	$("#sales_order_no").autocomplete({
          minLength: 1,
          source: function (request, response) {
-         	console.log("insidde funtion");
+
          	 var filteredArray = $.map(salesOrderNoList, function(item) {
          		 var item2=item.toLowerCase();
          		 var request2=request.term;
