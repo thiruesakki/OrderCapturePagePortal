@@ -907,4 +907,44 @@ public class OracleTPService {
 			}
 			return jsonResult.toString();
 		}
+		@GET
+		@Path("/ValidateSONumber")
+		public String ValidateSONumber(@QueryParam("org_id") String orgID,
+				@QueryParam("so_number") String so_number, @QueryParam("billTo_number") String billTo_number,
+				@QueryParam("shipTo_number") String shipTo_number) {
+			JsonObject jsonResult = new JsonObject();
+			String invoiceJson = null;
+//			JsonArray shipToArrayJson = null;
+			int status = -1;
+			String errorMessage = "";
+			InvoiceOrderCheckObject checkInvoiceStatus=null;
+			try {
+				OracleDataHandler dataHandler = new OracleDataHandler();
+				checkInvoiceStatus=dataHandler.validateSoNumber(orgID, so_number, billTo_number, shipTo_number);
+					status = 0;
+					if (checkInvoiceStatus != null) {
+						status = 0;
+						Gson gson = new Gson();
+						invoiceJson = gson.toJson(checkInvoiceStatus);
+					} else {
+						status = 1;
+						errorMessage = "PO number not found";
+					}
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", errorMessage);
+				jsonResult.addProperty("object", invoiceJson);
+				System.out.println("ValidatePONumber - Result to be returned:"
+						+ jsonResult);
+
+			} catch (Exception e) {
+				status = 6;
+				jsonResult.addProperty("status", status);
+				jsonResult.addProperty("errorMessage", e.getMessage());
+				jsonResult.add("object", null);
+				System.out
+						.println("ValidatePONumber - ERROR Result to be returned:"
+								+ jsonResult);
+			}
+			return jsonResult.toString();
+	}
 }
