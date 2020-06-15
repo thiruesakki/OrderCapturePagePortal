@@ -8,9 +8,17 @@ var orderDetailsObject;
 var globalOrderHistoryObject;
 var salesOrderNoList = [];
 var purchaseOrderNoList = [];
+var shipToAddress="";
+var customerName="";
 $(window).on('load', function() {
 	GetSalesOrderNumberList();
 	GetPurchaseOrderNumberList();
+	shipToAddress=getCookie("selected_ship_to_account_address");
+//	console.log("shipToAddress "+shipToAddress);
+	var arr = [];
+	arr = shipToAddress.split("-");
+	customerName=arr[0];
+//	console.log("customerName "+customerName);
 //	var doc = new jsPDF();
 //	var specialElementHandlers = {
 //	    '#editor': function (element, renderer) {
@@ -1674,8 +1682,8 @@ html+='<div id="payment_pdf">';
 				    
 			 
 //				    	CUSTOMER_NAME=xmlpaymentInvoiceObj.CUSTOMER_NAME;
-				    	
-				    CUSTOMER_NAME="";
+				    	console.log("customerName"+customerName);
+				    
 				    	
                 html+='<div class="panel-body">';
                     	html+=' <div class="row">';
@@ -1684,7 +1692,7 @@ html+='<div id="payment_pdf">';
 							html+='  </div>';
 
 							html+='<div class="col-md-6 shippedFrom">';
-							html+='<span class="title"></span><Span class="shipmethod">'+CUSTOMER_NAME+'</span>';
+							html+='<span class="title"></span><Span class="shipmethod">'+customerName+'</span>';
 							html+=' </div>';
 						html+='</div>  ';
 					    html+=' <div class="row">';
@@ -1892,6 +1900,7 @@ html+='<div id="payment_pdf">';
 					  html+='    <td>'+REFERENCE+'</td>';
 					  html+='    <td class="text-center">'+AMOUNT+'</td>';
 					  html+='</tr>';
+						}
 
 											  html+='  </tbody>';
 											  html+='</table>';
@@ -1908,7 +1917,6 @@ html+='<div id="payment_pdf">';
 
             			html+='</div>'; 
             			html+='</div>';	
-						}
 								  }
 			}
 						
