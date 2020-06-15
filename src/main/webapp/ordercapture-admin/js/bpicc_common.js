@@ -1,6 +1,6 @@
 var userRequestID="";  
 $(window).on('load', function () {
- 
+	 userRoleBasedAccess();
 	 BpiccCommon.GetUserRoleDetails();
    // BpiccCommon.ProcessGetUserRoleDetails("S");
 	 BpiccCommon.LoadProperPageAfterLogin();
@@ -334,7 +334,7 @@ BpiccCommon=
 						},
 						error: function (msg) {
 								 
-							alert("Failed: " + msg.status + ": " + msg.statusText);
+//							alert("Failed: " + msg.status + ": " + msg.statusText);
 						}
 					});  
 	} ,
@@ -537,4 +537,86 @@ function userName(){
 					  alert("Failed1: " + msg.status + ": " + msg.statusText);
 				}
 			});
+}
+function userRoleBasedAccess(){
+	var isAdminrole=getCookie("isAdminrole");
+	 var isStockCheck=getCookie("isStockCheck");
+	 var isViewOrderStatus=getCookie("isViewOrderStatus");
+	 var isStockOrder=getCookie("isStockOrder");
+	 var isReturns=getCookie("isReturns");
+	 var isReturnsHistory=getCookie("isReturnsHistory");
+	 var isPriceList=getCookie("isPriceList");
+	 console.log(isReturns);
+	 if(isAdminrole==1){
+		 $('#admin_bpi').show();
+		 $('#liadmin').show();
+		 $('#priceList').show();
+		 $('#lipriceList').show();
+		}
+		else{
+			$('#admin_bpi').hide();
+			 $('#liadmin').hide();
+			 $('#priceList').hide();
+			 $('#lipriceList').hide();
+		}
+	 if(isStockCheck==1){
+		 $('#checkStock').show();
+		 $('#licheckStock').show();
+		}
+		else{
+			$('#checkStock').hide();
+			 $('#licheckStock').hide();
+		}
+	 if(isViewOrderStatus==1){
+		 $('#orderHistory').show();
+		 $('#liorderHistory').show();
+		 $('#newReturnsHistory').show();
+		 $('#returnsHistory').show();
+		 $('#lireturnsHistory').show();
+		}
+		else{
+			 $('#orderHistory').hide();
+			 $('#liorderHistory').hide();
+			 $('#newReturnsHistory').hide();
+			 $('#returnsHistory').hide();
+			 $('#lireturnsHistory').hide();
+		}
+	 if(isStockOrder==1){
+		 $('#placeOrder').show();
+		 $('#liplaceOrder').show();
+		}
+		else{
+			$('#placeOrder').hide();
+			 $('#liplaceOrder').hide();
+		}
+	 if(isReturns==1){
+		 $('#newReturns').show();
+		 $('#returns').show();
+		 $('#lireturns').show();
+		}
+		else{
+			 $('#newReturns').hide();
+			 $('#returns').hide();
+			 $('#lireturns').hide();
+		}
+//	 if(isReturnsHistory==1){
+//			 $('#newReturnsHistory').show();
+//		 $('#returnsHistory').show();
+//		 $('#lireturnsHistory').show();
+//		}
+//		else{
+//			$('#newReturnsHistory').hide();
+//			 $('#returnsHistory').hide();
+//			 $('#lireturnsHistory').hide();
+//		}
+//	 if(isPriceList==1){
+//		 $('#priceList').show();
+//		 $('#lipriceList').show();
+//		}
+//		else{
+//			$('#priceList').hide();
+//			 $('#lipriceList').hide();
+//		}
+	 
+	
 }

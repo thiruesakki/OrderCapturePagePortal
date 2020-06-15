@@ -351,7 +351,7 @@ BpiccCommon=
 											 setCookie("selected_ship_to_account_no",shipToSiteID);
 											 setCookie("selected_bill_to_location",billToSiteID);
 											 setCookie("selected_org_id",orgID);
-//											 console.log(orgID);
+											 console.log(orgID);
 											 if($("#page_type").val()=='select_account'){
 												 BpiccCommon.GetSingleAccountAddress(CAPI_ALL_SHIP_TO_ACCOUNTS);
 											 }
@@ -423,7 +423,8 @@ BpiccCommon=
 	 
 //			var url = bpi_com_obj.web_api_url;
 		var orgID= getCookie("selected_org_id");
-		var url = bpi_com_obj.web_oracle_api_url+"GetShipToAddress?org_id="+orgID+"&ship_to_location="+ship_to_code;	
+		var url = bpi_com_obj.web_oracle_api_url+"GetShipToAddress?org_id="+orgID+"&ship_to_location="+ship_to_code;
+		console.log('url:'+url);
 //					jQuery.ajax({
 //						type: "POST",
 //						url: url,
@@ -472,6 +473,7 @@ BpiccCommon=
 	} ,
 	ProcessGetSingleAccountAddressForShipTo:function(xml)
 	{
+		console.log("xml:"+JSON.stringify(xml));
 		var bill_to_ship_to_str=getCookie("bill_to_ship_to_obj");
 		 var bill_to_ship_to_obj=JSON.parse(bill_to_ship_to_str);
 		 if(empty(bill_to_ship_to_obj))
@@ -480,10 +482,12 @@ BpiccCommon=
 		 }
 	 
 		  try {
-			 
+			  var shipToObj=xml.x_ship_to_address;
+//			 console.log('length:'+shipToObj.length);
 			var li_val="";
-			for (var i = 0; i < xml.length; i++) {
-				  var object = xml [i];
+			for (var i = 0; i < shipToObj.length; i++) {
+				  var object = shipToObj [i];
+				  console.log("obj:"+JSON.stringify(object));
 //				  for (var property in object) {
 //				    console.log('item ' + i + ': ' + property + '=' + object[property]);
 //				    alert(object["DEFAULT_DC"]);
@@ -542,6 +546,24 @@ BpiccCommon=
 			li_val+='</a>';
 			li_val+='</li>'
 	$("#ship_to_ul").html(li_val);
+//			var ACCT_NUM=SHIP_TO;
+//			var selected_ship_to_account_no=ACCT_NUM;
+//			var selected_ship_to_account_address=$("#ship_acc_add_"+ACCT_NUM).html();
+//			 setCookie("selected_ship_to_account_no","");
+//			 setCookie("selected_bill_to_location","");
+//			 setCookie("selected_ship_to_account_no",selected_ship_to_account_no);
+//			 setCookie("selected_ship_to_account_address",selected_ship_to_account_address);
+//			 setCookie("selected_ship_to_wc",DEFAULT_ORG_CODE);
+//			 setCookie("selected_bill_to_location",BILL_TO_FOR_SHIP_TO);
+//			 $("#ship_to_ul li").removeClass("active");
+//			 $("#ship_acc_"+getCookie("selected_ship_to_account_no")).addClass("active");
+//			 // window.location.href="place-order.html";
+//			 console.log(bpi_com_obj.orgID);
+//			 setCookie("selected_org_id",bpi_com_obj.orgID);
+//			 setCookie("selected_ship_to",ACCT_NUM);
+//			 setCookie("selected_bill_to",BILL_TO_FOR_SHIP_TO);
+////			 window.location.href = selectAccountPrefix + "order-history.html?s="+ encodeURIComponent(Encoding(ACCT_NUM))+"&b="+encodeURIComponent(Encoding(BILL_TO_FOR_SHIP_TO));
+//			 window.location.href = selectAccountPrefix + "order-history.html";
 //			 $(xml).find('X_SHIP_TO_ADDRESS').each(function(){
 //                     $(this).find("X_SHIP_TO_ADDRESS_ITEM").each(function(){
 //					 
@@ -879,10 +901,14 @@ function userRoleBasedAccess(){
 	 if(isAdminrole==1){
 		 $('#admin_bpi').show();
 		 $('#liadmin').show();
+		 $('#priceList').show();
+		 $('#lipriceList').show();
 		}
 		else{
 			$('#admin_bpi').hide();
 			 $('#liadmin').hide();
+			 $('#priceList').hide();
+			 $('#lipriceList').hide();
 		}
 	 if(isStockCheck==1){
 		 $('#checkStock').show();
@@ -895,10 +921,16 @@ function userRoleBasedAccess(){
 	 if(isViewOrderStatus==1){
 		 $('#orderHistory').show();
 		 $('#liorderHistory').show();
+		 $('#newReturnsHistory').show();
+		 $('#returnsHistory').show();
+		 $('#lireturnsHistory').show();
 		}
 		else{
 			 $('#orderHistory').hide();
 			 $('#liorderHistory').hide();
+			 $('#newReturnsHistory').hide();
+			 $('#returnsHistory').hide();
+			 $('#lireturnsHistory').hide();
 		}
 	 if(isStockOrder==1){
 		 $('#placeOrder').show();
@@ -918,24 +950,24 @@ function userRoleBasedAccess(){
 			 $('#returns').hide();
 			 $('#lireturns').hide();
 		}
-	 if(isReturnsHistory==1){
-			 $('#newReturnsHistory').show();
-		 $('#returnsHistory').show();
-		 $('#lireturnsHistory').show();
-		}
-		else{
-			$('#newReturnsHistory').hide();
-			 $('#returnsHistory').hide();
-			 $('#lireturnsHistory').hide();
-		}
-	 if(isPriceList==1){
-		 $('#priceList').show();
-		 $('#lipriceList').show();
-		}
-		else{
-			$('#priceList').hide();
-			 $('#lipriceList').hide();
-		}
+//	 if(isReturnsHistory==1){
+//			 $('#newReturnsHistory').show();
+//		 $('#returnsHistory').show();
+//		 $('#lireturnsHistory').show();
+//		}
+//		else{
+//			$('#newReturnsHistory').hide();
+//			 $('#returnsHistory').hide();
+//			 $('#lireturnsHistory').hide();
+//		}
+//	 if(isPriceList==1){
+//		 $('#priceList').show();
+//		 $('#lipriceList').show();
+//		}
+//		else{
+//			$('#priceList').hide();
+//			 $('#lipriceList').hide();
+//		}
 	 
 	
 }
