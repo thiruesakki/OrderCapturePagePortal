@@ -171,7 +171,7 @@ $(window).on('load', function () {
 						  data_set['COUNTRY']=COUNTRY;
 						 var address=ACCT_NAME+" - "+ADDRESS_LINE1+" "+ADDRESS_LINE2+" "+ADDRESS_LINE3+" "+CITY+" "+STATE+" "+POSTAL_CODE+" "+COUNTRY;
 						  console.log("address"+address);
-							li_val+='<li id="ship_acc_'+SHIP_TO+'" onclick="SelectAccount.UpdateShipToSelectAccountNew(\''+SHIP_TO+'\',\''+BILL_TO_FOR_SHIP_TO+'\',\''+DEFAULT_ORG_CODE+'\')"  >';
+							li_val+='<li id="ship_acc_'+SHIP_TO+'" onclick="SelectAccount.UpdateShipToSelectAccountNew(\''+SHIP_TO+'\',\''+BILL_TO_FOR_SHIP_TO+'\',\''+DEFAULT_ORG_CODE+'\',\''+ACCT_NUM+'\')"  >';
 							li_val+='<a href="#">';
 							li_val+='<span class="acctnumber">'+SHIP_TO+'</span>';
 							li_val+='<span class="address" id="ship_acc_add_'+SHIP_TO+'">'+address+'</span>';
@@ -219,7 +219,7 @@ $(window).on('load', function () {
 				  alert(message);
 			  }  
 		},
-		UpdateShipToSelectAccountNew:function(ACCT_NUM,BILL_TO_FOR_SHIP_TO,DEFAULT_ORG_CODE)
+		UpdateShipToSelectAccountNew:function(ACCT_NUM,BILL_TO_FOR_SHIP_TO,DEFAULT_ORG_CODE,ACCOUNT_NUMBER)
 		{ 
 			var selected_ship_to_account_no=ACCT_NUM;
 			var selected_ship_to_account_address=$("#ship_acc_add_"+ACCT_NUM).html();
@@ -236,6 +236,7 @@ $(window).on('load', function () {
 			 setCookie("selected_org_id",bpi_com_obj.orgID);
 			 setCookie("selected_ship_to",ACCT_NUM);
 			 setCookie("selected_bill_to",BILL_TO_FOR_SHIP_TO);
+			 setCookie("selected_acc_num",ACCOUNT_NUMBER);
 //			 window.location.href = selectAccountPrefix + "order-history.html?s="+ encodeURIComponent(Encoding(ACCT_NUM))+"&b="+encodeURIComponent(Encoding(BILL_TO_FOR_SHIP_TO));
 			 window.location.href = selectAccountPrefix + "order-history.html";
 //			 	setTimeout(function(){  window.location.href = selectAccountPrefix + "order-history.html?s="+ encodeURIComponent(Encoding(ACCT_NUM)); }, 400); 

@@ -519,7 +519,7 @@ BpiccCommon=
 					  data_set['POSTAL_CODE']=POSTAL_CODE;
 					  data_set['COUNTRY']=COUNTRY;
 					 var address=ACCT_NAME+" - "+ADDRESS_LINE1+" "+ADDRESS_LINE2+" "+ADDRESS_LINE3+" "+CITY+" "+STATE+" "+POSTAL_CODE+" "+COUNTRY;
-						li_val+='<li id="ship_acc_'+SHIP_TO+'" onclick="SelectAccount.UpdateShipToSelectAccountNew(\''+SHIP_TO+'\',\''+BILL_TO_FOR_SHIP_TO+'\',\''+DEFAULT_ORG_CODE+'\')"  >';
+						li_val+='<li id="ship_acc_'+SHIP_TO+'" onclick="SelectAccount.UpdateShipToSelectAccountNew(\''+SHIP_TO+'\',\''+BILL_TO_FOR_SHIP_TO+'\',\''+DEFAULT_ORG_CODE+'\',\''+ACCT_NUM+'\')"  >';
 						li_val+='<a href="#">';
 						li_val+='<span class="acctnumber">'+SHIP_TO+'</span>';
 						li_val+='<span class="address" id="ship_acc_add_'+SHIP_TO+'">'+address+'</span>';
