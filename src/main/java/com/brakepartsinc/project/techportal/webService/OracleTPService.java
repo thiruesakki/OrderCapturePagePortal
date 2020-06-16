@@ -34,6 +34,7 @@ import com.brakepartsinc.project.techportal.dto.CountryObject;
 import com.brakepartsinc.project.techportal.dto.CustomerObject;
 import com.brakepartsinc.project.techportal.dto.DashboardObject;
 import com.brakepartsinc.project.techportal.dto.DistributorDetailObject;
+import com.brakepartsinc.project.techportal.dto.DropShipToListObject;
 import com.brakepartsinc.project.techportal.dto.InvoiceDetailObject;
 import com.brakepartsinc.project.techportal.dto.InvoiceObject;
 import com.brakepartsinc.project.techportal.dto.InvoiceOrderCheckObject;
@@ -947,4 +948,46 @@ public class OracleTPService {
 			}
 			return jsonResult.toString();
 	}
+		
+				@GET
+				@Path("/getDropShipToAddress")
+				
+				public String getDropShipToAddress(@QueryParam("org_id") String orgID,
+						@QueryParam("custAccountNo") String custAccountNo) {
+					JsonObject jsonResult = new JsonObject();
+					String dropArrayJson = null;
+					int status = -1;
+					String errorMessage = "";
+					try {
+						OracleDataHandler dataHandler = new OracleDataHandler();
+						System.out.println("webservice org_Id :" + orgID + "custAccountNo:"
+								+ custAccountNo);
+						DropShipToListObject dropShipTo = dataHandler.getDropShipToAddress(orgID, custAccountNo);
+						
+						if (dropShipTo != null) {
+							status = 0;
+							Gson gson = new Gson();
+							dropArrayJson = gson.toJson(dropShipTo);
+						} else {
+							status = 1;
+							errorMessage = "Order Shipping List not found";
+						}
+
+						jsonResult.addProperty("status", status);
+						jsonResult.addProperty("errorMessage", errorMessage);
+						jsonResult.addProperty("object", dropArrayJson);
+						System.out.println("dropArrayJson - Result to be returned:"
+								+ jsonResult);
+
+					} catch (Exception e) {
+						status = 6;
+						jsonResult.addProperty("status", status);
+						jsonResult.addProperty("errorMessage", e.getMessage());
+						jsonResult.add("object", null);
+						System.out
+								.println("getDropShipToAddress - ERROR Result to be returned:"
+										+ jsonResult);
+					}
+					return jsonResult.toString();
+				}
 }

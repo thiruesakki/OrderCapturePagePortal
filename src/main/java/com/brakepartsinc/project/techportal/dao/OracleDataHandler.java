@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.brakepartsinc.project.techportal.dto.CheckStockObject;
+import com.brakepartsinc.project.techportal.dto.DropShipToListObject;
 import com.brakepartsinc.project.techportal.dto.InvoiceObject;
 import com.brakepartsinc.project.techportal.dto.InvoiceOrderCheckObject;
 import com.brakepartsinc.project.techportal.dto.OrderHistoryListObject;
@@ -888,5 +889,35 @@ public class OracleDataHandler {
 					System.out.println("GET NOT WORKED");
 				}
 				return checkObject;
+			}
+		 
+		 public DropShipToListObject getDropShipToAddress(String org_id,String custAccountNo) throws IOException {
+				String query = "http://xxenv-test-get-ds-ship-to-address.us-e2.cloudhub.io/GetDsShipToAddress?p_operating_unit_id="
+						+ org_id + "&p_cust_acct_number=" + custAccountNo;
+				System.out.println(query);
+				URL urlForGetRequest = new URL(query);
+				String readLine = null;
+				String outputString = "";
+				DropShipToListObject dropShipToListObj = null;
+				HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+						.openConnection();
+				conection.setRequestMethod("GET");
+				int responseCode = conection.getResponseCode();
+				if (responseCode == HttpURLConnection.HTTP_OK) {
+					BufferedReader in = new BufferedReader(new InputStreamReader(
+							conection.getInputStream()));
+					StringBuffer response = new StringBuffer();
+
+					while ((readLine = in.readLine()) != null) {
+						response.append(readLine);
+					}
+					in.close();
+					outputString = response.toString();
+					Gson g = new Gson();
+					dropShipToListObj = g.fromJson(outputString, DropShipToListObject.class);
+				} else {
+					System.out.println("GET NOT WORKED");
+				}
+				return dropShipToListObj;
 			}
 }
