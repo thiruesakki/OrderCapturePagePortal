@@ -3539,3 +3539,85 @@ function RemoveSpecialChars(str)
 			});
 // 	  return r_str;
  }
+ $('#submit_dropAddres').on('click', function(e){
+	 var SHIP_TO_NAME=$("#company").val();
+		var SHIP_TO_ADDRESS1=$("#address1").val();
+		var SHIP_TO_ADDRESS2=$("#address2").val();
+		var SHIP_TO_ADDRESS2="";
+		var SHIP_TO_ADDRESS3="";
+		var SHIP_TO_ADDRESS4="";
+		var SHIP_TO_CITY=$("#city").val();
+		var SHIP_TO_STATE=$("#state").val();
+//		var SHIP_TO_COUNTRY=$(".shippingAddress #country").val();
+		var SHIP_TO_COUNTRY=$("#country").val();
+		var SHIP_TO_POSTAL_CODE=$("#zip").val();
+		var STORE_ID="";
+		var province="";
+		var county="";
+		var accountNumber=getCookie("selected_acc_num");
+//		var data=$("#bpicc_tableDetails tbody tr");
+		var item_data="";
+		
+		$("#shipping_error_info").html("");
+		$("#shipping_error_info").hide();
+		$("#place_order_error_info").html("");
+		$("#place_order_error_info").hide();
+		
+		if(empty(SHIP_TO_ADDRESS1))
+		{
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("Shipping Address1 is Empty","Error");
+			return false;
+		}
+		else if(empty(SHIP_TO_CITY))
+		{
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("SHIP CITY is Empty","Error");
+			return false;
+		}
+		else if(empty(SHIP_TO_STATE))
+		{
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("SHIP TO STATE is Empty","Error");
+			return false;
+		}
+		else if(empty(SHIP_TO_COUNTRY))
+		{
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("SHIP TO COUNTRY is Empty","Error");
+			return false;
+		}
+		else if(empty(SHIP_TO_POSTAL_CODE))
+		{
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages("SHIP TO  POSTAL_CODE is Empty","Error");
+			return false;
+		}
+		if(!$("#inlineValidate").is(':checked'))
+		{
+			BpiccPlaceOrder.ShowShppingErrorSuccessMessages(" Please Accept terms and conditions","Error");
+			return false;
+		}
+		var url = bpi_com_obj.web_oracle_api_url+"getCustAcct?account_number="+accountNumber+"&org_id="+orgID+"&addr1="+SHIP_TO_NAME
+		+"&addr2="+SHIP_TO_ADDRESS1+"&addr3="+SHIP_TO_ADDRESS2+"&addr4="+SHIP_TO_ADDRESS3+"&city="+SHIP_TO_CITY+"&postalcode="+SHIP_TO_STATE+"&state="+SHIP_TO_STATE
+		+"&province="+province+"&county="+county+"&country="+SHIP_TO_COUNTRY;
+		 console.log("url:"+url);
+		jQuery.ajax({
+			type: "GET",
+			url: url,
+//			 data: JSON.stringify(placeOrderJson),
+			dataType: "json",
+			crossDomain: true,
+			processData: false,
+			// contentType: "text/xml; charset=\"utf-8\"",
+			 
+			success: function (data) {
+				 $(".loader").hide();
+				 console.log("result data"+JSON.stringify(data));
+				 var object=data.object;
+				 if(object.x_return_msg="Success"){
+					 alert("ShipTo address is created : "+x_location);
+				 }
+			},
+			error: function (msg) {
+				 $(".loader").hide();
+					setTimeout(function(){$("#select_order_type").focus();}, 100); 
+				// alert("Failed: " + msg.status + ": " + msg.statusText);
+			}
+});
+ });

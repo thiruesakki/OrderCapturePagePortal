@@ -439,7 +439,7 @@ public class OracleDataHandler {
 			String po_number, String billTo_number, String shipTo_number) throws IOException {
 //		String query = "http://xxenv-test-validate-po-number1.us-e2.cloudhub.io/api/ValidatePoNumber?p_operating_unit_id="
 //				+ org_id + "&p_po_num=" + po_number+"&p_bill_num="+billTo_number+"&p_ship_num="+shipTo_number;
-		String query = "http://xxenv-test-validate-po-number.us-e2.cloudhub.io/api/ValidatePoNumber?p_operating_unit_id="
+		String query = "http://xxenv-test-validate-po-num.us-e2.cloudhub.io/api/ValidatePoNumber?p_operating_unit_id="
 				+ org_id + "&p_po_num=" + po_number+"&p_bill_num="+billTo_number+"&p_ship_num="+shipTo_number;
 		System.out.println(query);
 		URL urlForGetRequest = new URL(query);
