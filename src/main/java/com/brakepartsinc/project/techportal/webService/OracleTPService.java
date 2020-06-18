@@ -35,6 +35,7 @@ import com.brakepartsinc.project.techportal.dto.CustomerObject;
 import com.brakepartsinc.project.techportal.dto.DashboardObject;
 import com.brakepartsinc.project.techportal.dto.DistributorDetailObject;
 import com.brakepartsinc.project.techportal.dto.DropShipToListObject;
+import com.brakepartsinc.project.techportal.dto.DropShippingObject;
 import com.brakepartsinc.project.techportal.dto.InvoiceDetailObject;
 import com.brakepartsinc.project.techportal.dto.InvoiceObject;
 import com.brakepartsinc.project.techportal.dto.InvoiceOrderCheckObject;
@@ -986,6 +987,53 @@ public class OracleTPService {
 						jsonResult.add("object", null);
 						System.out
 								.println("getDropShipToAddress - ERROR Result to be returned:"
+										+ jsonResult);
+					}
+					return jsonResult.toString();
+				}
+				
+				@GET
+				@Path("/getCustAcct")
+				
+				public String getCustAcctSite(@QueryParam("account_number") String accountNumber,
+						@QueryParam("org_id") String orgID,@QueryParam("addr1") String addr1,
+						@QueryParam("addr2") String addr2,@QueryParam("addr3") String addr3,
+						@QueryParam("addr4") String addr4,@QueryParam("city") String city,
+						@QueryParam("postalcode") String postalcode,@QueryParam("state") String state,
+						@QueryParam("province") String province,@QueryParam("county") String county,
+						@QueryParam("country") String country) {
+					JsonObject jsonResult = new JsonObject();
+					String dropArrayJson = null;
+					int status = -1;
+					String errorMessage = "";
+					try {
+						OracleDataHandler dataHandler = new OracleDataHandler();
+						System.out.println("webservice org_Id :" + orgID + "accountNumber:"
+								+ accountNumber);
+						DropShippingObject dropTo = dataHandler.getCustAcctSite(accountNumber, orgID, addr1, addr2, addr3, addr4, city, postalcode, state, province, county, country);
+						
+						if (dropTo != null) {
+							status = 0;
+							Gson gson = new Gson();
+							dropArrayJson = gson.toJson(dropTo);
+						} else {
+							status = 1;
+							errorMessage = "Customer Account not found";
+						}
+
+						jsonResult.addProperty("status", status);
+						jsonResult.addProperty("errorMessage", errorMessage);
+						jsonResult.addProperty("object", dropArrayJson);
+						System.out.println("getCustAcct - Result to be returned:"
+								+ jsonResult);
+
+					} catch (Exception e) {
+						status = 6;
+						jsonResult.addProperty("status", status);
+						jsonResult.addProperty("errorMessage", e.getMessage());
+						jsonResult.add("object", null);
+						System.out
+								.println("getCustAcct - ERROR Result to be returned:"
 										+ jsonResult);
 					}
 					return jsonResult.toString();

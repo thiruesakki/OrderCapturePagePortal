@@ -8,7 +8,8 @@ po_ajax="";
 var partNoList = [];
 $(document).ready(function() {
 	$(".loader").show();
-	GetPartNumberList()
+	GetPartNumberList();
+	$('#submit_dropAddres').hide();
 });
   jQuery(function($) {'use strict',
   
@@ -2444,19 +2445,29 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 			xml_request_data+='</soap:Body>';
 			xml_request_data+='</soap:Envelope>';
 
-		var url = bpi_com_obj.web_api_url;	 
-					jQuery.ajax({
-						type: "POST",
-						url: url,
-						data: "xml_data="+xml_request_data,
-						dataType: "xml",
-						crossDomain: true,
-						processData: false,
-						// contentType: "text/xml; charset=\"utf-8\"",
-						 
-						success: function (data) {
-							 
-							 BpiccPlaceOrder.ProcessApiGetDropShipInfoXml(data);
+		var orgID= getCookie("selected_org_id");	
+		var custAccountNo= getCookie("selected_acc_num");
+//		var orgID=204;
+//		var custAccountNo=1579;
+		var url = bpi_com_obj.web_oracle_api_url+"getDropShipToAddress?org_id="+orgID+"&custAccountNo="+custAccountNo;	
+		console.log("Drop Shipment url"+url);
+		jQuery.ajax({
+			type: "GET",
+			url: url,
+		    dataType: "json",
+			data:"userID="+userID,
+			success: function (data) {
+				
+				console.log("Drop Shipment Result Success:"+JSON.stringify(data));
+				var obj = JSON.parse(data.object);
+				var x_ship_to_address =obj.x_ship_to_address;
+				console.log("x_ship_to_address"+x_ship_to_address);
+							 if(obj!=null){
+//								 BpiccPlaceOrder.ProcessGetSingleAccountAddressForShipTo(shipToAdressList);
+								 BpiccPlaceOrder.ProcessApiGetDropShipInfoXml(obj);
+							 }else{
+								 alert('ShipTo address is not found');
+							 }
 						},
 						error: function (msg) {
 								setTimeout(function(){$("#select_order_type").focus();}, 100); 
@@ -2466,50 +2477,81 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 	}  ,
 	ProcessApiGetDropShipInfoXml:function(xml)
 	{
+		console.log("drop fn");
 		 var option="<option value=''>Select Drop Ship Address</option>";
 		  try {
 			  bpi_obj.drop_ship_details={};
 		 
-			 $(xml).find('X_DROP_SHIP_TO_ADDRESS').each(function(){
-                     $(this).find("X_DROP_SHIP_TO_ADDRESS_ITEM").each(function(){
-					 
-                        var SHIP_TO= $(this).find("SHIP_TO").text();
-                        var DROP_SHIP_FLAG= $(this).find("DROP_SHIP_FLAG").text();
-                        var ACCT_NAME= $(this).find("ACCT_NAME").text();
-                        var ACCT_NUM= $(this).find("ACCT_NUM").text();
-                        var PARTY_SITE_ID= $(this).find("PARTY_SITE_ID").text();
-                        var ADDRESS_LINE1= $(this).find("ADDRESS_LINE1").text();
-                        var ADDRESS_LINE2= $(this).find("ADDRESS_LINE2").text();
-                        var ADDRESS_LINE3= $(this).find("ADDRESS_LINE3").text();
-                        var CITY= $(this).find("CITY").text();
-                        var STATE= $(this).find("STATE").text();
-                        var POSTAL_CODE= $(this).find("POSTAL_CODE").text();
-                        var COUNTRY= $(this).find("COUNTRY").text();
-						  data_set=new Object();
-						  data_set['SHIP_TO']=SHIP_TO;
-						  data_set['DROP_SHIP_FLAG']=DROP_SHIP_FLAG;
-						  data_set['ACCT_NAME']=ACCT_NAME;
+//			 $(xml).find('X_DROP_SHIP_TO_ADDRESS').each(function(){
+//                     $(this).find("X_DROP_SHIP_TO_ADDRESS_ITEM").each(function(){
+			  var x_ship_to_addressObj =xml.x_ship_to_address;
+				for (var i = 0; i < x_ship_to_addressObj.length; i++) {
+					  var x_ship_to_address = x_ship_to_addressObj [i];
+				  console.log("x_ship_to_address"+JSON.stringify(x_ship_to_address.ADDRESS1));
+//                        var SHIP_TO= $(this).find("SHIP_TO").text();
+//                        var DROP_SHIP_FLAG= $(this).find("DROP_SHIP_FLAG").text();
+//                        var ACCT_NAME= $(this).find("ACCT_NAME").text();
+//                        var ACCT_NUM= $(this).find("ACCT_NUM").text();
+//                        var PARTY_SITE_ID= $(this).find("PARTY_SITE_ID").text();
+//                        var ADDRESS_LINE1= $(this).find("ADDRESS_LINE1").text();
+//                        var ADDRESS_LINE2= $(this).find("ADDRESS_LINE2").text();
+//                        var ADDRESS_LINE3= $(this).find("ADDRESS_LINE3").text();
+//                        var CITY= $(this).find("CITY").text();
+//                        var STATE= $(this).find("STATE").text();
+//                        var POSTAL_CODE= $(this).find("POSTAL_CODE").text();
+//                        var COUNTRY= $(this).find("COUNTRY").text();
+					
+//	                var SHIP_TO=5684;
+	                var ACCT_NUM= x_ship_to_address.ACCOUNT_NUMBER;
+	                console.log("ACCT_NUM"+ACCT_NUM);
+	                var ADDRESS_LINE1= x_ship_to_address.ADDRESS1 == undefined? "":x_ship_to_address.ADDRESS1;
+	                var ADDRESS_LINE2= x_ship_to_address.ADDRESS2 == undefined? "":x_ship_to_address.ADDRESS2;
+	                var ADDRESS_LINE3= x_ship_to_address.ADDRESS3 == undefined? "":x_ship_to_address.ADDRESS3;
+	                var LOCATION= x_ship_to_address.LOCATION;
+//	                var CITY= object["CITY"] == undefined? "":object["CITY"];
+//	                var STATE=object["STATE"] == undefined? "":object["STATE"];
+//	                var POSTAL_CODE= object["POSTAL_CODE"] == undefined? "":object["POSTAL_CODE"];
+//	                var COUNTRY= object["COUNTRY"] == undefined? "":object["COUNTRY"];
+//						  data_set=new Object();
+//						  data_set['SHIP_TO']=SHIP_TO;
+//						  data_set['DROP_SHIP_FLAG']=DROP_SHIP_FLAG;
+//						  data_set['ACCT_NAME']=ACCT_NAME;
 						  data_set['ACCT_NUM']=ACCT_NUM;
-						  data_set['PARTY_SITE_ID']=PARTY_SITE_ID;
+//						  data_set['PARTY_SITE_ID']=PARTY_SITE_ID;
 						  data_set['ADDRESS_LINE1']=ADDRESS_LINE1;
 						  data_set['ADDRESS_LINE2']=ADDRESS_LINE2;
 						  data_set['ADDRESS_LINE3']=ADDRESS_LINE3;
-						  data_set['CITY']=CITY;
-						  data_set['STATE']=STATE;
-						  data_set['POSTAL_CODE']=POSTAL_CODE;
-						  data_set['COUNTRY']=COUNTRY;
-						  bpi_obj.drop_ship_details[SHIP_TO]=new Object();
-						  bpi_obj.drop_ship_details[SHIP_TO]=data_set;
-						  html=SHIP_TO+" - "+ACCT_NAME+' '+ADDRESS_LINE1+" "+ADDRESS_LINE2+" "+ADDRESS_LINE3+" "+CITY+" "+STATE+" "+POSTAL_CODE+" "+COUNTRY;;
-							option+="<option value='"+SHIP_TO+"'>"+html+"</option>";
-					 
-					});
+//						  data_set['CITY']=CITY;
+//						  data_set['STATE']=STATE;
+//						  data_set['POSTAL_CODE']=POSTAL_CODE;
+//						  data_set['COUNTRY']=COUNTRY;
+						  bpi_obj.drop_ship_details[LOCATION]=new Object();
+						  bpi_obj.drop_ship_details[LOCATION]=data_set;
+//						  html=SHIP_TO+" - "+ACCT_NAME+' '+ADDRESS_LINE1+" "+ADDRESS_LINE2+" "+ADDRESS_LINE3+" "+CITY+" "+STATE+" "+POSTAL_CODE+" "+COUNTRY;;
+//							option+="<option value='"+SHIP_TO+"'>"+html+"</option>";
+							html=LOCATION+" - "+ADDRESS_LINE1+" "+ADDRESS_LINE2;
+							option+="<option value='"+LOCATION+"'>"+html+"</option>";
+//					});
 				 $("#shipping_address options").remove();
 					$("#shipping_address").html(option);
-					$(".shippingAddress #country").val("US");
-					BpiccPlaceOrder.PopulateStateForSelectedCountry();
-			 });
-			  
+				}
+					$("#shipping_address").append(
+				    '<option value="newAddress">Other Address</option>');
+//					$(".shippingAddress #country").val("US");
+//					BpiccPlaceOrder.PopulateStateForSelectedCountry();
+					if(!empty($("#shipping_address").val()))
+					{
+						$("#shipping_address").attr('disabled',true);
+						
+					}
+					else
+					{
+						$("#shipping_address").removeAttr('disabled');
+					}
+					 BpiccPlaceOrder.PopulateShippingAddressValues();
+					
+		    
+//			 });
 		    }
 		  catch(err) {
 			
@@ -2527,6 +2569,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		 var selected_shipping_addres_type=BpiccPlaceOrder.GetSelectedShippingAddressVal();
 			if(selected_shipping_addres_type=="SHIPPING ADDRESS")
 			{
+				console.log("selected_ship"+selected_shipping_addres_type);
 				var shitpTo=getCookie("selected_ship_to_account_no");
 					// BpiccPlaceOrder.ApiGetShippingInfo();
 				 	BpiccPlaceOrder.ApiGetShippingInfo(shitpTo);
@@ -2534,9 +2577,10 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				
 			}if(selected_shipping_addres_type=="DROP SHIP")
 			{
-				$("#shipping_address").removeAttr('disabled');
+				console.log("selected_drop"+selected_shipping_addres_type);
+//				$("#shipping_address").removeAttr('disabled');
 				 BpiccPlaceOrder.ApiDropShippingInfo();
-				 BpiccPlaceOrder.EnableShippingInputValues();
+				 BpiccPlaceOrder.DisableShippingInputValues();
 			}
 	}
 	,ClearAllShippingAddressInputBox:function()
@@ -2573,6 +2617,7 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		$("#state").removeAttr("disabled")
 		$(".shippingAddress #country").removeAttr("disabled")
 		$("#zip").removeAttr("disabled")
+		
 	},
 	PopulateShippingAddressValues:function()
 	{
@@ -2588,18 +2633,12 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 		{
 			if(selected_shipping_addres_type=="SHIPPING ADDRESS")
 			{
+				console.log("Populate ship"+selected_shipping_addres_type);
 				 if(bpi_obj.shipping_details.hasOwnProperty(shipping_address))
 				{
 				data_obj=bpi_obj.shipping_details;
-				}
-			}if(selected_shipping_addres_type=="DROP SHIP")
-			{
-				 if(bpi_obj.drop_ship_details.hasOwnProperty(shipping_address))
-				{
-				data_obj=bpi_obj.drop_ship_details;
-				}
-			}
-			
+				console.log("shipping_details"+JSON.stringify(data_obj));
+				BpiccPlaceOrder.ClearAllShippingAddressInputBox();
 				$("#company").val(data_obj[shipping_address]['ACCT_NAME']);
 				$("#address1").val(data_obj[shipping_address]['ADDRESS_LINE1']);
 				$("#address2").val(data_obj[shipping_address]['ADDRESS_LINE2']);
@@ -2608,6 +2647,63 @@ HandleGlobalDeleteForCheckDuplicateForAllPartNo:function(del_part_no)
 				$(".shippingAddress #country").val(data_obj[shipping_address]['COUNTRY']);
 				BpiccPlaceOrder.PopulateStateForSelectedCountry(data_obj[shipping_address]['STATE']);
 				$("#zip").val(data_obj[shipping_address]['POSTAL_CODE']);
+				}
+			}if(selected_shipping_addres_type=="DROP SHIP")
+			{
+				console.log("Populate drop"+selected_shipping_addres_type);
+				BpiccPlaceOrder.ClearAllShippingAddressInputBox();
+				$("#shipping_address").on('change', function () {
+				    var value = $("#shipping_address option:selected"); 
+				    console.log(value.text());
+				    var drop_value=$("#shipping_address").val();
+				  
+				    if(drop_value=="newAddress"){
+				    	$('#submit_dropAddres').show();
+				    	 BpiccPlaceOrder.EnableShippingInputValues();
+					} else{
+						$('#submit_dropAddres').hide();
+						 BpiccPlaceOrder.DisableShippingInputValues();
+				    var dropToAddress =value.text();
+				    var dropFullValue = dropToAddress.split("-");
+				  var dropValue1=dropFullValue[0];
+				  var dropValue2=dropFullValue[1];
+				  
+				  var dropAddress = dropValue2.split(",");
+				  var dropAddressValue1=dropAddress[0];
+				  var dropAddressValue2=dropAddress[1];
+				   var dropCity=dropAddress[2];
+				    var dropState=dropAddress[3];
+				    var dropZip=dropAddress[4];
+				    var dropCountry=dropAddress[5];
+				 
+				    $("#company").val(dropAddressValue1);
+					$("#address1").val(dropAddressValue1);
+					$("#address2").val('');
+					$("#city").val(dropCity);
+					$("#state").val(dropState);
+					$("#country").val(dropCountry);
+//					BpiccPlaceOrder.PopulateStateForSelectedCountry(dropState);
+					$("#zip").val(dropZip);
+					
+					}
+				});
+//				 if(bpi_obj.drop_ship_details.hasOwnProperty(shipping_address))
+//				{
+//				data_obj=bpi_obj.drop_ship_details;
+//				console.log("drop_ship_details"+JSON.stringify(data_obj));
+//				$("#company").val(data_obj[shipping_address]['ADDRESS_LINE1']);
+//				console.log("company"+data_obj[shipping_address]['ADDRESS_LINE1']);
+////				console.log("company"+ bpi_obj.drop_ship_details[LOCATION]['ADDRESS_LINE1']);
+//				}
+			}
+			
+//				$("#address1").val(data_obj[shipping_address]['ADDRESS_LINE1']);
+//				$("#address2").val(data_obj[shipping_address]['ADDRESS_LINE2']);
+//				$("#city").val(data_obj[shipping_address]['CITY']);
+//				$("#state").val(data_obj[shipping_address]['STATE']);
+//				$(".shippingAddress #country").val(data_obj[shipping_address]['COUNTRY']);
+//				BpiccPlaceOrder.PopulateStateForSelectedCountry(data_obj[shipping_address]['STATE']);
+//				$("#zip").val(data_obj[shipping_address]['POSTAL_CODE']);
 		}
 		else
 		{
@@ -3443,4 +3539,3 @@ function RemoveSpecialChars(str)
 			});
 // 	  return r_str;
  }
- 

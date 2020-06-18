@@ -16,6 +16,7 @@ import java.util.List;
 
 import com.brakepartsinc.project.techportal.dto.CheckStockObject;
 import com.brakepartsinc.project.techportal.dto.DropShipToListObject;
+import com.brakepartsinc.project.techportal.dto.DropShippingObject;
 import com.brakepartsinc.project.techportal.dto.InvoiceObject;
 import com.brakepartsinc.project.techportal.dto.InvoiceOrderCheckObject;
 import com.brakepartsinc.project.techportal.dto.OrderHistoryListObject;
@@ -919,5 +920,45 @@ public class OracleDataHandler {
 					System.out.println("GET NOT WORKED");
 				}
 				return dropShipToListObj;
+			}
+		 
+		 public DropShippingObject getCustAcctSite(String account_number,String org_id,
+				String addr1,String addr2,String addr3,String addr4,
+				String city,String postalcode,String state,
+				String province,String county,String country) throws IOException {
+			 
+				String query = "http://xxenv-test-create-cust-acct-site1.us-e2.cloudhub.io/CustAcctSite?p_account_number="
+						+ account_number+"&p_org_id="+org_id+"&p_add1="+addr1+"&p_add2="
+						+ addr2+"&p_add3="+addr3+"&p_add4="
+						+ addr4+"&p_city="+city+"&p_postalcode="
+						+ postalcode+"&p_state="+state+"&p_province="
+						+ province+"&p_county="+county+"&p_country="+country;
+						
+						
+				System.out.println(query);
+				URL urlForGetRequest = new URL(query);
+				String readLine = null;
+				String outputString = "";
+				DropShippingObject dropShippingObj = null;
+				HttpURLConnection conection = (HttpURLConnection) urlForGetRequest
+						.openConnection();
+				conection.setRequestMethod("GET");
+				int responseCode = conection.getResponseCode();
+				if (responseCode == HttpURLConnection.HTTP_OK) {
+					BufferedReader in = new BufferedReader(new InputStreamReader(
+							conection.getInputStream()));
+					StringBuffer response = new StringBuffer();
+
+					while ((readLine = in.readLine()) != null) {
+						response.append(readLine);
+					}
+					in.close();
+					outputString = response.toString();
+					Gson g = new Gson();
+					dropShippingObj = g.fromJson(outputString, DropShippingObject.class);
+				} else {
+					System.out.println("GET NOT WORKED");
+				}
+				return dropShippingObj;
 			}
 }
