@@ -253,7 +253,6 @@ BpiccCommon=
 		$.each(roles,function(k,v)
 	   {
 			roleName=v['roleName'];
-			console.log('Rolenames:'+roleName);
 			 if(roleName=="Admin"){
 				 setCookie("isAdminrole",1);
 			 }
@@ -286,7 +285,7 @@ BpiccCommon=
 		{
 			
 			 roleName=v['roleName'];
-			 console.log(roleName);
+//			 console.log(roleName);
 			 if(roleName=="StockOrder" || roleName=='EmergencyOrder'   || roleName=='DropShip')
 			 {
 				 place_order_right_exists++;
@@ -351,7 +350,7 @@ BpiccCommon=
 											 setCookie("selected_ship_to_account_no",shipToSiteID);
 											 setCookie("selected_bill_to_location",billToSiteID);
 											 setCookie("selected_org_id",orgID);
-											 console.log(orgID);
+//											 console.log(orgID);
 											 if($("#page_type").val()=='select_account'){
 												 BpiccCommon.GetSingleAccountAddress(CAPI_ALL_SHIP_TO_ACCOUNTS);
 											 }
@@ -424,7 +423,7 @@ BpiccCommon=
 //			var url = bpi_com_obj.web_api_url;
 		var orgID= getCookie("selected_org_id");
 		var url = bpi_com_obj.web_oracle_api_url+"GetShipToAddress?org_id="+orgID+"&ship_to_location="+ship_to_code;
-		console.log('url:'+url);
+//		console.log('url:'+url);
 //					jQuery.ajax({
 //						type: "POST",
 //						url: url,
@@ -473,7 +472,7 @@ BpiccCommon=
 	} ,
 	ProcessGetSingleAccountAddressForShipTo:function(xml)
 	{
-		console.log("xml:"+JSON.stringify(xml));
+//		console.log("xml:"+JSON.stringify(xml));
 		var bill_to_ship_to_str=getCookie("bill_to_ship_to_obj");
 		 var bill_to_ship_to_obj=JSON.parse(bill_to_ship_to_str);
 		 if(empty(bill_to_ship_to_obj))
@@ -487,7 +486,7 @@ BpiccCommon=
 			var li_val="";
 			for (var i = 0; i < shipToObj.length; i++) {
 				  var object = shipToObj [i];
-				  console.log("obj:"+JSON.stringify(object));
+//				  console.log("obj:"+JSON.stringify(object));s
 //				  for (var property in object) {
 //				    console.log('item ' + i + ': ' + property + '=' + object[property]);
 //				    alert(object["DEFAULT_DC"]);
@@ -881,7 +880,7 @@ function deleteCookie(regID) {
 }
 
 function adminRole(){
-	 console.log("isadmin"+isadmin);
+//	 console.log("isadmin"+isadmin);
 	if(isadmin==1){
 		$('#admin_bpi').show();
 	}
@@ -897,7 +896,7 @@ function userRoleBasedAccess(){
 	 var isReturns=getCookie("isReturns");
 	 var isReturnsHistory=getCookie("isReturnsHistory");
 	 var isPriceList=getCookie("isPriceList");
-	 console.log(isReturns);
+//	 console.log(isReturns);
 	 if(isAdminrole==1){
 		 $('#admin_bpi').show();
 		 $('#liadmin').show();
@@ -993,7 +992,7 @@ function deleteAllCookies() {
 
 function userName(){
 	 var userID = userRequestID;
-	 console.log("userID"+userID);
+//	 console.log("userID"+userID);
 	 var url = bpi_com_obj.web_mssql_api_url+"GetUserProfile";
 		jQuery.ajax({
 				type: "GET",
@@ -1001,13 +1000,13 @@ function userName(){
 				 dataType: "json",
 				data:"userID="+userID,
 				success: function (data1) {
-					console.log("GetUserProfile"+JSON.stringify(data1));
+//					console.log("GetUserProfile"+JSON.stringify(data1));
 					var userObj = JSON.parse(data1.object);
-					console.log("userObj"+userObj)
+//					console.log("userObj"+userObj)
 					var userFLName=userObj.firstName+" "+userObj.lastname;
-					console.log("userFLName"+userFLName);
+//					console.log("userFLName"+userFLName);
 					var userLoginName=userFLName.charAt(0).toUpperCase() + userFLName.slice(1);
-					console.log("userLoginName"+userLoginName); 
+//					console.log("userLoginName"+userLoginName); 
 					if(userObj!= null){
 						
 						$('.userName').text("Hello, "+userLoginName);

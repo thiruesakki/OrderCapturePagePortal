@@ -926,11 +926,15 @@ public class OracleDataHandler {
 				String addr1,String addr2,String addr3,String addr4,
 				String city,String postalcode,String state,
 				String province,String county,String country) throws IOException {
-			 
+			 String changedAddr1=addr1.replaceAll(" ","%20");
+			 String changedAddr2=addr2.replaceAll(" ","%20");
+			 String changedAddr3=addr3.replaceAll(" ","%20");
+			 String changedAddr4=addr4.replaceAll(" ","%20");
+			 String changedCity=city.replaceAll(" ","%20");
 				String query = "http://xxenv-test-create-cust-acct-site1.us-e2.cloudhub.io/CustAcctSite?p_account_number="
-						+ account_number+"&p_org_id="+org_id+"&p_add1="+addr1+"&p_add2="
-						+ addr2+"&p_add3="+addr3+"&p_add4="
-						+ addr4+"&p_city="+city+"&p_postalcode="
+						+ account_number+"&p_org_id="+org_id+"&p_add1="+changedAddr1+"&p_add2="
+						+ changedAddr2+"&p_add3="+changedAddr3+"&p_add4="
+						+ changedAddr4+"&p_city="+changedCity+"&p_postalcode="
 						+ postalcode+"&p_state="+state+"&p_province="
 						+ province+"&p_county="+county+"&p_country="+country;
 						
