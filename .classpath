@@ -23,8 +23,8 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/CHN015/Downloads/tools-1.7.0.jar/tools-1.7.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/CHN015/Downloads/jaxb-api-2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/CHN015/Downloads/classes12.jar"/>
+	<classpathentry kind="lib" path="D:/softwares/OrderCaptureSoftware/sqljdbc4/tools-1.7.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BNG066/Downloads/jaxb-api-2.2.jar/jaxb-api-2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BNG066/Downloads/classes12/classes12.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
